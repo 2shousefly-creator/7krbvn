@@ -5,11 +5,12 @@ const path = require('node:path');
 const root = path.join(__dirname, '..', 'public');
 
 const NAV = ['index.html', 'newbie.html', 'cap-nhat.html', 'guild-war-team.html',
-  'castle-rush.html', 'raid.html', 'celestial-tower.html', 'tower-of-trials.html', 'arena.html'];
+  'castle-rush.html', 'raid.html', 'dungeon.html', 'celestial-tower.html', 'tower-of-trials.html', 'arena.html',
+  'tinh-ruby.html'];
 
 const pages = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 
-test('every page carries the full 9-section navigation with exactly one active item', () => {
+test('every page carries the full 11-section navigation with exactly one active item', () => {
   for (const file of pages) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     for (const target of NAV) {
@@ -42,12 +43,47 @@ test('every local image referenced by a page exists on disk', () => {
   }
 });
 
-test('the home page lists all eight category cards', () => {
+test('the home page lists all ten category cards', () => {
   const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   for (const target of NAV.slice(1)) {
     assert.ok(home.includes(`href="${target}"`), `home is missing category card ${target}`);
   }
-  assert.equal((home.match(/class="cat-card"/g) || []).length, 8, 'home must have 8 category cards');
+  assert.equal((home.match(/class="cat-card"/g) || []).length, 10, 'home must have 10 category cards');
+});
+
+test('sticky header: the header stays fixed at the top on every page', () => {
+  const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(css.includes('.site-header{position:sticky'), 'site-nav.css must make the header sticky');
+  assert.ok(css.includes('top:0'), 'sticky header must sit at the top of the viewport');
+  assert.ok(css.includes('scroll-margin-top:150px'), 'anchor jumps must clear the sticky header');
+});
+
+test('back to top: every article/listing page has a back-to-top button', () => {
+  const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(css.includes('.back-to-top'), 'site-nav.css must style the back-to-top button');
+  assert.ok(css.includes('.back-to-top.show'), 'the button must appear after scrolling down');
+  for (const file of pages) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8');
+    if (file === 'guild-war-team.html') continue; // interactive tool page, own layout
+    assert.ok(html.includes('class="back-to-top"'), `${file} must have a back-to-top button`);
+    assert.ok(html.includes("window.scrollTo({top:0,behavior:'smooth'})"), `${file} button must scroll to top`);
+  }
+});
+
+test('article tags: every article page carries a chip naming its menu', () => {
+  const tags = {
+    'ruby-farming.html': 'NEWBIE',
+    'chon-hero-banner.html': 'NEWBIE',
+    'nang-cap-hero.html': 'NEWBIE',
+    'doi-hinh-hang-truoc-sau.html': 'NEWBIE',
+    'cap-nhat-28-10.html': 'CHI TIẾT CẬP NHẬT',
+    'arena.html': 'ARENA',
+    'tinh-ruby.html': 'TÍNH RUBY',
+  };
+  for (const [file, label] of Object.entries(tags)) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.ok(html.includes(`<span class="article-tag">${label}</span>`), `${file} must carry the ${label} tag`);
+  }
 });
 
 test('mobile hamburger menu: every page has a collapsible nav toggle', () => {
