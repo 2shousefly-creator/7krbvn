@@ -125,15 +125,24 @@ test('no auto dark mode: no page may flip to dark from the system theme', () => 
 });
 
 test('Atlas layout (light): Arena and Total War use the Atlas structure with real portraits', () => {
-  for (const file of ['arena.html', 'total-war.html']) {
+  // team counts come from the Atlas compilations themselves:
+  // Arena 16 teams (Attack 4, Magic 4, Tank 6, Hybrid 2) with 3 Meta Prime;
+  // Total War 15 teams (Physical 4, Magic 4, Tank 4, Death 3) with 4 Meta Prime.
+  const expected = { 'arena.html': { teams: 16, primes: 3 }, 'total-war.html': { teams: 15, primes: 4 } };
+  for (const [file, exp] of Object.entries(expected)) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     assert.ok(html.includes('href="atlas.css"'), `${file} must load the Atlas-layout stylesheet`);
     assert.ok(html.includes('class="at-hero"'), `${file} must have the Atlas hero banner`);
     assert.ok(html.includes('class="at-prime"'), `${file} must have META PRIME summary cards`);
     assert.ok(html.includes('class="at-tabs"'), `${file} must have the sticky archetype tab bar`);
     assert.ok(html.includes('id="at-search"'), `${file} must have the hero search box`);
+    assert.ok(html.includes('class="at-autoskill"'), `${file} must show the auto skill priority for each team`);
     const teams = html.match(/class="at-team"/g) || [];
-    assert.equal(teams.length, 4, `${file} must show the 4 verified teams`);
+    assert.equal(teams.length, exp.teams, `${file} must show the ${exp.teams} Atlas teams`);
+    const primes = html.match(/at-prime-card/g) || [];
+    assert.equal(primes.length, exp.primes, `${file} must show the ${exp.primes} Meta Prime cards`);
+    const cells = html.match(/at-hero-cell/g) || [];
+    assert.equal(cells.length, exp.teams * 5, `${file} must show 5 heroes per team`);
     assert.ok(!html.includes('Randgrid'), `${file} must not carry the old Randgrid typo`);
     for (const src of new Set([...html.matchAll(/assets\/(hero-[a-z0-9-]+\.webp)/g)].map(m => m[1]))) {
       assert.ok(fs.existsSync(path.join(root, 'assets', src)), `${file} references missing portrait ${src}`);
