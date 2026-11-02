@@ -1,6 +1,25 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const calc = require('../public/calculator-core-v2.js');
+const calc = require('../public/calculator-core-v3.js');
+
+test('all current Ruby Farming Stages estimate Lv.1 to Lv.30 with the selected EXP bonus', () => {
+  for (let stage = 1; stage <= 9; stage++) {
+    assert.deepEqual(calc.farmingEstimate(stage, false), { expPerRound: 1200, rounds: 11 });
+    assert.deepEqual(calc.farmingEstimate(stage, true), { expPerRound: 1320, rounds: 10 });
+  }
+});
+
+test('the round estimate uses EXP for the selected Stage', () => {
+  const stage = calc.STAGES[4];
+  const original = stage.expPerRound;
+  try {
+    stage.expPerRound = 2500;
+    assert.deepEqual(calc.farmingEstimate(5, false), { expPerRound: 2500, rounds: 5 });
+    assert.deepEqual(calc.farmingEstimate(1, false), { expPerRound: 1200, rounds: 11 });
+  } finally {
+    stage.expPerRound = original;
+  }
+});
 
 test('Key Bundle price ladder and an earlier purchase are calculated correctly', () => {
   assert.equal(calc.costThrough(20), 1000);
