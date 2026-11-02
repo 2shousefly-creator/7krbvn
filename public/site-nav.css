@@ -64,3 +64,25 @@
   .main-nav.open .nav-scroll{flex-direction:column;overflow:visible;padding:8px 0;gap:2px}
   .main-nav.open a{display:block;padding:11px 12px;font-size:13px}
 }
+
+/* Sticky header: the whole header (brand row + menu bar) stays fixed at the top. */
+.site-header{position:sticky;top:0;z-index:200;box-shadow:0 2px 14px rgba(32,38,56,.09)}
+/* Anchor jumps and the sticky article sidebar must clear the sticky header. */
+.article-section{scroll-margin-top:150px}
+.sidebar{top:150px}
+@media(max-width:680px){
+  .article-section{scroll-margin-top:130px}
+  .sidebar{top:130px}
+}
+
+/* Back to top: fixed round button, appears after scrolling down. */
+.back-to-top{position:fixed;right:18px;bottom:18px;z-index:300;width:46px;height:46px;border-radius:50%;border:1px solid #e3d9bd;background:#252d3e;color:#f0cc7e;font-size:19px;font-weight:800;cursor:pointer;box-shadow:0 10px 26px rgba(32,38,56,.28);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
+.back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.back-to-top:hover{background:#2f3a52}
+@media(max-width:680px){
+  .back-to-top{right:14px;bottom:14px;width:42px;height:42px;font-size:17px}
+}
+
+/* Article tag: a visible chip naming the menu/category an article belongs to. */
+.article-tag{display:inline-flex;align-items:center;gap:6px;background:#f7f1e4;border:1px solid #e5d9b8;color:#946b25;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.11em;padding:7px 11px;margin-bottom:14px}
+.article-tag::before{content:"✦";font-size:9px}
