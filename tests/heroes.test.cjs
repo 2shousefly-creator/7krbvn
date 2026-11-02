@@ -99,19 +99,33 @@ test('heroes section files do not introduce a dark-mode rule', () => {
 });
 
 test('every substat icon referenced by hero-detail.js exists on disk (URL-decoded)', () => {
-  // Regression (2026-11-02): the %-stat icons were saved as AllATK%25.webp
-  // (literal %25 in the filename), but browsers decode %25 in the img URL
-  // to %, so the server looked for AllATK%.webp and 404'd. Files must be
-  // named with a literal % so the %25 URL resolves to them.
+  // Regression (2026-11-02): the %-stat icons were first saved as
+  // AllATK%25.webp (literal %25 in the filename), but browsers decode %25
+  // in the img URL to %, so the server looked for AllATK%.webp and 404'd.
+  // Renaming to a literal % did NOT fix it either: worker.js rejects '%'
+  // in the URL path (regex ^[a-zA-Z0-9_./-]+$), so every %-stat icon must
+  // live under a %-free name (AllATKpct.webp) and be referenced as such.
   const js = read('hero-detail.js');
   const m = js.match(/var STAT_ICONS = \{([^}]*)\}/);
   assert.ok(m, 'hero-detail.js must define STAT_ICONS');
   const names = [...m[1].matchAll(/'([^']+)'\s*:\s*'([^']+)'/g)].map(([, , v]) => v);
   assert.ok(names.length >= 20, `STAT_ICONS must list the substat icons (found ${names.length})`);
   for (const name of names) {
-    // The browser requests the URL-encoded form and the server decodes it.
-    const decoded = decodeURIComponent(name);
-    assert.ok(fs.existsSync(path.join(root, 'assets', 'substats', decoded)),
-      `substat icon ${name} (decoded: ${decoded}) is missing from assets/substats`);
+    assert.ok(!name.includes('%'), `substat icon ${name} must not contain % (worker.js rejects it in URLs)`);
+    assert.ok(fs.existsSync(path.join(root, 'assets', 'substats', name)),
+      `substat icon ${name} is missing from assets/substats`);
+  }
+  // Dedicated-equipment icons in the hero JSONs must follow the same rule.
+  for (const f of heroFiles) {
+    const rec = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', f), 'utf8'));
+    if (!rec.dedicated) continue;
+    for (const col of ['a', 'b']) {
+      for (const x of rec.dedicated[col] || []) {
+        if (!x.icon) continue;
+        assert.ok(!x.icon.includes('%'), `${f} dedicated icon ${x.icon} must not contain %`);
+        assert.ok(fs.existsSync(path.join(root, 'assets', 'substats', x.icon)),
+          `${f} dedicated icon ${x.icon} is missing from assets/substats`);
+      }
+    }
   }
 });
