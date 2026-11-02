@@ -101,16 +101,27 @@ test('sticky header: the header stays fixed at the top on every page', () => {
   assert.ok(css.includes('scroll-margin-top:150px'), 'anchor jumps must clear the sticky header');
 });
 
-test('back to top: every article/listing page has a back-to-top button', () => {
+test('back to top: every page has a back-to-top button', () => {
   const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
   assert.ok(css.includes('.back-to-top'), 'site-nav.css must style the back-to-top button');
   assert.ok(css.includes('.back-to-top.show'), 'the button must appear after scrolling down');
   for (const file of pages) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    if (file === 'guild-war-team.html') continue; // interactive tool page, own layout
     assert.ok(html.includes('class="back-to-top"'), `${file} must have a back-to-top button`);
     assert.ok(html.includes("window.scrollTo({top:0,behavior:'smooth'})"), `${file} button must scroll to top`);
   }
+});
+
+test('no auto dark mode: no page may flip to dark from the system theme', () => {
+  // the whole site is light by design; a prefers-color-scheme: dark rule
+  // (guild-war-team.html used to have 4) turns pages dark on phones in
+  // dark mode while the rest of the site stays light.
+  for (const file of fs.readdirSync(root).filter(f => f.endsWith('.html') || f.endsWith('.css'))) {
+    const text = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.ok(!text.includes('prefers-color-scheme: dark'), `${file} must not contain a dark-mode rule`);
+  }
+  const gw = fs.readFileSync(path.join(root, 'guild-war-team.html'), 'utf8');
+  assert.ok(gw.includes('color-scheme: light;'), 'guild war page must declare a light-only colour scheme');
 });
 
 test('article tags: every article page carries a chip naming its menu', () => {

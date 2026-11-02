@@ -164,3 +164,12 @@ test('the guild war page has the site navigation with itself active', () => {
   }
   assert.ok(html.includes('class="snav-active"'), 'guild war team must be the active nav item');
 });
+
+test('the guild war page matches the site chrome: light-only, sticky nav, site footer, back-to-top', () => {
+  assert.ok(!html.includes('prefers-color-scheme'), 'guild war page must not flip to dark from the system theme');
+  assert.ok(html.includes('.snav-bar{position:sticky;top:0;z-index:200'), 'guild war nav must stay sticky like the site header');
+  assert.ok(html.includes('class="site-footer"'), 'guild war page must use the standard site footer');
+  assert.ok(html.includes('Meta v2026.11.02-19'), 'the meta build version must survive the footer swap');
+  assert.ok(html.includes('class="back-to-top"'), 'guild war page must have a back-to-top button');
+  assert.ok(html.includes('id="dau-trang"'), 'the footer "Về đầu trang" link needs its anchor');
+});
