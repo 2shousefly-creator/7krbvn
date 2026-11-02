@@ -118,3 +118,20 @@ test('the coupon page loads the coupon list and redeems through the Worker API',
   assert.match(worker, /coupon\.netmarble\.com\/api\/coupon/, 'worker must forward to the official Netmarble coupon API');
   assert.match(worker, /CF-Connecting-IP/, 'worker must throttle redeem calls per IP');
 });
+
+test('no iOS auto-zoom: every input, textarea and select on the site is at least 16px', () => {
+  // iOS Safari zooms in when focusing an input smaller than 16px; the safety
+  // net below guarantees the minimum everywhere, including future inputs.
+  const base = fs.readFileSync(path.join(root, 'styles-v3.css'), 'utf8');
+  assert.match(base, /input,textarea,select\{font-size:16px!important\}/, 'styles-v3.css must carry the 16px input safety net');
+  assert.ok(!/input[^{]*\{[^}]*font-size:1[0-5]px/.test(base), 'no input/select rule in styles-v3.css may stay below 16px');
+  const gw = page('guild-war-team.html');
+  assert.match(gw, /input,textarea,select\{font-size:16px!important\}/, 'guild-war-team.html must carry the same safety net inline');
+  const coupon = page('doi-coupon.html');
+  assert.match(coupon, /#doi-coupon \.coupon-input,#doi-coupon \.coupon-textarea\{[^}]*font-size:16px/, 'coupon inputs must be 16px');
+  assert.ok(!coupon.includes('inputmode="numeric"'), 'UID input must not force a numeric keyboard (UIDs are hex, letters + digits)');
+  assert.match(coupon, /autocapitalize="off"/, 'UID input must not auto-capitalize');
+  assert.match(coupon, /id="redeem-all" type="button" disabled/, 'redeem-all must start disabled until a UID is entered');
+  assert.match(coupon, /id="redeem-manual" type="button" disabled/, 'redeem-manual must start disabled until a UID is entered');
+  assert.match(coupon, /localStorage\.getItem\(LS_UID\)/, 'UID check must fall back to the saved UID');
+});
