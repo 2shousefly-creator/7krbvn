@@ -4,8 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.join(__dirname, '..', 'public');
 
-// Hierarchical navigation: 5 top-level links + PVE (5 children) + PVP (3 children).
-const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'tinh-ruby.html', 'doi-coupon.html'];
+// Hierarchical navigation: 6 top-level links + PVE (5 children) + PVP (3 children).
+const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'heroes.html', 'tinh-ruby.html', 'doi-coupon.html'];
 const NAV_PVE = ['castle-rush.html', 'raid.html', 'dungeon.html', 'celestial-tower.html', 'tower-of-trials.html'];
 const NAV_PVP = ['arena.html', 'total-war.html', 'guild-war-team.html'];
 const NAV = [...NAV_TOP, ...NAV_PVE, ...NAV_PVP];
@@ -15,9 +15,9 @@ const CHILD_PARENT = {};
 for (const h of NAV_PVE) CHILD_PARENT[h] = 'PVE';
 for (const h of NAV_PVP) CHILD_PARENT[h] = 'PVP';
 
-// Home category cards (11) — unaffected by the menu regrouping.
+// Home category cards (12) — unaffected by the menu regrouping.
 const CAT_CARDS = ['newbie.html', 'cap-nhat.html', 'guild-war-team.html', 'castle-rush.html',
-  'raid.html', 'celestial-tower.html', 'tower-of-trials.html', 'arena.html', 'dungeon.html',
+  'raid.html', 'celestial-tower.html', 'tower-of-trials.html', 'arena.html', 'heroes.html', 'dungeon.html',
   'tinh-ruby.html', 'doi-coupon.html'];
 
 const pages = fs.readdirSync(root).filter(f => f.endsWith('.html'));
@@ -75,12 +75,12 @@ test('every local image referenced by a page exists on disk', () => {
   }
 });
 
-test('the home page lists all eleven category cards (unaffected by the menu regrouping)', () => {
+test('the home page lists all twelve category cards (including the new Heroes card)', () => {
   const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   for (const target of CAT_CARDS) {
     assert.ok(home.includes(`href="${target}"`), `home is missing category card ${target}`);
   }
-  assert.equal((home.match(/class="cat-card"/g) || []).length, 11, 'home must have 11 category cards');
+  assert.equal((home.match(/class="cat-card"/g) || []).length, 12, 'home must have 12 category cards');
 });
 
 test('home articles show their tag labels', () => {

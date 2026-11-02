@@ -101,3 +101,8 @@
 .at-pets{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .at-pet{background:#fff;border:1px solid #e9e8e3;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;color:#202638}
 .at-pet small{display:block;font-weight:600;font-size:12px;color:#7c8499;margin-top:2px}
+
+/* ---------- hero quick-build popup (heroes section) ---------- */
+[data-hero-popup]{cursor:pointer}
+.at-prime-portraits [data-hero-popup]{display:inline-block}
+.at-prime-portraits [data-hero-popup] img{display:block}
