@@ -7,7 +7,7 @@ const page = name => fs.readFileSync(path.join(root, name), 'utf8');
 
 test('the Newbie index links to both individual guides and the guides link back', () => {
   const home = page('index.html');
-  for (const file of ['ruby-farming.html', 'chon-hero-banner.html']) {
+  for (const file of ['ruby-farming.html', 'chon-hero-banner.html', 'doi-hinh-hang-truoc-sau.html']) {
     assert.match(home, new RegExp(`href="${file}"`));
     assert.match(page(file), /href="\/#newbie"/);
   }
