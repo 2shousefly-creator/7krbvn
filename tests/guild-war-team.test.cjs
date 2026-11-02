@@ -31,12 +31,12 @@ function extractData(src) {
 const data = extractData(html);
 const byCode = Object.fromEntries(data.defense.map(d => [d.code, d]));
 
-test('guild war team page carries build -18: 71 defense + 175 counters', () => {
+test('guild war team page carries build -19: 71 defense + 177 counters', () => {
   assert.equal(data.defense.length, 71);
-  assert.equal(Object.keys(data.counters).length, 175); // counters is an object keyed by code
+  assert.equal(Object.keys(data.counters).length, 177); // counters is an object keyed by code
   assert.equal(new Set(data.defense.map(d => d.code)).size, 71, 'defense codes must be unique');
-  assert.ok(html.includes('v2026.11.02-18'), 'version must be bumped to -18');
-  assert.ok(!html.includes('v2026.11.02-17'), 'old version string must be gone');
+  assert.ok(html.includes('v2026.11.02-19'), 'version must be bumped to -19');
+  assert.ok(!html.includes('v2026.11.02-18'), 'old version string must be gone');
 });
 
 test('the five new 7k-note teams are present with verified rows (2026-11-02)', () => {
@@ -63,13 +63,13 @@ test('the five new 7k-note teams are present with verified rows (2026-11-02)', (
     assert.deepEqual(d.back, want.back, `${code} back row`);
     assert.ok(d.note && d.note.includes('7k-note target'), `${code} note must cite the 7k-note target`);
   }
-  // 4 of the 5 now have verified counters from the 02/11 full read; T34 stays empty
-  // because its only 7k-note counter (Li/Karin/Luke) is blocked by the unidentified hero Luke.
-  for (const code of ['T35', 'T36', 'P44', 'M32']) {
+  // All 5 now have verified counters from the 02/11 full read; T34 finally has its
+  // counter C207 (Li/Karin/Rook) after Luke was identified as Rook from the 7k-note JS maps.
+  for (const code of ['T34', 'T35', 'T36', 'P44', 'M32']) {
     assert.ok(byCode[code].counters.length > 0, `${code} must have its 7k-note counters linked`);
     for (const c of byCode[code].counters) assert.ok(data.counters[c], `${code} links to missing counter ${c}`);
   }
-  assert.deepEqual(byCode.T34.counters, [], 'T34 must stay empty until Luke is identified');
+  assert.deepEqual(byCode.T34.counters, ['C207'], 'T34 must link exactly its counter C207');
 });
 
 test('the four row-order fixes from the 02/11 full read (P25, P37, T19, T20)', () => {
@@ -87,8 +87,8 @@ test('the four row-order fixes from the 02/11 full read (P25, P37, T19, T20)', (
   }
 });
 
-test('the 59-counter reconciliation: 28 new entries C179-C206, 9 blocked by unidentified heroes', () => {
-  for (let n = 179; n <= 206; n++) {
+test('the 59-counter reconciliation: 30 new entries C179-C208, all 59 now on the site', () => {
+  for (let n = 179; n <= 208; n++) {
     const c = data.counters['C' + n];
     assert.ok(c, `C${n} must exist`);
     assert.equal(c.skills.length, 0, `C${n} has no recorded skill order`);
@@ -96,7 +96,21 @@ test('the 59-counter reconciliation: 28 new entries C179-C206, 9 blocked by unid
     assert.ok(c.formation.includes('Trước:'), `C${n} formation must state rows`);
     assert.deepEqual(new Set([...c.front, ...c.back]).size, 3, `C${n} rows must cover its 3 heroes`);
   }
-  // No counter may contain an unidentified hero: Luke, Pelton and Ludy are still unresolved.
+  // The 3 mystery names are resolved (7k-note JS maps): Luke=Rook, Pelton=Platin, Ludy=Rudy.
+  // C207/C208 carry them; the old unidentified names must appear nowhere.
+  assert.deepEqual(data.counters.C207.heroes.map(h => h.name), ['Li (Awakening)', 'Karin', 'Rook']);
+  assert.deepEqual(data.counters.C208.heroes.map(h => h.name), ['Rook', 'Clemyth', 'Guan Yu']);
+  assert.deepEqual(data.counters.C207.front, ['Li (Awakening)']);
+  assert.deepEqual(data.counters.C207.back, ['Karin', 'Rook']);
+  assert.deepEqual(data.counters.C208.front, ['Rook']);
+  assert.deepEqual(data.counters.C208.back, ['Clemyth', 'Guan Yu']);
+  // The 7 other formerly-blocked counters are exact matches to existing entries already linked.
+  assert.ok(byCode.P10.counters.includes('C42'), 'P10 must link Clemyth/Spike/Rudy (C42)');
+  assert.ok(byCode.T22.counters.includes('C72'), 'T22 must link Clemyth/Platin/Rudy (C72)');
+  assert.ok(byCode.P38.counters.includes('C104'), 'P38 must link Clemyth/Platin/Rudy (C104)');
+  assert.ok(byCode.P37.counters.includes('C104'), 'P37 must link Clemyth/Platin/Rudy (C104)');
+  assert.ok(byCode.T19.counters.includes('C54'), 'T19 must link Platin/Clemyth/Guan Yu (C54)');
+  assert.ok(byCode.T20.counters.includes('C54'), 'T20 must link Platin/Clemyth/Guan Yu (C54)');
   for (const [code, c] of Object.entries(data.counters)) {
     for (const h of c.heroes) {
       assert.ok(!['Luke', 'Pelton', 'Ludy'].includes(h.name), `${code} must not contain unidentified hero ${h.name}`);
