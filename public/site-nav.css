@@ -49,3 +49,18 @@
   .cat-card{padding:18px}
   .video-grid{gap:12px}
 }
+
+/* Mobile hamburger menu (<=680px): the 9-link bar collapses into a vertical
+   column opened by a 3-line button at the top-right corner of the header. */
+.nav-toggle{display:none}
+@media(max-width:680px){
+  .nav-toggle{display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;margin-left:auto;padding:0;border:1px solid #e8e6e0;border-radius:10px;background:#fff;cursor:pointer;flex:none}
+  .nav-toggle span{display:block;width:18px;height:2px;border-radius:2px;background:#4a5160;transition:transform .2s,opacity .2s}
+  .nav-toggle.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle.is-open span:nth-child(2){opacity:0}
+  .nav-toggle.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .main-nav{display:none}
+  .main-nav.open{display:block}
+  .main-nav.open .nav-scroll{flex-direction:column;overflow:visible;padding:8px 0;gap:2px}
+  .main-nav.open a{display:block;padding:11px 12px;font-size:13px}
+}

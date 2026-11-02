@@ -49,3 +49,23 @@ test('the home page lists all eight category cards', () => {
   }
   assert.equal((home.match(/class="cat-card"/g) || []).length, 8, 'home must have 8 category cards');
 });
+
+test('mobile hamburger menu: every page has a collapsible nav toggle', () => {
+  const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(css.includes('.nav-toggle'), 'site-nav.css must style the hamburger toggle');
+  assert.ok(css.includes('.main-nav.open'), 'site-nav.css must show the nav when open on mobile');
+  assert.ok(css.includes('.main-nav.open .nav-scroll'), 'open nav must lay out as a vertical column');
+  for (const file of pages) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8');
+    if (file === 'guild-war-team.html') {
+      assert.ok(html.includes('class="snav-toggle"'), 'guild-war-team.html must have its hamburger toggle');
+      assert.ok(html.includes("querySelector('.snav-toggle')"), 'guild-war-team.html must wire the toggle');
+      assert.ok(html.includes('.snav-bar.open .snav-links'), 'guild-war-team.html must style the open dropdown');
+    } else {
+      assert.ok(html.includes('class="nav-toggle"'), `${file} must have a hamburger toggle`);
+      assert.ok(html.includes('id="site-nav"'), `${file} nav must have the id the toggle controls`);
+      assert.ok(html.includes("getElementById('site-nav')"), `${file} must wire the toggle`);
+      assert.ok(html.includes('aria-expanded="false"'), `${file} toggle must start collapsed`);
+    }
+  }
+});
