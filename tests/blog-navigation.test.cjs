@@ -98,3 +98,23 @@ test('Celestial Tower and Tower of Trials listings link every video article', ()
     assert.match(page(file), /youtube\.com\/embed\//, `${file} must embed its video`);
   }
 });
+
+test('the coupon page loads the coupon list and redeems through the Worker API', () => {
+  const coupons = JSON.parse(fs.readFileSync(path.join(root, 'coupons.json'), 'utf8'));
+  assert.ok(Array.isArray(coupons.coupons) && coupons.coupons.length >= 1, 'coupons.json must list active codes');
+  for (const code of coupons.coupons) {
+    assert.match(code, /^[A-Z0-9]+$/, `coupon code ${code} must be uppercase alphanumeric`);
+  }
+  const coupon = page('doi-coupon.html');
+  assert.match(coupon, /id="uid"/, 'coupon page must have a UID input');
+  assert.match(coupon, /fetch\('coupons\.json'\)/, 'coupon page must load the coupon list');
+  assert.match(coupon, /fetch\('\/api\/redeem'/, 'coupon page must redeem through /api/redeem');
+  assert.match(coupon, /id="redeem-all"/, 'coupon page must have a redeem-all button');
+  assert.match(coupon, /id="manual-codes"/, 'coupon page must have a manual code input');
+  assert.match(coupon, /id="history-list"/, 'coupon page must show redemption history');
+  assert.match(coupon, /7k_uid/, 'UID must persist in localStorage');
+  const worker = fs.readFileSync(path.join(__dirname, '..', 'worker.js'), 'utf8');
+  assert.match(worker, /\/api\/redeem/, 'worker.js must serve the redeem route');
+  assert.match(worker, /coupon\.netmarble\.com\/api\/coupon/, 'worker must forward to the official Netmarble coupon API');
+  assert.match(worker, /CF-Connecting-IP/, 'worker must throttle redeem calls per IP');
+});
