@@ -1,0 +1,47 @@
+/* Reading styles scoped to the long-form Hero development guide. */
+.growth-guide .article-section p,.growth-guide .article-section li{font-size:15px;line-height:1.9;color:#515b6b}
+.growth-guide .article-section p{margin:14px 0}
+.growth-guide .article-section h2{font-size:25px;line-height:1.4;letter-spacing:-.025em}
+.growth-guide .article-section h3{font-size:19px;line-height:1.5;margin:30px 0 10px;color:#253149}
+.growth-guide .article-section strong{color:#283349;font-weight:750}
+.growth-guide .article-section{scroll-margin-top:100px}
+.growth-guide .article-section figure{margin:25px 0 31px}
+.growth-guide .article-section figcaption{font-size:12px;line-height:1.7;color:#747d89;text-align:left;margin-top:10px}
+.growth-guide .article-section .image-button{display:block;width:100%}
+.growth-guide .article-section .image-button img{display:block;width:100%;height:auto;object-fit:contain}
+.growth-guide .sidebar-box nav{max-height:65vh;overflow-y:auto;scrollbar-width:thin}
+.growth-guide .sidebar-box nav a{line-height:1.5}
+.growth-guide .callout{margin:24px 0;padding:20px;align-items:flex-start}
+.growth-guide .callout p{margin:0;font-size:14px;line-height:1.85}
+.growth-table-wrap{overflow-x:auto;border:1px solid #e6e1d7;border-radius:12px;margin:24px 0;scrollbar-width:thin}
+.growth-table{width:100%;min-width:520px;border-collapse:collapse;font-size:13px;line-height:1.7;text-align:left}
+.growth-table th{background:#f3eee4;color:#6e542b;font-size:12px;font-weight:750;padding:13px 15px}
+.growth-table td{padding:14px 15px;border-top:1px solid #ece8e0;vertical-align:top;color:#596373}
+.growth-table td:first-child{font-weight:700;color:#2c374a;width:25%}
+.growth-table tbody tr:nth-child(even){background:#fcfaf6}
+.growth-example{padding:18px 21px;border-left:3px solid #c5a568;background:#faf8f2;border-radius:0 10px 10px 0;margin:18px 0}
+.growth-example h4{font-size:16px;line-height:1.6;color:#354054;margin:0}
+.growth-guide .growth-example p{margin:10px 0 0;font-size:14px}
+.growth-faq{border-top:1px solid #e8e3d9;margin-top:20px}
+.growth-faq details{border-bottom:1px solid #e8e3d9;padding:17px 0}
+.growth-faq summary{cursor:pointer;font-weight:700;color:#354054;font-size:15px;line-height:1.65;padding-right:12px}
+.growth-faq summary::marker{color:#a98643}
+.growth-guide .growth-faq p{margin:13px 0 0;font-size:14px}
+.growth-guide .hero-picks{margin:25px 0}
+.growth-guide .hero-picks figure{margin:0}
+.growth-guide .hero-picks figcaption{margin:0;font-size:12px}
+.growth-guide .hero-picks figcaption small{font-size:11px;line-height:1.6}
+.growth-guide :is(summary,.growth-table-wrap):focus-visible{outline:3px solid #bd9149;outline-offset:4px}
+@media(max-width:680px){
+ .growth-guide .article-section p,.growth-guide .article-section li{font-size:14px;line-height:1.9}
+ .growth-guide .article-section h2{font-size:22px}
+ .growth-guide .article-section h3{font-size:17px}
+ .growth-guide .sidebar-box nav{max-height:none}
+ .growth-guide .callout{padding:16px;gap:11px}
+ .growth-guide .callout p{font-size:13px}
+ .growth-table{min-width:485px;font-size:12px}
+ .growth-table th,.growth-table td{padding:11px 12px}
+ .growth-example{padding:16px}
+ .growth-example h4,.growth-faq summary{font-size:14px}
+ .growth-guide .article-section figcaption{font-size:11px}
+}
