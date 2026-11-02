@@ -39,37 +39,60 @@ test('guild war team page carries build -17: 71 defense + 147 counters', () => {
   assert.ok(!html.includes('v2026.10.27-16'), 'old version string must be gone');
 });
 
-test('the five new 7k-note teams are present with unverified rows flagged', () => {
+test('the five new 7k-note teams are present with verified rows (2026-11-02)', () => {
   const expected = {
-    T34: { heroes: ['Giyu Tomioka', 'Aris', 'Judas (Awakening)'], formation: 'Attack (1-4)', pet: 'Ruu' },
-    T35: { heroes: ['Giyu Tomioka', 'Gelidus', 'Judas (Awakening)'], formation: 'Attack (1-4)', pet: 'Pike' },
-    T36: { heroes: ['Radgrid', 'Aris', 'Judas (Awakening)'], formation: 'Attack (1-4)', pet: 'Ruu' },
-    P44: { heroes: ['Clemyth', 'Zenitsu Agatsuma', 'Dellons'], formation: 'Balanced (3-2)', pet: 'Eirin' },
-    M32: { heroes: ['Dongyoung', 'Shinobu Kocho', 'Silvesta (Awakening)'], formation: 'Basic (2-3)', pet: 'Yu' },
+    T34: { heroes: ['Giyu Tomioka', 'Aris', 'Judas (Awakening)'], formation: 'Attack (1-4)', pet: 'Ruu',
+      front: ['Giyu Tomioka'], back: ['Aris', 'Judas (Awakening)'] },
+    T35: { heroes: ['Giyu Tomioka', 'Gelidus', 'Judas (Awakening)'], formation: 'Attack (1-4)', pet: 'Pike',
+      front: ['Giyu Tomioka'], back: ['Gelidus', 'Judas (Awakening)'] },
+    T36: { heroes: ['Radgrid', 'Aris', 'Judas (Awakening)'], formation: 'Attack (1-4)', pet: 'Ruu',
+      front: ['Radgrid'], back: ['Aris', 'Judas (Awakening)'] },
+    P44: { heroes: ['Clemyth', 'Zenitsu Agatsuma', 'Dellons'], formation: 'Balanced (3-2)', pet: 'Eirin',
+      front: ['Clemyth'], back: ['Zenitsu Agatsuma', 'Dellons'] },
+    M32: { heroes: ['Dongyoung', 'Shinobu Kocho', 'Silvesta (Awakening)'], formation: 'Basic (2-3)', pet: 'Yu',
+      front: [], back: ['Dongyoung', 'Shinobu Kocho', 'Silvesta (Awakening)'] },
   };
   for (const [code, want] of Object.entries(expected)) {
     const d = byCode[code];
     assert.ok(d, `${code} must exist`);
     assert.deepEqual(d.heroes.map(h => h.name), want.heroes);
-    assert.equal(d.formation, want.formation);
+    assert.ok(d.formation.startsWith(want.formation), `${code} formation must start with ${want.formation}`);
+    assert.ok(d.formation.includes('Trước:'), `${code} formation must state rows`);
     assert.equal(d.pet, want.pet);
-    assert.ok(!d.front && !d.back, `${code} must not claim front/back rows`);
+    assert.deepEqual(d.front, want.front, `${code} front row`);
+    assert.deepEqual(d.back, want.back, `${code} back row`);
+    assert.ok(d.note && d.note.includes('7k-note target'), `${code} note must cite the 7k-note target`);
     assert.deepEqual(d.counters, [], `${code} must not claim unverified counters`);
   }
-  assert.ok(html.includes('chưa xác minh hàng'), 'unverified-rows marker must be rendered');
-  assert.ok(html.includes('Hàng Trước/Sau chưa xác minh'), 'detail warning must be present');
 });
 
-test('the three formation changes kept their counters and skills', () => {
-  assert.equal(byCode.P1.formation, 'Balanced (3-2)');
-  assert.equal(byCode.M1.formation, 'Basic (2-3)');
-  assert.equal(byCode.M18.formation, 'Balanced (3-2)');
+test('the three formation changes kept their counters and skills, rows verified 2026-11-02', () => {
+  assert.ok(byCode.P1.formation.startsWith('Balanced (3-2)'));
+  assert.ok(byCode.M1.formation.startsWith('Basic (2-3)'));
+  assert.ok(byCode.M18.formation.startsWith('Balanced (3-2)'));
+  const rows = {
+    P1: { front: ['Eileene'], back: ['Zenitsu Agatsuma', 'Tanjiro Kamado'] },
+    M1: { front: [], back: ['Yoongun', 'Dongyoung', 'Shinobu Kocho'] },
+    M18: { front: ["O'Mok"], back: ['Yoongun', 'Dongyoung'] },
+  };
   for (const code of ['P1', 'M1', 'M18']) {
-    assert.ok(!byCode[code].front && !byCode[code].back, `${code} rows must be unverified`);
+    assert.deepEqual(byCode[code].front, rows[code].front, `${code} front row`);
+    assert.deepEqual(byCode[code].back, rows[code].back, `${code} back row`);
     assert.ok(byCode[code].counters.length > 0, `${code} must keep its counters`);
     assert.ok(byCode[code].skills.length > 0, `${code} must keep its skill chain`);
   }
   assert.deepEqual(byCode.M1.petBackup, ['Yu']);
+});
+
+test('every defense team has front/back rows covering exactly its 3 heroes', () => {
+  const missing = data.defense.filter(d => !('front' in d) || !('back' in d));
+  assert.deepEqual(missing.map(d => d.code), [], 'no team may lack rows');
+  for (const d of data.defense) {
+    assert.equal(new Set([...d.front, ...d.back]).size, 3, d.code + ' rows must cover exactly the 3 heroes');
+    for (const h of d.heroes) {
+      assert.ok(d.front.includes(h.name) || d.back.includes(h.name), d.code + ' hero ' + h.name + ' must be in a row');
+    }
+  }
 });
 
 test('the guild war page has the site navigation with itself active', () => {
