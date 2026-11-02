@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.join(__dirname, '..', 'public');
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'ruby-farming.html'), 'utf8');
 const calculator = html.slice(html.indexOf('id="tinh-ruby"'), html.indexOf('id="faq"'));
 
 test('calculator starts on the quick tab and places advanced fields in settings', () => {
