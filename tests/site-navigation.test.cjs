@@ -136,16 +136,23 @@ test('Atlas layout (light): Arena and Total War use the Atlas structure with rea
     assert.ok(html.includes('class="at-prime"'), `${file} must have META PRIME summary cards`);
     assert.ok(html.includes('class="at-tabs"'), `${file} must have the sticky archetype tab bar`);
     assert.ok(html.includes('id="at-search"'), `${file} must have the hero search box`);
-    assert.ok(html.includes('class="at-autoskill"'), `${file} must show the auto skill priority for each team`);
+    assert.ok(html.includes('class="at-autoskill"') || html.includes('class="at-askill"'), `${file} must show the auto skill priority for each team`);
     const teams = html.match(/class="at-team"/g) || [];
     assert.equal(teams.length, exp.teams, `${file} must show the ${exp.teams} Atlas teams`);
+    const panels = html.match(/class="at-askill-panel"/g) || [];
+    assert.equal(panels.length, exp.teams, `${file} must show one Auto Skill Priority panel per team`);
+    const badges = html.match(/Priority [123]/g) || [];
+    assert.equal(badges.length, exp.teams * 3, `${file} must mark Priority 1/2/3 in every panel`);
     const primes = html.match(/at-prime-card/g) || [];
     assert.equal(primes.length, exp.primes, `${file} must show the ${exp.primes} Meta Prime cards`);
     const cells = html.match(/at-hero-cell/g) || [];
     assert.equal(cells.length, exp.teams * 5, `${file} must show 5 heroes per team`);
     assert.ok(!html.includes('Randgrid'), `${file} must not carry the old Randgrid typo`);
-    for (const src of new Set([...html.matchAll(/assets\/(hero-[a-z0-9-]+\.webp)/g)].map(m => m[1]))) {
+    for (const src of new Set([...html.matchAll(/assets\/(hero(?:-awk)?-[a-z0-9-]+\.webp)/g)].map(m => m[1]))) {
       assert.ok(fs.existsSync(path.join(root, 'assets', src)), `${file} references missing portrait ${src}`);
+    }
+    for (const src of new Set([...html.matchAll(/assets\/skills\/([A-Za-z0-9-]+\.webp)/g)].map(m => m[1]))) {
+      assert.ok(fs.existsSync(path.join(root, 'assets', 'skills', src)), `${file} references missing skill icon ${src}`);
     }
   }
 });
