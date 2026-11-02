@@ -3,11 +3,31 @@
 /* Two-row header: row 1 brand + fanpage, row 2 menu bar. */
 .site-header .header-inner{gap:20px}
 .main-nav{display:block;flex:none;background:#fff;border-top:1px solid #ebebe8}
-.nav-scroll{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:7px 0}
+.nav-scroll{display:flex;gap:2px;overflow:visible;scrollbar-width:none;padding:7px 0}
 .nav-scroll::-webkit-scrollbar{display:none}
 .main-nav a{font-size:12.5px;font-weight:800;padding:9px 12px;border-radius:9px;white-space:nowrap;color:#4a5160}
 .main-nav a:hover{background:#f9f5ed;color:#967026}
 .main-nav a.nav-active{background:#f7f1e4;color:#946b25}
+
+/* Parent-child dropdown menus (PVE / PVP): the parent is a button, the
+   children live in a dropdown. Desktop opens on hover/focus/click; mobile
+   opens on tap as an accordion inside the hamburger menu. */
+.nav-item{position:relative;flex:none}
+.nav-parent{font:inherit;font-size:12.5px;font-weight:800;padding:9px 12px;border-radius:9px;border:0;background:transparent;color:#4a5160;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.nav-parent:hover{background:#f9f5ed;color:#967026}
+.nav-parent-active{background:#f7f1e4;color:#946b25}
+.nav-caret{font-size:9px;transition:transform .2s}
+.nav-item.open .nav-caret{transform:rotate(180deg)}
+.nav-sub{display:none;position:absolute;top:calc(100% + 4px);left:0;min-width:210px;background:#fff;border:1px solid #ebebe8;border-radius:12px;box-shadow:0 14px 34px rgba(32,38,56,.16);padding:6px;z-index:210}
+.nav-sub a{display:block;font-size:12.5px;font-weight:800;padding:10px 12px;border-radius:8px;white-space:nowrap;color:#4a5160}
+.nav-sub a:hover{background:#f9f5ed;color:#967026}
+.nav-sub a.nav-active{background:#f7f1e4;color:#946b25}
+@media(min-width:681px){
+  .nav-item:hover .nav-sub,.nav-item:focus-within .nav-sub,.nav-item.open .nav-sub{display:block}
+}
+@media(max-width:760px){
+  .main-nav a,.nav-parent{padding:9px 9px;font-size:12px}
+}
 
 /* Category cards on the home page. */
 .cat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
@@ -63,6 +83,11 @@
   .main-nav.open{display:block}
   .main-nav.open .nav-scroll{flex-direction:column;overflow:visible;padding:8px 0;gap:2px}
   .main-nav.open a{display:block;padding:11px 12px;font-size:13px}
+  .main-nav.open .nav-item{display:block}
+  .main-nav.open .nav-parent{display:flex;width:100%;justify-content:space-between;padding:11px 12px;font-size:13px}
+  .main-nav.open .nav-sub{position:static;display:none;box-shadow:none;border:0;padding:2px 0 4px;min-width:0}
+  .main-nav.open .nav-item.open .nav-sub{display:block}
+  .main-nav.open .nav-sub a{display:block;padding:10px 12px 10px 24px;font-size:13px}
 }
 
 /* Sticky header: the whole header (brand row + menu bar) stays fixed at the top. */
@@ -86,3 +111,10 @@
 /* Article tag: a visible chip naming the menu/category an article belongs to. */
 .article-tag{display:inline-flex;align-items:center;gap:6px;background:#f7f1e4;border:1px solid #e5d9b8;color:#946b25;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.11em;padding:7px 11px;margin-bottom:14px}
 .article-tag::before{content:"✦";font-size:9px}
+
+/* Article tag sits at the top-right corner of the article header: it is the
+   first flex item (order:-1) and pushed right, so it never overlaps the
+   kicker line. Applies to article intros (.blog-intro-copy) and the hero
+   header used by the 28/10 update article (.hero-copy). */
+.blog-intro-copy,.hero-copy{display:flex;flex-direction:column}
+.blog-intro-copy>.article-tag,.hero-copy>.article-tag{align-self:flex-end;order:-1;margin-bottom:12px}
