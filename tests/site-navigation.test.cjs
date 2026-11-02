@@ -178,6 +178,16 @@ test('mobile hamburger menu: every page has a collapsible nav toggle', () => {
   }
 });
 
+test('site font: every page loads Quicksand (Vietnamese) and uses it first', () => {
+  const css = fs.readFileSync(path.join(root, 'styles-v3.css'), 'utf8');
+  assert.ok(css.includes('font-family:Quicksand,'), 'styles-v3.css must use Quicksand first');
+  for (const file of pages) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.ok(html.includes('family=Quicksand:wght@400;500;600;700'), `${file} must load the Quicksand font`);
+    assert.ok(!html.includes('Be Vietnam Pro'), `${file} must not still load Be Vietnam Pro`);
+  }
+});
+
 test('floor guides sort highest floor first', () => {
   const sectionsOf = (html) => [...html.matchAll(/<section[^>]*>([\s\S]*?)<\/section>/g)].map(m => m[1]);
   const floorsOf = (sec) => [...sec.matchAll(/href="[^"]*tang-(\d+)[^"]*"/g)].map(m => Number(m[1]));
