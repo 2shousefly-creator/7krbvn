@@ -106,3 +106,21 @@ test('mobile hamburger menu: every page has a collapsible nav toggle', () => {
     }
   }
 });
+
+test('no page may reuse the same id twice (getElementById returns the first match)', () => {
+  // Regression test: doi-coupon.html once had id="uid" on both its section
+  // and its input, so the script read the section (no value) instead of the
+  // input and every redeem reported "UID not entered".
+  // Script contents are excluded: guild-war-team.html builds two sheets from
+  // JS templates that both contain a close button, but openSheet() replaces
+  // #sheet's innerHTML each time, so only one ever exists in the live DOM.
+  for (const file of pages) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8').replace(/<script>[\s\S]*?<\/script>/g, '');
+    const ids = [...html.matchAll(/ id="([^"]+)"/g)].map(m => m[1]);
+    const seen = new Set();
+    for (const id of ids) {
+      assert.ok(!seen.has(id), `${file} reuses id="${id}"`);
+      seen.add(id);
+    }
+  }
+});
