@@ -31,12 +31,12 @@ function extractData(src) {
 const data = extractData(html);
 const byCode = Object.fromEntries(data.defense.map(d => [d.code, d]));
 
-test('guild war team page carries build -17: 71 defense + 147 counters', () => {
+test('guild war team page carries build -18: 71 defense + 175 counters', () => {
   assert.equal(data.defense.length, 71);
-  assert.equal(Object.keys(data.counters).length, 147); // counters is an object keyed by code
+  assert.equal(Object.keys(data.counters).length, 175); // counters is an object keyed by code
   assert.equal(new Set(data.defense.map(d => d.code)).size, 71, 'defense codes must be unique');
-  assert.ok(html.includes('v2026.11.02-17'), 'version must be bumped to -17');
-  assert.ok(!html.includes('v2026.10.27-16'), 'old version string must be gone');
+  assert.ok(html.includes('v2026.11.02-18'), 'version must be bumped to -18');
+  assert.ok(!html.includes('v2026.11.02-17'), 'old version string must be gone');
 });
 
 test('the five new 7k-note teams are present with verified rows (2026-11-02)', () => {
@@ -62,7 +62,55 @@ test('the five new 7k-note teams are present with verified rows (2026-11-02)', (
     assert.deepEqual(d.front, want.front, `${code} front row`);
     assert.deepEqual(d.back, want.back, `${code} back row`);
     assert.ok(d.note && d.note.includes('7k-note target'), `${code} note must cite the 7k-note target`);
-    assert.deepEqual(d.counters, [], `${code} must not claim unverified counters`);
+  }
+  // 4 of the 5 now have verified counters from the 02/11 full read; T34 stays empty
+  // because its only 7k-note counter (Li/Karin/Luke) is blocked by the unidentified hero Luke.
+  for (const code of ['T35', 'T36', 'P44', 'M32']) {
+    assert.ok(byCode[code].counters.length > 0, `${code} must have its 7k-note counters linked`);
+    for (const c of byCode[code].counters) assert.ok(data.counters[c], `${code} links to missing counter ${c}`);
+  }
+  assert.deepEqual(byCode.T34.counters, [], 'T34 must stay empty until Luke is identified');
+});
+
+test('the four row-order fixes from the 02/11 full read (P25, P37, T19, T20)', () => {
+  const rows = {
+    P25: { front: ['Dellons', 'Eileene'], back: ['Zenitsu Agatsuma'] },
+    P37: { front: ['Lu Bu', 'Hayeon'], back: ['Sunran'] },
+    T19: { front: ['Giyu Tomioka'], back: ['Eileene', 'Aris'] },
+    T20: { front: ['Radgrid'], back: ['Eileene', 'Aris'] },
+  };
+  for (const [code, want] of Object.entries(rows)) {
+    assert.deepEqual(byCode[code].front, want.front, `${code} front row order must match 7k-note`);
+    assert.deepEqual(byCode[code].back, want.back, `${code} back row order must match 7k-note`);
+    assert.ok(byCode[code].formation.includes('Trước: ' + want.front.join(', ')), `${code} formation string must list the front row in order`);
+    assert.ok(byCode[code].formation.includes('Sau: ' + want.back.join(', ')), `${code} formation string must list the back row in order`);
+  }
+});
+
+test('the 59-counter reconciliation: 28 new entries C179-C206, 9 blocked by unidentified heroes', () => {
+  for (let n = 179; n <= 206; n++) {
+    const c = data.counters['C' + n];
+    assert.ok(c, `C${n} must exist`);
+    assert.equal(c.skills.length, 0, `C${n} has no recorded skill order`);
+    assert.ok(c.note && c.note.includes('7k-note target #'), `C${n} note must cite its 7k-note target`);
+    assert.ok(c.formation.includes('Trước:'), `C${n} formation must state rows`);
+    assert.deepEqual(new Set([...c.front, ...c.back]).size, 3, `C${n} rows must cover its 3 heroes`);
+  }
+  // No counter may contain an unidentified hero: Luke, Pelton and Ludy are still unresolved.
+  for (const [code, c] of Object.entries(data.counters)) {
+    for (const h of c.heroes) {
+      assert.ok(!['Luke', 'Pelton', 'Ludy'].includes(h.name), `${code} must not contain unidentified hero ${h.name}`);
+    }
+  }
+  // Every defense link must resolve, and every one of the 18 targets must cite its detail page.
+  for (const d of data.defense) {
+    for (const c of d.counters) assert.ok(data.counters[c], `${d.code} links to missing counter ${c}`);
+  }
+  const targets = { T34: 1, T35: 2, P10: 3, P1: 4, P25: 5, T36: 6, P44: 7, M1: 8, M17: 9,
+    M32: 10, T22: 11, P38: 12, P37: 13, T18: 14, M18: 15, T19: 16, P8: 17, T20: 18 };
+  for (const [code, n] of Object.entries(targets)) {
+    assert.ok(byCode[code].note && byCode[code].note.includes(`7k-note target #${n}`),
+      `${code} note must cite 7k-note target #${n}`);
   }
 });
 
