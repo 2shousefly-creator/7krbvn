@@ -1,0 +1,78 @@
+/* Atlas-style PVP pages, light theme: arena.html and total-war.html.
+   Layout mirrors 7k Atlas (hero banner, META PRIME cards, sticky
+   archetype tabs, hero search, team cards with portraits, pet options)
+   but keeps the site's light palette: #f7f7f5 background, white cards,
+   gold accents. All classes are prefixed at-, so other pages are
+   unaffected. No dark-mode rules: this site stays light. */
+
+/* ---------- hero banner ---------- */
+.at-hero{background:#fff;border:1px solid #e9e8e3;border-radius:18px;padding:28px;display:flex;gap:24px;align-items:center;overflow:hidden}
+.at-hero-copy{flex:1;min-width:0;display:flex;flex-direction:column}
+.at-hero-copy>.article-tag{align-self:flex-end;order:-1}
+.at-eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#946b25}
+.at-hero h1{font-size:clamp(34px,4.5vw,52px);line-height:1.05;margin:8px 0 10px;font-weight:800;color:#202638}
+.at-hero p{font-size:16px;color:#4a5160;line-height:1.7;margin:0}
+.at-hero-art{flex:none;display:flex;gap:10px}
+.at-hero-art img{width:120px;height:120px;object-fit:cover;border-radius:14px;border:1px solid #e9e8e3}
+@media(max-width:680px){.at-hero{padding:20px;gap:14px}.at-hero-art img{width:76px;height:76px}}
+
+/* ---------- section titles (Atlas red, with rule) ---------- */
+.at-section-title{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#b3352c;margin:34px 0 14px}
+.at-section-title::after{content:"";flex:1;height:1px;background:#e9e8e3}
+.at-section-sub{font-size:15px;color:#4a5160;line-height:1.7;margin:0 0 14px}
+
+/* ---------- META PRIME summary cards ---------- */
+.at-prime{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px}
+.at-prime-card{background:#fff;border:1px solid #e9e8e3;border-top:3px solid var(--at-c,#946b25);border-radius:14px;padding:16px}
+.at-prime-card h3{font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--at-c,#946b25);margin:0 0 4px}
+.at-prime-card p{font-size:13px;color:#7c8499;line-height:1.55;margin:0 0 12px}
+.at-prime-portraits{display:flex;align-items:flex-end;gap:6px;margin-bottom:12px}
+.at-prime-portraits img{width:52px;height:52px;object-fit:cover;border-radius:10px;border:1px solid #e9e8e3}
+.at-prime-portraits img:nth-child(3){width:60px;height:60px;margin-bottom:6px;border-color:var(--at-c,#946b25)}
+.at-prime-go{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;color:#946b25;border:1px solid #e5d9b8;border-radius:999px;padding:7px 14px;text-decoration:none;background:#f7f1e4}
+.at-prime-go:hover{background:#efe6c8}
+
+/* ---------- sticky archetype tabs + search ---------- */
+.at-tabs{position:sticky;top:118px;z-index:150;display:flex;gap:6px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:6px;margin-top:20px;box-shadow:0 4px 16px rgba(32,38,56,.07)}
+.at-tab{flex:1;border:0;background:transparent;border-radius:9px;padding:10px 6px;font:inherit;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#4a5160;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
+.at-tab .dot{width:9px;height:9px;border-radius:50%;background:var(--at-c,#946b25);flex:none}
+.at-tab .count{font-size:11px;font-weight:800;background:#eef0f4;border-radius:999px;padding:1px 7px;color:#4a5160}
+.at-tab:hover{background:#f9f5ed}
+.at-tab.active{background:var(--at-c,#946b25);color:#fff}
+.at-tab.active .count{background:rgba(255,255,255,.25);color:#fff}
+.at-searchrow{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.at-search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e9e8e3;border-radius:10px;padding:0 12px}
+.at-search span{color:#7c8499;font-size:15px}
+.at-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:16px;padding:11px 0;color:#202638}
+.at-updated{font-size:12px;color:#7c8499;white-space:nowrap}
+.at-empty{display:none;background:#fff;border:1px dashed #d5d9e2;border-radius:12px;padding:18px;text-align:center;color:#7c8499;font-size:15px;margin-top:16px}
+@media(max-width:680px){.at-tabs{top:80px;overflow-x:auto}.at-tab{flex:none;padding:10px 12px}}
+
+/* ---------- team cards ---------- */
+.at-team{background:#fff;border:1px solid #e9e8e3;border-radius:16px;padding:20px;margin-top:18px;scroll-margin-top:190px}
+.at-team-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.at-pill{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:#eef0f4;color:#4a5160}
+.at-pill.prime{background:#f7f1e4;color:#946b25;border:1px solid #e5d9b8}
+.at-team-head h3{font-size:20px;font-weight:800;color:#202638;margin:0;flex:1;min-width:200px}
+.at-formation{font-size:12px;font-weight:800;color:#4a5160;background:#f4f5f8;border:1px solid #e9e8e3;border-radius:8px;padding:6px 10px;white-space:nowrap}
+.at-formation small{display:block;font-weight:600;color:#7c8499;font-size:11px}
+.at-row{margin-top:14px}
+.at-row-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7c8499;margin-bottom:8px}
+.at-heroes{display:flex;gap:12px;flex-wrap:wrap}
+.at-hero-cell{width:118px}
+.at-portrait{position:relative;width:84px;height:84px}
+.at-portrait img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid #e9e8e3;display:block}
+.at-role{position:absolute;left:4px;bottom:4px;font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(32,38,56,.88);color:#fff;border-radius:6px;padding:2px 6px}
+.at-rarity{position:absolute;right:4px;top:4px;font-size:10px;font-weight:800;background:#f7f1e4;color:#946b25;border:1px solid #e5d9b8;border-radius:6px;padding:1px 6px}
+.at-hero-cell b{display:block;font-size:15px;font-weight:800;color:#202638;margin-top:7px}
+.at-hero-cell small{display:block;font-size:12px;color:#7c8499;line-height:1.5;margin-top:2px}
+.at-hero-cell .alt{color:#946b25}
+.at-notes{font-size:15px;color:#4a5160;line-height:1.7;margin:16px 0 0}
+.at-petsline{font-size:14px;color:#4a5160;line-height:1.7;margin:10px 0 0}
+.at-petsline b{color:#202638}
+@media(max-width:680px){.at-hero-cell{width:calc(33.33% - 8px)}.at-portrait,.at-portrait img{width:64px;height:64px}}
+
+/* ---------- pet options ---------- */
+.at-pets{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.at-pet{background:#fff;border:1px solid #e9e8e3;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:700;color:#202638}
+.at-pet small{display:block;font-weight:600;font-size:12px;color:#7c8499;margin-top:2px}

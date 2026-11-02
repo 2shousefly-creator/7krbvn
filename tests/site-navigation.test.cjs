@@ -124,6 +124,23 @@ test('no auto dark mode: no page may flip to dark from the system theme', () => 
   assert.ok(gw.includes('color-scheme: light;'), 'guild war page must declare a light-only colour scheme');
 });
 
+test('Atlas layout (light): Arena and Total War use the Atlas structure with real portraits', () => {
+  for (const file of ['arena.html', 'total-war.html']) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.ok(html.includes('href="atlas.css"'), `${file} must load the Atlas-layout stylesheet`);
+    assert.ok(html.includes('class="at-hero"'), `${file} must have the Atlas hero banner`);
+    assert.ok(html.includes('class="at-prime"'), `${file} must have META PRIME summary cards`);
+    assert.ok(html.includes('class="at-tabs"'), `${file} must have the sticky archetype tab bar`);
+    assert.ok(html.includes('id="at-search"'), `${file} must have the hero search box`);
+    const teams = html.match(/class="at-team"/g) || [];
+    assert.equal(teams.length, 4, `${file} must show the 4 verified teams`);
+    assert.ok(!html.includes('Randgrid'), `${file} must not carry the old Randgrid typo`);
+    for (const src of new Set([...html.matchAll(/assets\/(hero-[a-z0-9-]+\.webp)/g)].map(m => m[1]))) {
+      assert.ok(fs.existsSync(path.join(root, 'assets', src)), `${file} references missing portrait ${src}`);
+    }
+  }
+});
+
 test('article tags: every article page carries a chip naming its menu', () => {
   const tags = {
     'ruby-farming.html': 'NEWBIE',
