@@ -188,6 +188,20 @@ test('site font: every page loads Quicksand (Vietnamese) and uses it first', () 
   }
 });
 
+test('content text is 20% larger for readability; UI chrome keeps its sizes', () => {
+  const base = fs.readFileSync(path.join(root, 'styles-v3.css'), 'utf8');
+  const blog = fs.readFileSync(path.join(root, 'blog.css'), 'utf8');
+  const nav = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  // article body text: 14px -> 16.8px (mobile 13px -> 15.6px)
+  assert.ok(base.includes('.article-section>p{font-size:16.8px'), 'article paragraphs must be 16.8px');
+  assert.ok(blog.includes('.post-body p{font-size:15.6px'), 'listing card text must be 15.6px');
+  assert.ok(blog.includes('.blog-intro p{color:#c6ccd6;font-size:16.8px'), 'article intro text must be 16.8px');
+  // UI chrome must NOT have grown (nav would overflow, inputs must stay >= 16px)
+  assert.ok(nav.includes('.main-nav a{font-size:12.5px'), 'main nav must stay 12.5px');
+  assert.ok(base.includes('input,textarea,select{font-size:16px!important'), 'inputs must stay 16px (iOS no-zoom floor)');
+  assert.ok(nav.includes('.article-tag{display:inline-flex'), 'article tag chip must keep its size');
+});
+
 test('floor guides sort highest floor first', () => {
   const sectionsOf = (html) => [...html.matchAll(/<section[^>]*>([\s\S]*?)<\/section>/g)].map(m => m[1]);
   const floorsOf = (sec) => [...sec.matchAll(/href="[^"]*tang-(\d+)[^"]*"/g)].map(m => Number(m[1]));
