@@ -10,7 +10,7 @@ const NAV = ['index.html', 'newbie.html', 'cap-nhat.html', 'guild-war-team.html'
 
 const pages = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 
-test('every page carries the full 11-section navigation with exactly one active item', () => {
+test('every page carries the full 12-section navigation with exactly one active item', () => {
   for (const file of pages) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     for (const target of NAV) {
@@ -43,12 +43,12 @@ test('every local image referenced by a page exists on disk', () => {
   }
 });
 
-test('the home page lists all ten category cards', () => {
+test('the home page lists all eleven category cards', () => {
   const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   for (const target of NAV.slice(1)) {
     assert.ok(home.includes(`href="${target}"`), `home is missing category card ${target}`);
   }
-  assert.equal((home.match(/class="cat-card"/g) || []).length, 10, 'home must have 10 category cards');
+  assert.equal((home.match(/class="cat-card"/g) || []).length, 11, 'home must have 11 category cards');
 });
 
 test('sticky header: the header stays fixed at the top on every page', () => {
@@ -79,6 +79,7 @@ test('article tags: every article page carries a chip naming its menu', () => {
     'cap-nhat-28-10.html': 'CHI TIẾT CẬP NHẬT',
     'arena.html': 'ARENA',
     'tinh-ruby.html': 'TÍNH RUBY',
+    'doi-coupon.html': 'ĐỔI COUPON',
   };
   for (const [file, label] of Object.entries(tags)) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
