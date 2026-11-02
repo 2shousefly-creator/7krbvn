@@ -21,14 +21,15 @@
     #doi-coupon .coupon-btn{display:inline-block;border:0;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:800;cursor:pointer;background:#293247;color:#fff;margin-top:12px}
     #doi-coupon .coupon-btn:disabled{opacity:.5;cursor:not-allowed}
     #doi-coupon .coupon-btn.secondary{background:#fff;color:#293247;border:1px solid #e4dfd5;margin-left:8px}
-    #doi-coupon .coupon-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 4px;border-bottom:1px solid #f0eee9}
-    #doi-coupon .coupon-row code{font-weight:800;font-size:15px;letter-spacing:.5px}
-    #doi-coupon .coupon-status{font-size:13px;color:#858b95;white-space:nowrap}
+    #doi-coupon .coupon-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;padding:10px 4px;border-bottom:1px solid #f0eee9}
+    #doi-coupon .coupon-row code{font-weight:800;font-size:15px;letter-spacing:.5px;flex-shrink:0}
+    #doi-coupon .coupon-status{font-size:13px;color:#858b95;flex:1 1 auto;min-width:0;overflow-wrap:break-word}
     #doi-coupon .coupon-status.ok{color:#1d7a3d;font-weight:700}
     #doi-coupon .coupon-status.fail{color:#b3261e;font-weight:700}
     #doi-coupon .coupon-hint{font-size:13px;color:#858b95;line-height:1.6;margin-top:8px}
-    #doi-coupon .history-row{display:flex;justify-content:space-between;gap:10px;padding:8px 4px;border-bottom:1px solid #f0eee9;font-size:14px}
-    #doi-coupon .history-row time{color:#858b95;font-size:12px;white-space:nowrap}
+    #doi-coupon .history-row{display:flex;flex-wrap:wrap;gap:2px 10px;padding:8px 4px;border-bottom:1px solid #f0eee9;font-size:14px}
+    #doi-coupon .history-row .history-text{flex:1 1 200px;min-width:0;overflow-wrap:break-word}
+    #doi-coupon .history-row time{color:#858b95;font-size:12px;white-space:nowrap;flex-shrink:0}
     </style>
     <div id="doi-coupon">
     <section class="article-section" id="uid-section"><div class="article-number">01 <span>/ UID CỦA BẠN</span></div><h2>🔑 Nhập UID</h2>
@@ -82,7 +83,7 @@
         var h=historyFor(uid());
         if(!h.length){historyEl.innerHTML='<p class="coupon-hint">Chưa có lịch sử đổi nào cho UID này.</p>';return;}
         historyEl.innerHTML=h.map(function(e){
-          return '<div class="history-row"><span><b>'+e.code+'</b> — '+(e.ok?'✅ Thành công':'❌ '+e.message)+'</span><time>'+fmtTime(e.time)+'</time></div>';
+          return '<div class="history-row"><span class="history-text"><b>'+e.code+'</b> — '+(e.ok?'✅ Thành công':'❌ '+e.message)+'</span><time>'+fmtTime(e.time)+'</time></div>';
         }).join('');
       }
       function renderList(){

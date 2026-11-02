@@ -119,6 +119,20 @@ test('the coupon page loads the coupon list and redeems through the Worker API',
   assert.match(worker, /CF-Connecting-IP/, 'worker must throttle redeem calls per IP');
 });
 
+test('coupon status and history rows wrap instead of overflowing on mobile', () => {
+  // Long redeem messages (e.g. "UID không đúng. Kiểm tra lại UID trong game…")
+  // used to run off the right edge: .coupon-status was white-space:nowrap and
+  // the flex rows never wrapped, so the text clipped on phones.
+  const coupon = page('doi-coupon.html');
+  assert.match(coupon, /#doi-coupon \.coupon-row\{[^}]*flex-wrap:wrap/, 'coupon rows must wrap so a long status drops to the next line');
+  assert.match(coupon, /#doi-coupon \.coupon-status\{[^}]*min-width:0/, 'coupon status must be allowed to shrink below its content width');
+  assert.match(coupon, /#doi-coupon \.coupon-status\{[^}]*overflow-wrap:break-word/, 'coupon status must break long text instead of overflowing');
+  assert.ok(!/#doi-coupon \.coupon-status\{[^}]*white-space:nowrap/.test(coupon), 'coupon status must not be nowrap');
+  assert.match(coupon, /#doi-coupon \.history-row\{[^}]*flex-wrap:wrap/, 'history rows must wrap');
+  assert.match(coupon, /#doi-coupon \.history-row \.history-text\{[^}]*min-width:0/, 'history text must be allowed to shrink and wrap');
+  assert.match(coupon, /history-row"><span class="history-text"/, 'history rows must render the message inside .history-text');
+});
+
 test('no iOS auto-zoom: every input, textarea and select on the site is at least 16px', () => {
   // iOS Safari zooms in when focusing an input smaller than 16px; the safety
   // net below guarantees the minimum everywhere, including future inputs.
