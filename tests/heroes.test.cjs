@@ -43,17 +43,24 @@ test('directory cards show only portrait, name and one rarity tag, 4 per row', (
     'heroes.css must lay out 4 heroes per row on desktop');
   assert.ok(css.includes('width:min(400px,70vw)'), 'filter popup must not exceed 70% of the viewport width');
   assert.ok(css.includes('.hx-filter-panel'), 'heroes.css must style the filter popup panel');
-  /* Frameless portrait: the white frame wraps only the name + rarity tag. */
+  /* One merged frame: portrait + name + rarity tag inside a single white card. */
   assert.ok(card.includes('<div class="hx-card-meta"><b>'),
-    'directory card must wrap name and tag in a meta frame');
-  assert.ok(css.includes('.hx-card{background:transparent;border:0'),
-    'directory card itself must have no white frame');
-  assert.ok(css.includes('.hx-card-meta{background:#fff;border:1px solid #e9e8e3'),
-    'only the name + tag area keeps the white frame');
-  assert.ok(!/\.hx-card img\{[^}]*border:/.test(css), 'directory portrait must have no border frame');
-  assert.ok(css.includes('@media (max-width:639px){.hx-grid{grid-template-columns:repeat(5,1fr)'),
-    'mobile must fit 5 heroes per row');
-  assert.ok(css.includes('.hx-card img{width:100%;height:auto;aspect-ratio:1/1}'),
+    'directory card must wrap name and tag in a meta area inside the card frame');
+  assert.ok(css.includes('.hx-card{background:#fff;border:1px solid #e9e8e3;border-radius:14px'),
+    'directory card must be one white frame around portrait, name and tag');
+  assert.ok(css.includes('.hx-card-meta{margin-top:8px}'),
+    'the name area must not have its own separate frame');
+  assert.ok(!css.includes('.hx-card-meta{background:#fff'),
+    'the name area must not carry a second white frame');
+  assert.ok(/\.hx-card\{[^}]*min-width:0/.test(css),
+    'directory card must allow the grid track to shrink (no overflow)');
+  /* Mobile: 4 per row, and the mobile overrides must come AFTER the base card rules
+   * in the file — same specificity, so source order decides. */
+  assert.ok(css.includes('@media (max-width:639px){.hx-grid{grid-template-columns:repeat(4,1fr)'),
+    'mobile must fit 4 heroes per row');
+  assert.ok(css.indexOf('@media (max-width:639px){.hx-grid') > css.indexOf('.hx-card img{width:96px'),
+    'mobile image override must sit after the base 96px rule or it loses the cascade');
+  assert.ok(css.includes('.hx-card img{width:100%;height:auto;aspect-ratio:1/1'),
     'mobile portraits must scale to the column width');
 });
 
