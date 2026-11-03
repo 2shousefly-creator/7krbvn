@@ -6,32 +6,33 @@ const root = path.join(__dirname, '..', 'public');
 const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'seven-knights-drafts', 'castle-rush-rewrite.json'), 'utf8'));
 
 const SLUGS = ['rudy', 'eileene', 'rachel', 'dellons', 'jave', 'spike', 'kris'];
-const FORMATIONS = {
-  rudy: { type: 'Balanced 3-2', front: 3, back: 2 },
-  eileene: { type: 'Defense 4-1', front: 4, back: 1 },
-  rachel: { type: 'Attack 1-4', front: 1, back: 4 },
-  dellons: { type: 'Basic 2-3', front: 2, back: 3 },
-  jave: { type: 'Balanced 3-2', front: 3, back: 2 },
-  spike: { type: 'Attack 1-4', front: 1, back: 4 },
-  kris: { type: 'Defense 4-1', front: 4, back: 1 },
-};
 
-test('every boss page has the hero popup wiring and team display', () => {
+test('boss pages are minimal: one hero row + pet + video only', () => {
   for (const slug of SLUGS) {
     const html = fs.readFileSync(path.join(root, `castle-rush-${slug}.html`), 'utf8');
     assert.ok(html.includes('<link rel="stylesheet" href="heroes.css">'), `${slug}: heroes.css`);
     assert.ok(html.includes('<link rel="stylesheet" href="castle-rush.css">'), `${slug}: castle-rush.css`);
     assert.ok(html.includes('<script src="hero-popup.js" defer></script>'), `${slug}: hero-popup.js`);
-    assert.ok(html.includes('class="cr-team"'), `${slug}: cr-team`);
-    assert.ok(html.includes('class="cr-pet"'), `${slug}: cr-pet`);
-    const f = FORMATIONS[slug];
-    assert.ok(html.includes(`Trận hình: <b>${f.type}</b>`), `${slug}: formation ${f.type}`);
-    assert.ok(html.includes(`Hàng Trước (${f.front})`), `${slug}: front ${f.front}`);
-    assert.ok(html.includes(`Hàng Sau (${f.back})`), `${slug}: back ${f.back}`);
-    // No leftover top/bottom-skill wording anywhere on the page.
+    // One horizontal hero row, no formation diagram, no role table.
+    assert.ok(html.includes('class="cr-team-row"'), `${slug}: cr-team-row`);
+    assert.ok(!html.includes('class="cr-row"'), `${slug}: no formation rows`);
+    assert.ok(!html.includes('class="cr-formation-line"'), `${slug}: no formation line`);
+    assert.ok(!html.includes('Hàng Trước'), `${slug}: no front row label`);
+    assert.ok(!html.includes('Hàng Sau'), `${slug}: no back row label`);
+    assert.ok(html.includes('class="cr-pet-line"'), `${slug}: pet line`);
+    assert.ok(html.includes('Pet: <b>Windy</b>'), `${slug}: pet Windy`);
+    // Removed sections: equipment, rotation, notes.
+    assert.ok(!html.includes('id="trang-bi"'), `${slug}: no equipment section`);
+    assert.ok(!html.includes('id="thu-tu-skill"'), `${slug}: no rotation section`);
+    assert.ok(!html.includes('id="luu-y"'), `${slug}: no notes section`);
     assert.ok(!/top skill|bottom skill|\bAtas\b|\bBawah\b/i.test(html), `${slug}: no top/bottom wording`);
+    assert.ok(!/Điểm trong video/i.test(html), `${slug}: no score text`);
     assert.ok(!/Biskuit/.test(html), `${slug}: no "Biskuit" spelling (in-game name is Biscuit)`);
-    assert.ok(!/không được ghi trong bình luận ghim/i.test(html), `${slug}: old placeholder note gone`);
+    // Video embed kept.
+    const b = data.bosses.find(x => x.slug === slug);
+    assert.ok(html.includes(`https://www.youtube.com/embed/${b.video_id}`), `${slug}: video embed ${b.video_id}`);
+    assert.ok(html.includes(`https://www.youtube.com/watch?v=${b.video_id}`), `${slug}: video link ${b.video_id}`);
+    assert.ok(html.includes('<div class="article-number">02 <span>/ VIDEO</span></div>'), `${slug}: video is section 02`);
   }
 });
 
@@ -45,29 +46,6 @@ test('every portrait popup id resolves to a hero JSON and a portrait file', () =
       const portrait = fs.existsSync(path.join(root, 'assets', `hero-${id}.webp`))
         || fs.existsSync(path.join(root, 'assets', `hero-awk-${id}.webp`));
       assert.ok(portrait, `${slug}: portrait ${id}`);
-      assert.ok(html.includes(`assets/hero-${id}.webp`) || html.includes(`assets/hero-awk-${id}.webp`), `${slug}: portrait referenced ${id}`);
-    }
-  }
-});
-
-test('rotations use real skill names from the hero JSONs', () => {
-  const skillNames = new Set();
-  for (const file of fs.readdirSync(path.join(root, 'data', 'heroes'))) {
-    const d = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', file), 'utf8'));
-    for (const kit of ['s6', 'awk']) {
-      for (const s of (d.skills && d.skills[kit]) || []) {
-        if (s.name) skillNames.add(s.name);
-      }
-    }
-  }
-  for (const b of data.bosses) {
-    const html = fs.readFileSync(path.join(root, `castle-rush-${b.slug}.html`), 'utf8');
-    const m = html.match(/<section class="article-section" id="thu-tu-skill">([\s\S]*?)<\/section>/);
-    assert.ok(m, `${b.slug}: rotation section`);
-    const rendered = [...m[1].matchAll(/<span class="cr-step"><b>([^<]+)<\/b>/g)].map(x => x[1]);
-    assert.ok(rendered.length >= 10, `${b.slug}: rotation has steps (got ${rendered.length})`);
-    for (const name of rendered) {
-      assert.ok(skillNames.has(name), `${b.slug}: skill "${name}" exists in hero data`);
     }
   }
 });
