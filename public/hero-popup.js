@@ -65,15 +65,18 @@
       var setImg = setIcon(set.name || '');
       var subs = (build.substats || []).slice(0, 4);
       /* Main stat: Chính và Phụ tách thành 2 hàng riêng. Vũ khí/giáp hiển
-       * thị hình minh họa thật của món đồ trong set (không dùng icon chung). */
+       * thị hình minh họa thật của món đồ trong set (ảnh 126px, không dùng
+       * icon chung, tải ngay khi mở popup). */
       function mainStatHtml(label, pieceFile, arr) {
         var best = arr[0], alt = arr.slice(1);
-        var row = '<div class="hx-mainstat"><small>' + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="" loading="lazy">' : '') + esc(label) + '</small>'
+        var row = '<div class="hx-mainstat hx-with-piece">'
+          + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="">' : '')
+          + '<div class="hx-ms-body"><small>' + esc(label) + '</small>'
           + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span>' + esc(statLabel(best || '—')) + '</span></div>';
         if (alt.length) {
           row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + esc(alt.map(statLabel).join(' / ')) + '</span></div>';
         }
-        return row + '</div>';
+        return row + '</div></div>';
       }
       out += '<div class="hx-modal-build"><h4>Build: ' + esc(build.name) + '</h4>'
         + '<div class="hx-gear-set">'

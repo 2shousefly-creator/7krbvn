@@ -275,7 +275,13 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   assert.ok(js.includes('assets/gearpieces/'), 'popup must show the real gear piece art, not the generic icons');
   assert.ok(!js.includes("assets/gearui/"), 'popup must no longer use the generic weapon/armor icons');
   assert.ok(js.includes("replace('4pc', 'Set 4')"), 'popup must render "4pc" as "Set 4"');
+  assert.ok(js.includes('hx-with-piece'), 'popup gear art must sit in its own large thumbnail layout');
   assert.ok(js.includes("' × ' + c"), 'popup dedicated equipment must show the line count (e.g. "Crush +12% × 4")');
+  const css = read('heroes.css');
+  assert.ok(/\.hx-mainstat \.hx-piece\{[^}]*width:72px/.test(css),
+    'popup gear art must be shown large (72px, near its native 126px), not icon-sized');
+  assert.ok(!/\.hx-mainstat small img\.hx-piece/.test(css),
+    'popup gear art must not sit on the small dark icon chip anymore');
   // All 27 Raid gear piece images (9 sets x weapon-physical / weapon-magic / armor) on disk.
   const pieces = ['DG-Bounty', 'DG-Paladin', 'DG-Vanguard', 'NMW-Assassin', 'NMW-Gatekeeper', 'NMW-Guardian', 'ID-Avenger', 'ID-Orchestrator', 'ID-Spell'];
   for (const stem of pieces) {
@@ -284,4 +290,10 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
       assert.ok(fs.existsSync(path.join(root, 'assets', 'gearpieces', f)), `gear piece ${f} is missing from assets/gearpieces`);
     }
   }
+});
+
+test('detail page also renders "Set 4", not "4pc" (consistent with the popup)', () => {
+  const js = read('hero-detail.js');
+  assert.ok(js.includes("replace('4pc', 'Set 4')"),
+    'the detail-page Builds tab must render "Set 4" like the popup does');
 });

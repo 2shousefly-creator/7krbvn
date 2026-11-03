@@ -112,8 +112,11 @@
 .hx-mainstat{background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;font-size:13px}
 .hx-mainstat small{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
 .hx-mainstat small img{width:22px;height:22px;object-fit:contain;background:#202638;border-radius:6px;padding:2px}
-/* Popup: hình minh họa thật của món vũ khí/giáp trong set. */
-.hx-mainstat small img.hx-piece{width:44px;height:44px;background:#202638;border-radius:8px;padding:2px}
+/* Popup: hình minh họa thật của món vũ khí/giáp trong set (ảnh gốc 126px). */
+.hx-mainstat.hx-with-piece{display:flex;gap:10px;align-items:flex-start}
+.hx-mainstat .hx-piece{width:72px;height:72px;object-fit:contain;border-radius:10px;flex:none}
+.hx-mainstat .hx-ms-body{flex:1;min-width:0}
+.hx-mainstat .hx-ms-body small{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
 .hx-ms-row{display:flex;align-items:center;gap:8px;padding:5px 0}
 .hx-ms-tag{flex:none;font-size:10.5px;font-weight:800;letter-spacing:.05em;border-radius:999px;padding:2px 8px;background:#202638;color:#fff}
 .hx-ms-row.alt{margin-top:6px;padding-top:8px;border-top:1px dashed #d8d5cc}

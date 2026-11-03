@@ -117,8 +117,12 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   await tick();
   const html = dom.window.document.querySelector('.hx-modal-body').innerHTML;
   // Eileene is Universal (Physical weapon), active build set is Spellweaver (ID-Spell).
+  // The piece art is a real 126px gear illustration, shown large (72px) next
+  // to the main-stat rows — not a small icon on a dark chip.
   assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'popup must show the real weapon piece art (Spellweaver, Physical)');
   assert.ok(html.includes('assets/gearpieces/ID-Spell3.webp'), 'popup must show the real armor piece art (Spellweaver)');
+  assert.ok(html.includes('hx-with-piece'), 'popup gear art must sit in its own large thumbnail layout');
+  assert.ok(!html.includes('assets/gearpieces/ID-Spell1.webp" alt="" loading="lazy"'), 'popup gear art must load immediately (no lazy) so it is visible on open');
   assert.ok(!html.includes('assets/gearui/'), 'popup must no longer use the generic weapon/armor icons');
   assert.ok(html.includes('Set 4 - Effect Hit Rate +35%.'), '"4pc" must render as "Set 4" in the popup');
   assert.ok(!html.includes('4pc'), 'no "4pc" should remain in the popup');

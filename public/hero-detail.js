@@ -592,7 +592,7 @@
       + '<div class="hx-cardbox"><div class="hx-gear-set">'
       + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="" loading="lazy">' : '')
       + '<div><b>' + esc(set.name || '—') + '</b>'
-      + (set.effect ? '<p>' + esc(set.effect) + '</p>' : '') + '</div></div>'
+      + (set.effect ? '<p>' + esc(set.effect.replace('4pc', 'Set 4')) + '</p>' : '') + '</div></div>'
       + '<div class="hx-mainstats">'
       + mainStatHtml('Chỉ số chính Vũ khí', 'weapon.webp', b.gear.weapon || [])
       + mainStatHtml('Chỉ số chính Giáp', 'armor.webp', b.gear.armor || [])
