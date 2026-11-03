@@ -405,3 +405,27 @@ test('skill conversion renders vertically (no horizontal Before/After grid)', ()
   assert.ok(js.includes('TRƯỚC') && js.includes('SAU'), 'Before/After labels must remain');
   assert.ok(js.includes('margin-top:12px'), 'SAU card must stack below TRƯỚC with spacing');
 });
+
+test('All Damage Nullification description says hits (đòn), not turns (lượt)', () => {
+  const fs2 = require('node:fs');
+  const path2 = require('node:path');
+  const root2 = path2.join(__dirname, '..', 'public');
+  for (const hid of ['freyja', 'giyu-tomioka', 'juri']) {
+    const h = JSON.parse(fs2.readFileSync(path2.join(root2, 'data', 'heroes', hid + '.json'), 'utf8'));
+    const s = JSON.stringify(h);
+    assert.ok(s.includes('trong một số đòn nhất định'), hid + ' must describe All Damage Nullification per hit (đòn)');
+    assert.ok(!s.includes('trong một số lượt nhất định'), hid + ' must not say "lượt" for All Damage Nullification');
+  }
+});
+
+test('skill detail spacing: target tags and header elements are not cramped', () => {
+  const css = read('heroes.css');
+  assert.ok(/\.hx-skill \.hx-skill-target\{[^}]*margin:14px 0 8px/.test(css),
+    'target tags must have a large top margin so effect groups are clearly separated');
+  assert.ok(/\.hx-skill h4\{[^}]*margin:0 0 6px/.test(css),
+    'skill name must have breathing room below it');
+  assert.ok(/\.hx-skill \.hx-skill-type\{[^}]*display:block[^}]*margin-bottom:4px/.test(css),
+    'skill type label must be a block with spacing below it');
+  assert.ok(/\.hx-skill \.hx-skill-cd\{[^}]*margin-bottom:2px/.test(css),
+    'cooldown line must have spacing below it');
+});

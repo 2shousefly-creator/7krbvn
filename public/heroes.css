@@ -80,11 +80,11 @@
 .hx-tier .hx-tier-grade{position:relative;display:inline-block;align-self:flex-start;margin-top:6px;font-size:26px;font-weight:900;line-height:1;padding:5px 12px;border-radius:999px;background:rgba(20,24,40,.78);border:2px solid currentColor;text-shadow:0 1px 3px rgba(0,0,0,.7)}
 .hx-skill{display:flex;gap:12px;background:#fff;border:1px solid #e9e8e3;border-radius:14px;padding:14px;margin-bottom:10px}
 .hx-skill img{width:56px;height:56px;border-radius:10px;flex:none;border:1px solid #e9e8e3}
-.hx-skill h4{margin:0 0 2px;font-size:15px}
-.hx-skill .hx-skill-type{font-size:11px;font-weight:800;letter-spacing:.05em;color:#946b25}
-.hx-skill .hx-skill-cd{font-size:12px;color:#8b8578}
+.hx-skill h4{margin:0 0 6px;font-size:15px}
+.hx-skill .hx-skill-type{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;color:#946b25;margin-bottom:4px}
+.hx-skill .hx-skill-cd{font-size:12px;color:#8b8578;margin-bottom:2px}
 .hx-skill p{font-size:13.5px;line-height:1.55;margin:6px 0}
-.hx-skill .hx-skill-target{display:inline-block;font-size:12.5px;font-weight:700;color:#3366b8;background:#eef3fb;border:1px solid #b9cdf0;border-radius:999px;padding:3px 10px;margin-bottom:6px}
+.hx-skill .hx-skill-target{display:inline-block;font-size:12.5px;font-weight:700;color:#3366b8;background:#eef3fb;border:1px solid #b9cdf0;border-radius:999px;padding:3px 10px;margin:14px 0 8px}
 .hx-fx-bad{color:#c0392b}
 .hx-fx-good{color:#1a6fd4}
 .hx-skill .hx-tips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
