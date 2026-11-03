@@ -82,3 +82,45 @@ test('tab switching preserves the scroll position in place and across reload', {
   assert.equal(reloaded.dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), null,
     'the saved scroll key must be consumed on boot (no stale restore later)');
 });
+
+test('skill targets translate to Vietnamese and effects are explained', { skip: !JSDOM }, async () => {
+  const { dom } = makeDom('https://7krb.io.vn/hero.html?id=eileene', null, 0);
+  await tick();
+  const text = dom.window.document.querySelector('#hx-content').textContent;
+  // Eileene's S2 targets All Enemies, her S1 targets 3 Enemies.
+  assert.ok(text.includes('Tất cả kẻ địch'), 'All Enemies must render as "Tất cả kẻ địch"');
+  assert.ok(text.includes('3 kẻ địch'), '3 Enemies must render as "3 kẻ địch"');
+  assert.ok(!text.includes('All Enemies'), 'no English target scope should remain in the skills');
+  // Effect explanations: "Pierce - Xuyên thủng: <translated Atlas explanation>".
+  assert.ok(text.includes('Pierce - Xuyên thủng:'), 'Pierce must show its Vietnamese name');
+  assert.ok(text.includes('Bỏ qua các hiệu ứng miễn nhiễm sát thương trên mục tiêu.'),
+    'Pierce must show the translated Atlas explanation');
+  assert.ok(text.includes('Shock - Sốc điện:'), 'Shock must show its Vietnamese name');
+});
+
+test('popup shows real gear piece art, "Set 4" and the full dedicated line count', { skip: !JSDOM }, async () => {
+  const popupJs = fs.readFileSync(path.join(root, 'hero-popup.js'), 'utf8');
+  const trigger = '<a href="#" data-hero-popup="eileene">Eileene</a>';
+  const dom = new JSDOM('<!doctype html><html><body>' + trigger + '</body></html><script>' + popupJs + '</script>', {
+    url: 'https://7krb.io.vn/heroes.html',
+    runScripts: 'dangerously',
+    pretendToBeVisual: true,
+    beforeParse(window) {
+      window.fetch = (u) => Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(String(u).includes('heroes-index.json') ? indexJson : eileeneJson),
+      });
+    },
+  });
+  dom.window.document.querySelector('[data-hero-popup]').click();
+  await tick();
+  await tick();
+  const html = dom.window.document.querySelector('.hx-modal-body').innerHTML;
+  // Eileene is Universal (Physical weapon), active build set is Spellweaver (ID-Spell).
+  assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'popup must show the real weapon piece art (Spellweaver, Physical)');
+  assert.ok(html.includes('assets/gearpieces/ID-Spell3.webp'), 'popup must show the real armor piece art (Spellweaver)');
+  assert.ok(!html.includes('assets/gearui/'), 'popup must no longer use the generic weapon/armor icons');
+  assert.ok(html.includes('Set 4 - Effect Hit Rate +35%.'), '"4pc" must render as "Set 4" in the popup');
+  assert.ok(!html.includes('4pc'), 'no "4pc" should remain in the popup');
+  assert.ok(html.includes('Nên build: Resilience +15% × 4'), 'dedicated equipment must show the full line count (Resilience +15% × 4)');
+});

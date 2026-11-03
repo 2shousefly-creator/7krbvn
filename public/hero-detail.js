@@ -57,6 +57,272 @@
    * Every lookup falls back to the original English when no translation
    * exists yet, so the page works before/after the merge. */
   function vi() { return (hero && hero.vi) || {}; }
+  /* Dịch phạm vi mục tiêu của kỹ năng sang tiếng Việt (dữ liệu Atlas,
+   * 66 chuỗi duy nhất trong toàn bộ 124 hero). Chuỗi nào không có trong
+   * bảng sẽ giữ nguyên tiếng Anh để không hiển thị sai. */
+  var TARGET_VI = {
+    '1 Enemy (Front Row First)': '1 kẻ địch (ưu tiên hàng trước)',
+    '1 Enemy When Doing a Follow-Up': '1 kẻ địch (khi đánh tiếp)',
+    '2 Allies': '2 đồng minh',
+    '2 Allies (Excluding Self)': '2 đồng minh (trừ bản thân)',
+    '2 Allies with Lowest Current HP': '2 đồng minh có HP hiện tại thấp nhất',
+    '2 Allies with the Highest Attack': '2 đồng minh có Attack cao nhất',
+    '2 Allies with the Highest Attack (Excluding Self)': '2 đồng minh có Attack cao nhất (trừ bản thân)',
+    '2 Allies with the Lowest Current HP (Excluding Self)': '2 đồng minh có HP hiện tại thấp nhất (trừ bản thân)',
+    '2 Back Row Allies': '2 đồng minh hàng sau',
+    '2 Enemies': '2 kẻ địch',
+    '2 Enemies (By Highest No. of Buffs)': '2 kẻ địch (ưu tiên nhiều buff nhất)',
+    '2 Enemies with the Highest Attack': '2 kẻ địch có Attack cao nhất',
+    '3 Allies': '3 đồng minh',
+    '3 Allies with the Lowest Current HP': '3 đồng minh có HP hiện tại thấp nhất',
+    '3 Enemies': '3 kẻ địch',
+    '3 Enemies (Back Row First)': '3 kẻ địch (ưu tiên hàng sau)',
+    '3 Enemies (By Highest Attack Level)': '3 kẻ địch (ưu tiên Attack cao nhất)',
+    '3 Enemies (By Highest No. of Buffs)': '3 kẻ địch (ưu tiên nhiều buff nhất)',
+    '3 Enemies (Prioritizes Targets w/ Thunderbolt Mark)': '3 kẻ địch (ưu tiên mục tiêu có Thunderbolt Mark)',
+    '3 Enemies with the Highest Attack': '3 kẻ địch có Attack cao nhất',
+    '4 Enemies': '4 kẻ địch',
+    '4 Enemies (Front Row First)': '4 kẻ địch (ưu tiên hàng trước)',
+    '4 Enemies (Prioritize Targets with Mark of Darkness)': '4 kẻ địch (ưu tiên mục tiêu có Mark of Darkness)',
+    'All Allies': 'Tất cả đồng minh',
+    'All Enemies': 'Tất cả kẻ địch',
+    'All Magic Allies': 'Tất cả đồng minh Magic',
+    'Allies (Attack)': 'Đồng minh (Attack)',
+    'Allies (Attack) (Excluding Self)': 'Đồng minh (Attack) (trừ bản thân)',
+    'Allies (Attack, Magic)': 'Đồng minh (Attack, Magic)',
+    'Allies (Attack, Universal)': 'Đồng minh (Attack, Universal)',
+    'Allies (Defense, Support)': 'Đồng minh (Defense, Support)',
+    'Allies (Defense, Universal)': 'Đồng minh (Defense, Universal)',
+    'Allies (Magic)': 'Đồng minh (Magic)',
+    'Allies (Self, 2 Back Row Allies)': 'Đồng minh (bản thân, 2 đồng minh hàng sau)',
+    'Allies (Self, Ally with the Highest ATK)': 'Đồng minh (bản thân, đồng minh có ATK cao nhất)',
+    'Allies (Self, Magic)': 'Đồng minh (bản thân, Magic)',
+    'Allies (Universal)': 'Đồng minh (Universal)',
+    'Allies in Row w/ Self (Magic)': 'Đồng minh cùng hàng với bản thân (Magic)',
+    'Ally with Lowest Current HP (Excluding Self)': 'Đồng minh có HP hiện tại thấp nhất (trừ bản thân)',
+    'Ally with the Highest ATK': 'Đồng minh có ATK cao nhất',
+    'Ally with the Lowest Current HP (Excluding Self)': 'Đồng minh có HP hiện tại thấp nhất (trừ bản thân)',
+    'Back Row Allies': 'Đồng minh hàng sau',
+    'Back Row Allies (Magic)': 'Đồng minh hàng sau (Magic)',
+    'Back Row Allies (Universal)': 'Đồng minh hàng sau (Universal)',
+    'Back Row Enemies': 'Kẻ địch hàng sau',
+    'Enemies (Attack, Magic)': 'Kẻ địch (Attack, Magic)',
+    'Enemies (Defense, Support, Universal)': 'Kẻ địch (Defense, Support, Universal)',
+    'Enemies in Row w/ Main Target': 'Kẻ địch cùng hàng với mục tiêu chính',
+    'Enemy with the Highest Attack': 'Kẻ địch có Attack cao nhất',
+    'Enemy with the Highest Current HP': 'Kẻ địch có HP hiện tại cao nhất',
+    'Enemy with the Highest Defense': 'Kẻ địch có Defense cao nhất',
+    'Enemy with the highest Max HP': 'Kẻ địch có Max HP cao nhất',
+    'Front Row Allies': 'Đồng minh hàng trước',
+    'Front Row Enemies': 'Kẻ địch hàng trước',
+    'Self': 'Bản thân',
+    'Self, 1 Ally (Back Row First)': 'Bản thân, 1 đồng minh (ưu tiên hàng sau)',
+    'Self, 2 Allies with the Highest Attack (Excluding Self)': 'Bản thân, 2 đồng minh có Attack cao nhất (trừ bản thân)',
+    'Single Ally': '1 đồng minh',
+    'Single Enemy': '1 kẻ địch',
+    'Single Enemy (Back Row First)': '1 kẻ địch (ưu tiên hàng sau)',
+    'Single Enemy (By Highest No. of Buffs)': '1 kẻ địch (ưu tiên nhiều buff nhất)',
+    'Single Enemy (Eyes of the Strong)': '1 kẻ địch (Eyes of the Strong)',
+    'Single Enemy (Prioritize Targets with Mark of Darkness)': '1 kẻ địch (ưu tiên mục tiêu có Mark of Darkness)',
+    'Single Enemy (Prioritizes Targets w/ Thunderbolt Mark)': '1 kẻ địch (ưu tiên mục tiêu có Thunderbolt Mark)',
+    'Single Enemy (Prioritizes Targets with Poison)': '1 kẻ địch (ưu tiên mục tiêu đang trúng độc)',
+    'Single Enemy When Counterattacking': '1 kẻ địch (khi phản đòn)'
+  };
+  function targetVi(t) { return TARGET_VI[t] || t; }
+  /* Tên tiếng Việt của các hiệu ứng trong kỹ năng (điền từ bảng thuật ngữ
+   * ~/workspace/i18n/effect_names_vi.json). Hiệu ứng nào chưa có trong
+   * bảng thì hiển thị tên tiếng Anh. */
+  var FX_VI = {
+   "Pierce": "Xuyên thủng",
+   "Barrier": "Khiên",
+   "Ignore Defense": "Xuyên giáp",
+   "Debuff Removal": "Xóa Debuff",
+   "Buff Duration Reduction": "Giảm thời gian Buff",
+   "Buff Removal": "Xóa Buff",
+   "All Damage Immunity": "Miễn nhiễm mọi sát thương",
+   "Revive": "Hồi sinh",
+   "Defense Reduction": "Giảm Defense",
+   "All Damage Nullification": "Vô hiệu mọi sát thương",
+   "Crit Rate Boost": "Tăng Crit Rate",
+   "Bleed": "Chảy máu",
+   "Crit Damage Boost": "Tăng Crit Damage",
+   "Burn": "Thiêu đốt",
+   "Cooldown Reduction": "Giảm hồi chiêu",
+   "Stun": "Choáng",
+   "Weakness Hit Chance Boost": "Tăng tỉ lệ đánh điểm yếu",
+   "Guts": "Kiên cường",
+   "Effect Hit Rate Boost": "Tăng Effect Hit Rate",
+   "Crowd Control Immunity": "Miễn nhiễm khống chế",
+   "Physical Attack Boost": "Tăng Physical Attack",
+   "HP Alteration": "Đặt lại HP",
+   "Deadly Poison": "Kịch độc",
+   "Shock": "Sốc điện",
+   "Continuous Healing": "Hồi HP liên tục",
+   "Defense Boost": "Tăng Defense",
+   "Incoming Healing Reduction": "Giảm hồi HP nhận vào",
+   "Effect Resist Reduction": "Giảm Effect Resistance",
+   "Death": "Tử vong",
+   "All Attack Reduction": "Giảm All Attack",
+   "Damage Reduction": "Giảm sát thương gây ra",
+   "Unable to Recover": "Không thể hồi HP",
+   "Poison": "Độc",
+   "Silence": "Câm lặng",
+   "Cooldown Reset": "Reset hồi chiêu",
+   "Effect Resist Boost": "Tăng Effect Resistance",
+   "Magic Attack Boost": "Tăng Magic Attack",
+   "Blessing": "Phước lành",
+   "Physical Vulnerability": "Dễ tổn thương vật lý",
+   "Damage Resistance": "Giảm sát thương nhận vào",
+   "Magic Damage Boost": "Tăng sát thương Magic",
+   "Physical Damage Boost": "Tăng sát thương vật lý",
+   "Magic Vulnerability": "Dễ tổn thương Magic",
+   "Awakening Gauge Boost": "Tăng thanh thức tỉnh",
+   "Camouflage": "Ngụy trang",
+   "Immortality": "Bất tử",
+   "Taunt": "Khiêu khích",
+   "Mark of Darkness": "Dấu ấn bóng tối",
+   "Block Rate Reduction": "Giảm Block Rate",
+   "Increased Miss Chance": "Tăng tỉ lệ trượt",
+   "Paralysis": "Tê liệt",
+   "Damage Boost": "Tăng sát thương",
+   "Incoming Healing Reduction (Stacks)": "Giảm hồi HP nhận vào (cộng dồn)",
+   "Freeze": "Đóng băng",
+   "Crit Rate Reduction": "Giảm Crit Rate",
+   "Block Rate Boost": "Tăng Block Rate",
+   "Defense Reduction (Stacks)": "Giảm Defense (cộng dồn)",
+   "Weakness Hit Chance Reduction": "Giảm tỉ lệ đánh điểm yếu",
+   "Petrify": "Hóa đá",
+   "Indomitable": "Bất khuất",
+   "Protection": "Bảo vệ",
+   "Buff Block": "Chặn Buff",
+   "Skill Cooldown Increase": "Tăng hồi chiêu kỹ năng",
+   "Incoming Healing Boost": "Tăng hồi HP nhận vào",
+   "Link": "Liên kết",
+   "Physical Attack Reduction": "Giảm Physical Attack",
+   "Physical Damage Immunity": "Miễn nhiễm sát thương vật lý",
+   "Counterattack": "Phản đòn",
+   "Confusion": "Hỗn loạn",
+   "Demon Face (Stacks)": "Mặt quỷ (cộng dồn)",
+   "All Attack Boost": "Tăng All Attack",
+   "Execution": "Kết liễu",
+   "Ally Role Support": "Hỗ trợ vai trò đồng minh",
+   "Silence Immunity": "Miễn nhiễm câm lặng",
+   "Fear": "Sợ hãi",
+   "Attack-Based Effect Hit Rate Boost": "Tăng Effect Hit Rate theo ATK",
+   "Magic Resistance": "Kháng Magic",
+   "Extreme Chill": "Cực hàn",
+   "Magic Bond": "Liên kết Magic",
+   "Weakness Hit Damage Boost": "Tăng sát thương điểm yếu",
+   "Bad Debt": "Nợ xấu",
+   "Toxic Build-Up (Stacks)": "Tích độc (cộng dồn)",
+   "Death Effect Probability Boost": "Tăng tỉ lệ hiệu ứng tử vong",
+   "Blind": "Mù",
+   "Burn Immunity": "Miễn nhiễm thiêu đốt",
+   "Effect Probability Boost": "Tăng Effect Probability",
+   "Defense Ignore Efficiency Boost": "Tăng hiệu quả xuyên giáp",
+   "Crit Damage Boost (Stacks)": "Tăng Crit Damage (cộng dồn)",
+   "Sleep": "Ngủ",
+   "Defense-Based Block Rate Boost": "Tăng Block Rate theo Defense",
+   "Effect Probability Reduction": "Giảm Effect Probability",
+   "Pain Endurance": "Chịu đau",
+   "Buff Duration Boost": "Tăng thời gian Buff",
+   "HP Swap": "Hoán đổi HP",
+   "Eyes of the Strong": "Ánh mắt kẻ mạnh",
+   "Physical Resistance": "Kháng vật lý",
+   "Crystal Cluster": "Cụm tinh thể",
+   "Magic Reflux": "Hồi lưu Magic",
+   "[Mark: Energia's Saturation] (Stacks)": "[Dấu ấn: bão hòa Energia] (cộng dồn)",
+   "Magic Vulnerability (Stacks)": "Dễ tổn thương Magic (cộng dồn)",
+   "Defensive Posture (Stacks)": "Thế thủ (cộng dồn)",
+   "Delayed Buff": "Buff trì hoãn",
+   "Binding Rope": "Dây trói",
+   "Concussion": "Chấn động",
+   "Earth Dragon's Fury": "Thịnh nộ rồng đất",
+   "Follow-Up Chance Boost": "Tăng tỉ lệ đánh theo",
+   "Follow-Up Attack": "Đánh theo",
+   "Quintuple-Target Attack Resistance": "Kháng sát thương 5 mục tiêu",
+   "Petrify Immunity": "Miễn nhiễm hóa đá",
+   "Resets all skill cooldowns": "Reset toàn bộ hồi chiêu",
+   "Shock Immunity": "Miễn nhiễm sốc điện",
+   "Max HP-Based Block Rate Boost": "Tăng Block Rate theo Max HP",
+   "Bomb": "Bom",
+   "Speed-Based Attack Boost": "Tăng ATK theo Speed",
+   "Transformation": "Biến hình",
+   "Shock Probability Boost": "Tăng tỉ lệ sốc điện",
+   "Stun Immunity": "Miễn nhiễm choáng",
+   "Freeze Immunity": "Miễn nhiễm đóng băng",
+   "Cooldown Increase Immunity": "Miễn nhiễm tăng hồi chiêu",
+   "Debuff Duration Boost": "Tăng thời gian Debuff",
+   "Cover": "Yểm trợ",
+   "Magic Damage Immunity": "Miễn nhiễm sát thương Magic",
+   "Attack Based Defense Boost": "Tăng Defense theo ATK",
+   "Attack-Based Defense Boost": "Tăng Defense theo ATK",
+   "Physical Attack Boost (Stacks)": "Tăng Physical Attack (cộng dồn)",
+   "Crit Damage Reduction": "Giảm Crit Damage",
+   "Bleed Immunity": "Miễn nhiễm chảy máu",
+   "Skill Cooldown Reset upon gaining Immortality": "Reset hồi chiêu khi bất tử",
+   "Life Drain": "Hút máu",
+   "Death Immunity": "Miễn nhiễm tử vong",
+   "Revives with 80% HP upon falling in battle": "Hồi sinh với 80% HP",
+   "Triple-Target Attack Damage Boost": "Tăng sát thương tấn công 3 mục tiêu",
+   "Unfair Contract": "Khế ước bất công",
+   "Physical Damage Boost (Stacks)": "Tăng sát thương vật lý (cộng dồn)",
+   "Threads of Fate": "Sợi chỉ định mệnh",
+   "Incoming Barrier Reduction": "Giảm khiên nhận vào",
+   "Upper Hand": "Thế thượng phong",
+   "Transparent World": "Thế giới trong suốt",
+   "Tower's Benevolence": "Ân huệ của tháp",
+   "Paralysis Immunity": "Miễn nhiễm tê liệt",
+   "Deep Sleep": "Ngủ sâu",
+   "Death Turn Reduction": "Giảm số lượt tử vong",
+   "Focus Target": "Mục tiêu ưu tiên",
+   "Pinnacle of Martial Arts": "Đỉnh cao võ thuật",
+   "Bleed Explosion": "Kích nổ chảy máu",
+   "Boss Damage Boost": "Tăng sát thương lên Boss",
+   "Detonates Bombs": "Kích nổ bom",
+   "7-Dish Meal Set (Stacks)": "Bộ 7 món ăn (cộng dồn)",
+   "Max HP-Based Effect Hit Rate Boost": "Tăng Effect Hit Rate theo Max HP",
+   "Purified Magic (Stacks)": "Ma thuật thuần khiết (cộng dồn)",
+   "Divinity (Stacks)": "Thần tính (cộng dồn)",
+   "stack(s) of Divinity": "Cộng dồn thần tính",
+   "Spot": "Điểm yếu",
+   "Dragonflame": "Lửa rồng",
+   "Sniper Stance": "Thế bắn tỉa",
+   "Souldeath": "Tử hồn",
+   "Crowd Control Immunity upon gaining Immortality": "Miễn nhiễm khống chế khi bất tử",
+   "Thunderbolt Mark": "Dấu ấn sấm sét",
+   "Perseverance (Stacks)": "Kiên trì (cộng dồn)",
+   "Damage Boost (Stacks)": "Tăng sát thương (cộng dồn)",
+   "Counterattack Chance Boost": "Tăng tỉ lệ phản đòn",
+   "Reckless Valor": "Dũng khí liều lĩnh",
+   "[Mark: Heaven Scorcher Halberd's Rage] (Stacks)": "[Dấu ấn: cơn thịnh nộ của Halberd thiêu trời] (cộng dồn)",
+   "Poison Immunity": "Miễn nhiễm độc",
+   "Crystal Resonance": "Cộng hưởng tinh thể",
+   "Physical Enhancement: Crystal Dragon": "Cường hóa vật lý: rồng tinh thể",
+   "Attack-Based Weakness Hit Chance Boost": "Tăng tỉ lệ đánh điểm yếu theo ATK",
+   "Guardian Spirit": "Linh hồn hộ vệ",
+   "Attack-Based Reduced Damage Taken Boost": "Tăng kháng sát thương theo ATK",
+   "Resets the cooldown of [Undefeated Cavalier] upon defeating an enemy with damage from this skill": "Reset hồi chiêu [Undefeated Cavalier] khi hạ địch",
+   "Final Judgment": "Phán quyết cuối cùng",
+   "Resets the cooldown of [Dragon's Descent] upon defeating an enemy with damage from this skill": "Reset hồi chiêu [dragon's Descent] khi hạ địch",
+   "Guts upon revival": "Guts khi hồi sinh",
+   "Max HP-Based Defense Boost": "Tăng Defense theo Max HP",
+   "Damage Resistance (Self)": "Giảm sát thương nhận vào (bản thân)",
+   "Damage Resistance (Allies)": "Giảm sát thương nhận vào (đồng minh)",
+   "Awakening Gauge Reduction": "Giảm thanh thức tỉnh",
+   "Sleep Immunity": "Miễn nhiễm ngủ",
+   "Magic Attack Boost (Stacks)": "Tăng Magic Attack (cộng dồn)",
+   "Hunter's Expertise (Stacks)": "Chuyên môn thợ săn (cộng dồn)",
+   "Max HP-Based Attack Boost": "Tăng ATK theo Max HP",
+   "Clone": "Phân thân",
+   "Conqueror of Adversity. (Stacks)": "Kẻ chinh phục nghịch cảnh (cộng dồn)",
+   "Level Up (Stacks)": "Tăng cấp (cộng dồn)",
+   "Conqueror of Adversity (Stacks)": "Kẻ chinh phục nghịch cảnh (cộng dồn)",
+   "Hawk's Talons (Stacks)": "Móng diều hâu (cộng dồn)",
+   "Single-Target Attack Damage Boost": "Tăng sát thương tấn công đơn mục tiêu",
+   "Magic Attack Reduction": "Giảm Magic Attack",
+   "Blind Immunity": "Miễn nhiễm mù"
+  };
   function setIcon(setName) {
     return SET_ICONS[setName] || (setName ? setName.replace(/\s+/g, '') + '.webp' : null);
   }
@@ -128,7 +394,7 @@
     }
     var groups = (sk.effects || []).map(function (g, gi) {
       var lines = (sk.effects_vi && sk.effects_vi[gi]) || g.lines || [];
-      return (g.target ? '<div class="hx-skill-target">' + esc(g.target) + '</div>' : '')
+      return (g.target ? '<div class="hx-skill-target">' + esc(targetVi(g.target)) + '</div>' : '')
         + lines.map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('');
     }).join('');
     var tipByName = {};
@@ -142,11 +408,24 @@
         var tip = tipByName[b.label] || '';
         return '<span class="hx-tip" title="' + esc(tip || b.label) + '">' + esc(b.label + (suffix ? ' (' + suffix + ')' : '')) + '</span>';
       }).join('') + '</div>' : '';
+    /* Giải thích các hiệu ứng trong kỹ năng: "Tên EN - Tên VI: giải thích"
+     * (giải thích lấy từ tip body của Atlas, đã dịch sang tiếng Việt;
+     * hiệu ứng nào không có giải thích thì không liệt kê ở đây). */
+    var fxItems = (sk.tips || []).filter(function (t) {
+      var body = tipByName[t.name] || '';
+      return body && body !== 'None';
+    });
+    var fxHtml = fxItems.length
+      ? '<div class="hx-fxlist"><div class="hx-fx-title">Hiệu ứng</div>' + fxItems.map(function (t) {
+        var vname = FX_VI[t.name] || '';
+        var label = vname ? (t.name + ' - ' + vname) : t.name;
+        return '<div class="hx-fx"><b>' + esc(label) + ':</b> ' + esc(tipByName[t.name]) + '</div>';
+      }).join('') + '</div>' : '';
     var enhance = (sk.enhancement || []).length
       ? '<div class="hx-notes" style="background:#f2f7ff;border-color:#c8d8f2"><b>Nâng cấp kỹ năng</b>'
         + sk.enhancement.map(function (e, ei) {
           var effect = (sk.enhancement_vi && sk.enhancement_vi[ei] && sk.enhancement_vi[ei].effect) || e.effect;
-          return '<p style="margin:6px 0 0">' + (e.target ? '<b>' + esc(e.target) + ':</b> ' : '') + esc(effect) + '</p>';
+          return '<p style="margin:6px 0 0">' + (e.target ? '<b>' + esc(targetVi(e.target)) + ':</b> ' : '') + esc(effect) + '</p>';
         }).join('') + '</div>' : '';
     var txOrder = { T2: 0, T4: 1, T6: 2 };
     var tx = (sk.tx || []).slice().sort(function (a, b) { return (txOrder[a.tier] || 99) - (txOrder[b.tier] || 99); });
@@ -159,7 +438,7 @@
     return '<div class="hx-skill" id="skill-' + esc(sk.key) + '">' + iconHtml
       + '<div style="flex:1;min-width:0"><h4>' + esc(sk.name || 'Basic Attack') + '</h4>'
       + '<span class="hx-skill-type">' + esc(typeLabel) + '</span>' + cd
-      + groups + bubbles + enhance + txHtml + '</div></div>';
+      + groups + bubbles + fxHtml + enhance + txHtml + '</div></div>';
   }
 
   function renderSkills(skills) {

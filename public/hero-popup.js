@@ -10,6 +10,15 @@
   var STAT_LABELS = { 'AllATK%': 'All Attack %', 'AllATK': 'All Attack', 'Block': 'Block Rate', 'Crit': 'Crit Rate', 'CritDMG': 'Crit Damage', 'Crush': 'Crush', 'DEF%': 'DEF%', 'DEF': 'DEF', 'DMGAmp': 'Damage Amplification', 'DmgTakenReduce': 'Damage Taken Reduction', 'EffectHit': 'Effect Hit Rate', 'EffectRes': 'Effect Resistance', 'HP%': 'HP%', 'HP': 'HP', 'MATK%': 'Magic Attack %', 'MATK': 'Magic Attack', 'PATK%': 'Physical Attack %', 'PATK': 'Physical Attack', 'Rejuvenate': 'Rejuvenate', 'Resilience': 'Resilience', 'SkillAccel': 'Skill Acceleration', 'Speed': 'Speed', 'WeaknessHit': 'Weakness Hit Chance' };
   var STAT_ICONS = { 'AllATK%': 'AllATKpct.webp', 'AllATK': 'AllATK.webp', 'Block': 'Block.webp', 'Crit': 'Crit.webp', 'CritDMG': 'CritDMG.webp', 'Crush': 'Crush.webp', 'DEF%': 'DEFpct.webp', 'DEF': 'DEF.webp', 'DMGAmp': 'DMGAmp.webp', 'DmgTakenReduce': 'DmgTakenReduce.webp', 'EffectHit': 'EffectHit.webp', 'EffectRes': 'EffectRes.webp', 'HP%': 'HPpct.webp', 'HP': 'HP.webp', 'MATK%': 'MATKpct.webp', 'MATK': 'MATK.webp', 'PATK%': 'PATKpct.webp', 'PATK': 'PATK.webp', 'Rejuvenate': 'Rejuvenate.webp', 'Resilience': 'Resilience.webp', 'SkillAccel': 'SkillAccel.webp', 'Speed': 'Speed.webp', 'WeaknessHit': 'WeaknessHit.webp' };
   var SET_ICONS = { 'Bounty Tracker': 'Bounty.webp', 'Spellweaver': 'Spellweaver.webp', 'Avenger': 'Avenger.webp', 'Gatekeeper': 'Gatekeeper.webp', 'Guardian': 'Guardian.webp', 'Orchestrator': 'Orchestrator.webp', 'Paladin': 'Paladin.webp', 'Assassin': 'Assassin.webp', 'Vanguard': 'Vanguard.webp' };
+  /* Gear piece art (Atlas Raid sets): [boss abbr, set stem]. Weapon uses
+   * variant 2 for Magic heroes, 1 otherwise; armor always variant 3. */
+  var SET_PIECE = { 'Bounty Tracker': ['DG', 'Bounty'], 'Paladin': ['DG', 'Paladin'], 'Vanguard': ['DG', 'Vanguard'], 'Assassin': ['NMW', 'Assassin'], 'Gatekeeper': ['NMW', 'Gatekeeper'], 'Guardian': ['NMW', 'Guardian'], 'Avenger': ['ID', 'Avenger'], 'Orchestrator': ['ID', 'Orchestrator'], 'Spellweaver': ['ID', 'Spell'] };
+  function pieceImg(setName, slot, heroType) {
+    var p = SET_PIECE[setName];
+    if (!p) return null;
+    var variant = slot === 'armor' ? 3 : (heroType === 'Magic' ? 2 : 1);
+    return p[0] + '-' + p[1] + variant + '.webp';
+  }
 
   var cache = {};
   var modal = null;
@@ -55,10 +64,11 @@
       var set = (build.gear.sets || [])[0] || {};
       var setImg = setIcon(set.name || '');
       var subs = (build.substats || []).slice(0, 4);
-      /* Main stat: Chính và Phụ tách thành 2 hàng riêng. */
-      function mainStatHtml(label, iconFile, arr) {
+      /* Main stat: Chính và Phụ tách thành 2 hàng riêng. Vũ khí/giáp hiển
+       * thị hình minh họa thật của món đồ trong set (không dùng icon chung). */
+      function mainStatHtml(label, pieceFile, arr) {
         var best = arr[0], alt = arr.slice(1);
-        var row = '<div class="hx-mainstat"><small><img src="assets/gearui/' + esc(iconFile) + '" alt="" loading="lazy">' + esc(label) + '</small>'
+        var row = '<div class="hx-mainstat"><small>' + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="" loading="lazy">' : '') + esc(label) + '</small>'
           + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span>' + esc(statLabel(best || '—')) + '</span></div>';
         if (alt.length) {
           row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + esc(alt.map(statLabel).join(' / ')) + '</span></div>';
@@ -69,10 +79,10 @@
         + '<div class="hx-gear-set">'
         + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="" loading="lazy">' : '')
         + '<div><b>' + esc(set.name || '') + '</b>'
-        + (set.effect ? '<p>' + esc(set.effect) + '</p>' : '') + '</div></div>'
+        + (set.effect ? '<p>' + esc(set.effect.replace('4pc', 'Set 4')) + '</p>' : '') + '</div></div>'
         + '<div class="hx-mainstats">'
-        + mainStatHtml('Chỉ số chính Vũ khí', 'weapon.webp', build.gear.weapon || [])
-        + mainStatHtml('Chỉ số chính Giáp', 'armor.webp', build.gear.armor || [])
+        + mainStatHtml('Chỉ số chính Vũ khí', pieceImg(set.name || '', 'weapon', h.type), build.gear.weapon || [])
+        + mainStatHtml('Chỉ số chính Giáp', pieceImg(set.name || '', 'armor', h.type), build.gear.armor || [])
         + '</div>'
         + '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:12px 0 6px">ƯU TIÊN DÒNG PHỤ</div>'
         + '<ul class="hx-substats">'
@@ -90,14 +100,21 @@
         var aStat = (h.dedicated.a && h.dedicated.a[0] && (typeof h.dedicated.a[0] === 'string' ? h.dedicated.a[0] : h.dedicated.a[0].name)) || '';
         var col = (pick && aStat === pick) ? (h.dedicated.a || []) : (h.dedicated.b || []);
         if (!col.length && pick) col = (h.dedicated.a || []).concat(h.dedicated.b || []);
-        var lines = [];
-        var seen = {};
+        /* Đếm đủ số dòng giống nhau, vd "Crush +12% × 4". */
+        var counts = {};
+        var order = [];
         col.forEach(function (x) {
           var n = typeof x === 'string' ? x : (x.name || '');
           var val = (typeof x === 'object' && x.value) || '';
-          if (!n || seen[n]) return;
-          seen[n] = true;
-          lines.push(statLabel(n) + (val ? ' ' + val : ''));
+          if (!n) return;
+          var key = n + '|' + val;
+          if (!counts[key]) { counts[key] = 0; order.push(key); }
+          counts[key]++;
+        });
+        var lines = order.map(function (k) {
+          var parts = k.split('|');
+          var c = counts[k];
+          return statLabel(parts[0]) + (parts[1] ? ' ' + parts[1] : '') + (c > 1 ? ' × ' + c : '');
         });
         out += '<div class="hx-modal-dedi">'
           + (h.dedicated.icon ? '<img src="assets/dedicated/' + esc(h.dedicated.icon) + '" alt="" loading="lazy">' : '')

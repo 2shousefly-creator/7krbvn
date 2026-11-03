@@ -151,7 +151,7 @@ test('quick-build popup keeps full tags, gear images and dedicated substat lines
   const js = read('hero-popup.js');
   assert.ok(js.includes('hx-modal-tags'), 'popup must show the hero classification tags');
   assert.ok(js.includes('assets/seticons/'), 'popup Gears must show the gear-set badge icon');
-  assert.ok(js.includes("assets/gearui/'"), 'popup Gears must show weapon/armor icons');
+  assert.ok(js.includes('assets/gearpieces/'), 'popup Gears must show the real weapon/armor piece art, not the generic icons');
   assert.ok(js.includes('hx-ms-row alt'), 'popup ALT option must sit on its own row');
   assert.ok(js.includes('Nên build:'), 'popup dedicated equipment must show which substat lines to build');
   assert.ok(js.includes("assets/dedicated/'"), 'popup dedicated equipment must show its illustration image');
@@ -227,6 +227,61 @@ test('every substat icon referenced by hero-detail.js exists on disk (URL-decode
         assert.ok(fs.existsSync(path.join(root, 'assets', 'substats', x.icon)),
           `${f} dedicated icon ${x.icon} is missing from assets/substats`);
       }
+    }
+  }
+});
+
+test('tabs are NOT sticky anymore, but tab switching still preserves scroll', () => {
+  const css = read('heroes.css');
+  const tabsRule = /\.hx-tabs\{[^}]*\}/.exec(css);
+  assert.ok(tabsRule, 'heroes.css must define .hx-tabs');
+  assert.ok(!/position:\s*sticky/.test(tabsRule[0]), 'the detail-page tab bar must NOT be sticky (user asked to remove it)');
+  const js = read('hero-detail.js');
+  assert.ok(js.includes('window.scrollY') && js.includes('sessionStorage'),
+    'scroll preservation must stay even without sticky tabs');
+});
+
+test('skill target scopes translate to Vietnamese (TARGET_VI, all 66 Atlas strings)', () => {
+  const js = read('hero-detail.js');
+  assert.ok(js.includes("'All Enemies': 'Tất cả kẻ địch'"), 'All Enemies must translate to "Tất cả kẻ địch"');
+  assert.ok(js.includes("'4 Enemies': '4 kẻ địch'"), '4 Enemies must translate to "4 kẻ địch"');
+  assert.ok(js.includes("'Self': 'Bản thân'"), 'Self must translate to "Bản thân"');
+  assert.ok(js.includes("'Single Enemy': '1 kẻ địch'"), 'Single Enemy must translate to "1 kẻ địch"');
+  assert.ok(js.includes("'All Allies': 'Tất cả đồng minh'"), 'All Allies must translate to "Tất cả đồng minh"');
+  const m = /var TARGET_VI = \{([\s\S]*?)\n  \};/.exec(js);
+  assert.ok(m, 'TARGET_VI map must exist in hero-detail.js');
+  const entries = (m[1].match(/': '/g) || []).length;
+  assert.ok(entries >= 60, `TARGET_VI must cover the Atlas target strings (found ${entries})`);
+  assert.ok(js.includes('targetVi(g.target)') && js.includes('targetVi(e.target)'),
+    'skill targets and enhancement targets must go through targetVi()');
+});
+
+test('skill effects are explained in Vietnamese (FX_VI glossary + fx list)', () => {
+  const js = read('hero-detail.js');
+  assert.ok(js.includes('"Pierce": "Xuyên thủng"'), 'Pierce must translate to "Xuyên thủng"');
+  assert.ok(js.includes('"Shock": "Sốc điện"'), 'Shock must translate to "Sốc điện"');
+  const m = /var FX_VI = \{([\s\S]*?)\n  \};/.exec(js);
+  assert.ok(m, 'FX_VI glossary must exist in hero-detail.js');
+  const entries = (m[1].match(/": "/g) || []).length;
+  assert.ok(entries >= 180, `FX_VI must cover the Atlas effect names (found ${entries})`);
+  assert.ok(js.includes('hx-fxlist') && js.includes('Hiệu ứng'),
+    'skill cards must render an "Hiệu ứng" explanation list');
+  const css = read('heroes.css');
+  assert.ok(css.includes('.hx-fxlist'), 'heroes.css must style the effect explanation list');
+});
+
+test('popup shows real gear piece art, "Set 4" and the full dedicated line count', () => {
+  const js = read('hero-popup.js');
+  assert.ok(js.includes('assets/gearpieces/'), 'popup must show the real gear piece art, not the generic icons');
+  assert.ok(!js.includes("assets/gearui/"), 'popup must no longer use the generic weapon/armor icons');
+  assert.ok(js.includes("replace('4pc', 'Set 4')"), 'popup must render "4pc" as "Set 4"');
+  assert.ok(js.includes("' × ' + c"), 'popup dedicated equipment must show the line count (e.g. "Crush +12% × 4")');
+  // All 27 Raid gear piece images (9 sets x weapon-physical / weapon-magic / armor) on disk.
+  const pieces = ['DG-Bounty', 'DG-Paladin', 'DG-Vanguard', 'NMW-Assassin', 'NMW-Gatekeeper', 'NMW-Guardian', 'ID-Avenger', 'ID-Orchestrator', 'ID-Spell'];
+  for (const stem of pieces) {
+    for (const v of [1, 2, 3]) {
+      const f = `${stem}${v}.webp`;
+      assert.ok(fs.existsSync(path.join(root, 'assets', 'gearpieces', f)), `gear piece ${f} is missing from assets/gearpieces`);
     }
   }
 });
