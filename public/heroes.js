@@ -129,8 +129,8 @@
   function cardHtml(h) {
     return '<article class="hx-card" data-hero-popup="' + esc(h.id) + '" tabindex="0" role="button" aria-label="' + esc(h.name) + '">'
       + '<img src="' + esc(h.portrait) + '" alt="' + esc(h.name) + '" loading="lazy">'
-      + '<b>' + esc(h.name.toUpperCase()) + '</b>'
-      + '<span class="hx-badge rarity">' + esc(h.rarity) + '</span>'
+      + '<div class="hx-card-meta"><b>' + esc(h.name.toUpperCase()) + '</b>'
+      + '<span class="hx-badge rarity">' + esc(h.rarity) + '</span></div>'
       + '</article>';
   }
 

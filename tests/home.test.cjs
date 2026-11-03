@@ -132,7 +132,16 @@ test('raid guide article: first in Latest, 8 sections, every portrait hero exist
   assert.ok(latest.indexOf('raid-farm-trang-bi.html') < latest.indexOf('cap-nhat-28-10.html'),
     'the raid guide must be the first card in Latest');
   assert.ok(home.includes('Cập nhật 03/11/2026'), 'home stamp must read 03/11/2026');
+  const raidCard = latest.match(/<a class="post-card" href="raid-farm-trang-bi\.html">([\s\S]*?)<\/a>/);
+  assert.ok(raidCard && raidCard[1].includes('<span class="article-tag">NEWBIE</span>'),
+    'the raid guide card in Latest must carry the NEWBIE tag');
+  const raidListing = page('raid.html');
+  const raidListCard = raidListing.match(/<a class="post-card" href="raid-farm-trang-bi\.html">([\s\S]*?)<\/a>/);
+  assert.ok(raidListCard && raidListCard[1].includes('<span class="article-tag">NEWBIE</span>'),
+    'the raid guide card in the Raid listing must carry the NEWBIE tag');
   const article = page('raid-farm-trang-bi.html');
+  assert.ok(article.includes('<span class="article-tag">NEWBIE</span>'),
+    'the raid guide is a Newbie article, not a Raid-tagged one');
   assert.equal((article.match(/class="article-section"/g) || []).length, 8, 'raid guide must have 8 sections');
   assert.ok(!article.includes('GameWith') && !article.includes('Atlas'), 'raid guide must not attribute sources in the article');
   const ids = [...new Set([...article.matchAll(/data-hero-popup="([a-z0-9-]+)"/g)].map(m => m[1]))];
