@@ -70,7 +70,7 @@ test('pinned posts: Ruby Farming is pinned with a pin icon, section holds up to 
   assert.equal((pinned.match(/<a class="post-card"/g) || []).length, 1, 'one post is pinned for now');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
-  assert.equal((latest.match(/<a class="post-card"/g) || []).length, 4, 'latest must still list 4 articles');
+  assert.equal((latest.match(/<a class="post-card"/g) || []).length, 5, 'latest must list 5 articles');
 });
 
 test('home post grids: 2 compact cards per row on mobile', () => {
@@ -85,6 +85,26 @@ test('home post grids: 2 compact cards per row on mobile', () => {
     'pinned section must use the compact home grid');
   assert.ok(home.includes('<section class="home-posts" aria-labelledby="posts-title">'),
     'latest section must use the compact home grid');
+});
+
+test('raid guide article: first in Latest, 8 sections, every portrait hero exists', () => {
+  const home = page('index.html');
+  const latest = home.slice(home.indexOf('Bài viết mới nhất'),
+    home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
+  assert.ok(latest.indexOf('raid-farm-trang-bi.html') < latest.indexOf('cap-nhat-28-10.html'),
+    'the raid guide must be the first card in Latest');
+  assert.ok(home.includes('Cập nhật 03/11/2026'), 'home stamp must read 03/11/2026');
+  const article = page('raid-farm-trang-bi.html');
+  assert.equal((article.match(/class="article-section"/g) || []).length, 8, 'raid guide must have 8 sections');
+  assert.ok(!article.includes('GameWith') && !article.includes('Atlas'), 'raid guide must not attribute sources in the article');
+  const ids = [...new Set([...article.matchAll(/data-hero-popup="([a-z0-9-]+)"/g)].map(m => m[1]))];
+  assert.ok(ids.length >= 20, `raid guide must show at least 20 popup heroes, got ${ids.length}`);
+  for (const id of ids) {
+    assert.ok(fs.existsSync(path.join(root, 'data', 'heroes', `${id}.json`)), `raid guide hero ${id} has no hero data`);
+    assert.ok(fs.existsSync(path.join(root, 'assets', `hero-${id}.webp`)),
+      `raid guide hero ${id} has no portrait`);
+  }
+  assert.ok(article.includes('href="raid.html"'), 'raid guide must link back to the raid listing');
 });
 
 test('category cards: no descriptions, 3 compact cards per row on mobile', () => {

@@ -69,6 +69,8 @@ test('Castle Rush listing links 7 boss articles; each article links back and emb
 
 test('Raid and Dungeon listings link their boss articles; each article links back', () => {
   const raid = page('raid.html');
+  assert.ok(raid.includes('href="raid-farm-trang-bi.html"'), 'raid listing must link the beginner guide first');
+  assert.ok(raid.includes('<p>5 bài viết</p>'), 'raid listing must count 5 articles');
   for (const file of ['raid-iron-devourer-t6.html', 'raid-ox-king-t6.html', 'raid-destroyer-gaze-t6.html',
     'raid-destroyer-gaze-t7-day2.html', 'raid-sudden-leonid.html', 'raid-sudden-astrea.html', 'raid-sudden-calistra.html']) {
     assert.match(raid, new RegExp(`href="${file}"`), `raid listing must link ${file}`);

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f6f1">
+  <meta name="description" content="Raid cho người mới: mở sau Adventure 4-10, xây đội đầu tiên cho Destroyer Gaze, Ox King và Iron Devourer, farm trang bị theo tầng và chế tạo đồ 6★.">
+  <meta property="og:title" content="Raid: Cách xây đội và farm trang bị đầu tiên | 7K RBVN"><meta property="og:description" content="Raid cho người mới: mở sau Adventure 4-10, xây đội đầu tiên cho Destroyer Gaze, Ox King và Iron Devourer, farm trang bị theo tầng và chế tạo đồ 6★."><meta property="og:type" content="website">
+  <title>Raid: Cách xây đội và farm trang bị đầu tiên | 7K RBVN</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='23' width='100' height='100' fill='%23192033'/%3E%3Ctext x='50' y='69' font-size='55' text-anchor='middle' fill='%23e8c16c' font-family='Arial' font-weight='bold'%3E7K%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles-v3.css"><link rel="stylesheet" href="blog.css"><link rel="stylesheet" href="site-nav.css"><link rel="stylesheet" href="heroes.css">
+  <style>
+  .raid-row-label{font-size:10px;font-weight:800;letter-spacing:.1em;color:#ac8844;margin:16px 0 0}
+  .raid-team .hero-picks{margin:8px 0 0}
+  .hero-picks figure[data-hero-popup]{cursor:pointer}
+  .boss-picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+  .boss-picks figure{margin:0;border:1px solid #eae6de;border-radius:12px;overflow:hidden;background:#f9f7f2}
+  .boss-picks img{display:block;width:100%;height:auto}
+  .boss-picks figcaption{padding:10px 12px;font-size:13px;line-height:1.5;color:#5f6675}
+  .boss-picks figcaption b{display:block;font-size:14.4px;color:#353c4c}
+  .boss-art{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+  .boss-art figure{margin:0;border:1px solid #eae6de;border-radius:12px;overflow:hidden;background:#f9f7f2}
+  .boss-art img{display:block;width:100%;height:150px;object-fit:contain;background:linear-gradient(145deg,#e9e5dc,#f6f3ed)}
+  .boss-art figcaption{padding:10px 12px;font-size:13px;line-height:1.5;color:#5f6675}
+  .boss-art figcaption b{display:block;font-size:14.4px;color:#353c4c}
+  .set-icon{width:26px;height:26px;vertical-align:-7px;margin-right:6px}
+  .pet-line{display:flex;align-items:center;gap:10px;background:#fbf8f0;border:1px solid #f0e9d9;border-radius:12px;padding:12px 14px;margin:16px 0}
+  .pet-line img{width:44px;height:44px;object-fit:contain}
+  .pet-line p{margin:0;font-size:15px;line-height:1.6;color:#5f6675}
+  @media(max-width:680px){.boss-picks{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.boss-picks figcaption{font-size:11px;padding:8px}.boss-art{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.boss-art img{height:96px}.boss-art figcaption{font-size:11px;padding:8px}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#noi-dung">Đi đến nội dung</a>
+  <header class="site-header"><div class="header-inner wrap"><a class="brand" href="index.html" aria-label="7K RBVN - Trang đầu"><span class="brand-mark">7K<span>✦</span></span><span><span class="brand-name">SEVEN KNIGHTS</span><span class="brand-sub">RE:BIRTH VN SUPPORTER</span></span></a><a class="fanpage-link" href="https://www.facebook.com/7krbvn" target="_blank" rel="noopener noreferrer" aria-label="Mở fanpage Seven Knights Re:Birth VN Supporter">f <span>Fanpage</span> <span aria-hidden="true">↗</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Mở menu"><span class="nav-toggle-label">MENU</span><span class="nav-toggle-icon"><span></span><span></span><span></span></span></button></div><nav class="main-nav" id="site-nav" aria-label="Menu chính"><div class="wrap nav-scroll"><a href="index.html">TRANG CHỦ</a><a href="newbie.html">NEWBIE</a><a href="cap-nhat.html">CẬP NHẬT</a><div class="nav-item has-sub"><button class="nav-parent nav-parent-active" type="button" aria-expanded="false" aria-haspopup="true" data-parent="PVE">PVE <span class="nav-caret">▾</span></button><div class="nav-sub"><a href="castle-rush.html">CASTLE RUSH</a><a class="nav-active" href="raid.html" aria-current="page">RAID</a><a href="dungeon.html">DUNGEON</a><a href="celestial-tower.html">CELESTIAL TOWER</a><a href="tower-of-trials.html">TOWER OF TRIALS</a></div></div><div class="nav-item has-sub"><button class="nav-parent" type="button" aria-expanded="false" aria-haspopup="true" data-parent="PVP">PVP <span class="nav-caret">▾</span></button><div class="nav-sub"><a href="arena.html">ARENA</a><a href="total-war.html">TOTAL WAR</a><a href="guild-war-team.html">GUILD WAR</a></div></div><a href="heroes.html">HEROES</a><a href="tinh-ruby.html">TÍNH RUBY</a><a href="doi-coupon.html">ĐỔI COUPON</a></div></nav><script>(function(){var b=document.querySelector('.nav-toggle'),n=document.getElementById('site-nav');if(!b||!n)return;b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.classList.toggle('is-open',o)});n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.classList.remove('is-open')}});function closeSubs(){n.querySelectorAll('.nav-item.open').forEach(function(x){x.classList.remove('open');x.querySelector('.nav-parent').setAttribute('aria-expanded','false')})}n.querySelectorAll('.nav-parent').forEach(function(p){p.addEventListener('click',function(e){e.stopPropagation();var it=p.closest('.nav-item'),was=it.classList.contains('open');closeSubs();if(!was){it.classList.add('open');p.setAttribute('aria-expanded','true')}})});document.addEventListener('click',function(e){if(!e.target.closest('.nav-item'))closeSubs()});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSubs()})})();</script></header>
+  <main id="dau-trang"><div class="wrap page-shell" id="noi-dung">
+
+    <div class="breadcrumbs"><a href="index.html">Trang chủ</a><span>›</span><a href="raid.html">Raid</a><span>›</span><span>Cách xây đội và farm trang bị đầu tiên</span></div>
+    <section class="blog-intro"><div class="blog-intro-copy"><span class="article-tag">RAID</span><div class="section-kicker">RAID · HƯỚNG DẪN CHO NGƯỜI MỚI</div><h1>🐉 Raid: Cách xây đội và farm trang bị đầu tiên</h1><p>Khi Hero đã luyện xong, Raid là nguồn trang bị chính của bạn. Bài này hướng dẫn từ đầu: Raid mở ở đâu, tốn gì, đánh Boss nào trước, xếp đội đầu tiên ra sao và farm trang bị như thế nào cho hiệu quả.</p></div><div class="blog-intro-art" aria-hidden="true"><img src="assets/hero-pascal.webp" alt="" loading="lazy"><img src="assets/hero-shane.webp" alt="" loading="lazy"></div></section>
+
+    <section class="article-section" id="raid-la-gi"><div class="article-number">01 <span>/ RAID LÀ GÌ</span></div><h2>🐉 Raid là gì, vì sao người mới phải đi</h2>
+      <p>Raid là nội dung PvE theo tầng: mỗi Boss có 15 tầng (Tier 1–15), tầng càng cao càng dễ ra trang bị hạng cao. Đây là nguồn trang bị chính khi Hero của bạn đã luyện xong — trang bị farm từ Raid dùng để build đội PvE lẫn PvP về sau.</p>
+      <figure><button class="image-button" type="button" data-full="https://img.gamewith.net/img/0100966a19e37d0e68eedbccbe4ae99a.png"><img src="https://img.gamewith.net/img/0100966a19e37d0e68eedbccbe4ae99a.png" alt="Raid trong Seven Knights Re:Birth" loading="lazy"><span>Phóng to 🔍</span></button><figcaption>Raid — nơi farm trang bị chính của game.</figcaption></figure>
+      <h3>Mở khóa và chi phí</h3>
+      <ul>
+        <li><b>Mở khóa:</b> qua Adventure <b>4-10</b>.</li>
+        <li><b>Chi phí mỗi lượt:</b> <b>12 Key</b> hoặc <b>2 Raid Entry Ticket</b>. Vé lấy từ Honor Point Exchange Shop (điểm Honor nhận từ bạn bè) hoặc event.</li>
+        <li><b>Thưởng lần đầu:</b> <b>100 Ruby</b> cho mỗi tầng qua lần đầu.</li>
+        <li><b>Gói trả phí Daily Enhancement Support (28 ngày):</b> cho thêm <b>15 lượt miễn phí mỗi ngày</b> — không bắt buộc, chỉ là lựa chọn tăng tốc.</li>
+      </ul>
+      <h3>Ba công cụ miễn phí trong game mà người mới hay bỏ qua</h3>
+      <ul>
+        <li><b>Booster Mode:</b> sau khi qua một tầng thì mở Booster cho tầng đó — tốn Key gấp 2–3 lần nhưng thưởng cũng gấp 2–3 lần, farm hiệu quả nhất khi đã qua ổn định.</li>
+        <li><b>Clear Records:</b> nút ở góc dưới trái màn hình xếp đội — xem đội người khác đã dùng để qua tầng đó, có thể sao chép đội đó về dùng.</li>
+        <li><b>Nút Strategy:</b> nằm bên trái nút Enter của từng Raid — xem Hero được gợi ý rồi xếp đội theo đó.</li>
+      </ul>
+      <div class="callout"><span>💡</span><p><b>Cut-in và retry miễn phí:</b> khi HP Boss xuống dưới một nửa mà có cut-in thì cuối trận nhận thêm Equipment Crafting Materials. Retry không tốn Key — nên retry khi không có cut-in nếu bạn đang farm nguyên liệu chế tạo.</p></div>
+    </section>
+
+    <section class="article-section" id="ba-boss"><div class="article-number">02 <span>/ BA BOSS RAID</span></div><h2>⚔️ Ba Boss Raid và cách nhận biết</h2>
+      <p>Chỉ có 3 Boss Raid thường. Mỗi Boss gây hiệu ứng khác nhau, kháng hệ khác nhau và cần DPS khác nhau — xếp nhầm đội là thua ngay từ lúc chọn Hero. Bảng dưới tóm tắt những gì bạn cần nhớ trước khi vào trận.</p>
+      <div class="boss-picks">
+        <figure><img src="https://i.ytimg.com/vi/DAg_0rjt1v4/maxresdefault.jpg" alt="Destroyer Gaze" loading="lazy"><figcaption><b>Destroyer Gaze</b>Boss dễ nhất cho người mới — đội early-game toàn Hero dễ có.</figcaption></figure>
+        <figure><img src="https://i.ytimg.com/vi/XnCJ2VtTfcU/maxresdefault.jpg" alt="Ox King" loading="lazy"><figcaption><b>Ox King</b>Boss thứ hai — đội early-game đánh được tới tầng 10.</figcaption></figure>
+        <figure><img src="https://i.ytimg.com/vi/4dB8OMaCBvs/maxresdefault.jpg" alt="Iron Devourer" loading="lazy"><figcaption><b>Iron Devourer</b>Boss khó nhất — để sau cùng, khi đã có Xiao Qiao.</figcaption></figure>
+      </div>
+      <div class="table-scroll"><table class="guide-table"><thead><tr><th>Boss</th><th>Hiệu ứng Boss gây ra</th><th>Miễn nhiễm bắt buộc</th><th>DPS nên dùng</th><th>Cơ chế chính</th></tr></thead><tbody>
+        <tr><td><b>Destroyer Gaze</b></td><td>Stun, Burn; Boss tăng Attack mỗi lượt; kháng Phép</td><td>Stun: Evan, Sieg · Burn: Ariel, Yui, Ryan</td><td>Vật lý đơn mục tiêu, Crit (Shane, Bai Long, Jupy, Catty)</td><td>Dùng đòn đơn mục tiêu (đòn diện rộng sát thương thấp hơn); buff/debuff dài nhất dùng trước; ưu tiên hồi máu và Barrier khi HP thấp</td></tr>
+        <tr><td><b>Ox King</b></td><td>Bleed, Petrify</td><td>Bleed: Karon, Lee Joohee · Petrify: Black Rose, Daisy</td><td>Sát thương theo % máu tối đa (Espada, Snipper)</td><td>Boss triệu hồi 4 Kotan (Red Boils) ngay đầu trận — khi Kotan còn sống thì sát thương vào Boss gần như không vào; Kotan có Damage Resistance nên phải diệt bằng Buff Removal; Boss có 0 DEF nên KHÔNG mang Hero giảm DEF (dùng Magic Vulnerability thay thế); sau lượt Attacker thì tranh thủ hồi máu và buff trước khi Kotan hồi sinh</td></tr>
+        <tr><td><b>Iron Devourer</b></td><td>Paralysis, Deadly Poison; dùng skill giảm DEF đội mình</td><td>Paralysis: Victoria, Xiao Qiao · Poison: Lucy (duy nhất)</td><td>Phép đơn mục tiêu, xuyên DEF (Pascal, Yuri, Xiao Qiao)</td><td>Boss có 3 đầu: sát thương vào 2 đầu trái/phải (hàng trước) bị giảm còn 1; đầu giữa (hàng sau) HP thấp hơn — phải nhắm bằng Weakness Hit hoặc Focus Target; Boss DEF cao và kháng Vật lý (90% Physical Resistance ở tầng 10) nên bắt buộc dùng DPS phép; gỡ giảm DEF sớm bằng Debuff Removal</td></tr>
+      </tbody></table></div>
+      <div class="callout warning"><span>⚠️</span><p><b>Quy tắc số 1 của Raid:</b> miễn nhiễm đúng hiệu ứng Boss là bắt buộc. Đi mà không chuẩn bị miễn nhiễm thì đội sẽ rất bất lợi, dù Hero có mạnh tới đâu.</p></div>
+    </section>
+
+    <section class="article-section" id="boss-nao-truoc"><div class="article-number">03 <span>/ BOSS NÀO FARM TRƯỚC</span></div><h2>🗺️ Nên farm Boss nào trước</h2>
+      <p>Thứ tự cho người mới — đánh theo sức của đội mình, không đánh theo set "ngon nhất":</p>
+      <ol>
+        <li><b>Destroyer Gaze — dễ nhất.</b> Đội early-game dùng toàn Hero dễ có: Evan (cho miễn phí), Yui, Rachel, Ace, Jupy; nâng cấp sau là Shane.</li>
+        <li><b>Ox King — thứ hai.</b> Đội early-game Karon, Black Rose và Snipper đều là Hero hiếm thấp, đánh được tới tầng 10; sau này thay bằng Daisy và Espada; Karon dùng được tới cả tầng 15.</li>
+        <li><b>Iron Devourer — để sau cùng.</b> Nên đánh sau khi đã có Xiao Qiao; nếu chưa có thì dùng Victoria (Paralysis) và Sun Wukong làm DPS. Victoria và Lucy hiện không có Hero thay thế tốt hơn, dùng được tới cả đội tầng 15.</li>
+      </ol>
+      <h3>Boss nào rớt set nào</h3>
+      <div class="table-scroll"><table class="guide-table"><thead><tr><th>Boss</th><th>Set rớt</th><th>Sudden Raid tương đương</th></tr></thead><tbody>
+        <tr><td><b>Destroyer Gaze</b></td><td><img class="set-icon" src="assets/seticons/Vanguard.webp" alt="" loading="lazy">Vanguard · <img class="set-icon" src="assets/seticons/Bounty.webp" alt="" loading="lazy">Bounty Tracker · <img class="set-icon" src="assets/seticons/Paladin.webp" alt="" loading="lazy">Paladin</td><td>Calistra (Dusk)</td></tr>
+        <tr><td><b>Ox King</b></td><td><img class="set-icon" src="assets/seticons/Gatekeeper.webp" alt="" loading="lazy">Gatekeeper · <img class="set-icon" src="assets/seticons/Guardian.webp" alt="" loading="lazy">Guardian · <img class="set-icon" src="assets/seticons/Assassin.webp" alt="" loading="lazy">Assassin</td><td>Astrea (Dawn)</td></tr>
+        <tr><td><b>Iron Devourer</b></td><td><img class="set-icon" src="assets/seticons/Avenger.webp" alt="" loading="lazy">Avenger · <img class="set-icon" src="assets/seticons/Spellweaver.webp" alt="" loading="lazy">Spellweaver · <img class="set-icon" src="assets/seticons/Orchestrator.webp" alt="" loading="lazy">Orchestrator</td><td>Leonid (Night)</td></tr>
+      </tbody></table></div>
+      <h3>Hiệu ứng từng set</h3>
+      <div class="table-scroll"><table class="guide-table"><thead><tr><th>Set</th><th>2 món</th><th>4 món</th></tr></thead><tbody>
+        <tr><td><img class="set-icon" src="assets/seticons/Vanguard.webp" alt="" loading="lazy"><b>Vanguard</b></td><td>All Attack +20%</td><td>All Attack +45% + Effect Accuracy 20%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Bounty.webp" alt="" loading="lazy"><b>Bounty Tracker</b></td><td>Weakness Hit Chance 15%</td><td>Weakness Hit Chance 35% + Weakness Hit Damage 35%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Paladin.webp" alt="" loading="lazy"><b>Paladin</b></td><td>Max HP 17%</td><td>Max HP 40% + Healing Received 20%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Gatekeeper.webp" alt="" loading="lazy"><b>Gatekeeper</b></td><td>Block Rate 15%</td><td>Block Rate 30% + Damage Reduction on Block 10%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Guardian.webp" alt="" loading="lazy"><b>Guardian</b></td><td>Defense 20%</td><td>Defense 45% + Effect RES 20%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Assassin.webp" alt="" loading="lazy"><b>Assassin</b></td><td>Crit Rate 15%</td><td>Crit Rate 30% + Ignore Defense 15%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Avenger.webp" alt="" loading="lazy"><b>Avenger</b></td><td>Damage Dealt 15%</td><td>Damage Dealt 30% + Damage to Bosses 40%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Spellweaver.webp" alt="" loading="lazy"><b>Spellweaver</b></td><td>Effect Hit Rate 17%</td><td>Effect Hit Rate 35% + Effect Probability 10%</td></tr>
+        <tr><td><img class="set-icon" src="assets/seticons/Orchestrator.webp" alt="" loading="lazy"><b>Orchestrator</b></td><td>Effect Resistance 17%</td><td>Effect Resistance 35% + nhận Crowd Control Immunity 1 lượt khi bắt đầu trận</td></tr>
+      </tbody></table></div>
+      <p>Muốn kích hiệu ứng 4 món thì phải mở ô trang bị bằng Ultimate Enhancement. Có thể dùng 2 set 2 món thay vì 1 set 4 món, nhưng set nào có hiệu ứng phụ ở 4 món thì nên mặc đủ 4.</p>
+      <div class="callout"><span>💡</span><p><b>Về lâu dài nên ưu tiên set nào?</b> Iron Devourer (Avenger / Spellweaver / Orchestrator) được ưu tiên cao nhất khi muốn build nhiều Hero cho PvP (Arena, Total War, Guild War): Orchestrator và Spellweaver dùng nhiều trong PvP, Avenger là một trong những set PvE tốt nhất khi tối ưu đủ. Ox King (Gatekeeper / Guardian / Assassin) là lựa chọn mid-game tốt — các set này nhìn chung mạnh, dùng được cho hầu hết Hero. Destroyer Gaze (Vanguard / Bounty Tracker / Paladin) không nên ưu tiên: phục vụ nhu cầu hẹp hoặc cần Hero Transcendence 6 mới dùng hết hiệu quả. Nhưng với người mới, hãy farm Boss nào mình qua được ổn định trước (thực tế là Destroyer Gaze và Ox King) rồi mới tính tới set "ngon nhất".</p></div>
+    </section>
+
+    <section class="article-section" id="doi-dau-tien"><div class="article-number">04 <span>/ ĐỘI ĐẦU TIÊN</span></div><h2>⚔️ Xây đội đầu tiên cho từng Boss</h2>
+      <p>Khung chung cho cả 3 Boss: trận hình <b>Defense 4-1</b> (4 Hero hàng trước, 1 DPS chính ở hàng sau), Tank và Healer giữ đội sống, DPS đứng sau bắn. Ô linh hoạt (Biscuit hoặc Debuffer): đội hay thua thì thay bằng Tank hoặc Healer. Bấm vào ảnh từng Hero để xem chi tiết và cách build đồ.</p>
+      <h3>Destroyer Gaze — đội early-game</h3>
+      <div class="raid-team">
+        <div class="raid-row-label">Hàng trước · Defense 4-1</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"><figcaption><b>Evan</b><small>Tank · Miễn nhiễm Stun</small></figcaption></figure>
+          <figure data-hero-popup="yui"><img src="assets/hero-yui.webp" alt="Yui" loading="lazy"><figcaption><b>Yui</b><small>Healer · Miễn nhiễm Burn</small></figcaption></figure>
+          <figure data-hero-popup="rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"><figcaption><b>Rachel</b><small>Debuff</small></figcaption></figure>
+          <figure data-hero-popup="ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"><figcaption><b>Ace</b><small>Debuff</small></figcaption></figure>
+        </div>
+        <div class="raid-row-label">Hàng sau · DPS chính</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"><figcaption><b>Jupy</b><small>Attacker · DPS chính</small></figcaption></figure>
+        </div>
+      </div>
+      <p><b>Biến thể:</b> thay Ace bằng Biscuit (Buff/Debuff); khi đã có Shane thì Shane thay Jupy làm DPS chính. Đội Speed Clear (cần đầu tư cao): Sieg, Ryan, Rachel, Biscuit, Shane.</p>
+      <p><b>Thứ tự skill ưu tiên</b> (đội trung cấp Biscuit, Evan, Shane, Yui, Rachel): 1. Battle Melody (Yui) · 2. Shield of Order (Evan) · 3. Equipment Enhancement (Biscuit) · 4. Phoenix Strike (Rachel) · 5. Demon Slaying (Shane) · 6. Blazing Strike (Rachel) · 7. Healing Melody (Yui). Lưu ý: Revive của Yui chỉ kích hoạt khi có Hero đã ngã.</p>
+      <p><b>Đội nâng cao (Bai Long):</b> Biscuit, Lina, Bai Long, Ryan, Sieg — Bai Long đánh mạnh hơn Shane, có thể qua trong 12 lượt nếu đầu tư đủ; nhưng Bai Long yếu trước đòn phép nên không hợp đánh lâu. Thứ tự skill: Equipment Enhancement (Biscuit) → Inspiring Melody (Lina) → Marching Anthem (Lina) → Nunchuck Storm (Bai Long) → Tenfold Flash Strike (Bai Long) → Unleashed Blade (Sieg) → Devastating Blow (Sieg).</p>
+      <div class="video-card"><div class="video-embed"><iframe src="https://www.youtube.com/embed/DAg_0rjt1v4" title="Destroyer Gaze Tier 7 — đội early-game Evan, Yui, Rachel, Ace, Jupy" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="video-body"><div class="video-meta">RAID · DESTROYER GAZE · WINDGALE</div><h3>Destroyer Gaze Tier 7 — đội early-game</h3><p>Video tham khảo đội Evan, Yui, Rachel, Ace và Jupy ở hàng sau — đúng đội early-game ở trên; có Shane thì dùng Shane, tốt hơn nhiều.</p></div></div>
+      <h3>Ox King — đội early-game</h3>
+      <div class="raid-team">
+        <div class="raid-row-label">Hàng trước · Defense 4-1</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="black-rose"><img src="assets/hero-black-rose.webp" alt="Black Rose" loading="lazy"><figcaption><b>Black Rose</b><small>Buff Removal · Miễn nhiễm Petrify</small></figcaption></figure>
+          <figure data-hero-popup="karon"><img src="assets/hero-karon.webp" alt="Karon" loading="lazy"><figcaption><b>Karon</b><small>Healer · Miễn nhiễm Bleed</small></figcaption></figure>
+          <figure data-hero-popup="evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"><figcaption><b>Evan</b><small>Tank</small></figcaption></figure>
+          <figure data-hero-popup="rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"><figcaption><b>Rachel</b><small>Debuff</small></figcaption></figure>
+        </div>
+        <div class="raid-row-label">Hàng sau · DPS chính</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"><figcaption><b>Snipper</b><small>Attacker · Sát thương theo % máu</small></figcaption></figure>
+        </div>
+      </div>
+      <p><b>Đội trung – cao cấp:</b> Biscuit, Lina, Espada, Karon, Daisy — Daisy dễ chết nên chỉnh đồ cho trâu, ví dụ một món giáp dòng chính Damage Taken Reduction.</p>
+      <p><b>Thứ tự skill ưu tiên</b> (đội Biscuit, Lina, Espada, Karon, Daisy): 1. Butterfly Flames (Daisy) · 2. Equipment Enhancement (Biscuit) · 3. Purging Shot (Espada) · 4. Goddess's Judgment (Espada) · 5. Dancing Fan (Daisy) · 6. Inspiring Melody (Lina) · 7. Nature's Breath (Karon) · 8. Nature's Healing (Karon). Muốn an toàn thì ưu tiên skill hồi máu của Lina và Karon.</p>
+      <h3>Iron Devourer — đội early-game</h3>
+      <div class="raid-team">
+        <div class="raid-row-label">Hàng trước · Defense 4-1</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="asura"><img src="assets/hero-asura.webp" alt="Asura" loading="lazy"><figcaption><b>Asura</b><small>Focus Target · Debuff</small></figcaption></figure>
+          <figure data-hero-popup="lucy"><img src="assets/hero-lucy.webp" alt="Lucy" loading="lazy"><figcaption><b>Lucy</b><small>Healer · Miễn nhiễm Poison · Debuff Removal</small></figcaption></figure>
+          <figure data-hero-popup="rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"><figcaption><b>Rachel</b><small>Buff / Debuff</small></figcaption></figure>
+          <figure data-hero-popup="ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"><figcaption><b>Ace</b><small>Debuff</small></figcaption></figure>
+        </div>
+        <div class="raid-row-label">Hàng sau · DPS chính</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="xiao-qiao"><img src="assets/hero-xiao-qiao.webp" alt="Xiao Qiao" loading="lazy"><figcaption><b>Xiao Qiao</b><small>DPS phép · Miễn nhiễm Paralysis</small></figcaption></figure>
+        </div>
+      </div>
+      <p><b>Chưa có Xiao Qiao:</b> dùng đội Victoria (Paralysis), Lucy, Rachel, Ace và Sun Wukong làm DPS (đánh 3+ mục tiêu nên không cần Focus Target) — Sun Wukong kiêm Healer. <b>Đội trung cấp:</b> Asura, Lucy, Pascal, Lina, Xiao Qiao — có Focus Target thì các Hero khác không cần tăng Weakness Hit Chance bằng đồ. Thứ tự skill: Spirit Blade (Asura) → Sprout Attack (Xiao Qiao) → Lucid Dream (Xiao Qiao) → Titan of Calamities (Pascal) → Gate to the Abyss (Pascal). Đặt Sprout Attack của Xiao Qiao ở ưu tiên 2 để gỡ giảm DEF ngay.</p>
+      <p><b>Đội nâng cao (không Asura):</b> Biscuit, Lucy, Pascal, Xiao, Xiao Qiao — Biscuit (đã nâng skill) cho Attacker +54% Weakness Hit Chance; Attacker đeo đồ tăng Weakness Hit Chance là qua được không cần Focus Target. Thứ tự skill: Equipment Enhancement (Biscuit) → Sprout Attack (Xiao Qiao) → Life Drain (Xiao) → Lucid Dream (Xiao Qiao) → Titan of Calamities (Pascal) → Gate to the Abyss (Pascal).</p>
+      <h3>Pet, nhẫn và ưu tiên nâng cấp — dùng chung cho cả 3 Boss</h3>
+      <div class="pet-line"><img src="https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/pet_79.png" alt="Pet Windy" loading="lazy"><p><b>Pet tốt nhất: Windy</b> — gây Boss Vulnerability. Thay thế: Eirin hoặc Igris (pet Rare collab); hạng thấp hơn: Sherry (Destroyer Gaze), Note (Ox King, Iron Devourer).</p></div>
+      <ul>
+        <li><b>Nhẫn:</b> Attacker đeo Boss Ring (Ring of Subjugation); Support đeo Ring of Resurrection; Attacker hay ngã thì đeo Ring of Authority. Riêng Iron Devourer: Lina đeo HP Ring để tăng hồi máu.</li>
+        <li><b>Ưu tiên nâng cấp khi kẹt:</b> Enhancement +5 và Rank Up cho cả đội; riêng Attacker ưu tiên Skill Enhancement và Ultimate Enhancement (mở thêm ô trang bị). Nâng Pascal và Shane là ưu tiên cao nhất, nhưng nếu không nâng đều các Hero còn lại thì cũng dễ ngã.</li>
+        <li><b>Chỉ số mục tiêu (đội trung cấp):</b> DPS Crit Rate khoảng 90%, Weakness Hit Chance khoảng 20% gốc (lên ~100% nhờ buff của Biscuit và Rachel); riêng Iron Devourer cần Weakness Hit Chance của Xiao, Xiao Qiao và Pascal gần 100% (tính cả buff) và giữ Speed của 4+ Hero trên 30 (Speed của địch) để không ăn đòn trong khoảng trống giữa lúc dính giảm DEF và lúc gỡ được.</li>
+      </ul>
+      <h3>Cài đặt Repeat Battle để farm</h3>
+      <ul>
+        <li>Stop Repeat Battle on Defeat: <b>OFF</b> · Use "Key Box" to Charge Keys: <b>ON</b> · Auto Character Swap: <b>All OFF</b></li>
+        <li>Enable Skill Priority: <b>ON</b> · 2x Speed Mode: <b>ON</b> · Auto-Sell Equipment: tùy ý</li>
+      </ul>
+      <p>Khi chạy Repeat Battle có thể thu nhỏ game để đi Adventure, Arena hoặc Infinite Tower như khi farm Ruby. Trước khi chạy nhiều lượt, hãy thử vài lượt để chắc đội qua ổn định.</p>
+    </section>
+
+    <section class="article-section" id="farm-trang-bi"><div class="article-number">05 <span>/ FARM TRANG BỊ</span></div><h2>🛡️ Farm trang bị như thế nào</h2>
+      <h3>Thưởng theo tầng</h3>
+      <div class="table-scroll"><table class="guide-table"><thead><tr><th>Tầng</th><th>Thưởng</th></tr></thead><tbody>
+        <tr><td><b>Tier 1</b></td><td>Trang bị 4★</td></tr>
+        <tr><td><b>Tier 2</b></td><td>Trang bị 5★</td></tr>
+        <tr><td><b>Tier 3</b></td><td>Trang bị 6★</td></tr>
+        <tr><td><b>Tier 4</b></td><td>Trang bị 6★ + Chaos Essence + Oblivion Essence + Sudden Raid Entry Ticket + Shared Equipment Box</td></tr>
+        <tr><td><b>Tier 5–6</b></td><td>Trang bị 6★ + Essence + vé Sudden Raid + Dedicated Equipment Box</td></tr>
+      </tbody></table></div>
+      <p>Tầng càng cao càng dễ ra trang bị hạng cao. Từ tầng 4 trở lên có thể rớt Shared và Dedicated Equipment; Dedicated mạnh hơn Shared nên farm từ tầng 5 trở lên nếu đủ sức. Chaos Essence và Oblivion Essence lấy từ Arena Exchange Shop và Raid tầng 11 trở lên.</p>
+      <h3>Chế tạo trang bị Raid</h3>
+      <p>Vào Home → Upgrade Equipment → Craft Equipment, dùng Equipment Crafting Materials lấy từ Raid (đặc biệt từ cut-in): chọn hạng sao, chọn món, <b>chọn 1 Main Stat</b>, Substat ngẫu nhiên; không bao giờ thất bại; chế hàng loạt tối đa 20 món một lúc.</p>
+      <p><b>Advance Crafting:</b> tốn Raid Materials chung + <b>Essence of Memories</b> + Gold; <b>cố định 4 Substat</b>, chọn Main Stat, có thể đổi Substat nhiều lần tới khi ưng. Mở sau khi qua Adventure 4-10; Essence of Memories lấy từ Sudden Raid.</p>
+      <h3>Cường hóa trang bị</h3>
+      <ul>
+        <li>Dùng Gold; mỗi <b>+3 mở ngẫu nhiên 1 Substat</b>; cấp tối đa theo hạng: 1–2★ +3, 3★ +6, 4★ +9, 5★ +12, 6★ +15.</li>
+        <li>Trang bị 4★ trở lên có tối đa 4 Substat; ở +12 và +15 sẽ cường hóa ngẫu nhiên 1 Substat.</li>
+        <li>Mẹo: kiểm tra chỉ số ở +6 trước, nếu ngon thì dừng để tiết kiệm tài nguyên.</li>
+      </ul>
+      <h3>Reconfigure — chỉnh lại đồ đã cường hóa</h3>
+      <p>Mở sau khi qua Adventure 4-10. <b>Reroll Substat</b> bằng Chaos Essence (chỉ đồ 6★ trở lên; được khóa 1 Substat; được chọn giữ giá trị cũ hay mới; có Auto Reroll tới khi ra chỉ số mong muốn). <b>Reset cấp cường hóa về +0</b> bằng Oblivion Essence (đồ 6★ từ +3 trở lên; Gold đã dùng không được hoàn).</p>
+      <h3>Dedicated Equipment — đồ riêng từng Hero</h3>
+      <p>Chế qua Workshop → Crafting → Dedicated Equipment Conversion — dùng 4 món Legendary Common Equipment <b>+15</b> làm nguyên liệu để đổi thành Dedicated Equipment Selection Box theo hệ Hero (Attack, Magic, Defense, Support, Universal cần số lượng kiếm và khiên khác nhau). Hoặc quay Dedicated Equipment Summon (80 Ruby/lượt, đăng ký 2 món vào Wishlist, bảo đảm ra 1 trong 2 ở lần quay thứ 100). Nâng Dedicated Equipment tối đa +15; Tuning bằng Tuning Crystals (tháo đồ Common: Legendary 250, Rare 50, Uncommon 20, Common 15 viên; hoặc đổi ở Total War Shop 400 token → 50 viên, Guild War Shop 120 Pendant → 50 viên, Weekly Ruby Shop 150 Ruby → 50 viên).</p>
+    </section>
+
+    <section class="article-section" id="sudden-raid"><div class="article-number">06 <span>/ SUDDEN RAID</span></div><h2>🌙 Sudden Raid — phần thưởng cao hơn, khó hơn</h2>
+      <div class="table-scroll"><table class="guide-table"><thead><tr><th></th><th>Raid thường</th><th>Sudden Raid</th></tr></thead><tbody>
+        <tr><td><b>Boss</b></td><td>Destroyer Gaze, Ox King, Iron Devourer</td><td>Leonid, Astrea, Calistra</td></tr>
+        <tr><td><b>Mở khóa</b></td><td>Qua Adventure 4-10</td><td>Đã qua tầng 10 của bất kỳ Raid nào</td></tr>
+        <tr><td><b>Cách vào</b></td><td>12 Key hoặc 2 Raid Entry Ticket, đánh lúc nào cũng được</td><td><b>Kích hoạt ngẫu nhiên theo server:</b> khi cả server cùng dọn đủ số Raid thường tầng 11–15 thì có tỉ lệ xuất hiện; sau khi kích hoạt tỉ lệ reset</td></tr>
+        <tr><td><b>Vé vào</b></td><td>Raid Entry Ticket (Honor Shop, event)</td><td><b>1 Sudden Raid Ticket</b>, không hoàn lại nếu bỏ giữa chừng; lấy từ việc dọn Raid thường tầng 11–15 và Honor Shop</td></tr>
+        <tr><td><b>Thời gian đánh</b></td><td>Không giới hạn</td><td>Sau khi kích hoạt có thời gian chờ (standby) chưa vào được; chỉ được vào trong <b>khung 10 tiếng</b>; sau đó là cooldown (chỉ xem xếp hạng); điểm tính mỗi ngày vào giờ cố định, thưởng Rank và Collaboration gửi qua thư</td></tr>
+        <tr><td><b>Thưởng chính</b></td><td>Trang bị theo tầng + Essence (tầng 11+) + vé Sudden Raid</td><td><b>Trang bị 6★ mới</b>, tỉ lệ 4 Substat cao hơn; <b>được chọn trước 2 set effect và 4 main stat</b> (giảm ngẫu nhiên); <b>Essence of Memories</b> (dùng để đảm bảo đồ chế có 4 Substat)</td></tr>
+      </tbody></table></div>
+      <p><b>Lịch Sudden Raid (giờ UTC+0):</b> phát hiện 17:00–21:00 → thời gian tính điểm; 21:00–07:00 → mở trận lúc 07:00; 07:00–17:00 → mở trận lúc 21:00; xoay vòng, không mở trong thời gian tính điểm.</p>
+      <h3>Leonid — đòn hiệu quả: Physical xuyên DEF</h3>
+      <div class="boss-art">
+        <figure><img src="https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/enemy_8.png" alt="Leonid" loading="lazy"><figcaption><b>Leonid</b>Cần Shock Immunity và Death Immunity, mang Buff Removal.</figcaption></figure>
+      </div>
+      <p>Cần Shock Immunity (Guan Yu, Chloe), Death Immunity (Leo, Xiao) và Buff Removal (Fai, Kyle, Radgrid, Guan Yu). Đội mẫu: Biscuit, Guan Yu, Xiao, Lu Bu, Bai Long (Main DPS).</p>
+      <div class="raid-team">
+        <div class="raid-row-label">Đội mẫu · Leonid</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="biscuit"><img src="assets/hero-biscuit.webp" alt="Biscuit" loading="lazy"><figcaption><b>Biscuit</b><small>Buff</small></figcaption></figure>
+          <figure data-hero-popup="guan-yu"><img src="assets/hero-guan-yu.webp" alt="Guan Yu" loading="lazy"><figcaption><b>Guan Yu</b><small>Shock Immunity · Buff Removal</small></figcaption></figure>
+          <figure data-hero-popup="xiao"><img src="assets/hero-xiao.webp" alt="Xiao" loading="lazy"><figcaption><b>Xiao</b><small>Death Immunity</small></figcaption></figure>
+          <figure data-hero-popup="lu-bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"><figcaption><b>Lu Bu</b><small>DPS</small></figcaption></figure>
+          <figure data-hero-popup="bai-long"><img src="assets/hero-bai-long.webp" alt="Bai Long" loading="lazy"><figcaption><b>Bai Long</b><small>Main DPS</small></figcaption></figure>
+        </div>
+      </div>
+      <h3>Astrea — đòn hiệu quả: Magic theo % máu</h3>
+      <div class="boss-art">
+        <figure><img src="https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/enemy_9.png" alt="Astrea" loading="lazy"><figcaption><b>Astrea</b>Triệu hồi 4 Dike ngay đầu trận — phải diệt nhanh bằng Buff Removal.</figcaption></figure>
+      </div>
+      <p>Cần Petrify Immunity (Daisy, Black Rose), Bleed Immunity (Karon, Lee Joohee), Buff Removal và Debuff Removal. Đội mẫu: Biscuit, Daisy, Karon, Miho, Espada (Main DPS).</p>
+      <p>Cơ chế riêng: Astrea triệu hồi 4 Dike ngay đầu trận — Dike có Damage Resistance, phải diệt bằng Buff Removal; <b>Dike tự nổ gây 99.999 Pierce Damage ở đòn đánh thường thứ 3</b> nên phải diệt nhanh. Astrea kháng Vật lý, HP rất cao; khi hàng sau bị giảm Attack thì gỡ bằng Debuff Removal (Orly và Miho cần T2 mới có Debuff Removal; dưới T2 dùng Xiao Qiao).</p>
+      <div class="raid-team">
+        <div class="raid-row-label">Đội mẫu · Astrea</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="biscuit"><img src="assets/hero-biscuit.webp" alt="Biscuit" loading="lazy"><figcaption><b>Biscuit</b><small>Buff</small></figcaption></figure>
+          <figure data-hero-popup="daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"><figcaption><b>Daisy</b><small>Petrify Immunity</small></figcaption></figure>
+          <figure data-hero-popup="karon"><img src="assets/hero-karon.webp" alt="Karon" loading="lazy"><figcaption><b>Karon</b><small>Bleed Immunity</small></figcaption></figure>
+          <figure data-hero-popup="miho"><img src="assets/hero-miho.webp" alt="Miho" loading="lazy"><figcaption><b>Miho</b><small>Debuff Removal</small></figcaption></figure>
+          <figure data-hero-popup="espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"><figcaption><b>Espada</b><small>Main DPS</small></figcaption></figure>
+        </div>
+      </div>
+      <h3>Calistra — đòn hiệu quả: Physical</h3>
+      <div class="boss-art">
+        <figure><img src="https://img.gamewith.net/jp/article_tools/sevenknights-rebirth/gacha/enemy_11.png" alt="Calistra" loading="lazy"><figcaption><b>Calistra</b>Cần Blind Immunity và Burn Immunity, mang Hero giảm All Attack.</figcaption></figure>
+      </div>
+      <p>Cần Blind Immunity (Zhao Yun — Hero duy nhất được liệt kê) và Burn Immunity (Ryan, Ariel, Yui). Đội mẫu: Biscuit, Zhao Yun, Yui, Rachel, Shane (Main DPS). Mang thêm Hero giảm All Attack (Rachel, Colt, Radgrid) để giảm sát thương Calistra và tận dụng Damage Boost của Shane (tăng theo số debuff trên địch).</p>
+      <div class="raid-team">
+        <div class="raid-row-label">Đội mẫu · Calistra</div>
+        <div class="hero-picks">
+          <figure data-hero-popup="biscuit"><img src="assets/hero-biscuit.webp" alt="Biscuit" loading="lazy"><figcaption><b>Biscuit</b><small>Buff</small></figcaption></figure>
+          <figure data-hero-popup="zhao-yun"><img src="assets/hero-zhao-yun.webp" alt="Zhao Yun" loading="lazy"><figcaption><b>Zhao Yun</b><small>Blind Immunity</small></figcaption></figure>
+          <figure data-hero-popup="yui"><img src="assets/hero-yui.webp" alt="Yui" loading="lazy"><figcaption><b>Yui</b><small>Burn Immunity · Healer</small></figcaption></figure>
+          <figure data-hero-popup="rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"><figcaption><b>Rachel</b><small>Giảm All Attack · Debuff</small></figcaption></figure>
+          <figure data-hero-popup="shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"><figcaption><b>Shane</b><small>Main DPS</small></figcaption></figure>
+        </div>
+      </div>
+      <p>Mẹo chung: bấm nút Strategy bên trái nút Enter để xem Hero gợi ý; bấm kính lúp để xem đội của người chơi top và học theo nếu có cùng Hero.</p>
+      <div class="callout"><span>💡</span><p><b>Lưu ý:</b> Sudden Raid chỉ có 3 Boss Leonid, Astrea và Calistra. Sunran (God of Destruction) là Boss của Advent Expedition, không phải Sudden Raid — đừng nhầm.</p></div>
+    </section>
+
+    <section class="article-section" id="loi-thuong-gap"><div class="article-number">07 <span>/ LỖI THƯỜNG GẶP</span></div><h2>❌ Lỗi thường gặp của người mới</h2>
+      <ol>
+        <li><b>Vào Raid mà không mang miễn nhiễm đúng hiệu ứng Boss</b> — đây là điều cực kỳ quan trọng, không chuẩn bị sẽ rất bất lợi.</li>
+        <li><b>Mang Hero giảm DEF đi đánh Ox King</b> — Boss có 0 DEF, giảm DEF vô dụng; dùng Magic Vulnerability hoặc debuff khác.</li>
+        <li><b>Dùng DPS vật lý đánh Iron Devourer</b> — Boss kháng Vật lý (90% ở tầng 10); bắt buộc DPS phép xuyên DEF (Pascal, Yuri, Xiao Qiao).</li>
+        <li><b>Dùng skill diện rộng đánh Boss đơn</b> — skill càng rộng sát thương càng thấp; đánh Boss đơn thì ưu tiên đòn đơn mục tiêu.</li>
+        <li><b>Không diệt Kotan trước khi đánh Ox King</b> — khi 4 Kotan còn sống, sát thương vào Boss gần như không vào; phải diệt bằng Buff Removal.</li>
+        <li><b>Focus Target nhầm đầu ở Iron Devourer</b> — Focus phải trúng đầu giữa (hàng sau); nếu trúng đầu trái hoặc phải thì bấm pause để retry.</li>
+        <li><b>Không gỡ giảm DEF của Iron Devourer sớm</b> — tầng thấp thì không sao, tầng cao không có Debuff Removal sẽ rất khó qua.</li>
+        <li><b>Đánh Iron Devourer khi chưa có Xiao Qiao</b> mà không có phương án thay thế (Victoria + Sun Wukong).</li>
+        <li><b>Chạy Repeat Battle mà không bật Skill Priority hoặc không bật tự nạp Key (Key Box)</b> — farm sẽ kém hiệu quả hoặc dừng giữa chừng.</li>
+        <li><b>Nâng đồ và Hero dàn trải</b> — ưu tiên Enhancement +5 và Rank Up cả đội, riêng Attacker ưu tiên Skill Enhancement và Ultimate Enhancement.</li>
+        <li><b>Không dùng Booster Mode, Clear Records và nút Strategy</b> — bỏ qua 3 công cụ farm và học đội miễn phí trong game.</li>
+        <li><b>Farm cut-in materials mà không retry</b> — retry không tốn Key khi cut-in không xuất hiện.</li>
+      </ol>
+    </section>
+
+    <section class="article-section" id="faq"><div class="article-number">08 <span>/ GIẢI ĐÁP NHANH</span></div><h2>❔ Những câu hỏi thường gặp</h2>
+      <p><b>Chưa có Xiao Qiao thì đánh Iron Devourer bằng gì?</b><br>Dùng Victoria (Paralysis) và Sun Wukong làm DPS — Sun Wukong đánh 3+ mục tiêu nên không cần Focus Target, lại kiêm Healer.</p>
+      <p><b>Qua tầng nào thì bắt đầu farm Dedicated Equipment?</b><br>Từ tầng 5 trở lên — Dedicated Equipment Box bắt đầu rớt từ tầng 5, Shared Equipment Box từ tầng 4.</p>
+      <p><b>Essence lấy ở đâu?</b><br>Chaos Essence và Oblivion Essence lấy từ Arena Exchange Shop và Raid tầng 11 trở lên. Essence of Memories (dùng cho Advance Crafting) lấy từ Sudden Raid.</p>
+      <p><b>Chỉ qua được 1 Boss thì farm Boss nào?</b><br>Destroyer Gaze — dễ nhất, đội early-game toàn Hero dễ có. Qua ổn định rồi mới tính tới Ox King và Iron Devourer.</p>
+      <p><b>Có cần mua gói Daily Enhancement Support không?</b><br>Không bắt buộc. Gói cho thêm 15 lượt Raid miễn phí mỗi ngày — chỉ nên mua khi bạn đã qua ổn định và muốn farm nhanh hơn.</p>
+      <p><b>Farm Raid có giới hạn lượt mỗi ngày không?</b><br>Không có giới hạn lượt riêng — chỉ tốn Key hoặc vé mỗi lượt vào, và Booster Mode tốn Key gấp 2–3 lần để thưởng gấp 2–3 lần.</p>
+    </section>
+
+    <div class="related-post"><span>XEM THÊM TRONG RAID</span><a href="raid.html">Raid và Sudden Raid — đánh Boss nào, dùng đội nào <span>↗</span></a><p>Hướng dẫn tối ưu sát thương cho Raid và Sudden Raid, từng Boss một.</p></div>
+
+    <div class="community-card"><div><span>ĐỒNG HÀNH CÙNG BẠN</span><h2>Cùng khám phá Seven Knights Re:Birth</h2><p>Theo dõi fanpage để cập nhật thêm các hướng dẫn dành cho cộng đồng.</p></div><a href="https://www.facebook.com/7krbvn" target="_blank" rel="noopener noreferrer">Theo dõi fanpage ↗</a></div>
+  </div></main>
+  <footer class="site-footer"><div class="wrap footer-inner"><div><b>7K RBVN <span>✦</span></b><small>Seven Knights Re:Birth VN Supporter</small></div><p>Một góc nhỏ dành cho cộng đồng người chơi Việt Nam.</p><a href="#dau-trang">Về đầu trang ↑</a></div></footer>
+<button class="back-to-top" type="button" aria-label="Về đầu trang">↑</button>
+<script>(function(){var b=document.querySelector('.back-to-top');if(!b)return;function t(){b.classList.toggle('show',window.scrollY>600)}window.addEventListener('scroll',t,{passive:true});t();b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();</script>
+<script src="hero-popup.js" defer></script>
+</body></html>
