@@ -318,7 +318,7 @@ test('skill bracket notes translate to Vietnamese and key values are bolded', ()
   assert.ok(js.includes('Tối đa $1 cộng dồn'), 'Max Stack notes must render as "Tối đa N cộng dồn"');
   assert.ok(js.includes('BOLD_TERMS') && js.includes('Physical Attack'), 'damage types must be bolded');
   assert.ok(js.includes("richLine(l)"), 'skill effect lines must use richLine');
-  assert.ok(js.includes("richLine(tipByName[t.name])"), 'effect explanations must use richLine');
+  assert.ok(js.includes("richLine(tipByName[t.name], true)"), 'effect explanations must use richLine with noColor (no coloring there)');
 });
 
 test('builds tab accessories render horizontally (main + sub ring)', () => {
@@ -375,4 +375,25 @@ test('dedicated lines align the icon snug to the left', () => {
   const js = read('hero-detail.js');
   assert.ok(js.includes('gap:6px;align-items:center'), 'dedicated rows must use a small gap between icon and text');
   assert.ok(js.includes('white-space:nowrap;flex:none'), 'dedicated values must not wrap onto the next line');
+});
+
+test('skill effect coloring: bad effects red, good effects blue, explanation uncolored', () => {
+  const js = read('hero-detail.js');
+  assert.ok(js.includes('var FX_BAD'), 'hero-detail.js must define the bad-effects (red) list');
+  assert.ok(js.includes('var FX_GOOD'), 'hero-detail.js must define the good-effects (blue) list');
+  assert.ok(js.includes("'Shock': 1") && js.includes("'Buff Removal': 1"), 'red list must include Shock and Buff Removal');
+  assert.ok(js.includes("'Revive': 1") && js.includes("'Crit Damage Boost': 1"), 'blue list must include Revive and Crit Damage Boost');
+  assert.ok(js.includes('function richLine(raw, noColor)'), 'richLine must accept a noColor flag');
+  assert.ok(js.includes('richLine(tipByName[t.name], true)'), 'the effect-explanation section must call richLine with noColor');
+  const css = read('heroes.css');
+  assert.ok(/\.hx-fx-bad\{color:#c0392b\}/.test(css), 'bad effects must be red');
+  assert.ok(/\.hx-fx-good\{color:#1a6fd4\}/.test(css), 'good effects must be blue');
+});
+
+test('skill target scopes render as a pill tag with a border', () => {
+  const css = read('heroes.css');
+  assert.ok(/\.hx-skill \.hx-skill-target\{[^}]*border:1px solid #b9cdf0/.test(css),
+    'skill target scope must have a border (tag look)');
+  assert.ok(/\.hx-skill \.hx-skill-target\{[^}]*border-radius:999px/.test(css),
+    'skill target scope must be a pill tag');
 });

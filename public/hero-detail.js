@@ -368,7 +368,79 @@
   var BOLD_RE = new RegExp('\\b(' + BOLD_TERMS.map(function (t) {
     return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }).join('|') + ')\\b', 'g');
-  function richLine(raw) {
+  /* Phân loại hiệu ứng để tô màu trong nội dung chi tiết kỹ năng:
+   * FX_BAD = hiệu ứng xấu lên kẻ địch (tô đỏ), FX_GOOD = hiệu ứng tốt
+   * lên bản thân/đồng minh (tô xanh dương). Chỉ dựa vào tên hiệu ứng
+   * trong dữ liệu Atlas (tên "X Reduction" là debuff lên địch, "X Boost"
+   * là buff lên mình). Các hiệu ứng cơ chế/trung tính (Pierce, Ignore
+   * Defense, các mốc Stack, ...) không nằm trong 2 danh sách này nên chỉ
+   * in đậm như trước, không tô màu. */
+  var FX_BAD = {
+    'All Attack Reduction': 1, 'Awakening Gauge Reduction': 1, 'Bad Debt': 1,
+    'Binding Rope': 1, 'Bleed': 1, 'Bleed Explosion': 1, 'Blind': 1,
+    'Block Rate Reduction': 1, 'Bomb': 1, 'Buff Block': 1,
+    'Buff Duration Reduction': 1, 'Buff Removal': 1, 'Burn': 1,
+    'Concussion': 1, 'Confusion': 1, 'Crit Damage Reduction': 1,
+    'Crit Rate Reduction': 1, 'Deadly Poison': 1, 'Death': 1,
+    'Debuff Duration Boost': 1, 'Defense Reduction': 1,
+    'Defense Reduction (Stacks)': 1, 'Detonates Bombs': 1,
+    'Effect Probability Reduction': 1, 'Effect Resist Reduction': 1,
+    'Execution': 1, 'Fear': 1, 'Freeze': 1, 'Incoming Barrier Reduction': 1,
+    'Incoming Healing Reduction': 1, 'Incoming Healing Reduction (Stacks)': 1,
+    'Increased Miss Chance': 1, 'Magic Attack Reduction': 1,
+    'Magic Vulnerability': 1, 'Magic Vulnerability (Stacks)': 1,
+    'Mark of Darkness': 1, 'Paralysis': 1, 'Petrify': 1,
+    'Physical Attack Reduction': 1, 'Physical Vulnerability': 1, 'Poison': 1,
+    'Silence': 1, 'Skill Cooldown Increase': 1, 'Sleep': 1, 'Deep Sleep': 1,
+    'Shock': 1, 'Souldeath': 1, 'Stun': 1, 'Taunt': 1, 'Thunderbolt Mark': 1,
+    'Toxic Build-Up (Stacks)': 1, 'Unable to Recover': 1,
+    'Weakness Hit Chance Reduction': 1
+  };
+  var FX_GOOD = {
+    'All Attack Boost': 1, 'All Damage Immunity': 1, 'All Damage Nullification': 1,
+    'Ally Role Support': 1, 'Attack Based Defense Boost': 1,
+    'Attack-Based Defense Boost': 1, 'Attack-Based Effect Hit Rate Boost': 1,
+    'Attack-Based Reduced Damage Taken Boost': 1,
+    'Attack-Based Weakness Hit Chance Boost': 1, 'Awakening Gauge Boost': 1,
+    'Barrier': 1, 'Blessing': 1, 'Bleed Immunity': 1, 'Blind Immunity': 1,
+    'Block Rate Boost': 1, 'Boss Damage Boost': 1, 'Buff Duration Boost': 1,
+    'Burn Immunity': 1, 'Camouflage': 1, 'Clone': 1, 'Continuous Healing': 1,
+    'Cooldown Increase Immunity': 1, 'Cooldown Reduction': 1, 'Cooldown Reset': 1,
+    'Counterattack': 1, 'Counterattack Chance Boost': 1, 'Cover': 1,
+    'Crit Damage Boost': 1, 'Crit Damage Boost (Stacks)': 1, 'Crit Rate Boost': 1,
+    'Crowd Control Immunity': 1,
+    'Crowd Control Immunity upon gaining Immortality': 1, 'Damage Boost': 1,
+    'Damage Boost (Stacks)': 1, 'Damage Reduction': 1, 'Damage Resistance': 1,
+    'Damage Resistance (Allies)': 1, 'Damage Resistance (Self)': 1,
+    'Death Effect Probability Boost': 1, 'Death Immunity': 1, 'Debuff Removal': 1,
+    'Defense Boost': 1, 'Defense Ignore Efficiency Boost': 1,
+    'Defense-Based Block Rate Boost': 1, 'Effect Hit Rate Boost': 1,
+    'Effect Probability Boost': 1, 'Effect Resist Boost': 1, 'Freeze Immunity': 1,
+    'Guardian Spirit': 1, 'Guts': 1, 'Guts upon revival': 1, 'Immortality': 1,
+    'Incoming Healing Boost': 1, 'Indomitable': 1, 'Link': 1,
+    'Magic Attack Boost': 1, 'Magic Attack Boost (Stacks)': 1, 'Magic Bond': 1,
+    'Magic Damage Boost': 1, 'Magic Damage Immunity': 1, 'Magic Resistance': 1,
+    'Max HP-Based Attack Boost': 1, 'Max HP-Based Block Rate Boost': 1,
+    'Max HP-Based Defense Boost': 1, 'Max HP-Based Effect Hit Rate Boost': 1,
+    'Pain Endurance': 1, 'Paralysis Immunity': 1, 'Petrify Immunity': 1,
+    'Physical Attack Boost': 1, 'Physical Attack Boost (Stacks)': 1,
+    'Physical Damage Boost': 1, 'Physical Damage Boost (Stacks)': 1,
+    'Physical Damage Immunity': 1, 'Physical Resistance': 1,
+    'Poison Immunity': 1, 'Protection': 1,
+    'Quintuple-Target Attack Resistance': 1, 'Resets all skill cooldowns': 1,
+    "Resets the cooldown of [Dragon's Descent] upon defeating an enemy with damage from this skill": 1,
+    "Resets the cooldown of [Undefeated Cavalier] upon defeating an enemy with damage from this skill": 1,
+    'Revive': 1, 'Revives with 80% HP upon falling in battle': 1,
+    'Shock Immunity': 1, 'Shock Probability Boost': 1, 'Silence Immunity': 1,
+    'Single-Target Attack Damage Boost': 1,
+    'Skill Cooldown Reset upon gaining Immortality': 1, 'Sleep Immunity': 1,
+    'Speed-Based Attack Boost': 1, 'Stun Immunity': 1,
+    'Triple-Target Attack Damage Boost': 1, 'Weakness Hit Chance Boost': 1,
+    'Weakness Hit Damage Boost': 1
+  };
+  /* noColor = true: chỉ in đậm, không tô màu (dùng cho mục "Hiệu ứng"
+   * giải thích — theo yêu cầu, phần giải thích không tô màu). */
+  function richLine(raw, noColor) {
     var s = esc(raw == null ? '' : raw);
     /* Dịch nội dung trong ngoặc [...]. */
     s = s.replace(/\[([^\]]+)\]/g, function (m, inner) {
@@ -377,9 +449,14 @@
       if (t === inner && FX_VI[inner]) t = FX_VI[inner];
       return '[' + t + ']';
     });
-    /* In đậm giá trị % , tên hiệu ứng, loại sát thương. */
+    /* In đậm giá trị % , tên hiệu ứng, loại sát thương; tô đỏ hiệu ứng xấu
+     * lên địch, tô xanh dương hiệu ứng tốt lên mình/đồng minh. */
     s = s.replace(/(\d+(?:\.\d+)?%)/g, '<b>$1</b>');
-    s = s.replace(BOLD_RE, '<b>$1</b>');
+    s = s.replace(BOLD_RE, function (m) {
+      if (!noColor && FX_BAD[m]) return '<b class="hx-fx-bad">' + m + '</b>';
+      if (!noColor && FX_GOOD[m]) return '<b class="hx-fx-good">' + m + '</b>';
+      return '<b>' + m + '</b>';
+    });
     return s;
   }
 
@@ -682,7 +759,7 @@
       ? '<div class="hx-fxlist"><div class="hx-fx-title">Hiệu ứng</div>' + fxItems.map(function (t) {
         var vname = FX_VI[t.name] || '';
         var label = vname ? (t.name + ' - ' + vname) : t.name;
-        return '<div class="hx-fx"><b>' + esc(label) + ':</b> ' + richLine(tipByName[t.name]) + '</div>';
+        return '<div class="hx-fx"><b>' + esc(label) + ':</b> ' + richLine(tipByName[t.name], true) + '</div>';
       }).join('') + '</div>' : '';
     var enhance = (sk.enhancement || []).length
       ? '<div class="hx-notes" style="background:#f2f7ff;border-color:#c8d8f2"><b>Nâng cấp kỹ năng</b>'

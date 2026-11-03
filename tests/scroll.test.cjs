@@ -96,6 +96,25 @@ test('skill targets translate to Vietnamese and effects are explained', { skip: 
   assert.ok(text.includes('Bỏ qua các hiệu ứng miễn nhiễm sát thương trên mục tiêu.'),
     'Pierce must show the translated Atlas explanation');
   assert.ok(text.includes('Shock - Sốc điện:'), 'Shock must show its Vietnamese name');
+  /* Target scopes render as a pill tag with a border. */
+  const html = dom.window.document.querySelector('#hx-content').innerHTML;
+  assert.ok(html.includes('<div class="hx-skill-target">3 kẻ địch</div>'), 'skill target scope must render as a tag');
+  /* Bad effects on enemies are bold + red; good effects on self/allies
+   * bold + blue; neutral mechanics bold only. Eileene's Lightning Spear:
+   * Shock and Defense Reduction are red; Pierce (tx T2) is neutral;
+   * Incoming Healing Reduction (tx T6) is red. */
+  assert.ok(html.includes('<b class="hx-fx-bad">Shock</b>'), 'Shock in a skill line must be bold + red');
+  assert.ok(html.includes('<b class="hx-fx-bad">Defense Reduction</b>'), 'Defense Reduction in a skill line must be bold + red');
+  assert.ok(html.includes('<b>Pierce</b>'), 'Pierce must stay bold without a color (neutral damage mechanic)');
+  assert.ok(!html.includes('hx-fx-bad">Pierce'), 'Pierce must not be colored red');
+  assert.ok(html.includes('<b class="hx-fx-bad">Incoming Healing Reduction</b>'), 'Incoming Healing Reduction (tx T6) must be bold + red');
+  /* The "Hiệu ứng" explanation section is NOT colored. */
+  const fxlist = dom.window.document.querySelector('.hx-fxlist');
+  assert.ok(fxlist && !fxlist.innerHTML.includes('hx-fx-bad') && !fxlist.innerHTML.includes('hx-fx-good'),
+    'the effect-explanation section must not be colored');
+  /* A good effect: Eileene's Immortal Rage revives (enhancement/tx). */
+  assert.ok(html.includes('<b class="hx-fx-good">Revive</b>') || html.includes('hx-fx-good'),
+    'a good effect (e.g. Revive) must be bold + blue somewhere in the skills');
 });
 
 test('popup: build tabs (Atlas style), real gear piece art, accessories, bold dedicated lines', { skip: !JSDOM }, async () => {
