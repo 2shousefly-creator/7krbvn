@@ -80,7 +80,7 @@
       }
       out += '<div class="hx-modal-build"><h4>Build: ' + esc(build.name) + '</h4>'
         + '<div class="hx-gear-set">'
-        + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="" loading="lazy">' : '')
+        + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="">' : '')
         + '<div><b>' + esc(set.name || '') + '</b>'
         + (set.effect ? '<p>' + esc(set.effect.replace('4pc', 'Set 4')) + '</p>' : '') + '</div></div>'
         + '<div class="hx-mainstats" style="grid-template-columns:1fr">'
