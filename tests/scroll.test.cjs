@@ -28,6 +28,7 @@ const eileeneJson = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes',
 
 function makeDom(url, seedScroll, fakeScrollY) {
   const calls = { scrollTo: [], fetch: [] };
+  let currentY = fakeScrollY;
   const dom = new JSDOM(heroHtml + '<script>' + detailJs + '</script>', {
     url,
     runScripts: 'dangerously',
@@ -38,10 +39,11 @@ function makeDom(url, seedScroll, fakeScrollY) {
         const body = String(u).includes('heroes-index.json') ? indexJson : eileeneJson;
         return Promise.resolve({ ok: true, json: () => Promise.resolve(body) });
       };
-      window.scrollTo = (x, y) => { calls.scrollTo.push([x, y]); };
+      /* scrollTo updates the tracked position, like a real browser. */
+      window.scrollTo = (x, y) => { calls.scrollTo.push([x, y]); currentY = y; };
       window.requestAnimationFrame = (cb) => { cb(); return 1; };
-      Object.defineProperty(window, 'scrollY', { value: fakeScrollY, configurable: true });
-      Object.defineProperty(window, 'pageYOffset', { value: fakeScrollY, configurable: true });
+      Object.defineProperty(window, 'scrollY', { get: function () { return currentY; }, configurable: true });
+      Object.defineProperty(window, 'pageYOffset', { get: function () { return currentY; }, configurable: true });
       if (seedScroll != null) {
         window.sessionStorage.setItem('hx-scroll:eileene:builds', String(seedScroll));
       }
@@ -52,7 +54,7 @@ function makeDom(url, seedScroll, fakeScrollY) {
 
 const tick = () => new Promise((r) => setTimeout(r, 50));
 
-test('each tab keeps its own scroll position independently', { skip: !JSDOM }, async () => {
+test('each tab keeps its own scroll position independently; first visit scrolls to its anchor', { skip: !JSDOM }, async () => {
   const { dom, calls } = makeDom('https://7krb.io.vn/hero.html?id=eileene', null, 2500);
   await tick();
   const doc = dom.window.document;
@@ -60,31 +62,55 @@ test('each tab keeps its own scroll position independently', { skip: !JSDOM }, a
     'main tab must render first');
   assert.equal(dom.window.sessionStorage.length, 0, 'no saved scroll before any switch');
 
-  /* Switch to builds: saves main=2500, builds has no saved position -> top (0).
-   * The builds tab must NOT inherit the main tab's scroll position. */
+  /* First switch to builds: saves main=2500, marks builds visited, and
+   * scrolls to the build-options anchor (.hx-build-list) — NOT to the top
+   * and NOT to the main tab's deep position. In jsdom (no layout) the
+   * anchor sits at viewport top 0, so the scroll target is
+   * 2500 - stickyOffset(130 + 0 + 8) = 2362. */
   doc.getElementById('hx-tab-builds').click();
   await tick();
   assert.ok(doc.querySelector('#hx-content').textContent.includes('Trang bị'),
     'builds tab must render after click');
   assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:main'), '2500',
     'switching away must save the old (main) tab position');
-  assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), null,
-    'builds tab must not inherit the main tab position');
-  assert.ok(calls.scrollTo.some(([, y]) => y === 0),
-    `first visit to builds must scroll to top (got ${JSON.stringify(calls.scrollTo)})`);
+  assert.equal(dom.window.sessionStorage.getItem('hx-visited:eileene:builds'), '1',
+    'first switch to builds must mark it visited');
+  assert.ok(calls.scrollTo.some(([, y]) => y === 2362),
+    `first visit to builds must scroll to the build-options anchor (got ${JSON.stringify(calls.scrollTo)})`);
+  assert.ok(!calls.scrollTo.some(([, y]) => y === 0),
+    'first visit to builds must NOT jump to the top');
   assert.ok(!calls.scrollTo.some(([, y]) => y === 2500),
-    'builds must NOT restore the main tab scroll position');
+    'builds must NOT inherit the main tab scroll position');
 
-  /* Simulate scrolling inside builds to 1200, then switch back to main. */
-  Object.defineProperty(dom.window, 'scrollY', { value: 1200, configurable: true });
-  Object.defineProperty(dom.window, 'pageYOffset', { value: 1200, configurable: true });
+  /* Simulate scrolling inside builds to 1200, then switch back to main
+   * (first visit via switch): saves builds=1200, marks main visited, and
+   * scrolls to the overview anchor (.hx-section-title) = 1200 - 138 = 1062.
+   * The anchor position then becomes main's current position. */
+  dom.window.scrollTo(0, 1200);
   calls.scrollTo.length = 0;
   doc.getElementById('hx-tab-main').click();
   await tick();
   assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), '1200',
     'switching away must save the builds tab position');
-  assert.ok(calls.scrollTo.some(([, y]) => y === 2500),
-    `switching back must restore the main tab position (got ${JSON.stringify(calls.scrollTo)})`);
+  assert.equal(dom.window.sessionStorage.getItem('hx-visited:eileene:main'), '1',
+    'first switch back to main must mark it visited');
+  assert.ok(calls.scrollTo.some(([, y]) => y === 1062),
+    `first switch back to main must scroll to the overview anchor (got ${JSON.stringify(calls.scrollTo)})`);
+
+  /* Second visit to builds restores its own saved position (1200).
+   * Second visit to main restores main's current position — the overview
+   * anchor (1062) it landed on at the first switch back, since that is
+   * where the user was when leaving main. */
+  calls.scrollTo.length = 0;
+  doc.getElementById('hx-tab-builds').click();
+  await tick();
+  assert.ok(calls.scrollTo.some(([, y]) => y === 1200),
+    `second visit to builds must restore its saved position (got ${JSON.stringify(calls.scrollTo)})`);
+  calls.scrollTo.length = 0;
+  doc.getElementById('hx-tab-main').click();
+  await tick();
+  assert.ok(calls.scrollTo.some(([, y]) => y === 1062),
+    `second visit to main must restore its saved position (got ${JSON.stringify(calls.scrollTo)})`);
 
   /* Reload on builds restores builds' own position (1200), and the key persists. */
   const reloaded = makeDom('https://7krb.io.vn/hero.html?id=eileene&tab=builds', 1200, 0);
@@ -254,16 +280,50 @@ test('builds tab: real gear piece art, horizontal accessories, dedicated without
   assert.ok(html.includes('<b style="min-width:0">Resilience</b>'), 'dedicated substat name must be bold');
 });
 
-test('skill Transcendence T2 and T6 get a prominent tag and a frame', { skip: !JSDOM }, async () => {
+test('skill Transcendence T2 above T6, green/orange frames, effect list at the bottom', { skip: !JSDOM }, async () => {
   const { dom } = makeDom('https://7krb.io.vn/hero.html?id=eileene', null, 0);
   await tick();
   const html = dom.window.document.querySelector('#hx-content').innerHTML;
   /* Eileene's skills have T2/T4/T6 transcendence lines. T2 and T6 get a
-   * tag + frame; T4 stays a plain line. */
+   * tag + frame; T4 stays a plain line. T2 must sit ABOVE T6, with a
+   * light-green frame for T2 and a light-orange frame for T6. */
   assert.ok(html.includes('<span class="hx-tx-tag">T2</span>'), 'T2 must render as a prominent tag');
   assert.ok(html.includes('<span class="hx-tx-tag">T6</span>'), 'T6 must render as a prominent tag');
-  assert.ok(html.includes('hx-tx-box'), 'T2/T6 effects must sit inside a frame');
+  assert.ok(html.includes('hx-tx-box hx-tx-t2'), 'T2 must use the green frame class');
+  assert.ok(html.includes('hx-tx-box hx-tx-t6'), 'T6 must use the orange frame class');
+  assert.ok(html.indexOf('hx-tx-t2') < html.indexOf('hx-tx-t6'),
+    'T2 must be arranged above T6');
   assert.ok(!html.includes('<span class="hx-tx-tag">T4</span>'), 'T4 must not get the prominent tag');
+  /* The "Hiệu ứng" explanation list must sit at the very bottom of each
+   * skill card, below the T2/T6 area. (Basic Attack has no tips, so use
+   * the first skill card that has both a T2/T6 frame and an fxlist.) */
+  var skillCards = Array.from(dom.window.document.querySelectorAll('.hx-skill'));
+  var cardWithBoth = skillCards.find(function (c) {
+    var h = c.innerHTML;
+    return h.indexOf('hx-fxlist') > 0 && (h.indexOf('hx-tx-t2') > 0 || h.indexOf('hx-tx-t6') > 0);
+  });
+  assert.ok(cardWithBoth, 'some skill card must render both a T2/T6 frame and the effect explanation list');
+  var skillHtml = cardWithBoth.innerHTML;
+  var fxPos = skillHtml.indexOf('hx-fxlist');
+  var t2Pos = skillHtml.indexOf('hx-tx-t2');
+  var t6Pos = skillHtml.indexOf('hx-tx-t6');
+  var txPos = Math.max(t2Pos, t6Pos);
+  assert.ok(fxPos > txPos,
+    'the effect explanation list must come after the T2/T6 area (at the bottom)');
+});
+
+test('T2/T6 frame colors are light green and light orange', () => {
+  const css = fs.readFileSync(path.join(root, 'heroes.css'), 'utf8');
+  const t2 = /\.hx-tx-box\.hx-tx-t2\{[^}]*\}/.exec(css);
+  const t6 = /\.hx-tx-box\.hx-tx-t6\{[^}]*\}/.exec(css);
+  assert.ok(t2 && /background:#edf7ed/.test(t2[0]) && /border-color:#b5d8b0/.test(t2[0]),
+    'T2 frame must be light green');
+  assert.ok(t2 && /\.hx-tx-box\.hx-tx-t2 \.hx-tx-tag\{[^}]*background:#4a9e4a/.test(css),
+    'T2 tag must be green');
+  assert.ok(t6 && /background:#fdf1e3/.test(t6[0]) && /border-color:#f2c48d/.test(t6[0]),
+    'T6 frame must be light orange');
+  assert.ok(t6 && /\.hx-tx-box\.hx-tx-t6 \.hx-tx-tag\{[^}]*background:#e07b1f/.test(css),
+    'T6 tag must be orange');
 });
 
 test('skill conversion (Dellons) renders vertically, not side by side', { skip: !JSDOM }, async () => {

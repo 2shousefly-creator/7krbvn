@@ -100,6 +100,11 @@
 /* Giải thích hiệu ứng trong kỹ năng: "Tên EN - Tên VI: giải thích". */
 .hx-fxlist{margin-top:10px;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px}
 .hx-tx-box{display:flex;gap:8px;align-items:flex-start;background:#fdf8ec;border:1px solid #e5c96a;border-radius:10px;padding:8px 10px;margin:6px 0;font-size:12.5px;line-height:1.55;color:#6b5518}
+/* Phân hóa đẳng cấp mốc Transcendence: T2 xanh lá nhạt, T6 cam nhạt. */
+.hx-tx-box.hx-tx-t2{background:#edf7ed;border-color:#b5d8b0;color:#2f5d2f}
+.hx-tx-box.hx-tx-t2 .hx-tx-tag{background:#4a9e4a}
+.hx-tx-box.hx-tx-t6{background:#fdf1e3;border-color:#f2c48d;color:#7a4a12}
+.hx-tx-box.hx-tx-t6 .hx-tx-tag{background:#e07b1f}
 .hx-tx-tag{flex:none;background:#c9a227;color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:2px 7px;margin-top:1px}
 .hx-fx-title{font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin-bottom:6px}
 .hx-fx{font-size:13px;line-height:1.6;margin:4px 0}

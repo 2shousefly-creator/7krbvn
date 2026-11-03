@@ -777,23 +777,25 @@
           var effect = (sk.enhancement_vi && sk.enhancement_vi[ei] && sk.enhancement_vi[ei].effect) || e.effect;
           return '<p style="margin:6px 0 0">' + (e.target ? '<b>' + esc(targetVi(e.target)) + ':</b> ' : '') + richLine(effect) + '</p>';
         }).join('') + '</div>' : '';
-    var txOrder = { T2: 0, T4: 1, T6: 2 };
+    var txOrder = { T2: 1, T4: 2, T6: 3 };
     var tx = (sk.tx || []).slice().sort(function (a, b) { return (txOrder[a.tier] || 99) - (txOrder[b.tier] || 99); });
     var txHtml = tx.length
       ? '<div style="margin-top:8px">' + tx.map(function (t) {
         var idx = sk.tx.indexOf(t);
         var effect = (sk.tx_vi && sk.tx_vi[idx] && sk.tx_vi[idx].effect) || t.effect;
         /* Mốc T2 và T6 nổi bật: tag riêng + khung bao quanh nội dung.
-         * T4 giữ dạng dòng thường. */
+         * T2 nằm trên T6 (đã sắp xếp theo txOrder). Màu phân hóa đẳng cấp:
+         * T2 = xanh lá nhạt, T6 = cam nhạt. T4 giữ dạng dòng thường. */
         if (t.tier === 'T2' || t.tier === 'T6') {
-          return '<div class="hx-tx-box"><span class="hx-tx-tag">' + esc(t.tier) + '</span><span>' + richLine(effect) + '</span></div>';
+          var cls = t.tier === 'T2' ? 'hx-tx-box hx-tx-t2' : 'hx-tx-box hx-tx-t6';
+          return '<div class="' + cls + '"><span class="hx-tx-tag">' + esc(t.tier) + '</span><span>' + richLine(effect) + '</span></div>';
         }
         return '<p style="font-size:12.5px;color:#946b25;margin:4px 0"><b>' + esc(t.tier) + '</b> ' + richLine(effect) + '</p>';
       }).join('') + '</div>' : '';
     return '<div class="hx-skill" id="skill-' + esc(sk.key) + '">' + iconHtml
       + '<div style="flex:1;min-width:0"><h4>' + esc(sk.name || 'Basic Attack') + '</h4>'
       + '<span class="hx-skill-type">' + esc(typeLabel) + '</span>' + cd
-      + groups + bubbles + fxHtml + enhance + txHtml + '</div></div>';
+      + groups + bubbles + enhance + txHtml + fxHtml + '</div></div>';
   }
 
   function renderSkills(skills) {
@@ -991,8 +993,12 @@
   /* Mỗi tab giữ vị trí cuộn RIÊNG, độc lập với tab còn lại.
    * Chuyển tab: lưu vị trí của tab cũ, khôi phục vị trí đã lưu của tab mới
    * (hoặc về đầu trang nếu tab mới chưa từng cuộn). Không còn đồng bộ
-   * vị trí cuộn giữa 2 tab như trước (user 2026-11-03). */
+   * vị trí cuộn giữa 2 tab như trước (user 2026-11-03).
+   * Lần ĐẦU chuyển sang một tab (theo hero, trong phiên này): tự cuộn
+   * tới vị trí phù hợp — Build Đồ thì tới các option build, Chi Tiết
+   * thì tới Tổng Quan Hero. Từ lần thứ 2 trở đi thì dùng vị trí đã lưu. */
   function scrollKey(t) { return 'hx-scroll:' + heroId + ':' + t; }
+  function visitedKey(t) { return 'hx-visited:' + heroId + ':' + t; }
   function saveScroll(t, y) {
     try { sessionStorage.setItem(scrollKey(t), String(y)); } catch (e) {}
   }
@@ -1001,6 +1007,29 @@
     try { raw = sessionStorage.getItem(scrollKey(t)); } catch (e) {}
     var y = parseInt(raw, 10);
     return isNaN(y) ? 0 : Math.max(0, y);
+  }
+  function isVisited(t) {
+    try { return sessionStorage.getItem(visitedKey(t)) === '1'; } catch (e) { return false; }
+  }
+  function markVisited(t) {
+    try { sessionStorage.setItem(visitedKey(t), '1'); } catch (e) {}
+  }
+  /* Cuộn tới một phần tử sao cho nó nằm ngay dưới thanh tab sticky
+   * (header + tab bar), không bị che. */
+  function stickyOffset() {
+    var tabs = document.querySelector('.hx-tabs');
+    var tabH = tabs ? tabs.offsetHeight : 40;
+    var isMobile = false;
+    try {
+      isMobile = window.matchMedia && window.matchMedia('(max-width:680px)').matches;
+    } catch (e) { isMobile = false; }
+    return (isMobile ? 62 : 130) + tabH + 8;
+  }
+  function scrollToAnchor(sel) {
+    var el = mainEl.querySelector(sel);
+    if (!el) return;
+    var y = el.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0) - stickyOffset();
+    window.scrollTo(0, Math.max(0, y));
   }
 
   function setTab(t) {
@@ -1014,8 +1043,14 @@
     tabMainBtn.classList.toggle('active', t === 'main');
     tabBuildsBtn.classList.toggle('active', t === 'builds');
     if (t === 'main') renderMain(); else renderBuilds();
-    var y2 = getSavedScroll(t);
-    requestAnimationFrame(function () { window.scrollTo(0, y2); });
+    if (!isVisited(t)) {
+      markVisited(t);
+      var anchor = t === 'main' ? '.hx-section-title' : '.hx-build-list';
+      requestAnimationFrame(function () { scrollToAnchor(anchor); });
+    } else {
+      var y2 = getSavedScroll(t);
+      requestAnimationFrame(function () { window.scrollTo(0, y2); });
+    }
   }
 
   function renderAll() {

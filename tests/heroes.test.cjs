@@ -261,6 +261,13 @@ test('tabs are sticky at the top when scrolling (user asked again 2026-11-03)', 
   const js = read('hero-detail.js');
   assert.ok(js.includes('window.scrollY') && js.includes('sessionStorage'),
     'per-tab independent scroll must stay with sticky tabs');
+  /* First switch to a tab scrolls to its anchor (builds -> build options,
+   * main -> overview); later switches restore the tab's own position. */
+  assert.ok(js.includes('hx-visited:'), 'first-visit tracking must use a per-hero+tab visited flag');
+  assert.ok(js.includes('scrollToAnchor'), 'first switch must scroll to the tab anchor');
+  assert.ok(js.includes("'.hx-build-list'"), 'builds anchor must be the build-options list');
+  assert.ok(js.includes("'.hx-section-title'"), 'main anchor must be the overview heading');
+  assert.ok(js.includes('stickyOffset'), 'anchor scroll must clear the sticky header + tab bar');
 });
 
 test('skill target scopes translate to Vietnamese (TARGET_VI, all 66 Atlas strings)', () => {
