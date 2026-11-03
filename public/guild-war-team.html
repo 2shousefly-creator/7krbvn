@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
-<meta name="page-version" content="v2026.11.03-21" />
+<meta name="page-version" content="v2026.11.03-22" />
 <link rel="icon" href="data:," />
 <title>Guild War Meta — Major League 3v3 · Seven Knights: Re:BIRTH</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -349,7 +349,7 @@ h1 .thin{font-weight:600;color:var(--ink2)}
   </section>
 
   </div>
-  <footer class="site-footer"><div class="wrap footer-inner"><div><b>7K RBVN <span>✦</span></b><small>Seven Knights Re:Birth VN Supporter</small></div><p>Một góc nhỏ dành cho cộng đồng người chơi Việt Nam. · Meta v2026.11.03-21</p><a href="#dau-trang">Về đầu trang ↑</a></div></footer>
+  <footer class="site-footer"><div class="wrap footer-inner"><div><b>7K RBVN <span>✦</span></b><small>Seven Knights Re:Birth VN Supporter</small></div><p>Một góc nhỏ dành cho cộng đồng người chơi Việt Nam. · Meta v2026.11.03-22</p><a href="#dau-trang">Về đầu trang ↑</a></div></footer>
 
 <div class="overlay" id="overlay" role="dialog" aria-modal="true">
   <div class="sheet" id="sheet"></div>
@@ -412,7 +412,7 @@ function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 var beatsMap = {};
 DATA.defense.forEach(function(d){ d.counters.forEach(function(c){ (beatsMap[c] = beatsMap[c]||[]).push(d.code); }); });
 
-/* Build -21 (v2026.11.03-21): every team comes from 7k-note (Pandoara),
+/* Build -22 (v2026.11.03-22): every team comes from 7k-note (Pandoara),
    so there are no PROPOSED_* entries. The badge helpers below stay as
    no-ops (empty sets) in case a future dataset reintroduces them. */
 var PROPOSED_DEFENSE = {};
@@ -690,11 +690,13 @@ function openPanel(html){
   document.getElementById("psheet").innerHTML = html;
   var po = document.getElementById("poverlay");
   po.classList.add("open"); po.scrollTop = 0;
-  var cb = document.getElementById("pclosebtn");
-  if (cb) cb.addEventListener("click", closePanel);
+  document.body.style.overflow = "hidden";
+  bindPanelClose();
 }
 function closePanel(){
   document.getElementById("poverlay").classList.remove("open");
+  /* Only re-enable page scroll when the team sheet is not open underneath. */
+  if (!document.getElementById("overlay").classList.contains("open")) document.body.style.overflow = "";
 }
 function panelHead(img, title, sub){
   return '<div class="p-head"><img class="pava" src="' + img + '" alt="" /><div><h3>' + esc(title) + '</h3>'

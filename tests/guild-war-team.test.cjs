@@ -74,14 +74,14 @@ test('every inline script on the page compiles (no stray text outside comments)'
   }
 });
 
-test('guild war team page carries build -21: 48 defense (7k-note only) + 114 counters', () => {
+test('guild war team page carries build -22: 48 defense (7k-note only) + 114 counters', () => {
   assert.equal(data.defense.length, 48);
   assert.equal(Object.keys(data.counters).length, 114); // counters is an object keyed by code
   assert.deepEqual(data.defense.map(d => d.code), Array.from({ length: 48 }, (_, i) => 'T' + (i + 1)),
     'defense codes must be T1..T48 in 7k-note target order');
   assert.deepEqual(Object.keys(data.counters), Array.from({ length: 114 }, (_, i) => 'C' + (i + 1)),
     'counter codes must be C1..C114 in target order');
-  assert.ok(html.includes('v2026.11.03-21'), 'version must be bumped to -21');
+  assert.ok(html.includes('v2026.11.03-22'), 'version must be bumped to -22');
   assert.ok(!html.includes('v2026.11.03-20'), 'old version string must be gone');
   // Group split from the browser's 48-target type labels.
   const groups = {};
@@ -286,7 +286,7 @@ test('the guild war page matches the site chrome: light-only, sticky nav, site f
   assert.ok(!html.includes('prefers-color-scheme'), 'guild war page must not flip to dark from the system theme');
   assert.ok(html.includes('.snav-bar{position:sticky;top:0;z-index:200'), 'guild war nav must stay sticky like the site header');
   assert.ok(html.includes('class="site-footer"'), 'guild war page must use the standard site footer');
-  assert.ok(html.includes('Meta v2026.11.03-21'), 'the meta build version must survive the footer swap');
+  assert.ok(html.includes('Meta v2026.11.03-22'), 'the meta build version must survive the footer swap');
   assert.ok(html.includes('class="back-to-top"'), 'guild war page must have a back-to-top button');
   assert.ok(html.includes('id="dau-trang"'), 'the footer "Về đầu trang" link needs its anchor');
 });

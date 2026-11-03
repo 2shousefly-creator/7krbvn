@@ -201,6 +201,24 @@ if (!JSDOM) {
     assert.ok(!doc.getElementById('poverlay').classList.contains('open'), 'skill popup must close');
   });
 
+  test('skill popup locks background scroll, and closing it restores scroll only when no team sheet is open', async () => {
+    const { window } = makeDom();
+    const doc = window.document;
+    await sleep(50);
+    doc.querySelector('#list [data-team]').click();
+    await sleep(50);
+    const row = [...doc.querySelectorAll('#sheet .op-row')][0];
+    click(row);
+    await sleep(150);
+    assert.equal(doc.body.style.overflow, 'hidden', 'background must not scroll while the skill popup is open');
+    doc.getElementById('pclosebtn').click();
+    await sleep(50);
+    assert.equal(doc.body.style.overflow, 'hidden', 'closing the skill popup must NOT re-enable scroll while the team sheet is still open');
+    doc.getElementById('closebtn').click();
+    await sleep(250);
+    assert.equal(doc.body.style.overflow, '', 'closing the team sheet must re-enable scroll');
+  });
+
   test('skill popup text matches the hero detail page skill card (parity)', async () => {
     // Yeonhee Skill 2 (C1 of T1) uses the 6★ kit, same as hero.html's
     // default version — so both renders must produce identical skill text.
