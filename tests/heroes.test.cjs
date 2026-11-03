@@ -397,3 +397,10 @@ test('skill target scopes render as a pill tag with a border', () => {
   assert.ok(/\.hx-skill \.hx-skill-target\{[^}]*border-radius:999px/.test(css),
     'skill target scope must be a pill tag');
 });
+
+test('skill conversion renders vertically (no horizontal Before/After grid)', () => {
+  const js = read('hero-detail.js');
+  assert.ok(!js.includes('grid-template-columns:1fr auto 1fr'), 'no horizontal conversion grid');
+  assert.ok(js.includes('TRƯỚC') && js.includes('SAU'), 'Before/After labels must remain');
+  assert.ok(js.includes('margin-top:12px'), 'SAU card must stack below TRƯỚC with spacing');
+});

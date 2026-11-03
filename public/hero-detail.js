@@ -794,12 +794,13 @@
       seen[sk.key] = true;
       var after = skills.find(function (o) { return o.key === sk.key && o.converts; });
       if (after && !sk.converts) {
+        /* Kỹ năng chuyển đổi sau biến hình (Dellons...): trình bày DỌC như
+         * các kỹ năng khác — TRƯỚC rồi SAU, mỗi cái một khối riêng, không
+         * nhét 2 hiệu ứng vào 1 hàng ngang nữa. */
         out += '<div class="hx-cardbox" style="margin-bottom:10px"><b style="font-size:13px">⇄ Chuyển đổi kỹ năng — kỹ năng thay đổi sau khi biến hình</b>'
-          + '<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start;margin-top:10px">'
-          + '<div><small style="font-weight:800;color:#8b8578">TRƯỚC</small>' + skillCardHtml(sk) + '</div>'
-          + '<div style="font-size:22px;padding-top:40px">→</div>'
-          + '<div><small style="font-weight:800;color:#b3352c">SAU</small>' + skillCardHtml(after) + '</div>'
-          + '</div></div>';
+          + '<div style="margin-top:10px"><small style="font-weight:800;color:#8b8578">TRƯỚC</small>' + skillCardHtml(sk) + '</div>'
+          + '<div style="margin-top:12px"><small style="font-weight:800;color:#b3352c">SAU</small>' + skillCardHtml(after) + '</div>'
+          + '</div>';
       } else if (!sk.converts) {
         out += skillCardHtml(sk);
       }

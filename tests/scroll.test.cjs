@@ -250,3 +250,28 @@ test('skill Transcendence T2 and T6 get a prominent tag and a frame', { skip: !J
   assert.ok(html.includes('hx-tx-box'), 'T2/T6 effects must sit inside a frame');
   assert.ok(!html.includes('<span class="hx-tx-tag">T4</span>'), 'T4 must not get the prominent tag');
 });
+
+test('skill conversion (Dellons) renders vertically, not side by side', { skip: !JSDOM }, async () => {
+  const dellonsJson = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'dellons.json'), 'utf8'));
+  const dom = new JSDOM(heroHtml + '<script>' + detailJs + '</script>', {
+    url: 'https://7krb.io.vn/hero.html?id=dellons',
+    runScripts: 'dangerously',
+    pretendToBeVisual: true,
+    beforeParse(window) {
+      window.fetch = (u) => Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(String(u).includes('heroes-index.json') ? indexJson : dellonsJson),
+      });
+      window.requestAnimationFrame = (cb) => { cb(); return 1; };
+    },
+  });
+  await tick();
+  const html = dom.window.document.querySelector('#hx-content').innerHTML;
+  /* The conversion banner stays, but Before/After are stacked vertically
+   * like normal skills — no horizontal 3-column grid, no arrow. */
+  assert.ok(html.includes('Chuyển đổi kỹ năng'), 'conversion banner must remain');
+  assert.ok(html.includes('TRƯỚC') && html.includes('SAU'), 'Before/After labels must remain');
+  assert.ok(!html.includes('grid-template-columns:1fr auto 1fr'), 'conversion must not use the horizontal grid');
+  assert.ok(!html.includes('font-size:22px;padding-top:40px'), 'conversion must not show the horizontal arrow');
+  assert.ok(html.indexOf('TRƯỚC') < html.indexOf('SAU'), 'TRƯỚC must come before SAU (vertical stack)');
+});
