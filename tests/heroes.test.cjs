@@ -281,7 +281,7 @@ test('popup shows real gear piece art, "Set 4" and bold dedicated lines', () => 
   assert.ok(js.includes('class="hx-mainstats" style="grid-template-columns:1fr"'),
     'popup main-stats must force a single column inline (the stylesheet override alone did not take effect in the live browser)');
   assert.ok(js.includes("' × ' + c"), 'popup dedicated equipment must show the line count (e.g. "Crush +12% × 4")');
-  assert.ok(js.includes("'<b>' + esc(label) + '</b>'"), 'popup dedicated stat name and value must be bold');
+  assert.ok(js.includes("'<b>' + esc(label) + '</b>'"), 'popup dedicated stat name, value and line count must all be bold');
   const css = read('heroes.css');
   assert.ok(/\.hx-mainstat \.hx-piece\{[^}]*width:110px/.test(css),
     'popup gear art must be shown large (110px, near its native 126px), not icon-sized');

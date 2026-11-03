@@ -141,7 +141,7 @@ test('popup: build tabs (Atlas style), real gear piece art, accessories, bold de
   assert.ok(html.includes('assets/acc/L-Immortal.webp'), 'popup must show the main accessory ring image (Immortal)');
   assert.ok(html.includes('assets/acc/L-Guts.webp'), 'popup must show the sub accessory ring image (Guts)');
   /* Dedicated: stat name + value bold, full line count. */
-  assert.ok(html.includes('<b>Resilience +15%</b> × 4'), 'dedicated stat name and value must be bold with the full line count');
+  assert.ok(html.includes('<b>Resilience +15% × 4</b>'), 'dedicated stat name, value and line count must all be bold');
   /* Switch to Build 2 (Avenger set) and confirm the popup re-renders. */
   body.querySelector('[data-popup-build="1"]').click();
   await tick();
@@ -149,7 +149,7 @@ test('popup: build tabs (Atlas style), real gear piece art, accessories, bold de
   assert.ok(html.includes('assets/gearpieces/ID-Avenger1.webp'), 'Build 2 tab must show the Avenger weapon piece art');
   assert.ok(html.includes('assets/gearpieces/ID-Avenger3.webp'), 'Build 2 tab must show the Avenger armor piece art');
   assert.ok(!html.includes('assets/gearpieces/ID-Spell1.webp'), 'Build 2 tab must not show Build 1 gear art');
-  assert.ok(html.includes('<b>Damage Amplification +4%</b> × 4'), 'Build 2 dedicated must show its own pick (Damage Amplification +4% × 4)');
+  assert.ok(html.includes('<b>Damage Amplification +4% × 4</b>'), 'Build 2 dedicated must show its own pick (Damage Amplification +4% × 4)');
 });
 
 test('skill notes in brackets translate to Vietnamese and key values are bold', { skip: !JSDOM }, async () => {

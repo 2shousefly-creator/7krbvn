@@ -145,8 +145,8 @@
         var lines = order.map(function (k) {
           var parts = k.split('|');
           var c = counts[k];
-          var label = statLabel(parts[0]) + (parts[1] ? ' ' + parts[1] : '');
-          return '<b>' + esc(label) + '</b>' + (c > 1 ? ' × ' + c : '');
+          var label = statLabel(parts[0]) + (parts[1] ? ' ' + parts[1] : '') + (c > 1 ? ' × ' + c : '');
+          return '<b>' + esc(label) + '</b>';
         });
         out += '<div class="hx-modal-dedi">'
           + (h.dedicated.icon ? '<img src="assets/dedicated/' + esc(h.dedicated.icon) + '" alt="" loading="lazy">' : '')
