@@ -64,11 +64,15 @@
 .hx-usedin a, .hx-usedin .hx-usedin-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#202638;text-decoration:none}
 .hx-usedin img{width:52px;height:26px;object-fit:cover;border-radius:5px;border:1px solid #e9e8e3}
 .hx-main{flex:1;min-width:0}
-/* Tab Chi tiết / Build đồ dính ở đầu màn hình khi cuộn (dưới header sticky
- * 78px desktop / 62px mobile) để người dùng chuyển tab dễ dàng. Đảo ngược
- * yêu cầu round 2 (không sticky) theo yêu cầu mới của user 2026-11-03. */
-.hx-tabs{position:sticky;top:78px;z-index:150;display:flex;gap:6px;border-bottom:2px solid #e9e8e3;margin-bottom:18px;background:#f7f7f5}
-@media(max-width:680px){.hx-tabs{top:62px}}
+/* Tab Chi tiết / Build đồ dính ở đầu màn hình khi cuộn (dưới header sticky)
+ * để người dùng chuyển tab dễ dàng. Đảo ngược yêu cầu round 2 (không sticky)
+ * theo yêu cầu mới của user 2026-11-03.
+ * top phải tính CẢ thanh nav (header = brand 78px + nav ~40px = 118px
+ * desktop; 80px mobile theo mẫu .at-tabs đã chứng minh). Lần đầu đặt
+ * top:78px là sai — tab bị kẹt SAU header (z-index 200 > 150) nên
+ * trình duyệt không nhìn thấy khi cuộn. */
+.hx-tabs{position:sticky;top:118px;z-index:150;display:flex;gap:6px;border-bottom:2px solid #e9e8e3;margin-bottom:18px;background:#f7f7f5}
+@media(max-width:680px){.hx-tabs{top:80px}}
 .hx-tabs button{font-size:15px;font-weight:800;padding:10px 16px;border:0;background:none;cursor:pointer;color:#6b6558;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit}
 .hx-tabs button.active{color:#b3352c;border-bottom-color:#b3352c}
 .hx-section-title{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:26px 0 10px}

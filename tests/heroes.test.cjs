@@ -239,10 +239,10 @@ test('tabs are sticky at the top when scrolling (user asked again 2026-11-03)', 
   const tabsRule = /\.hx-tabs\{[^}]*\}/.exec(css);
   assert.ok(tabsRule, 'heroes.css must define .hx-tabs');
   assert.ok(/position:\s*sticky/.test(tabsRule[0]), 'the detail-page tab bar must be sticky');
-  assert.ok(/top:\s*78px/.test(tabsRule[0]), 'tabs must stick below the 78px sticky site header on desktop');
+  assert.ok(/top:\s*118px/.test(tabsRule[0]), 'tabs must stick below the full sticky site header (brand + nav = 118px) on desktop');
   assert.ok(/background:#f7f7f5/.test(tabsRule[0]), 'sticky tabs must have a solid background so content does not show through');
-  assert.ok(/@media\(max-width:680px\)\{\.hx-tabs\{top:62px\}\}/.test(css),
-    'tabs must stick below the 62px mobile header');
+  assert.ok(/@media\(max-width:680px\)\{\.hx-tabs\{top:80px\}\}/.test(css),
+    'tabs must stick at 80px on mobile (same as .at-tabs)');
   const js = read('hero-detail.js');
   assert.ok(js.includes('window.scrollY') && js.includes('sessionStorage'),
     'scroll preservation must stay with sticky tabs');
