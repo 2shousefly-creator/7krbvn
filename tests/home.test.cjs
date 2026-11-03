@@ -139,6 +139,12 @@ test('raid guide article: first in Latest, 8 sections, every portrait hero exist
   const raidListCard = raidListing.match(/<a class="post-card" href="raid-farm-trang-bi\.html">([\s\S]*?)<\/a>/);
   assert.ok(raidListCard && raidListCard[1].includes('<span class="article-tag">NEWBIE</span>'),
     'the raid guide card in the Raid listing must carry the NEWBIE tag');
+  const newbieListing = page('newbie.html');
+  const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
+  assert.equal(newbieCards[0], 'raid-farm-trang-bi.html',
+    'the raid guide must be the first card in the Newbie listing');
+  assert.ok(newbieListing.includes('<p>5 bài viết</p>'),
+    'the Newbie listing count must read 5 articles');
   const article = page('raid-farm-trang-bi.html');
   assert.ok(article.includes('<span class="article-tag">NEWBIE</span>'),
     'the raid guide is a Newbie article, not a Raid-tagged one');
