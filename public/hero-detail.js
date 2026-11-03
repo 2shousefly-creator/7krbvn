@@ -340,8 +340,12 @@
     history.replaceState(null, '', u.toString());
     tabMainBtn.classList.toggle('active', t === 'main');
     tabBuildsBtn.classList.toggle('active', t === 'builds');
+    /* Giữ nguyên vị trí cuộn: ghi lại scrollY trước khi thay nội dung rồi
+     * khôi phục sau khi render — nếu tab mới ngắn hơn thì trình duyệt tự
+     * kẹp về cuối tab mới, chứ không nhảy về đầu trang. */
+    var y = window.scrollY || window.pageYOffset || 0;
     if (t === 'main') renderMain(); else renderBuilds();
-    /* Không cuộn lên đầu trang khi đổi tab — giữ nguyên vị trí cuộn. */
+    requestAnimationFrame(function () { window.scrollTo(0, y); });
   }
 
   function renderAll() {

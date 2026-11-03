@@ -109,7 +109,9 @@ test('detail page drops Utility, Special Sources and Growth; tabs do not scroll'
   assert.ok(!js.includes('Special Sources'), 'detail page must not render Special Sources');
   assert.ok(!js.includes("sectionTitle('Growth')"), 'detail page must not render the Growth section');
   assert.ok(!js.includes('renderGrowth'), 'detail page must not keep the Growth renderer');
-  assert.ok(!js.includes('window.scrollTo'), 'switching tabs must not scroll the page to the top');
+  assert.ok(!js.includes('window.scrollTo({ top: 0 })'), 'switching tabs must not scroll the page to the top');
+  assert.ok(js.includes('window.scrollY') && js.includes('window.scrollTo(0, y)'),
+    'switching tabs must preserve the current scroll position');
   /* Vietnamese headings (the small caps labels render in uppercase). */
   var jsLower = js.toLowerCase();
   for (const heading of ['Tổng quan hero', 'Xếp hạng theo chế độ', 'Ưu tiên nâng kỹ năng', 'Trang bị', 'Phụ kiện', 'Trang bị riêng', 'Cốt truyện', 'Chỉ số chính Vũ khí', 'Chỉ số chính Giáp', 'Ưu tiên dòng phụ']) {
@@ -124,6 +126,11 @@ test('detail page drops Utility, Special Sources and Growth; tabs do not scroll'
   assert.ok(js.includes("assets/gearui/'"), 'Gears must show weapon/armor icons');
   assert.ok(js.includes('hx-ms-row alt'), 'Gears ALT option must sit on its own row');
   assert.ok(js.includes('Chỉ số chính Vũ khí') && js.includes('Chỉ số chính Giáp'), 'main-stat labels must be Vietnamese');
+  /* Weapon/armor icons are pale gold on cream — they need a dark chip
+   * behind them, or they are nearly invisible (browser check 2026-11-03). */
+  const css = read('heroes.css');
+  assert.ok(/\.hx-mainstat small img\{[^}]*background:#202638/.test(css),
+    'weapon/armor icons must sit on a dark chip for contrast');
 });
 
 test('gear-set badge and weapon/armor icons exist on disk', () => {
@@ -145,6 +152,7 @@ test('quick-build popup keeps full tags, gear images and dedicated substat lines
   assert.ok(js.includes("assets/gearui/'"), 'popup Gears must show weapon/armor icons');
   assert.ok(js.includes('hx-ms-row alt'), 'popup ALT option must sit on its own row');
   assert.ok(js.includes('Nên build:'), 'popup dedicated equipment must show which substat lines to build');
+  assert.ok(js.includes("assets/dedicated/'"), 'popup dedicated equipment must show its illustration image');
   assert.ok(js.includes('gear_notes'), 'popup must be able to show the translated build note');
 });
 

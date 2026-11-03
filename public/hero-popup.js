@@ -99,10 +99,12 @@
           seen[n] = true;
           lines.push(statLabel(n) + (val ? ' ' + val : ''));
         });
-        out += '<p class="hx-modal-dedi"><b>Trang bị riêng:</b> '
+        out += '<div class="hx-modal-dedi">'
+          + (h.dedicated.icon ? '<img src="assets/dedicated/' + esc(h.dedicated.icon) + '" alt="" loading="lazy">' : '')
+          + '<div><b>Trang bị riêng:</b> '
           + esc(h.dedicated.name) + ' — ' + esc(h.dedicated.main_stat)
           + (lines.length ? '<span class="hx-dedi-lines">Nên build: ' + esc(lines.join(' · ')) + '</span>' : '')
-          + '</p>';
+          + '</div></div>';
       }
       out += '</div>';
     }

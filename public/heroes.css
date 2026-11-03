@@ -106,7 +106,7 @@
 .hx-mainstats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .hx-mainstat{background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;font-size:13px}
 .hx-mainstat small{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
-.hx-mainstat small img{width:20px;height:20px;object-fit:contain}
+.hx-mainstat small img{width:22px;height:22px;object-fit:contain;background:#202638;border-radius:6px;padding:2px}
 .hx-ms-row{display:flex;align-items:center;gap:8px;padding:5px 0}
 .hx-ms-tag{flex:none;font-size:10.5px;font-weight:800;letter-spacing:.05em;border-radius:999px;padding:2px 8px;background:#202638;color:#fff}
 .hx-ms-row.alt{margin-top:6px;padding-top:8px;border-top:1px dashed #d8d5cc}
@@ -155,7 +155,8 @@
 .hx-modal-build .hx-gear-set>img{width:44px;height:44px}
 .hx-modal-build .hx-mainstats{grid-template-columns:1fr 1fr}
 .hx-modal-build .hx-mainstat{padding:8px 10px}
-.hx-modal-dedi{font-size:13.5px;margin:10px 0 0;line-height:1.55}
+.hx-modal-dedi{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:10px 0 0;line-height:1.55}
+.hx-modal-dedi>img{width:48px;height:48px;border-radius:10px;border:1px solid #e9e8e3;object-fit:cover;flex:none}
 .hx-modal-dedi .hx-dedi-lines{display:block;margin-top:4px;color:#4a5160}
 .hx-modal-note{font-size:13px;line-height:1.6;color:#4a5160;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;margin-top:12px}
 .hx-modal-actions{display:flex;gap:10px;margin-top:16px}
