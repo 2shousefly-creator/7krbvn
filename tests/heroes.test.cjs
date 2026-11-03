@@ -159,6 +159,8 @@ test('quick-build popup: build tabs shrink to fit (no overflow with many builds)
   assert.ok(bodyRule && /overflow-x:\s*hidden/.test(bodyRule[0]),
     'popup body must never scroll horizontally (safety net so a wide tab row cannot cut off the whole popup)');
 });
+
+test('quick-build popup: build tabs, gear images, accessories, bold dedicated lines', () => {
   const js = read('hero-popup.js');
   assert.ok(js.includes('hx-modal-tags'), 'popup must show the hero classification tags');
   assert.ok(js.includes('assets/seticons/'), 'popup Gears must show the gear-set badge icon');
