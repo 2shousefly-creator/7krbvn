@@ -115,6 +115,9 @@ test('skill targets translate to Vietnamese and effects are explained', { skip: 
   /* A good effect: Eileene's Immortal Rage revives (enhancement/tx). */
   assert.ok(html.includes('<b class="hx-fx-good">Revive</b>') || html.includes('hx-fx-good'),
     'a good effect (e.g. Revive) must be bold + blue somewhere in the skills');
+  /* Vietnamese effect names are colored too: Flame Incarnate's revive line
+   * says "Hồi sinh với 100% HP..." (no English "Revive" in the line). */
+  assert.ok(html.includes('<b class="hx-fx-good">Hồi sinh</b>'), '"Hồi sinh" (Vietnamese for Revive) must be bold + blue');
 });
 
 test('popup: build tabs (Atlas style), real gear piece art, accessories, bold dedicated lines', { skip: !JSDOM }, async () => {
@@ -193,7 +196,7 @@ test('skill notes in brackets translate to Vietnamese and key values are bold', 
   /* Bracketed notes: Duration / Max Stack / effect names. */
   assert.ok(html.includes('[Kéo dài: 2 lượt]'), '[Duration: 2 Turn(s)] must render as "[Kéo dài: 2 lượt]"');
   assert.ok(html.includes('[Tối đa 4 cộng dồn]'), '[Max 4 Stack(s)] must render as "[Tối đa 4 cộng dồn]"');
-  assert.ok(html.includes('[Sốc điện]'), '[Shock] must render as "[Sốc điện]"');
+  assert.ok(html.includes('[<b class="hx-fx-bad">Sốc điện</b>]'), '[Shock] must render as "[Sốc điện]" (bold + red, as a bad effect)');
   assert.ok(!html.includes('[Duration:'), 'no English Duration note should remain in the skills');
   assert.ok(!html.includes('[Max 4 Stack'), 'no English Max Stack note should remain in the skills');
   /* Bold: percentages, damage types, effect names. */

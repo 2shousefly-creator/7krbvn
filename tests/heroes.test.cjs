@@ -381,6 +381,7 @@ test('skill effect coloring: bad effects red, good effects blue, explanation unc
   const js = read('hero-detail.js');
   assert.ok(js.includes('var FX_BAD'), 'hero-detail.js must define the bad-effects (red) list');
   assert.ok(js.includes('var FX_GOOD'), 'hero-detail.js must define the good-effects (blue) list');
+  assert.ok(js.includes('VI_TO_EN'), 'hero-detail.js must map Vietnamese effect names back to English for coloring');
   assert.ok(js.includes("'Shock': 1") && js.includes("'Buff Removal': 1"), 'red list must include Shock and Buff Removal');
   assert.ok(js.includes("'Revive': 1") && js.includes("'Crit Damage Boost': 1"), 'blue list must include Revive and Crit Damage Boost');
   assert.ok(js.includes('function richLine(raw, noColor)'), 'richLine must accept a noColor flag');

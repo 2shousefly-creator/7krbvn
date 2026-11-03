@@ -361,13 +361,22 @@
     [/Magic Bond - (\d+) Target\(s\)/g, 'Magic Bond - $1 mục tiêu'],
     [/Mark: (.+)/g, 'Dấu ấn: $1']
   ];
-  /* Tên hiệu ứng + loại sát thương cần in đậm (dài trước để khớp cụm dài). */
-  var BOLD_TERMS = Object.keys(FX_VI).concat([
+  /* Tên hiệu ứng + loại sát thương cần in đậm (dài trước để khớp cụm dài).
+   * Gồm cả tên tiếng Việt (giá trị FX_VI) vì bản dịch giữ tên hiệu ứng
+   * bằng tiếng Việt trong nhiều dòng kỹ năng (vd "Hồi sinh" thay cho
+   * "Revive") — các tên này cũng phải được in đậm/tô màu như tên gốc.
+   * Dùng ranh giới Unicode (lookaround \p{L}\p{N}) thay cho \b vì \b
+   * không nhận diện đúng chữ có dấu tiếng Việt. */
+  var VI_TO_EN = {};
+  Object.keys(FX_VI).forEach(function (k) {
+    if (FX_VI[k] && !VI_TO_EN[FX_VI[k]]) VI_TO_EN[FX_VI[k]] = k;
+  });
+  var BOLD_TERMS = Object.keys(FX_VI).concat(Object.keys(VI_TO_EN)).concat([
     'Physical Attack', 'Magic Attack', 'Physical Damage', 'Magic Damage', 'True Damage'
   ]).sort(function (a, b) { return b.length - a.length; });
-  var BOLD_RE = new RegExp('\\b(' + BOLD_TERMS.map(function (t) {
+  var BOLD_RE = new RegExp('(?<![\\p{L}\\p{N}])(' + BOLD_TERMS.map(function (t) {
     return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }).join('|') + ')\\b', 'g');
+  }).join('|') + ')(?![\\p{L}\\p{N}])', 'gu');
   /* Phân loại hiệu ứng để tô màu trong nội dung chi tiết kỹ năng:
    * FX_BAD = hiệu ứng xấu lên kẻ địch (tô đỏ), FX_GOOD = hiệu ứng tốt
    * lên bản thân/đồng minh (tô xanh dương). Chỉ dựa vào tên hiệu ứng
@@ -453,8 +462,9 @@
      * lên địch, tô xanh dương hiệu ứng tốt lên mình/đồng minh. */
     s = s.replace(/(\d+(?:\.\d+)?%)/g, '<b>$1</b>');
     s = s.replace(BOLD_RE, function (m) {
-      if (!noColor && FX_BAD[m]) return '<b class="hx-fx-bad">' + m + '</b>';
-      if (!noColor && FX_GOOD[m]) return '<b class="hx-fx-good">' + m + '</b>';
+      var key = FX_BAD[m] || FX_GOOD[m] ? m : (VI_TO_EN[m] || m);
+      if (!noColor && FX_BAD[key]) return '<b class="hx-fx-bad">' + m + '</b>';
+      if (!noColor && FX_GOOD[key]) return '<b class="hx-fx-good">' + m + '</b>';
       return '<b>' + m + '</b>';
     });
     return s;
