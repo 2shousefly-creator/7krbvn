@@ -85,11 +85,18 @@ test('the home page lists all twelve category cards (including the new Heroes ca
 
 test('home articles show their tag labels', () => {
   const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-  const cards = [...home.matchAll(/<a class="post-card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
-  assert.equal(cards.length, 4, 'home must list 4 latest articles');
-  for (const [, href, body] of cards) {
+  const latest = home.slice(home.indexOf('Bài viết mới nhất'),
+    home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
+  const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
+  assert.equal(latestCards.length, 4, 'home must list 4 latest articles');
+  for (const [, href, body] of latestCards) {
     assert.ok(body.includes('<span class="article-tag">'), `${href} card must show its tag label`);
   }
+  const pinned = home.slice(home.indexOf('Bài viết đã ghim'),
+    home.indexOf('</section>', home.indexOf('Bài viết đã ghim')));
+  const pinnedCards = [...pinned.matchAll(/<a class="post-card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
+  assert.equal(pinnedCards.length, 1, 'home must pin 1 article for now');
+  assert.ok(pinnedCards[0][2].includes('<span class="article-tag">'), 'pinned card must show its tag label');
   assert.ok(home.includes('<span class="article-tag">CẬP NHẬT</span>'),
     'update article card must carry the CẬP NHẬT tag');
 });
