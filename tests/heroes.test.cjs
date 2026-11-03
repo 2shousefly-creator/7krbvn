@@ -339,7 +339,7 @@ test('builds tab dedicated drops the A/B headings; pink frame marks the pick', (
   assert.ok(!js.includes('— Build này'), 'dedicated must not show the "Build này" label');
   assert.ok(js.includes("hx-de-col' + (aOn ? ' this' : '')"), 'the pink frame must sit on the picked column (A when the pick is A)');
   assert.ok(js.includes("hx-de-col' + (bOn ? ' this' : '')"), 'the pink frame must sit on the picked column (B when the pick is B)');
-  assert.ok(js.includes("'<b>' + esc(statLabel(n)) + '</b>'"), 'dedicated substat names must be bold');
+  assert.ok(js.includes("'<b style=\"min-width:0\">' + esc(statLabel(n)) + '</b>'"), 'dedicated substat names must be bold');
 });
 
 test('build names translate to Vietnamese in the build list', () => {
@@ -352,4 +352,27 @@ test('build names translate to Vietnamese in the build list', () => {
   assert.ok(js.includes('BUILD_VI[bb.name]'), 'build list must look up the Vietnamese name');
   assert.ok(js.includes("'Defensive Utility': 'Tiện Ích Phòng Thủ'") || js.includes('"Defensive Utility": "Tiện Ích Phòng Thủ"'),
     'BUILD_VI must translate "Defensive Utility" in Title Case');
+});
+
+test('popup actions are a fixed footer at the bottom of the card', () => {
+  const js = read('hero-popup.js');
+  assert.ok(js.includes('hx-modal-actions'), 'popup must render the actions element');
+  assert.ok(js.includes("modal.querySelector('.hx-modal-actions').innerHTML = buildActions(currentHero)"),
+    'popup actions must render into their own footer element, outside the scroll body');
+  const css = read('heroes.css');
+  assert.ok(/\.hx-modal-card\{[^}]*display:flex;flex-direction:column/.test(css),
+    'modal card must be a flex column so the footer can sit at the bottom');
+  assert.ok(/\.hx-modal-body\{[^}]*overflow-y:auto/.test(css),
+    'modal body must scroll while the footer stays fixed');
+  assert.ok(/\.hx-modal-actions\{[^}]*border-top:1px solid #e9e8e3/.test(css),
+    'fixed footer must have a top border separating it from the scroll content');
+});
+
+test('dedicated lines align the icon snug to the left', () => {
+  const css = read('heroes.css');
+  assert.ok(/\.hx-de-col ul\{[^}]*padding-left:2px/.test(css),
+    'dedicated list must not indent (icon sits at the column left edge)');
+  const js = read('hero-detail.js');
+  assert.ok(js.includes('gap:6px;align-items:center'), 'dedicated rows must use a small gap between icon and text');
+  assert.ok(js.includes('white-space:nowrap;flex:none'), 'dedicated values must not wrap onto the next line');
 });

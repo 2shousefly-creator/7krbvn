@@ -696,6 +696,11 @@
       ? '<div style="margin-top:8px">' + tx.map(function (t) {
         var idx = sk.tx.indexOf(t);
         var effect = (sk.tx_vi && sk.tx_vi[idx] && sk.tx_vi[idx].effect) || t.effect;
+        /* Mốc T2 và T6 nổi bật: tag riêng + khung bao quanh nội dung.
+         * T4 giữ dạng dòng thường. */
+        if (t.tier === 'T2' || t.tier === 'T6') {
+          return '<div class="hx-tx-box"><span class="hx-tx-tag">' + esc(t.tier) + '</span><span>' + richLine(effect) + '</span></div>';
+        }
         return '<p style="font-size:12.5px;color:#946b25;margin:4px 0"><b>' + esc(t.tier) + '</b> ' + richLine(effect) + '</p>';
       }).join('') + '</div>' : '';
     return '<div class="hx-skill" id="skill-' + esc(sk.key) + '">' + iconHtml
@@ -787,15 +792,17 @@
     var setImg = setIcon(set.name || '');
     /* Main stat: BEST (Chính) và ALT (Phụ) tách thành 2 hàng riêng.
      * Đồng bộ với popup: hiển thị hình minh họa thật của món đồ trong
-     * set (ảnh 126px), không dùng icon chung. */
+     * set (ảnh 126px), không dùng icon chung. Mỗi hero có 2 slot cho vũ
+     * khí và 2 slot cho giáp nên mỗi chỉ số ghi "× 2"; dòng Chính in đậm
+     * (kể cả "× 2") để nổi bật so với dòng Phụ. */
     function mainStatHtml(label, pieceFile, arr) {
       var best = arr[0], alt = arr.slice(1);
       var row = '<div class="hx-mainstat hx-with-piece">'
         + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="" loading="lazy">' : '')
         + '<div class="hx-ms-body"><small>' + esc(label) + '</small>'
-        + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span>' + esc(statLabel(best || '—')) + '</span></div>';
+        + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span><b>' + esc(statLabel(best || '—')) + ' × 2</b></span></div>';
       if (alt.length) {
-        row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + esc(alt.map(statLabel).join(' / ')) + '</span></div>';
+        row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + esc(alt.map(function (s) { return statLabel(s) + ' × 2'; }).join(' / ')) + '</span></div>';
       }
       return row + '</div></div>';
     }
@@ -831,10 +838,10 @@
           var n = typeof x === 'string' ? x : (x.name || '');
           var val = (typeof x === 'object' && x.value) || '';
           var icon = (typeof x === 'object' && x.icon) || STAT_ICONS[n];
-          return '<li style="display:flex;gap:8px;align-items:center">'
-            + (icon ? '<img src="assets/substats/' + esc(icon) + '" alt="" style="width:20px;height:20px;object-fit:contain">' : '')
-            + '<b>' + esc(statLabel(n)) + '</b>'
-            + (val ? '<b style="margin-left:auto">' + esc(val) + '</b>' : '') + '</li>';
+          return '<li style="display:flex;gap:6px;align-items:center">'
+            + (icon ? '<img src="assets/substats/' + esc(icon) + '" alt="" style="width:20px;height:20px;object-fit:contain;flex:none">' : '')
+            + '<b style="min-width:0">' + esc(statLabel(n)) + '</b>'
+            + (val ? '<b style="margin-left:auto;white-space:nowrap;flex:none">' + esc(val) + '</b>' : '') + '</li>';
         }).join('') + '</ul>';
       }
       var aStat = (ded.a && ded.a[0] && (typeof ded.a[0] === 'string' ? ded.a[0] : ded.a[0].name)) || '';

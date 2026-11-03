@@ -71,13 +71,14 @@
       var setImg = setIcon(set.name || '');
       var subs = (build.substats || []).slice(0, 4);
       /* Chỉ số chính: chỉ hiện giá trị tốt nhất của build này, kèm hình
-       * minh họa thật của món đồ trong set (ảnh 126px). */
+       * minh họa thật của món đồ trong set (ảnh 126px). Mỗi hero có 2 slot
+       * cho vũ khí và 2 slot cho giáp nên dòng chính ghi "× 2" và in đậm. */
       function mainStatHtml(label, pieceFile, arr) {
         var best = arr[0];
         return '<div class="hx-mainstat hx-with-piece">'
           + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="">' : '')
           + '<div class="hx-ms-body"><small>' + esc(label) + '</small>'
-          + '<div class="hx-ms-row"><span>' + esc(statLabel(best || '—')) + '</span></div>'
+          + '<div class="hx-ms-row"><span><b>' + esc(statLabel(best || '—')) + ' × 2</b></span></div>'
           + '</div></div>';
       }
       /* Phụ kiện: nhẫn chính + nhẫn tinh luyện của option tốt nhất. */
@@ -162,16 +163,20 @@
       }
       out += '</div>';
     }
-    out += '<div class="hx-modal-actions">'
-      + '<a class="hx-btn primary" href="hero.html?id=' + esc(h.id) + '">Chi tiết</a>'
-      + '<a class="hx-btn" href="hero.html?id=' + esc(h.id) + '&amp;tab=builds">Xem build</a>'
-      + '</div>';
     return out;
+  }
+
+  /* Nút Chi tiết / Xem build nằm cố định ở đáy popup (ngoài vùng cuộn),
+   * luôn hiện để người dùng truy cập dễ dàng. */
+  function buildActions(h) {
+    return '<a class="hx-btn primary" href="hero.html?id=' + esc(h.id) + '">Chi tiết</a>'
+      + '<a class="hx-btn" href="hero.html?id=' + esc(h.id) + '&amp;tab=builds">Xem build</a>';
   }
 
   function renderPopup() {
     if (!currentHero || !modal) return;
     modal.querySelector('.hx-modal-body').innerHTML = buildHtml(currentHero, currentBuild);
+    modal.querySelector('.hx-modal-actions').innerHTML = buildActions(currentHero);
   }
 
   function ensureModal() {
@@ -182,7 +187,8 @@
     modal.setAttribute('aria-modal', 'true');
     modal.innerHTML = '<div class="hx-modal-backdrop"></div>'
       + '<div class="hx-modal-card"><button class="hx-modal-close" type="button" aria-label="Đóng">×</button>'
-      + '<div class="hx-modal-body"><p>Đang tải…</p></div></div>';
+      + '<div class="hx-modal-body"><p>Đang tải…</p></div>'
+      + '<div class="hx-modal-actions"></div></div>';
     document.body.appendChild(modal);
     modal.querySelector('.hx-modal-close').addEventListener('click', close);
     modal.querySelector('.hx-modal-backdrop').addEventListener('click', close);
@@ -196,6 +202,7 @@
     var m = ensureModal();
     var body = m.querySelector('.hx-modal-body');
     body.innerHTML = '<p>Đang tải…</p>';
+    m.querySelector('.hx-modal-actions').innerHTML = '';
     m.classList.add('open');
     document.body.style.overflow = 'hidden';
     load(id).then(function (h) {

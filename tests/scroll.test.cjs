@@ -146,6 +146,17 @@ test('popup: build tabs (Atlas style), real gear piece art, accessories, bold de
   assert.ok(!html.includes('Nên build'), 'popup dedicated must not say "Nên build"');
   /* Gear art is compact in the popup (64px, uniform), not the 110px detail size. */
   assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'popup must still show the real weapon piece art');
+  /* Main stats show "× 2" (2 slots per weapon/armor) and are bold. */
+  assert.ok(html.includes('<b>Crit Rate × 2</b>'), 'popup weapon main stat must be bold with "× 2"');
+  assert.ok(html.includes('<b>Damage Taken Reduction × 2</b>'), 'popup armor main stat must be bold with "× 2"');
+  /* Substat priority below stays as-is (no "× 2" there). */
+  const subs = body.querySelector('.hx-substats');
+  assert.ok(subs && !subs.textContent.includes('× 2'), 'substat priority must not show "× 2"');
+  /* Actions are fixed at the bottom of the card, outside the scroll body. */
+  const card = dom.window.document.querySelector('.hx-modal-card');
+  assert.ok(card.querySelector(':scope > .hx-modal-actions'), 'popup actions must sit outside the scrollable body (fixed footer)');
+  assert.ok(card.querySelector(':scope > .hx-modal-actions').textContent.includes('Chi tiết'), 'fixed footer must have the Chi tiết button');
+  assert.ok(card.querySelector(':scope > .hx-modal-actions').textContent.includes('Xem build'), 'fixed footer must have the Xem build button');
   /* Switch to Build 2 (Avenger set) and confirm the popup re-renders. */
   body.querySelector('[data-popup-build="1"]').click();
   await tick();
@@ -187,6 +198,14 @@ test('builds tab: real gear piece art, horizontal accessories, dedicated without
   assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'builds tab must show the real weapon piece art');
   assert.ok(html.includes('assets/gearpieces/ID-Spell3.webp'), 'builds tab must show the real armor piece art');
   assert.ok(!html.includes('assets/gearui/'), 'builds tab must no longer use the generic weapon/armor icons');
+  /* Main stats: Chính row bold with "× 2", Phụ row "× 2" but not bold. */
+  assert.ok(html.includes('<b>Crit Rate × 2</b>'), 'builds tab weapon main stat must be bold with "× 2"');
+  assert.ok(html.includes('<b>Damage Taken Reduction × 2</b>'), 'builds tab armor main stat must be bold with "× 2"');
+  assert.ok(html.includes('Weakness Hit Chance × 2'), 'builds tab sub main stat must show "× 2"');
+  assert.ok(!html.includes('<b>Weakness Hit Chance × 2</b>'), 'builds tab sub main stat must not be bold');
+  /* Substat priority below stays as-is (no "× 2" there). */
+  const subsEl = doc.querySelector('.hx-substats');
+  assert.ok(subsEl && !subsEl.textContent.includes('× 2'), 'substat priority must not show "× 2"');
   /* Accessories: horizontal — main + sub rings side by side with a + between. */
   assert.ok(html.includes('hx-acc-pair'), 'accessories must render horizontally (main + sub in one row)');
   assert.ok(html.includes('assets/acc/L-Immortal.webp'), 'accessories must show the main ring image');
@@ -198,5 +217,17 @@ test('builds tab: real gear piece art, horizontal accessories, dedicated without
   assert.ok(!html.includes('Dòng phụ B'), 'dedicated must not show the "Dòng phụ B" heading');
   assert.ok(!html.includes('Build này'), 'dedicated must not show the "Build này" label');
   assert.ok(html.includes('hx-de-col this'), 'the picked dedicated column must carry the pink frame');
-  assert.ok(html.includes('<b>Resilience</b>'), 'dedicated substat name must be bold');
+  assert.ok(html.includes('<b style="min-width:0">Resilience</b>'), 'dedicated substat name must be bold');
+});
+
+test('skill Transcendence T2 and T6 get a prominent tag and a frame', { skip: !JSDOM }, async () => {
+  const { dom } = makeDom('https://7krb.io.vn/hero.html?id=eileene', null, 0);
+  await tick();
+  const html = dom.window.document.querySelector('#hx-content').innerHTML;
+  /* Eileene's skills have T2/T4/T6 transcendence lines. T2 and T6 get a
+   * tag + frame; T4 stays a plain line. */
+  assert.ok(html.includes('<span class="hx-tx-tag">T2</span>'), 'T2 must render as a prominent tag');
+  assert.ok(html.includes('<span class="hx-tx-tag">T6</span>'), 'T6 must render as a prominent tag');
+  assert.ok(html.includes('hx-tx-box'), 'T2/T6 effects must sit inside a frame');
+  assert.ok(!html.includes('<span class="hx-tx-tag">T4</span>'), 'T4 must not get the prominent tag');
 });

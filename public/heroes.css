@@ -89,6 +89,8 @@
 .hx-tip{font-size:11.5px;border:1px solid #e9e8e3;border-radius:999px;padding:2px 8px;background:#f7f6f2;cursor:help}
 /* Giải thích hiệu ứng trong kỹ năng: "Tên EN - Tên VI: giải thích". */
 .hx-fxlist{margin-top:10px;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px}
+.hx-tx-box{display:flex;gap:8px;align-items:flex-start;background:#fdf8ec;border:1px solid #e5c96a;border-radius:10px;padding:8px 10px;margin:6px 0;font-size:12.5px;line-height:1.55;color:#6b5518}
+.hx-tx-tag{flex:none;background:#c9a227;color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:2px 7px;margin-top:1px}
 .hx-fx-title{font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin-bottom:6px}
 .hx-fx{font-size:13px;line-height:1.6;margin:4px 0}
 .hx-fx b{color:#202638}
@@ -135,7 +137,7 @@
 .hx-de-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .hx-de-col{border:1px solid #e9e8e3;border-radius:12px;padding:12px}
 .hx-de-col.this{border-color:#e5b8c8;background:#fdf4f7}
-.hx-de-col ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.7}
+.hx-de-col ul{margin:0;padding-left:2px;font-size:13.5px;line-height:1.7;list-style:none}
 .hx-pill{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:3px 12px}
 .hx-pill.yes{background:#dcf5e3;color:#1f7a74}
 .hx-pill.no{background:#fbe3e3;color:#b3352c}
@@ -150,7 +152,9 @@
 .hx-modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
 .hx-modal.open{display:flex}
 .hx-modal-backdrop{position:absolute;inset:0;background:rgba(20,24,40,.55)}
-.hx-modal-card{position:relative;background:#fff;border-radius:18px;max-width:460px;width:100%;max-height:88vh;overflow-y:auto;padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.hx-modal-card{position:relative;background:#fff;border-radius:18px;max-width:460px;width:100%;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;padding:20px 20px 0;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.hx-modal-body{overflow-y:auto;min-height:0;flex:1;padding-right:2px}
+.hx-modal-actions{flex:none;display:flex;gap:10px;padding:14px 0 16px;border-top:1px solid #e9e8e3;margin-top:14px;background:#fff}
 .hx-modal-close{position:absolute;top:10px;right:12px;font-size:22px;line-height:1;border:0;background:none;cursor:pointer;color:#8b8578}
 .hx-modal-hero{display:flex;gap:14px;align-items:center}
 .hx-modal-hero img{width:84px;height:84px;border-radius:14px;object-fit:cover;border:1px solid #e9e8e3}
@@ -178,5 +182,4 @@
 .hx-modal-dedi .hx-dedi-icon{width:20px;height:20px;object-fit:contain;vertical-align:-4px;margin-right:4px}
 .hx-modal-build .hx-mainstat .hx-piece{width:64px;height:64px}
 .hx-modal-note{font-size:13px;line-height:1.6;color:#4a5160;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;margin-top:12px}
-.hx-modal-actions{display:flex;gap:10px;margin-top:16px}
 .hx-modal-actions a{flex:1;text-align:center;text-decoration:none}
