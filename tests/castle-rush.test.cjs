@@ -30,6 +30,7 @@ test('every boss page has the hero popup wiring and team display', () => {
     assert.ok(html.includes(`Hàng Sau (${f.back})`), `${slug}: back ${f.back}`);
     // No leftover top/bottom-skill wording anywhere on the page.
     assert.ok(!/top skill|bottom skill|\bAtas\b|\bBawah\b/i.test(html), `${slug}: no top/bottom wording`);
+    assert.ok(!/Biskuit/.test(html), `${slug}: no "Biskuit" spelling (in-game name is Biscuit)`);
     assert.ok(!/không được ghi trong bình luận ghim/i.test(html), `${slug}: old placeholder note gone`);
   }
 });
@@ -82,6 +83,8 @@ test('main page: formation varies, scores on cards, mechanic footnote', () => {
   assert.ok(html.includes('Điểm trong video: Orly 14,33M · Lina 14,19M (Practice).'), 'Rudy card score');
   assert.ok(html.includes('Điểm trong video: 12,17M (Practice).'), 'Rachel card score');
   assert.ok(html.includes('Điểm trong video: 21,85M.'), 'Jave card score');
+  // In-game spelling is "Biscuit" (hero id biscuit); the author's "Biskuit" must not leak onto the site.
+  assert.ok(!/Biskuit/.test(html), 'no "Biskuit" spelling on the main page');
 });
 
 test('no % in any asset URL referenced by the Castle Rush pages', () => {
