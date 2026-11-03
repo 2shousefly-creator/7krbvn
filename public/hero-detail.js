@@ -10,6 +10,15 @@
   var TIER_COLORS = { 'SSS': '#EB8DFF', 'SS': '#FF6767', 'S': '#FBBC04', 'A': '#FEFF31', 'B': '#8CE669', 'C': '#58CDDA', 'D': '#699FE6', 'NOT USED': '#D9D9D9' };
   var DASHBOARD_ART = { 'power-up-dungeon-roles': 'powerupdungeon', 'raid': 'raid', 'sudden-raid': 'suddenraid', 'castle-rush': 'castlerush', 'advent-expedition': 'adventexpedition', 'arena': 'arena', 'total-war': 'totalwar', 'guild-war': 'guildwar', 'farming': 'farming' };
   var SET_ICONS = { 'Bounty Tracker': 'Bounty.webp', 'Spellweaver': 'Spellweaver.webp', 'Avenger': 'Avenger.webp', 'Gatekeeper': 'Gatekeeper.webp', 'Guardian': 'Guardian.webp', 'Orchestrator': 'Orchestrator.webp', 'Paladin': 'Paladin.webp', 'Assassin': 'Assassin.webp', 'Vanguard': 'Vanguard.webp' };
+  /* Gear piece art (Atlas Raid sets): [boss abbr, set stem]. Weapon uses
+   * variant 2 for Magic heroes, 1 otherwise; armor always variant 3. */
+  var SET_PIECE = { 'Bounty Tracker': ['DG', 'Bounty'], 'Paladin': ['DG', 'Paladin'], 'Vanguard': ['DG', 'Vanguard'], 'Assassin': ['NMW', 'Assassin'], 'Gatekeeper': ['NMW', 'Gatekeeper'], 'Guardian': ['NMW', 'Guardian'], 'Avenger': ['ID', 'Avenger'], 'Orchestrator': ['ID', 'Orchestrator'], 'Spellweaver': ['ID', 'Spell'] };
+  function pieceImg(setName, slot, heroType) {
+    var p = SET_PIECE[setName];
+    if (!p) return null;
+    var variant = slot === 'armor' ? 3 : (heroType === 'Magic' ? 2 : 1);
+    return p[0] + '-' + p[1] + variant + '.webp';
+  }
   var REASON_LABEL = { 'awakened': 'Awakened', 'effect': 'Effect', 'role-single': 'Single-Target DPS', 'role-three': '3-Target DPS', 'role-aoe': '4/5-Target DPS', 'widely-used': 'Widely used' };
 
   var params = new URLSearchParams(location.search);
@@ -323,6 +332,260 @@
    "Magic Attack Reduction": "Giảm Magic Attack",
    "Blind Immunity": "Miễn nhiễm mù"
   };
+  /* Dịch ghi chú trong ngoặc của kỹ năng + in đậm giá trị quan trọng.
+   * Ghi chú là các mẫu có cấu trúc (Duration, Max Stack, Once per Battle,
+   * ...) nên dịch bằng regex; tên hiệu ứng trong ngoặc dịch qua FX_VI;
+   * tên riêng (dấu ấn, tên kỹ năng) giữ nguyên tiếng Anh. Sau đó in đậm
+   * các giá trị % , tên hiệu ứng và loại sát thương. */
+  var NOTE_PATTERNS = [
+    [/Duration: (\d+) Turn\(s\)/g, 'Kéo dài: $1 lượt'],
+    [/Always Active/g, 'Luôn kích hoạt'],
+    [/Once per Battle/g, '1 lần trong trận'],
+    [/Once per Round/g, '1 lần mỗi vòng'],
+    [/(\d+) Time\(s\) per Battle/g, '$1 lần trong trận'],
+    [/Reduced by: (\d+) Turn\(s\)/g, 'Giảm: $1 lượt'],
+    [/Max: (\d+) Stack\(s\)/g, 'Tối đa: $1 cộng dồn'],
+    [/Max (\d+) Stack\(s\)/g, 'Tối đa $1 cộng dồn'],
+    [/Max (\d+) Stacks/g, 'Tối đa $1 cộng dồn'],
+    [/Max (\d+) Hit\(s\)/g, 'Tối đa $1 đòn'],
+    [/Max (\d+) Bomb\(s\)/g, 'Tối đa $1 bom'],
+    [/Max (\d+) Level\(s\)/g, 'Tối đa cấp $1'],
+    [/Ends After: Taking (\d+) Hit\(s\)/g, 'Kết thúc sau khi nhận $1 đòn'],
+    [/Lasts for: (\d+) Hit\(s\)/g, 'Kéo dài: $1 đòn'],
+    [/(\d+) Hit\(s\)/g, '$1 đòn'],
+    [/(\d+) Time\(s\)/g, '$1 lần'],
+    [/Increased by: (\d+)s/g, 'Tăng thêm: $1 giây'],
+    [/Additional (\d+)% Crit Rate/g, 'Thêm $1% Crit Rate'],
+    [/Unremovable/g, 'Không thể xóa'],
+    [/Limit: ([\d,]+)% of (.+?)'s Attack/g, 'Giới hạn: $1% Attack của $2'],
+    [/Magic Bond - (\d+) Target\(s\)/g, 'Magic Bond - $1 mục tiêu'],
+    [/Mark: (.+)/g, 'Dấu ấn: $1']
+  ];
+  /* Tên hiệu ứng + loại sát thương cần in đậm (dài trước để khớp cụm dài). */
+  var BOLD_TERMS = Object.keys(FX_VI).concat([
+    'Physical Attack', 'Magic Attack', 'Physical Damage', 'Magic Damage', 'True Damage'
+  ]).sort(function (a, b) { return b.length - a.length; });
+  var BOLD_RE = new RegExp('\\b(' + BOLD_TERMS.map(function (t) {
+    return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }).join('|') + ')\\b', 'g');
+  function richLine(raw) {
+    var s = esc(raw == null ? '' : raw);
+    /* Dịch nội dung trong ngoặc [...]. */
+    s = s.replace(/\[([^\]]+)\]/g, function (m, inner) {
+      var t = inner;
+      NOTE_PATTERNS.forEach(function (p) { t = t.replace(p[0], p[1]); });
+      if (t === inner && FX_VI[inner]) t = FX_VI[inner];
+      return '[' + t + ']';
+    });
+    /* In đậm giá trị % , tên hiệu ứng, loại sát thương. */
+    s = s.replace(/(\d+(?:\.\d+)?%)/g, '<b>$1</b>');
+    s = s.replace(BOLD_RE, '<b>$1</b>');
+    return s;
+  }
+
+  /* Tên build dịch sang tiếng Việt (200 tên, dịch từ tên Atlas). */
+  var BUILD_VI = {
+    "2nd Highest Attack": "Attack cao thứ 2",
+    "3-Target DPS": "DPS 3 mục tiêu",
+    "AOE Damage Boost": "Tăng sát thương AOE",
+    "AOE Slasher": "Chém AOE",
+    "AOE Slayer": "Diệt AOE",
+    "Absolute Meteorite": "Thiên thạch tuyệt đối",
+    "Advent Dream Support": "Hỗ trợ Advent Dream",
+    "Advent Expedition": "Advent Expedition",
+    "Advent Snipe": "Bắn tỉa Advent",
+    "All-Out DPS": "DPS toàn lực",
+    "All-Rounded DPS": "DPS toàn diện",
+    "All-rounded Utility": "Tiện ích toàn diện",
+    "Archer of Paralysis": "Cung thủ tê liệt",
+    "Attack Maximizer": "Tối đa Attack",
+    "Baby DPS": "DPS non",
+    "Baby Guan Yu (pre-T6)": "Guan Yu non (pre-T6)",
+    "Baby Pallanus (pre-T6)": "Pallanus non (pre-T6)",
+    "Baby Reginleif (pre-T6)": "Reginleif non (pre-T6)",
+    "Baby Sun Wukong (pre-T6)": "Sun Wukong non (pre-T6)",
+    "Baby Sunran (pre-T6)": "Sunran non (pre-T6)",
+    "Baby Teo (pre-T6)": "Teo non (pre-T6)",
+    "Baby Trude (pre-T6)": "Trude non (pre-T6)",
+    "Barrier Superhero": "Siêu anh hùng khiên",
+    "Barrier for Life": "Khiên cả đời",
+    "Battlefield Domination": "Thống trị chiến trường",
+    "Better Healing": "Hồi máu tốt hơn",
+    "Big Bomb Damage": "Sát thương bom lớn",
+    "Big Chain Damage": "Sát thương liên hoàn lớn",
+    "Big Heals": "Hồi máu lớn",
+    "Bleed Master": "Bậc thầy chảy máu",
+    "Bleed-centric": "Xoay quanh chảy máu",
+    "Bleeding Spear": "Giáo chảy máu",
+    "Block & Burst": "Block và bùng nổ",
+    "Block Survival": "Sống sót nhờ Block",
+    "Block-Focused": "Tập trung Block",
+    "Boost the Barrier": "Tăng khiên",
+    "Boss DMG Boost": "Tăng sát thương Boss",
+    "Boss Damage Boost": "Tăng sát thương Boss",
+    "Boss Killer": "Diệt Boss",
+    "Boss Slayer": "Săn Boss",
+    "Boss Slayer-EX": "Săn Boss-EX",
+    "Boss Support": "Hỗ trợ đánh Boss",
+    "Bringer of Fear": "Kẻ gieo sợ hãi",
+    "Bulky DPS": "DPS trâu",
+    "Burn Boost": "Tăng thiêu đốt",
+    "Burn It Stun It": "Đốt rồi choáng",
+    "Burn-Focused": "Tập trung thiêu đốt",
+    "Burn-centric": "Xoay quanh thiêu đốt",
+    "CC-Focused": "Tập trung CC",
+    "Castle Rush": "Castle Rush",
+    "Chonky Tank": "Tank mũm mĩm",
+    "Clean Up Shots": "Kết liễu bằng đạn",
+    "Cleanser": "Tẩy debuff",
+    "Concussion Time!": "Giờ chấn động!",
+    "Crit Bombardment": "Bắn phá Crit",
+    "Crit Maximizer": "Tối đa Crit",
+    "Crit Zombie": "Zombie Crit",
+    "Crit-Focused": "Tập trung Crit",
+    "Crit-Focused Exception": "Ngoại lệ tập trung Crit",
+    "Critical Gun Shots": "Đạn chí mạng",
+    "Crystal Tank": "Tank pha lê",
+    "DOT-Focused": "Tập trung DOT",
+    "DOT-centric": "Xoay quanh DOT",
+    "Damage Pump": "Bơm sát thương",
+    "Damage-Focused": "Tập trung sát thương",
+    "Death King": "Vua tử thần",
+    "Death Prayers": "Lời cầu tử thần",
+    "Death Tank": "Tank tử thần",
+    "Debuff Resistance": "Kháng debuff",
+    "Defense Maximizer": "Tối đa Defense",
+    "Defense Survival": "Sống sót nhờ Defense",
+    "Defensive Disruptor": "Phá rối phòng thủ",
+    "Defensive Longevity": "Phòng thủ bền bỉ",
+    "Defensive Utility": "Tiện ích phòng thủ",
+    "Demon Breathing": "Hơi thở quỷ",
+    "Desert Disruptor": "Kẻ phá rối sa mạc",
+    "Disruption Specialist": "Chuyên gia phá rối",
+    "Disruptor from the Stars": "Kẻ phá rối từ các vì sao",
+    "Dragon Nunchucks": "Côn nhị khúc rồng",
+    "Early-Game": "Đầu game",
+    "Effect Boost": "Tăng hiệu ứng",
+    "Every Damage Counts": "Sát thương nào cũng đáng",
+    "Extreme Chiller": "Kẻ đóng băng cực mạnh",
+    "Farmer Things": "Chuyện cày cuốc",
+    "Farming": "Farm",
+    "Firepowered": "Sức mạnh lửa",
+    "Fixed Damage": "Sát thương cố định",
+    "Freeze-centric": "Xoay quanh đóng băng",
+    "Gatling Weakness": "Súng máy điểm yếu",
+    "Go Souldeath!": "Tử hồn lên!",
+    "Go to Sleep!": "Đi ngủ đi!",
+    "Guaranteed Heal": "Hồi máu chắc chắn",
+    "Guaranteed Taunt": "Khiêu khích chắc chắn",
+    "Guild War Slayer": "Diệt Guild War",
+    "HP Boosting Damage": "Sát thương tăng theo HP",
+    "HP Maximizer": "Tối đa HP",
+    "HP Survival": "Sống sót nhờ HP",
+    "HP-Focused": "Tập trung HP",
+    "Hawk Breathing": "Hơi thở diều hâu",
+    "Healer": "Hồi máu",
+    "Healer Maxima": "Hồi máu tối đa",
+    "Healthy Healer": "Hồi máu khỏe mạnh",
+    "Heavy Shots": "Phát bắn nặng",
+    "High Attack-Focused": "Tập trung Attack cao",
+    "Ice Age Returns": "Kỷ băng hà trở lại",
+    "Ice Wall": "Bức tường băng",
+    "Ignore Defense": "Bỏ qua Defense",
+    "Ignore the Defenses": "Bỏ qua mọi Defense",
+    "Immunity": "Miễn nhiễm",
+    "Immunity (Pre-T6)": "Miễn nhiễm (pre-T6)",
+    "Immunity-Focused": "Tập trung miễn nhiễm",
+    "King of DOT": "Vua DOT",
+    "King of Paralysis": "Vua tê liệt",
+    "Lethal Single-Target ": "Đơn mục tiêu chí mạng",
+    "Long Live Ace-sama!": "Ace-sama muôn năm!",
+    "Magic Booster": "Tăng Magic",
+    "Magic Reflux DMG-Focused": "Tập trung sát thương Magic Reflux",
+    "Magic Reflux Probability-Focused": "Tập trung tỉ lệ Magic Reflux",
+    "Max Defense Reduction": "Giảm Defense tối đa",
+    "Maximum Defense": "Defense tối đa",
+    "Minion Killer": "Diệt lính",
+    "Mob Slayer": "Diệt quái",
+    "Multi-Hit Specialist": "Chuyên gia đa đòn",
+    "PVE Boss Damage Dealer": "DPS Boss PVE",
+    "PVE DPS": "DPS PVE",
+    "PVE Destroyer": "Kẻ hủy diệt PVE",
+    "PVE Healer": "Hồi máu PVE",
+    "PVE Slasher": "Chém PVE",
+    "PVE Speed Support": "Hỗ trợ tốc độ PVE",
+    "PVE Support": "Hỗ trợ PVE",
+    "PVE Support-ProMax": "Hỗ trợ PVE-ProMax",
+    "PVE Wrecker": "Kẻ phá hoại PVE",
+    "PVP DPS": "DPS PVP",
+    "PVP Healer": "Hồi máu PVP",
+    "PVP Slasher": "Chém PVP",
+    "PVP Utility Nuker": "Nuker đa dụng PVP",
+    "Passive Debuffer": "Gây debuff bị động",
+    "Physical Team Support": "Hỗ trợ team Physical",
+    "Planet Destruction": "Hủy diệt hành tinh",
+    "Planet Protection": "Bảo vệ hành tinh",
+    "Playful Guild War": "Guild War vui vẻ",
+    "Poison DMG Boost": "Tăng sát thương độc",
+    "Poison Probability Boost": "Tăng tỉ lệ độc",
+    "Poison those Pookis!": "Đầu độc lũ Pooki!",
+    "Poison-centric": "Xoay quanh độc",
+    "Premium Healing": "Hồi máu cao cấp",
+    "Profressional Bait": "Mồi nhử chuyên nghiệp",
+    "Pseudo DPS": "DPS giả",
+    "Pseudo Tank": "Tank giả",
+    "Queen of DOT": "Nữ hoàng DOT",
+    "Queen of Death": "Nữ hoàng tử thần",
+    "Raid Challenger": "Thách thức Raid",
+    "Rain of Crit Hits": "Mưa đòn Crit",
+    "Rain of Weakness Hits": "Mưa đòn điểm yếu",
+    "Resist them all!": "Kháng tất cả!",
+    "Rider of the Winds": "Kỵ sĩ của gió",
+    "ST Damage": "Sát thương đơn mục tiêu",
+    "Secondary DPS": "DPS phụ",
+    "Seventh Form: God Slayer": "Thức thứ bảy: Diệt thần",
+    "Sharpshooter": "Xạ thủ",
+    "Sharpshooter-EX": "Xạ thủ-EX",
+    "Shield of Death": "Khiên tử thần",
+    "Shock 'Em Well": "Choáng chúng thật đã",
+    "Shock Them All": "Choáng tất cả",
+    "Short-Duration Support": "Hỗ trợ ngắn hạn",
+    "Shuriken Rain": "Mưa shuriken",
+    "Silence Sicko": "Kẻ cuồng câm lặng",
+    "Single Nuker": "Nuker đơn mục tiêu",
+    "Single-target Damage Dealer": "DPS đơn mục tiêu",
+    "Sky High Resistance": "Kháng cực cao",
+    "Slayer of the Heavens": "Kẻ diệt thiên đường",
+    "Sniper": "Bắn tỉa",
+    "Solo Targetting": "DPS 1 mục tiêu",
+    "Soothing Disruption": "Phá rối êm dịu",
+    "Spear Piercer": "Kẻ đâm giáo",
+    "Spellcaster": "Pháp sư",
+    "Stat Maximization": "Tối đa chỉ số",
+    "Stay Focused!": "Tập trung nào!",
+    "Sudden Raid": "Sudden Raid",
+    "Supportive Damage": "Sát thương hỗ trợ",
+    "Supportive Dealer": "DPS hỗ trợ",
+    "Survive & Slash": "Sống sót và chém",
+    "Swift & Potent": "Nhanh và mạnh",
+    "Tanky Monk": "Nhà sư trâu",
+    "Tertiary DPS": "DPS thứ ba",
+    "The Great Wall": "Vạn lý trường thành",
+    "Thick Barriers": "Khiên dày",
+    "Thick HP": "HP dày",
+    "Top Speed Farming": "Farm tốc độ cao",
+    "Tower Scaler": "Leo tháp",
+    "Tower Wrecker": "Phá tháp",
+    "Tower of Trials": "Tower of Trials",
+    "Toxicity Maxima": "Độc tính tối đa",
+    "Utility DPS": "DPS đa dụng",
+    "Volley Shooter": "Xạ thủ loạt đạn",
+    "Weakness Bombardment": "Bắn phá điểm yếu",
+    "Weakness Killer": "Diệt điểm yếu",
+    "Weakness Shaman": "Pháp sư điểm yếu",
+    "Weakness-Focused": "Tập trung điểm yếu",
+    "Zzeoahhh": "Zzeoahhh"
+  };
   function setIcon(setName) {
     return SET_ICONS[setName] || (setName ? setName.replace(/\s+/g, '') + '.webp' : null);
   }
@@ -395,7 +658,7 @@
     var groups = (sk.effects || []).map(function (g, gi) {
       var lines = (sk.effects_vi && sk.effects_vi[gi]) || g.lines || [];
       return (g.target ? '<div class="hx-skill-target">' + esc(targetVi(g.target)) + '</div>' : '')
-        + lines.map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('');
+        + lines.map(function (l) { return '<p>' + richLine(l) + '</p>'; }).join('');
     }).join('');
     var tipByName = {};
     (sk.tips || []).forEach(function (t, ti) {
@@ -419,13 +682,13 @@
       ? '<div class="hx-fxlist"><div class="hx-fx-title">Hiệu ứng</div>' + fxItems.map(function (t) {
         var vname = FX_VI[t.name] || '';
         var label = vname ? (t.name + ' - ' + vname) : t.name;
-        return '<div class="hx-fx"><b>' + esc(label) + ':</b> ' + esc(tipByName[t.name]) + '</div>';
+        return '<div class="hx-fx"><b>' + esc(label) + ':</b> ' + richLine(tipByName[t.name]) + '</div>';
       }).join('') + '</div>' : '';
     var enhance = (sk.enhancement || []).length
       ? '<div class="hx-notes" style="background:#f2f7ff;border-color:#c8d8f2"><b>Nâng cấp kỹ năng</b>'
         + sk.enhancement.map(function (e, ei) {
           var effect = (sk.enhancement_vi && sk.enhancement_vi[ei] && sk.enhancement_vi[ei].effect) || e.effect;
-          return '<p style="margin:6px 0 0">' + (e.target ? '<b>' + esc(targetVi(e.target)) + ':</b> ' : '') + esc(effect) + '</p>';
+          return '<p style="margin:6px 0 0">' + (e.target ? '<b>' + esc(targetVi(e.target)) + ':</b> ' : '') + richLine(effect) + '</p>';
         }).join('') + '</div>' : '';
     var txOrder = { T2: 0, T4: 1, T6: 2 };
     var tx = (sk.tx || []).slice().sort(function (a, b) { return (txOrder[a.tier] || 99) - (txOrder[b.tier] || 99); });
@@ -433,7 +696,7 @@
       ? '<div style="margin-top:8px">' + tx.map(function (t) {
         var idx = sk.tx.indexOf(t);
         var effect = (sk.tx_vi && sk.tx_vi[idx] && sk.tx_vi[idx].effect) || t.effect;
-        return '<p style="font-size:12.5px;color:#946b25;margin:4px 0"><b>' + esc(t.tier) + '</b> ' + esc(effect) + '</p>';
+        return '<p style="font-size:12.5px;color:#946b25;margin:4px 0"><b>' + esc(t.tier) + '</b> ' + richLine(effect) + '</p>';
       }).join('') + '</div>' : '';
     return '<div class="hx-skill" id="skill-' + esc(sk.key) + '">' + iconHtml
       + '<div style="flex:1;min-width:0"><h4>' + esc(sk.name || 'Basic Attack') + '</h4>'
@@ -515,34 +778,48 @@
     var b = builds[buildIdx];
     var listHtml = '<div class="hx-build-list">' + builds.map(function (bb, i) {
       var modes = (bb.modes || []).map(function (m) { return MODE_LABELS[m] || m; }).join(', ');
-      return '<button type="button" data-build="' + i + '" class="' + (i === buildIdx ? 'active' : '') + '">' + esc(bb.name)
+      var nameVi = BUILD_VI[bb.name] || bb.name;
+      return '<button type="button" data-build="' + i + '" class="' + (i === buildIdx ? 'active' : '') + '" title="' + esc(bb.name) + '">' + esc(nameVi)
         + (modes ? '<span class="hx-build-modes">' + esc(modes) + '</span>' : '') + '</button>';
     }).join('') + '</div>';
     var set = (b.gear.sets || [])[0] || {};
     var setImg = setIcon(set.name || '');
-    /* Main stat: BEST (Chính) và ALT (Phụ) tách thành 2 hàng riêng. */
-    function mainStatHtml(label, iconFile, arr) {
+    /* Main stat: BEST (Chính) và ALT (Phụ) tách thành 2 hàng riêng.
+     * Đồng bộ với popup: hiển thị hình minh họa thật của món đồ trong
+     * set (ảnh 126px), không dùng icon chung. */
+    function mainStatHtml(label, pieceFile, arr) {
       var best = arr[0], alt = arr.slice(1);
-      var row = '<div class="hx-mainstat"><small><img src="assets/gearui/' + esc(iconFile) + '" alt="" loading="lazy">' + esc(label) + '</small>'
+      var row = '<div class="hx-mainstat hx-with-piece">'
+        + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="" loading="lazy">' : '')
+        + '<div class="hx-ms-body"><small>' + esc(label) + '</small>'
         + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span>' + esc(statLabel(best || '—')) + '</span></div>';
       if (alt.length) {
         row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + esc(alt.map(statLabel).join(' / ')) + '</span></div>';
       }
-      return row + '</div>';
+      return row + '</div></div>';
     }
     var subs = (b.substats || []).map(function (s) {
       var icon = STAT_ICONS[s];
       return '<li>' + (icon ? '<img src="assets/substats/' + esc(icon) + '" alt="" style="width:20px;height:20px;object-fit:contain">' : '') + esc(statLabel(s)) + '</li>';
     }).join('');
+    /* Phụ kiện: mỗi option trình bày ngang — nhẫn chính + nhẫn tinh luyện
+     * nằm cạnh nhau (kiểu Atlas), không xếp dọc như trước. */
+    function accLabelVi(label) {
+      if (!label) return 'OPTION';
+      if (label === 'Best') return 'Tốt nhất';
+      var m = /^Alt (\d+)$/.exec(label);
+      if (m) return 'Thay thế ' + m[1];
+      return label;
+    }
     function accCard(a) {
       function side(info, label) {
-        if (!info) return '<div><small>' + esc(label) + '</small><br><b>' + esc('—') + '</b></div>';
-        return '<div><small>' + esc(label) + '</small><br><img src="assets/acc/' + esc(info.icon) + '" alt="" loading="lazy"><b>' + esc(info.label) + '</b><br><small>' + esc(info.value || '') + '</small></div>';
+        if (!info) return '<div class="hx-acc-side"><small>' + esc(label) + '</small><br><b>—</b></div>';
+        return '<div class="hx-acc-side"><small>' + esc(label) + '</small><br><img src="assets/acc/' + esc(info.icon) + '" alt="" loading="lazy"><b>' + esc(info.label) + '</b><br><small>' + esc(info.value || '') + '</small></div>';
       }
-      var sub = a.sub_info ? side(a.sub_info, 'SUB ACC')
-        : (a.sub === 'Any CC' ? '<div><small>SUB ACC</small><br><b>Bất kỳ nhẫn CC nào</b></div>' : side(null, 'SUB ACC'));
-      return '<div class="hx-acc"><div class="hx-acc-label">' + esc(a.label || 'OPTION') + '</div>'
-        + side(a.main_info, 'MAIN ACC') + sub + '</div>';
+      var sub = a.sub_info ? side(a.sub_info, 'NHẪN TINH LUYỆN')
+        : (a.sub === 'Any CC' ? '<div class="hx-acc-side"><small>NHẪN TINH LUYỆN</small><br><b>Bất kỳ nhẫn CC nào</b></div>' : side(null, 'NHẪN TINH LUYỆN'));
+      return '<div class="hx-acc"><div class="hx-acc-label">' + esc(accLabelVi(a.label)) + '</div>'
+        + '<div class="hx-acc-pair">' + side(a.main_info, 'NHẪN CHÍNH') + '<span class="hx-acc-plus">+</span>' + sub + '</div></div>';
     }
     var accs = (b.acc || []).map(accCard).join('');
     var ded = hero.dedicated;
@@ -555,7 +832,7 @@
           var icon = (typeof x === 'object' && x.icon) || STAT_ICONS[n];
           return '<li style="display:flex;gap:8px;align-items:center">'
             + (icon ? '<img src="assets/substats/' + esc(icon) + '" alt="" style="width:20px;height:20px;object-fit:contain">' : '')
-            + '<span>' + esc(statLabel(n)) + '</span>'
+            + '<b>' + esc(statLabel(n)) + '</b>'
             + (val ? '<b style="margin-left:auto">' + esc(val) + '</b>' : '') + '</li>';
         }).join('') + '</ul>';
       }
@@ -571,12 +848,15 @@
         : esc(ded.second || '');
       var why = pick ? ((vi().dedicated_why && vi().dedicated_why[pick]) || (ded.why_by_stat && ded.why_by_stat[pick]) || '') : '';
       var story = vi().dedicated_story || ded.story || '';
+      /* Trang bị riêng: bỏ tiêu đề cột — khung màu hồng (class this) đặt
+       * đúng vào cột mà build này chọn, đã đủ ám chỉ đó là cách build
+       * chính; cột còn lại mờ đi. */
       dedHtml = '<div class="hx-cardbox hx-dedicated">' + sectionTitle('Trang bị riêng')
         + '<div class="hx-de-head">'
         + (ded.icon ? '<img src="assets/dedicated/' + esc(ded.icon) + '" alt="" loading="lazy">' : '')
         + '<div><b style="font-size:16px">' + esc(ded.name) + '</b><br><span style="font-size:13.5px;color:#6b6558">Chỉ số chính: ' + esc(ded.main_stat) + '</span></div></div>'
-        + '<div class="hx-de-cols"><div class="hx-de-col this" style="' + (aOn ? '' : 'opacity:.55') + '"><h5>Dòng phụ A' + (aOn ? ' — Build này' : '') + '</h5>' + deList(ded.a || []) + '</div>'
-        + '<div class="hx-de-col" style="' + (bOn ? '' : 'opacity:.55') + '"><h5>Dòng phụ B' + (bOn ? ' — Build này' : '') + '</h5>' + deList(ded.b || []) + '</div></div>'
+        + '<div class="hx-de-cols"><div class="hx-de-col' + (aOn ? ' this' : '') + '" style="' + (aOn ? '' : 'opacity:.55') + '">' + deList(ded.a || []) + '</div>'
+        + '<div class="hx-de-col' + (bOn ? ' this' : '') + '" style="' + (bOn ? '' : 'opacity:.55') + '">' + deList(ded.b || []) + '</div></div>'
         + '<p style="font-size:13.5px;margin:14px 0 4px"><b>Nên build trang bị riêng thứ 2 ngay?</b> ' + second + '</p>'
         + (pick ? '<p style="font-size:13.5px;margin:4px 0 0"><b>Vì sao ' + esc(statLabel(pick)) + '?</b> ' + esc(why) + '</p>' : '')
         + (story ? '<details class="hx-bgdetails" style="margin-top:12px"><summary>Cốt truyện</summary><div class="hx-bgbody"><p>' + esc(story) + '</p></div></details>' : '')
@@ -594,8 +874,8 @@
       + '<div><b>' + esc(set.name || '—') + '</b>'
       + (set.effect ? '<p>' + esc(set.effect.replace('4pc', 'Set 4')) + '</p>' : '') + '</div></div>'
       + '<div class="hx-mainstats">'
-      + mainStatHtml('Chỉ số chính Vũ khí', 'weapon.webp', b.gear.weapon || [])
-      + mainStatHtml('Chỉ số chính Giáp', 'armor.webp', b.gear.armor || [])
+      + mainStatHtml('Chỉ số chính Vũ khí', pieceImg(set.name || '', 'weapon', hero.type), b.gear.weapon || [])
+      + mainStatHtml('Chỉ số chính Giáp', pieceImg(set.name || '', 'armor', hero.type), b.gear.armor || [])
       + '</div>'
       + (subs ? '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:14px 0 6px">ƯU TIÊN DÒNG PHỤ</div><ol class="hx-substats">' + subs + '</ol>' : '')
       + (gearNotes ? '<div class="hx-notes"><b style="display:block;font-size:11px;letter-spacing:.08em;color:#946b25;margin-bottom:4px">GHI CHÚ</b>' + esc(gearNotes) + '</div>' : '')

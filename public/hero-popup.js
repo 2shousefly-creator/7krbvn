@@ -22,6 +22,8 @@
 
   var cache = {};
   var modal = null;
+  var currentHero = null;
+  var currentBuild = 0;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
@@ -40,9 +42,13 @@
       .then(function (d) { cache[id] = d; return d; });
   }
 
-  function buildHtml(h) {
-    var build = (h.builds || []).find(function (b) { return b.active; }) || h.builds[0];
-    var buildIdx = (h.builds || []).indexOf(build);
+  /* Popup build theo kiểu Atlas: các build gộp chung 1 popup, chuyển qua
+   * lại bằng tab Build 1 / Build 2 / ... Mỗi tab hiện 1 build đầy đủ
+   * (set, chỉ số chính, dòng phụ, phụ kiện, trang bị riêng). Chỉ số chính
+   * chỉ hiện giá trị tốt nhất (không còn Chính/Phụ như trước). */
+  function buildHtml(h, buildIdx) {
+    var builds = h.builds || [];
+    var build = builds[buildIdx] || builds[0];
     var vi = h.vi || {};
     /* Full classification tags (roles + effects) stay in the popup. */
     var tags = (h.tags || []).map(function (t) {
@@ -64,21 +70,38 @@
       var set = (build.gear.sets || [])[0] || {};
       var setImg = setIcon(set.name || '');
       var subs = (build.substats || []).slice(0, 4);
-      /* Main stat: Chính và Phụ tách thành 2 hàng riêng. Vũ khí/giáp hiển
-       * thị hình minh họa thật của món đồ trong set (ảnh 126px, không dùng
-       * icon chung, tải ngay khi mở popup). */
+      /* Chỉ số chính: chỉ hiện giá trị tốt nhất của build này, kèm hình
+       * minh họa thật của món đồ trong set (ảnh 126px). */
       function mainStatHtml(label, pieceFile, arr) {
-        var best = arr[0], alt = arr.slice(1);
-        var row = '<div class="hx-mainstat hx-with-piece">'
+        var best = arr[0];
+        return '<div class="hx-mainstat hx-with-piece">'
           + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="">' : '')
           + '<div class="hx-ms-body"><small>' + esc(label) + '</small>'
-          + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span>' + esc(statLabel(best || '—')) + '</span></div>';
-        if (alt.length) {
-          row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + esc(alt.map(statLabel).join(' / ')) + '</span></div>';
-        }
-        return row + '</div></div>';
+          + '<div class="hx-ms-row"><span>' + esc(statLabel(best || '—')) + '</span></div>'
+          + '</div></div>';
       }
-      out += '<div class="hx-modal-build"><h4>Build: ' + esc(build.name) + '</h4>'
+      /* Phụ kiện: nhẫn chính + nhẫn tinh luyện của option tốt nhất. */
+      function accHtml(acc) {
+        if (!acc) return '';
+        function accSide(info, fallbackText) {
+          if (!info) return '<div class="hx-acc-side"><b>' + esc(fallbackText || '—') + '</b></div>';
+          return '<div class="hx-acc-side">'
+            + (info.icon ? '<img src="assets/acc/' + esc(info.icon) + '" alt="">' : '')
+            + '<b>' + esc(info.label || '') + '</b>'
+            + (info.value ? '<small>' + esc(info.value) + '</small>' : '') + '</div>';
+        }
+        var sub = acc.sub_info ? accSide(acc.sub_info)
+          : (acc.sub === 'Any CC' || acc.sub === 'CC' ? '<div class="hx-acc-side"><b>Bất kỳ nhẫn CC nào</b></div>' : accSide(null));
+        return '<div class="hx-acc-pair">'
+          + accSide(acc.main_info)
+          + '<span class="hx-acc-plus">+</span>'
+          + sub + '</div>';
+      }
+      var tabs = builds.length > 1
+        ? '<div class="hx-build-tabs">' + builds.map(function (bb, i) {
+          return '<button type="button" data-popup-build="' + i + '" class="' + (i === buildIdx ? 'active' : '') + '">Build ' + (i + 1) + '</button>';
+        }).join('') + '</div>' : '';
+      out += '<div class="hx-modal-build">' + tabs
         + '<div class="hx-gear-set">'
         + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="">' : '')
         + '<div><b>' + esc(set.name || '') + '</b>'
@@ -94,11 +117,16 @@
           return '<li>' + (icon ? '<img src="assets/substats/' + esc(icon) + '" alt="" style="width:20px;height:20px;object-fit:contain">' : '') + esc(statLabel(s)) + '</li>';
         }).join('')
         + '</ul>';
+      var acc0 = (build.acc || [])[0];
+      if (acc0) {
+        out += '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:12px 0 6px">PHỤ KIỆN</div>' + accHtml(acc0);
+      }
       var gearNotes = (vi.builds && vi.builds[buildIdx] && vi.builds[buildIdx].gear_notes) || build.gear_notes || '';
       if (gearNotes) out += '<div class="hx-modal-note">' + esc(gearNotes) + '</div>';
       if (h.dedicated) {
         /* Trang bị riêng: hiển thị luôn dòng substat nên build (cột khớp
-         * với ded_stat của build này), không chỉ tên trang bị. */
+         * với ded_stat của build này), không chỉ tên trang bị. Tên dòng
+         * thuộc tính và giá trị in đậm. */
         var pick = build.ded_stat || '';
         var aStat = (h.dedicated.a && h.dedicated.a[0] && (typeof h.dedicated.a[0] === 'string' ? h.dedicated.a[0] : h.dedicated.a[0].name)) || '';
         var col = (pick && aStat === pick) ? (h.dedicated.a || []) : (h.dedicated.b || []);
@@ -117,13 +145,14 @@
         var lines = order.map(function (k) {
           var parts = k.split('|');
           var c = counts[k];
-          return statLabel(parts[0]) + (parts[1] ? ' ' + parts[1] : '') + (c > 1 ? ' × ' + c : '');
+          var label = statLabel(parts[0]) + (parts[1] ? ' ' + parts[1] : '');
+          return '<b>' + esc(label) + '</b>' + (c > 1 ? ' × ' + c : '');
         });
         out += '<div class="hx-modal-dedi">'
           + (h.dedicated.icon ? '<img src="assets/dedicated/' + esc(h.dedicated.icon) + '" alt="" loading="lazy">' : '')
           + '<div><b>Trang bị riêng:</b> '
           + esc(h.dedicated.name) + ' — ' + esc(h.dedicated.main_stat)
-          + (lines.length ? '<span class="hx-dedi-lines">Nên build: ' + esc(lines.join(' · ')) + '</span>' : '')
+          + (lines.length ? '<span class="hx-dedi-lines">Nên build: ' + lines.join(' · ') + '</span>' : '')
           + '</div></div>';
       }
       out += '</div>';
@@ -133,6 +162,11 @@
       + '<a class="hx-btn" href="hero.html?id=' + esc(h.id) + '&amp;tab=builds">Xem build</a>'
       + '</div>';
     return out;
+  }
+
+  function renderPopup() {
+    if (!currentHero || !modal) return;
+    modal.querySelector('.hx-modal-body').innerHTML = buildHtml(currentHero, currentBuild);
   }
 
   function ensureModal() {
@@ -160,7 +194,11 @@
     m.classList.add('open');
     document.body.style.overflow = 'hidden';
     load(id).then(function (h) {
-      body.innerHTML = buildHtml(h);
+      currentHero = h;
+      /* Mặc định mở tab của build đang active (nếu có), không thì Build 1. */
+      var idx = (h.builds || []).findIndex(function (b) { return b.active; });
+      currentBuild = idx >= 0 ? idx : 0;
+      renderPopup();
     }).catch(function () {
       body.innerHTML = '<p>Không tải được dữ liệu hero này.</p>';
     });
@@ -173,6 +211,12 @@
   }
 
   document.addEventListener('click', function (e) {
+    var tab = e.target.closest('[data-popup-build]');
+    if (tab) {
+      currentBuild = parseInt(tab.getAttribute('data-popup-build'), 10) || 0;
+      renderPopup();
+      return;
+    }
     var t = e.target.closest('[data-hero-popup]');
     if (t) {
       e.preventDefault();

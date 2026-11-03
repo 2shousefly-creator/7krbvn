@@ -98,7 +98,7 @@ test('skill targets translate to Vietnamese and effects are explained', { skip: 
   assert.ok(text.includes('Shock - Sốc điện:'), 'Shock must show its Vietnamese name');
 });
 
-test('popup shows real gear piece art, "Set 4" and the full dedicated line count', { skip: !JSDOM }, async () => {
+test('popup: build tabs (Atlas style), real gear piece art, accessories, bold dedicated lines', { skip: !JSDOM }, async () => {
   const popupJs = fs.readFileSync(path.join(root, 'hero-popup.js'), 'utf8');
   const trigger = '<a href="#" data-hero-popup="eileene">Eileene</a>';
   const dom = new JSDOM('<!doctype html><html><body>' + trigger + '</body></html><script>' + popupJs + '</script>', {
@@ -115,7 +115,15 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   dom.window.document.querySelector('[data-hero-popup]').click();
   await tick();
   await tick();
-  const html = dom.window.document.querySelector('.hx-modal-body').innerHTML;
+  const body = dom.window.document.querySelector('.hx-modal-body');
+  let html = body.innerHTML;
+  /* Build tabs: Eileene has 4 builds; default tab is the active one (Build 1). */
+  assert.ok(html.includes('data-popup-build="0"'), 'popup must have a Build 1 tab');
+  assert.ok(html.includes('data-popup-build="3"'), 'popup must have a Build 4 tab for Eileene');
+  assert.ok(html.includes('Build 1'), 'popup tabs must be labelled Build 1 / Build 2 / ...');
+  /* No more Chính/Phụ rows in the popup — build tabs replace them. */
+  assert.ok(!html.includes('hx-ms-tag'), 'popup must not show Chính/Phụ main-stat rows (build tabs replace them)');
+  assert.ok(!html.includes('Chính') && !html.includes('Phụ'), 'popup must not mention Chính/Phụ at all');
   // Eileene is Universal (Physical weapon), active build set is Spellweaver (ID-Spell).
   // The piece art is a real 126px gear illustration, shown large (72px) next
   // to the main-stat rows — not a small icon on a dark chip.
@@ -128,5 +136,60 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   assert.ok(!html.includes('assets/gearui/'), 'popup must no longer use the generic weapon/armor icons');
   assert.ok(html.includes('Set 4 - Effect Hit Rate +35%.'), '"4pc" must render as "Set 4" in the popup');
   assert.ok(!html.includes('4pc'), 'no "4pc" should remain in the popup');
-  assert.ok(html.includes('Nên build: Resilience +15% × 4'), 'dedicated equipment must show the full line count (Resilience +15% × 4)');
+  /* Accessories: Build 1 best option is Immortal (main) + Guts (sub). */
+  assert.ok(html.includes('PHỤ KIỆN'), 'popup must have an Accessories section');
+  assert.ok(html.includes('assets/acc/L-Immortal.webp'), 'popup must show the main accessory ring image (Immortal)');
+  assert.ok(html.includes('assets/acc/L-Guts.webp'), 'popup must show the sub accessory ring image (Guts)');
+  /* Dedicated: stat name + value bold, full line count. */
+  assert.ok(html.includes('<b>Resilience +15%</b> × 4'), 'dedicated stat name and value must be bold with the full line count');
+  /* Switch to Build 2 (Avenger set) and confirm the popup re-renders. */
+  body.querySelector('[data-popup-build="1"]').click();
+  await tick();
+  html = body.innerHTML;
+  assert.ok(html.includes('assets/gearpieces/ID-Avenger1.webp'), 'Build 2 tab must show the Avenger weapon piece art');
+  assert.ok(html.includes('assets/gearpieces/ID-Avenger3.webp'), 'Build 2 tab must show the Avenger armor piece art');
+  assert.ok(!html.includes('assets/gearpieces/ID-Spell1.webp'), 'Build 2 tab must not show Build 1 gear art');
+  assert.ok(html.includes('<b>Damage Amplification +4%</b> × 4'), 'Build 2 dedicated must show its own pick (Damage Amplification +4% × 4)');
+});
+
+test('skill notes in brackets translate to Vietnamese and key values are bold', { skip: !JSDOM }, async () => {
+  const { dom } = makeDom('https://7krb.io.vn/hero.html?id=eileene', null, 0);
+  await tick();
+  const html = dom.window.document.querySelector('#hx-content').innerHTML;
+  /* Bracketed notes: Duration / Max Stack / effect names. */
+  assert.ok(html.includes('[Kéo dài: 2 lượt]'), '[Duration: 2 Turn(s)] must render as "[Kéo dài: 2 lượt]"');
+  assert.ok(html.includes('[Tối đa 4 cộng dồn]'), '[Max 4 Stack(s)] must render as "[Tối đa 4 cộng dồn]"');
+  assert.ok(html.includes('[Sốc điện]'), '[Shock] must render as "[Sốc điện]"');
+  assert.ok(!html.includes('[Duration:'), 'no English Duration note should remain in the skills');
+  assert.ok(!html.includes('[Max 4 Stack'), 'no English Max Stack note should remain in the skills');
+  /* Bold: percentages, damage types, effect names. */
+  assert.ok(html.includes('<b>61%</b>'), 'damage percentages must be bold');
+  assert.ok(html.includes('<b>Physical Attack</b>'), 'damage type Physical Attack must be bold');
+  assert.ok(html.includes('<b>Shock</b>'), 'effect name Shock must be bold in the skill text');
+});
+
+test('builds tab: real gear piece art, horizontal accessories, dedicated without A/B headings, Vietnamese build names', { skip: !JSDOM }, async () => {
+  const { dom } = makeDom('https://7krb.io.vn/hero.html?id=eileene&tab=builds', null, 0);
+  await tick();
+  const doc = dom.window.document;
+  const html = doc.querySelector('#hx-content').innerHTML;
+  /* Build names translated (Eileene build 1 "Shock Them All"). */
+  assert.ok(html.includes('Gây choáng tất cả') || html.includes('Choáng tất cả'), 'build list must show the Vietnamese build name');
+  assert.ok(!html.includes('>Shock Them All<'), 'build list must not show the English build name as the label');
+  /* Gears: real piece art like the popup, not the generic icons. */
+  assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'builds tab must show the real weapon piece art');
+  assert.ok(html.includes('assets/gearpieces/ID-Spell3.webp'), 'builds tab must show the real armor piece art');
+  assert.ok(!html.includes('assets/gearui/'), 'builds tab must no longer use the generic weapon/armor icons');
+  /* Accessories: horizontal — main + sub rings side by side with a + between. */
+  assert.ok(html.includes('hx-acc-pair'), 'accessories must render horizontally (main + sub in one row)');
+  assert.ok(html.includes('assets/acc/L-Immortal.webp'), 'accessories must show the main ring image');
+  assert.ok(html.includes('assets/acc/L-Guts.webp'), 'accessories must show the sub ring image');
+  assert.ok(html.includes('NHẪN CHÍNH') && html.includes('NHẪN TINH LUYỆN'), 'accessory sides must be labelled in Vietnamese');
+  assert.ok(html.includes('Tốt nhất'), 'accessory option "Best" must render as "Tốt nhất"');
+  /* Dedicated: no "Dòng phụ A/B" headings; the pink frame marks the pick. */
+  assert.ok(!html.includes('Dòng phụ A'), 'dedicated must not show the "Dòng phụ A" heading');
+  assert.ok(!html.includes('Dòng phụ B'), 'dedicated must not show the "Dòng phụ B" heading');
+  assert.ok(!html.includes('Build này'), 'dedicated must not show the "Build này" label');
+  assert.ok(html.includes('hx-de-col this'), 'the picked dedicated column must carry the pink frame');
+  assert.ok(html.includes('<b>Resilience</b>'), 'dedicated substat name must be bold');
 });

@@ -123,36 +123,38 @@ test('detail page drops Utility, Special Sources and Growth; tabs do not scroll'
   assert.ok(js.includes('hx-tier-grade'), 'detail page must render tier grades');
   assert.ok(!js.includes("esc(t.role)"), 'tier cards must not show the role line');
   assert.ok(!js.includes("'at ' + esc(t.tx)"), 'tier cards must not show the "at T" line');
-  /* Gears: set badge + weapon/armor icons, ALT on its own row. */
+  /* Gears: set badge + real piece art (like the popup), ALT on its own row,
+   * no generic weapon/armor icons anymore. */
   assert.ok(js.includes('assets/seticons/'), 'Gears must show the gear-set badge icon');
-  assert.ok(js.includes("assets/gearui/'"), 'Gears must show weapon/armor icons');
+  assert.ok(js.includes('assets/gearpieces/'), 'Gears must show the real weapon/armor piece art');
+  assert.ok(!js.includes("assets/gearui/'"), 'Gears must no longer use the generic weapon/armor icons');
   assert.ok(js.includes('hx-ms-row alt'), 'Gears ALT option must sit on its own row');
   assert.ok(js.includes('Chỉ số chính Vũ khí') && js.includes('Chỉ số chính Giáp'), 'main-stat labels must be Vietnamese');
-  /* Weapon/armor icons are pale gold on cream — they need a dark chip
-   * behind them, or they are nearly invisible (browser check 2026-11-03). */
+  /* Piece art is 110px — on narrow screens the 2-column grid must stack
+   * to one column so nothing overflows horizontally. */
   const css = read('heroes.css');
-  assert.ok(/\.hx-mainstat small img\{[^}]*background:#202638/.test(css),
-    'weapon/armor icons must sit on a dark chip for contrast');
+  assert.ok(/@media \(max-width:640px\)\{[^}]*\.hx-mainstats\{grid-template-columns:1fr/.test(css),
+    'main-stats grid must collapse to one column on mobile');
 });
 
-test('gear-set badge and weapon/armor icons exist on disk', () => {
+test('gear-set badge icons exist on disk', () => {
   const sets = ['Assassin', 'Avenger', 'Bounty', 'Gatekeeper', 'Guardian', 'Orchestrator', 'Paladin', 'Spellweaver', 'Vanguard'];
   for (const s of sets) {
     assert.ok(fs.existsSync(path.join(root, 'assets', 'seticons', s + '.webp')),
       `gear-set badge icon ${s}.webp is missing from assets/seticons`);
   }
-  for (const f of ['weapon.webp', 'armor.webp']) {
-    assert.ok(fs.existsSync(path.join(root, 'assets', 'gearui', f)),
-      `gear icon ${f} is missing from assets/gearui`);
-  }
 });
 
-test('quick-build popup keeps full tags, gear images and dedicated substat lines', () => {
+test('quick-build popup: build tabs, gear images, accessories, bold dedicated lines', () => {
   const js = read('hero-popup.js');
   assert.ok(js.includes('hx-modal-tags'), 'popup must show the hero classification tags');
   assert.ok(js.includes('assets/seticons/'), 'popup Gears must show the gear-set badge icon');
   assert.ok(js.includes('assets/gearpieces/'), 'popup Gears must show the real weapon/armor piece art, not the generic icons');
-  assert.ok(js.includes('hx-ms-row alt'), 'popup ALT option must sit on its own row');
+  assert.ok(js.includes('hx-build-tabs'), 'popup must group all builds under Build 1 / Build 2 tabs (Atlas style)');
+  assert.ok(js.includes('data-popup-build'), 'popup build tabs must switch the shown build');
+  assert.ok(!js.includes('hx-ms-tag'), 'popup must not show Chính/Phụ main-stat rows (build tabs replace them)');
+  assert.ok(js.includes("assets/acc/'"), 'popup must show the accessory rings (main + sub)');
+  assert.ok(js.includes('hx-acc-pair'), 'popup accessories must render main + sub side by side');
   assert.ok(js.includes('Nên build:'), 'popup dedicated equipment must show which substat lines to build');
   assert.ok(js.includes("assets/dedicated/'"), 'popup dedicated equipment must show its illustration image');
   assert.ok(js.includes('gear_notes'), 'popup must be able to show the translated build note');
@@ -270,7 +272,7 @@ test('skill effects are explained in Vietnamese (FX_VI glossary + fx list)', () 
   assert.ok(css.includes('.hx-fxlist'), 'heroes.css must style the effect explanation list');
 });
 
-test('popup shows real gear piece art, "Set 4" and the full dedicated line count', () => {
+test('popup shows real gear piece art, "Set 4" and bold dedicated lines', () => {
   const js = read('hero-popup.js');
   assert.ok(js.includes('assets/gearpieces/'), 'popup must show the real gear piece art, not the generic icons');
   assert.ok(!js.includes("assets/gearui/"), 'popup must no longer use the generic weapon/armor icons');
@@ -279,6 +281,7 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   assert.ok(js.includes('class="hx-mainstats" style="grid-template-columns:1fr"'),
     'popup main-stats must force a single column inline (the stylesheet override alone did not take effect in the live browser)');
   assert.ok(js.includes("' × ' + c"), 'popup dedicated equipment must show the line count (e.g. "Crush +12% × 4")');
+  assert.ok(js.includes("'<b>' + esc(label) + '</b>'"), 'popup dedicated stat name and value must be bold');
   const css = read('heroes.css');
   assert.ok(/\.hx-mainstat \.hx-piece\{[^}]*width:110px/.test(css),
     'popup gear art must be shown large (110px, near its native 126px), not icon-sized');
@@ -300,4 +303,50 @@ test('detail page also renders "Set 4", not "4pc" (consistent with the popup)', 
   const js = read('hero-detail.js');
   assert.ok(js.includes("replace('4pc', 'Set 4')"),
     'the detail-page Builds tab must render "Set 4" like the popup does');
+});
+
+test('skill bracket notes translate to Vietnamese and key values are bolded', () => {
+  const js = read('hero-detail.js');
+  assert.ok(js.includes('function richLine'), 'detail page must render skill lines through richLine');
+  assert.ok(js.includes('NOTE_PATTERNS'), 'detail page must translate bracketed skill notes');
+  assert.ok(js.includes("Duration: (\\d+) Turn\\(s\\)"), 'Duration notes must be translated');
+  assert.ok(js.includes('Kéo dài: $1 lượt'), 'Duration must render as "Kéo dài: N lượt"');
+  assert.ok(js.includes('1 lần trong trận'), 'Once per Battle must render as "1 lần trong trận"');
+  assert.ok(js.includes('Tối đa $1 cộng dồn'), 'Max Stack notes must render as "Tối đa N cộng dồn"');
+  assert.ok(js.includes('BOLD_TERMS') && js.includes('Physical Attack'), 'damage types must be bolded');
+  assert.ok(js.includes("richLine(l)"), 'skill effect lines must use richLine');
+  assert.ok(js.includes("richLine(tipByName[t.name])"), 'effect explanations must use richLine');
+});
+
+test('builds tab accessories render horizontally (main + sub ring)', () => {
+  const js = read('hero-detail.js');
+  assert.ok(js.includes('hx-acc-pair'), 'each accessory option must render main + sub side by side');
+  assert.ok(js.includes('NHẪN CHÍNH') && js.includes('NHẪN TINH LUYỆN'), 'accessory sides must be labelled in Vietnamese');
+  assert.ok(js.includes("accLabelVi"), 'accessory option labels must be translated (Best -> Tốt nhất)');
+  const css = read('heroes.css');
+  assert.ok(/\.hx-acc-grid\{[^}]*flex-direction:column/.test(css),
+    'accessory options must stack as full-width horizontal rows');
+  assert.ok(css.includes('.hx-acc-pair'), 'heroes.css must style the horizontal accessory pair');
+});
+
+test('builds tab dedicated drops the A/B headings; pink frame marks the pick', () => {
+  const js = read('hero-detail.js');
+  assert.ok(!js.includes('Dòng phụ A'), 'dedicated must not show the "Dòng phụ A" heading');
+  assert.ok(!js.includes('Dòng phụ B'), 'dedicated must not show the "Dòng phụ B" heading');
+  assert.ok(!js.includes('— Build này'), 'dedicated must not show the "Build này" label');
+  assert.ok(js.includes("hx-de-col' + (aOn ? ' this' : '')"), 'the pink frame must sit on the picked column (A when the pick is A)');
+  assert.ok(js.includes("hx-de-col' + (bOn ? ' this' : '')"), 'the pink frame must sit on the picked column (B when the pick is B)');
+  assert.ok(js.includes("'<b>' + esc(statLabel(n)) + '</b>'"), 'dedicated substat names must be bold');
+});
+
+test('build names translate to Vietnamese in the build list', () => {
+  const js = read('hero-detail.js');
+  assert.ok(js.includes('var BUILD_VI'), 'detail page must carry the build-name translations');
+  const m = js.match(/var BUILD_VI = \{([\s\S]*?)\n  \};/);
+  assert.ok(m, 'BUILD_VI must be an object literal');
+  const entries = (m[1].match(/": "/g) || []).length;
+  assert.ok(entries >= 200, `BUILD_VI must cover all 200 Atlas build names (found ${entries})`);
+  assert.ok(js.includes('BUILD_VI[bb.name]'), 'build list must look up the Vietnamese name');
+  assert.ok(js.includes("'Defensive Utility': 'Tiện ích phòng thủ'") || js.includes('"Defensive Utility": "Tiện ích phòng thủ"'),
+    'BUILD_VI must translate "Defensive Utility"');
 });

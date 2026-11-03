@@ -111,7 +111,6 @@
 .hx-mainstats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .hx-mainstat{background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;font-size:13px}
 .hx-mainstat small{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
-.hx-mainstat small img{width:22px;height:22px;object-fit:contain;background:#202638;border-radius:6px;padding:2px}
 /* Popup: hình minh họa thật của món vũ khí/giáp trong set (ảnh gốc 126px).
  * Hiện gần bằng kích thước gốc để thấy rõ chi tiết, mỗi món một hàng. */
 .hx-mainstat.hx-with-piece{display:flex;gap:12px;align-items:center}
@@ -126,19 +125,15 @@
 .hx-substats li{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #e9e8e3;border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:13.5px;font-weight:600}
 .hx-substats li::before{counter-increment:hxsub;content:counter(hxsub);font-weight:800;color:#b3352c;width:18px}
 .hx-notes{background:#fdf6e3;border:1px solid #f0dfae;border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.6;margin-top:12px}
-.hx-acc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
-.hx-acc{background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:12px;text-align:center}
-.hx-acc .hx-acc-label{font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578}
-.hx-acc img{width:52px;height:52px;object-fit:contain;margin:6px auto 2px;display:block}
-.hx-acc b{display:block;font-size:13px}
-.hx-acc small{font-size:11.5px;color:#8b8578}
+.hx-acc-grid{display:flex;flex-direction:column;gap:10px}
+.hx-acc{background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:12px}
+.hx-acc .hx-acc-label{font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:8px}
 .hx-dedicated{margin-top:18px}
 .hx-dedicated .hx-de-head{display:flex;gap:12px;align-items:center}
 .hx-dedicated img{width:64px;height:64px;border-radius:12px;border:1px solid #e9e8e3;object-fit:cover}
 .hx-de-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .hx-de-col{border:1px solid #e9e8e3;border-radius:12px;padding:12px}
 .hx-de-col.this{border-color:#e5b8c8;background:#fdf4f7}
-.hx-de-col h5{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .hx-de-col ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.7}
 .hx-pill{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:3px 12px}
 .hx-pill.yes{background:#dcf5e3;color:#1f7a74}
@@ -148,6 +143,7 @@
 .hx-bgdetails .hx-bgbody{padding:0 16px 16px;font-size:13.5px;line-height:1.7;color:#4a5160}
 .hx-bgdetails .hx-bgbody p{margin:0 0 10px}
 @media (max-width:900px){.hx-detail{flex-direction:column}.hx-side{width:100%;position:static}.hx-builds{flex-direction:column}.hx-build-list{width:100%}}
+@media (max-width:640px){.hx-mainstats{grid-template-columns:1fr}.hx-with-piece{flex-wrap:wrap}}
 
 /* ---------- hero quick-build popup (site-wide) ---------- */
 .hx-modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:16px}
@@ -165,6 +161,15 @@
 .hx-modal-build .hx-gear-set{font-size:13.5px}
 .hx-modal-build .hx-gear-set>img{width:44px;height:44px}
 .hx-modal-build .hx-mainstats{grid-template-columns:1fr}
+.hx-build-tabs{display:flex;gap:6px;margin-bottom:12px}
+.hx-build-tabs button{flex:1;padding:8px 10px;border-radius:8px;border:1px solid #e9e8e3;background:#f7f6f2;color:#8b8578;font:700 13px inherit;cursor:pointer;text-transform:uppercase;letter-spacing:.04em}
+.hx-build-tabs button.active{background:#2b2b33;color:#f5c542;border-color:#2b2b33}
+.hx-acc-pair{display:flex;align-items:center;gap:10px;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px}
+.hx-acc-side{flex:1;text-align:center}
+.hx-acc-side img{width:56px;height:56px;object-fit:contain;display:block;margin:0 auto 4px}
+.hx-acc-side b{display:block;font-size:13px}
+.hx-acc-side small{display:block;font-size:11.5px;color:#8b8578;line-height:1.4}
+.hx-acc-plus{font-size:20px;font-weight:800;color:#8b8578;flex:none}
 .hx-modal-build .hx-mainstat{padding:8px 10px}
 .hx-modal-dedi{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:10px 0 0;line-height:1.55}
 .hx-modal-dedi>img{width:48px;height:48px;border-radius:10px;border:1px solid #e9e8e3;object-fit:cover;flex:none}
