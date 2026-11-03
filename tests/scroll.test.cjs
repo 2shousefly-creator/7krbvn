@@ -122,6 +122,8 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'popup must show the real weapon piece art (Spellweaver, Physical)');
   assert.ok(html.includes('assets/gearpieces/ID-Spell3.webp'), 'popup must show the real armor piece art (Spellweaver)');
   assert.ok(html.includes('hx-with-piece'), 'popup gear art must sit in its own large thumbnail layout');
+  assert.ok(html.includes('class="hx-mainstats" style="grid-template-columns:1fr"'),
+    'popup main-stats must force a single column inline (stylesheet override alone did not take effect in the live browser)');
   assert.ok(!html.includes('assets/gearpieces/ID-Spell1.webp" alt="" loading="lazy"'), 'popup gear art must load immediately (no lazy) so it is visible on open');
   assert.ok(!html.includes('assets/gearui/'), 'popup must no longer use the generic weapon/armor icons');
   assert.ok(html.includes('Set 4 - Effect Hit Rate +35%.'), '"4pc" must render as "Set 4" in the popup');

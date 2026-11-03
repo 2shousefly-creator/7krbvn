@@ -276,6 +276,8 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   assert.ok(!js.includes("assets/gearui/"), 'popup must no longer use the generic weapon/armor icons');
   assert.ok(js.includes("replace('4pc', 'Set 4')"), 'popup must render "4pc" as "Set 4"');
   assert.ok(js.includes('hx-with-piece'), 'popup gear art must sit in its own large thumbnail layout');
+  assert.ok(js.includes('class="hx-mainstats" style="grid-template-columns:1fr"'),
+    'popup main-stats must force a single column inline (the stylesheet override alone did not take effect in the live browser)');
   assert.ok(js.includes("' × ' + c"), 'popup dedicated equipment must show the line count (e.g. "Crush +12% × 4")');
   const css = read('heroes.css');
   assert.ok(/\.hx-mainstat \.hx-piece\{[^}]*width:110px/.test(css),

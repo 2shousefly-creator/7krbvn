@@ -83,7 +83,7 @@
         + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="" loading="lazy">' : '')
         + '<div><b>' + esc(set.name || '') + '</b>'
         + (set.effect ? '<p>' + esc(set.effect.replace('4pc', 'Set 4')) + '</p>' : '') + '</div></div>'
-        + '<div class="hx-mainstats">'
+        + '<div class="hx-mainstats" style="grid-template-columns:1fr">'
         + mainStatHtml('Chỉ số chính Vũ khí', pieceImg(set.name || '', 'weapon', h.type), build.gear.weapon || [])
         + mainStatHtml('Chỉ số chính Giáp', pieceImg(set.name || '', 'armor', h.type), build.gear.armor || [])
         + '</div>'
