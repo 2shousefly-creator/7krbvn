@@ -74,15 +74,15 @@ test('every inline script on the page compiles (no stray text outside comments)'
   }
 });
 
-test('guild war team page carries build -20: 48 defense (7k-note only) + 114 counters', () => {
+test('guild war team page carries build -21: 48 defense (7k-note only) + 114 counters', () => {
   assert.equal(data.defense.length, 48);
   assert.equal(Object.keys(data.counters).length, 114); // counters is an object keyed by code
   assert.deepEqual(data.defense.map(d => d.code), Array.from({ length: 48 }, (_, i) => 'T' + (i + 1)),
     'defense codes must be T1..T48 in 7k-note target order');
   assert.deepEqual(Object.keys(data.counters), Array.from({ length: 114 }, (_, i) => 'C' + (i + 1)),
     'counter codes must be C1..C114 in target order');
-  assert.ok(html.includes('v2026.11.03-20'), 'version must be bumped to -20');
-  assert.ok(!html.includes('v2026.11.02-19'), 'old version string must be gone');
+  assert.ok(html.includes('v2026.11.03-21'), 'version must be bumped to -21');
+  assert.ok(!html.includes('v2026.11.03-20'), 'old version string must be gone');
   // Group split from the browser's 48-target type labels.
   const groups = {};
   for (const d of data.defense) groups[d.group] = (groups[d.group] || 0) + 1;
@@ -131,6 +131,55 @@ test('browser-verified targets 1-2 render exactly (front/back rows, pets, skill 
     ['Yeonhee', 'Skill 2', 'Eternal Slumber'],
     ['Yoongun', 'Skill 1', 'Tenfold Barrage'],
   ]);
+});
+
+test('every skill chain entry carries its Heroes icon and kit (build -21)', () => {
+  let n = 0;
+  for (const t of [...data.defense, ...Object.values(data.counters)]) {
+    for (const s of t.skills) {
+      n++;
+      assert.ok(s.icon && s.icon.endsWith('.webp'), t.code + ' skill ' + s.name + ' must carry a skills-raw icon');
+      assert.ok(fs.existsSync(path.join(root, 'assets', 'skills-raw', s.icon)),
+        t.code + ' skill icon ' + s.icon + ' must exist on disk');
+      assert.ok(['awk', 's6'].includes(s.kit), t.code + ' skill ' + s.name + ' must state its kit (awk/s6)');
+    }
+  }
+  assert.equal(n, 430, 'all 430 chain skills must carry icon + kit');
+  // The 13 rows that used to render with an empty icon box (Judas, Li, Rook,
+  // Bai Jiao have no GW skill panel) now all have real icons.
+  const noPanelHeroes = ['Judas (Awakening)', 'Li', 'Rook', 'Bai Jiao'];
+  for (const t of [...data.defense, ...Object.values(data.counters)]) {
+    for (const s of t.skills) {
+      if (noPanelHeroes.includes(s.hero)) {
+        assert.ok(s.icon, t.code + ' ' + s.hero + ' ' + s.slot + ' must have an icon despite having no GW panel');
+      }
+    }
+  }
+});
+
+test('skill popup sync: shared renderer loaded, no Atlas Codex attribution anywhere', () => {
+  assert.ok(html.includes('<script src="skill-card.js"></script>'), 'page must load the shared skill-card.js renderer');
+  assert.ok(!html.includes('Atlas Codex'), 'no Atlas Codex source attribution may remain on the page');
+  assert.ok(html.includes("assets/skills-raw/'+esc(s.icon)+"), 'opener rows must use the DATA skill icon (skills-raw)');
+  assert.ok(html.includes("data-skill-panel=\"'+esc(s.hero)+'|'+esc(s.slot)+'|'+esc(s.kit || '')+'\""),
+    'opener rows must pass the kit to the skill popup');
+  assert.ok(html.includes('window.SkillCard.skillDetailHtml'), 'skill popup must render via the shared SkillCard renderer');
+  assert.ok(html.includes("gwHeroJson"), 'skill popup must load the hero JSON (same source as the Heroes page)');
+});
+
+test('popups sit above the sticky site header (build -21 z-index fix)', () => {
+  const z = (sel) => {
+    const m = html.match(new RegExp(sel.replace('.', '\\.') + '\\{[^}]*z-index:(\\d+)'));
+    assert.ok(m, sel + ' must declare a z-index');
+    return Number(m[1]);
+  };
+  const snav = 200; // .snav-bar{position:sticky;top:0;z-index:200} (site chrome)
+  assert.ok(html.includes('.snav-bar{position:sticky;top:0;z-index:200'), 'site header must stay sticky at z-200');
+  assert.ok(z('.overlay') > snav, 'team sheet overlay must sit above the site header');
+  assert.ok(z('.poverlay') > z('.overlay'), 'skill panel overlay must sit above the team sheet');
+  assert.ok(z('.poverlay') < 400, 'skill panel must stay below the hero popup (hx-modal z-400)');
+  assert.equal(z('.overlay'), 300);
+  assert.equal(z('.poverlay'), 320);
 });
 
 test('skill chains: 30 defense teams have 3 skills, 18 have none; every counter has a chain', () => {
@@ -237,7 +286,7 @@ test('the guild war page matches the site chrome: light-only, sticky nav, site f
   assert.ok(!html.includes('prefers-color-scheme'), 'guild war page must not flip to dark from the system theme');
   assert.ok(html.includes('.snav-bar{position:sticky;top:0;z-index:200'), 'guild war nav must stay sticky like the site header');
   assert.ok(html.includes('class="site-footer"'), 'guild war page must use the standard site footer');
-  assert.ok(html.includes('Meta v2026.11.03-20'), 'the meta build version must survive the footer swap');
+  assert.ok(html.includes('Meta v2026.11.03-21'), 'the meta build version must survive the footer swap');
   assert.ok(html.includes('class="back-to-top"'), 'guild war page must have a back-to-top button');
   assert.ok(html.includes('id="dau-trang"'), 'the footer "Về đầu trang" link needs its anchor');
 });
