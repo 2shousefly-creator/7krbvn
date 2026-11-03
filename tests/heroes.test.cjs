@@ -145,7 +145,20 @@ test('gear-set badge icons exist on disk', () => {
   }
 });
 
-test('quick-build popup: build tabs, gear images, accessories, bold dedicated lines', () => {
+test('quick-build popup: build tabs shrink to fit (no overflow with many builds)', () => {
+  const css = read('heroes.css');
+  const tabsRule = /\.hx-build-tabs button\{[^}]*\}/.exec(css);
+  assert.ok(tabsRule, 'heroes.css must define .hx-build-tabs button');
+  /* flex:1 1 0 + min-width:0 lets the buttons shrink below their content
+   * width so 6 builds (e.g. Shinobu Kocho) fit one row on a 390px phone
+   * instead of overflowing the popup. */
+  assert.ok(/flex:\s*1 1 0/.test(tabsRule[0]), 'build tab buttons must use flex:1 1 0 (shrink to fit)');
+  assert.ok(/min-width:\s*0/.test(tabsRule[0]), 'build tab buttons must allow min-width:0 so they can shrink below content width');
+  assert.ok(/overflow:\s*hidden/.test(tabsRule[0]), 'build tab buttons must clip overflowing text instead of widening');
+  const bodyRule = /\.hx-modal-body\{[^}]*\}/.exec(css);
+  assert.ok(bodyRule && /overflow-x:\s*hidden/.test(bodyRule[0]),
+    'popup body must never scroll horizontally (safety net so a wide tab row cannot cut off the whole popup)');
+});
   const js = read('hero-popup.js');
   assert.ok(js.includes('hx-modal-tags'), 'popup must show the hero classification tags');
   assert.ok(js.includes('assets/seticons/'), 'popup Gears must show the gear-set badge icon');
