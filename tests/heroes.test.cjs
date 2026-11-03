@@ -234,14 +234,18 @@ test('every substat icon referenced by hero-detail.js exists on disk (URL-decode
   }
 });
 
-test('tabs are NOT sticky anymore, but tab switching still preserves scroll', () => {
+test('tabs are sticky at the top when scrolling (user asked again 2026-11-03)', () => {
   const css = read('heroes.css');
   const tabsRule = /\.hx-tabs\{[^}]*\}/.exec(css);
   assert.ok(tabsRule, 'heroes.css must define .hx-tabs');
-  assert.ok(!/position:\s*sticky/.test(tabsRule[0]), 'the detail-page tab bar must NOT be sticky (user asked to remove it)');
+  assert.ok(/position:\s*sticky/.test(tabsRule[0]), 'the detail-page tab bar must be sticky');
+  assert.ok(/top:\s*78px/.test(tabsRule[0]), 'tabs must stick below the 78px sticky site header on desktop');
+  assert.ok(/background:#f7f7f5/.test(tabsRule[0]), 'sticky tabs must have a solid background so content does not show through');
+  assert.ok(/@media\(max-width:680px\)\{\.hx-tabs\{top:62px\}\}/.test(css),
+    'tabs must stick below the 62px mobile header');
   const js = read('hero-detail.js');
   assert.ok(js.includes('window.scrollY') && js.includes('sessionStorage'),
-    'scroll preservation must stay even without sticky tabs');
+    'scroll preservation must stay with sticky tabs');
 });
 
 test('skill target scopes translate to Vietnamese (TARGET_VI, all 66 Atlas strings)', () => {
