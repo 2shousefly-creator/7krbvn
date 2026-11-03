@@ -1,6 +1,10 @@
 /* Heroes directory (heroes.html): search + filters + sort over
  * data/heroes-index.json. Clicking a card opens the quick-build popup
  * (hero-popup.js); the popup's "Chi tiết" button goes to hero.html.
+ *
+ * Filters live behind a funnel button: they open a popup panel docked to
+ * the right side of the screen (max 70% of the viewport on mobile, so the
+ * user can tap the empty area to close it).
  */
 (function () {
   var RARITY_RANK = { 'L++': 4, 'L+': 3, 'L': 2, 'R': 1 };
@@ -9,7 +13,11 @@
 
   var grid = document.getElementById('hx-grid');
   var countEl = document.getElementById('hx-count');
-  var filtersEl = document.getElementById('hx-filters');
+  var filterBtn = document.getElementById('hx-filter-btn');
+  var filterBadge = document.getElementById('hx-filter-count');
+  var filterPanel = document.getElementById('hx-filter-panel');
+  var filterBody = document.getElementById('hx-filter-body');
+  var filterBackdrop = document.getElementById('hx-filter-backdrop');
   var searchInput = document.getElementById('hx-search-input');
   var sortSel = document.getElementById('hx-sort');
 
@@ -17,6 +25,37 @@
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
     });
+  }
+
+  function activeFilterCount() {
+    return state.rarity.size + state.type.size + state.role.size + state.faction.size;
+  }
+
+  function updateBadge() {
+    var n = activeFilterCount();
+    filterBadge.textContent = n > 0 ? n : '';
+    filterBadge.style.display = n > 0 ? '' : 'none';
+    filterBtn.classList.toggle('has-filters', n > 0);
+  }
+
+  function openFilters() {
+    filterPanel.hidden = false;
+    filterBackdrop.hidden = false;
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () {
+      filterPanel.classList.add('open');
+      filterBackdrop.classList.add('open');
+    });
+  }
+
+  function closeFilters() {
+    filterPanel.classList.remove('open');
+    filterBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(function () {
+      filterPanel.hidden = true;
+      filterBackdrop.hidden = true;
+    }, 180);
   }
 
   function groupHtml(title, key, options) {
@@ -31,15 +70,15 @@
     var types = [...new Set(INDEX.map(function (h) { return h.type; }))].filter(Boolean).sort();
     var roles = [...new Set(INDEX.flatMap(function (h) { return h.tags || []; }))].sort();
     var factions = [...new Set(INDEX.map(function (h) { return h.faction; }))].filter(Boolean).sort();
-    filtersEl.innerHTML = '<h3>Bộ lọc</h3>'
-      + groupHtml('Độ hiếm', 'rarity', rarities)
+    filterBody.innerHTML = groupHtml('Độ hiếm', 'rarity', rarities)
       + groupHtml('Loại', 'type', types)
       + groupHtml('Vai trò', 'role', roles)
       + groupHtml('Phe', 'faction', factions);
-    filtersEl.querySelectorAll('input[type=checkbox]').forEach(function (cb) {
+    filterBody.querySelectorAll('input[type=checkbox]').forEach(function (cb) {
       cb.addEventListener('change', function () {
         var set = state[cb.getAttribute('data-group')];
         if (cb.checked) set.add(cb.value); else set.delete(cb.value);
+        updateBadge();
         render();
       });
     });
@@ -84,16 +123,14 @@
     }
   }
 
+  /* Directory card: portrait + name + ONE rarity tag (R / L / L+ / L++).
+   * Role/type tags are intentionally hidden here (they still show in the
+   * quick-build popup and on the detail page). */
   function cardHtml(h) {
-    var roles = (h.tags || []).map(function (t) {
-      return '<span class="hx-role">' + esc(t) + '</span>';
-    }).join('');
     return '<article class="hx-card" data-hero-popup="' + esc(h.id) + '" tabindex="0" role="button" aria-label="' + esc(h.name) + '">'
       + '<img src="' + esc(h.portrait) + '" alt="' + esc(h.name) + '" loading="lazy">'
       + '<b>' + esc(h.name.toUpperCase()) + '</b>'
-      + '<div class="hx-badges"><span class="hx-badge rarity">' + esc(h.rarity) + '</span>'
-      + '<span class="hx-badge type">' + esc(h.type) + '</span></div>'
-      + (roles ? '<div class="hx-roles">' + roles + '</div>' : '')
+      + '<span class="hx-badge rarity">' + esc(h.rarity) + '</span>'
       + '</article>';
   }
 
@@ -107,9 +144,29 @@
   function clearAll() {
     state.q = ''; state.rarity.clear(); state.type.clear(); state.role.clear(); state.faction.clear();
     searchInput.value = '';
-    filtersEl.querySelectorAll('input[type=checkbox]').forEach(function (cb) { cb.checked = false; });
+    filterBody.querySelectorAll('input[type=checkbox]').forEach(function (cb) { cb.checked = false; });
+    updateBadge();
     render();
   }
+
+  function clearFiltersOnly() {
+    state.rarity.clear(); state.type.clear(); state.role.clear(); state.faction.clear();
+    filterBody.querySelectorAll('input[type=checkbox]').forEach(function (cb) { cb.checked = false; });
+    updateBadge();
+    render();
+  }
+
+  filterBtn.addEventListener('click', function () {
+    if (filterPanel.hidden || !filterPanel.classList.contains('open')) openFilters();
+    else closeFilters();
+  });
+  document.getElementById('hx-filter-close').addEventListener('click', closeFilters);
+  filterBackdrop.addEventListener('click', closeFilters);
+  document.getElementById('hx-filter-clear').addEventListener('click', clearFiltersOnly);
+  document.getElementById('hx-filter-done').addEventListener('click', closeFilters);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !filterPanel.hidden) closeFilters();
+  });
 
   searchInput.addEventListener('input', function () { state.q = searchInput.value; render(); });
   document.getElementById('hx-search-btn').addEventListener('click', function () {

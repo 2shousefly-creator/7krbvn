@@ -14,7 +14,12 @@ test('heroes.html directory page: search, filters, sort, grid and popup wiring',
   assert.ok(html.includes('id="hx-search-input"'), 'heroes.html needs a search input');
   assert.ok(html.includes('id="hx-sort"'), 'heroes.html needs a sort select');
   assert.ok(html.includes('id="hx-clear"'), 'heroes.html needs a clear-filters button');
-  assert.ok(html.includes('id="hx-filters"'), 'heroes.html needs a filters aside');
+  /* Filters live behind a funnel button + right-side popup, not a sidebar. */
+  assert.ok(html.includes('id="hx-filter-btn"'), 'heroes.html needs the funnel filter button');
+  assert.ok(html.includes('id="hx-filter-panel"'), 'heroes.html needs the filter popup panel');
+  assert.ok(html.includes('id="hx-filter-backdrop"'), 'heroes.html needs the filter backdrop');
+  assert.ok(html.includes('id="hx-filter-body"'), 'heroes.html needs the filter body container');
+  assert.ok(!html.includes('id="hx-filters"'), 'heroes.html must not keep the old filter sidebar');
   assert.ok(html.includes('id="hx-grid"'), 'heroes.html needs the hero grid');
   assert.ok(html.includes('href="heroes.css"'), 'heroes.html must load heroes.css');
   assert.ok(html.includes('src="hero-popup.js"'), 'heroes.html must load the popup script');
@@ -23,6 +28,21 @@ test('heroes.html directory page: search, filters, sort, grid and popup wiring',
   assert.ok(html.includes('class="nav-active" href="heroes.html"'), 'heroes.html must be the active nav item');
   const ids = [...html.matchAll(/id="([^"]+)"/g)].map(m => m[1]);
   assert.equal(new Set(ids).size, ids.length, 'heroes.html has duplicate ids');
+});
+
+test('directory cards show only portrait, name and one rarity tag, 4 per row', () => {
+  const js = read('heroes.js');
+  /* cardHtml must not render the type badge or the role chips. */
+  const card = js.slice(js.indexOf('function cardHtml'), js.indexOf('function render'));
+  assert.ok(!card.includes('hx-badge type'), 'directory card must not show the type badge');
+  assert.ok(!card.includes('hx-roles') && !card.includes('hx-role'), 'directory card must not show role tags');
+  assert.ok(card.includes('hx-badge rarity'), 'directory card must show the one rarity tag');
+  assert.ok(card.includes('h.rarity'), 'directory card rarity tag must come from the hero rarity');
+  const css = read('heroes.css');
+  assert.ok(/\.hx-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4,\s*1fr\)/.test(css),
+    'heroes.css must lay out 4 heroes per row on desktop');
+  assert.ok(css.includes('width:min(400px,70vw)'), 'filter popup must not exceed 70% of the viewport width');
+  assert.ok(css.includes('.hx-filter-panel'), 'heroes.css must style the filter popup panel');
 });
 
 test('hero.html detail page: two tabs and detail script', () => {
@@ -79,6 +99,77 @@ test('every hero JSON has the fields both tabs need', () => {
     if (rec.dedicated) {
       assert.ok(rec.dedicated.icon && fs.existsSync(path.join(root, 'assets', 'dedicated', rec.dedicated.icon)),
         `${f} dedicated equipment icon is missing`);
+    }
+  }
+});
+
+test('detail page drops Utility, Special Sources and Growth; tabs do not scroll', () => {
+  const js = read('hero-detail.js');
+  assert.ok(!js.includes('Hero Utility by Progression'), 'detail page must not render Hero Utility by Progression');
+  assert.ok(!js.includes('Special Sources'), 'detail page must not render Special Sources');
+  assert.ok(!js.includes("sectionTitle('Growth')"), 'detail page must not render the Growth section');
+  assert.ok(!js.includes('renderGrowth'), 'detail page must not keep the Growth renderer');
+  assert.ok(!js.includes('window.scrollTo'), 'switching tabs must not scroll the page to the top');
+  /* Vietnamese headings (the small caps labels render in uppercase). */
+  var jsLower = js.toLowerCase();
+  for (const heading of ['Tổng quan hero', 'Xếp hạng theo chế độ', 'Ưu tiên nâng kỹ năng', 'Trang bị', 'Phụ kiện', 'Trang bị riêng', 'Cốt truyện', 'Chỉ số chính Vũ khí', 'Chỉ số chính Giáp', 'Ưu tiên dòng phụ']) {
+    assert.ok(jsLower.includes(heading.toLowerCase()), `hero-detail.js must use the Vietnamese heading "${heading}"`);
+  }
+  /* Tier grades: mode image + bold grade only, no role / "at T" lines. */
+  assert.ok(js.includes('hx-tier-grade'), 'detail page must render tier grades');
+  assert.ok(!js.includes("esc(t.role)"), 'tier cards must not show the role line');
+  assert.ok(!js.includes("'at ' + esc(t.tx)"), 'tier cards must not show the "at T" line');
+  /* Gears: set badge + weapon/armor icons, ALT on its own row. */
+  assert.ok(js.includes('assets/seticons/'), 'Gears must show the gear-set badge icon');
+  assert.ok(js.includes("assets/gearui/'"), 'Gears must show weapon/armor icons');
+  assert.ok(js.includes('hx-ms-row alt'), 'Gears ALT option must sit on its own row');
+  assert.ok(js.includes('Chỉ số chính Vũ khí') && js.includes('Chỉ số chính Giáp'), 'main-stat labels must be Vietnamese');
+});
+
+test('gear-set badge and weapon/armor icons exist on disk', () => {
+  const sets = ['Assassin', 'Avenger', 'Bounty', 'Gatekeeper', 'Guardian', 'Orchestrator', 'Paladin', 'Spellweaver', 'Vanguard'];
+  for (const s of sets) {
+    assert.ok(fs.existsSync(path.join(root, 'assets', 'seticons', s + '.webp')),
+      `gear-set badge icon ${s}.webp is missing from assets/seticons`);
+  }
+  for (const f of ['weapon.webp', 'armor.webp']) {
+    assert.ok(fs.existsSync(path.join(root, 'assets', 'gearui', f)),
+      `gear icon ${f} is missing from assets/gearui`);
+  }
+});
+
+test('quick-build popup keeps full tags, gear images and dedicated substat lines', () => {
+  const js = read('hero-popup.js');
+  assert.ok(js.includes('hx-modal-tags'), 'popup must show the hero classification tags');
+  assert.ok(js.includes('assets/seticons/'), 'popup Gears must show the gear-set badge icon');
+  assert.ok(js.includes("assets/gearui/'"), 'popup Gears must show weapon/armor icons');
+  assert.ok(js.includes('hx-ms-row alt'), 'popup ALT option must sit on its own row');
+  assert.ok(js.includes('Nên build:'), 'popup dedicated equipment must show which substat lines to build');
+  assert.ok(js.includes('gear_notes'), 'popup must be able to show the translated build note');
+});
+
+test('Vietnamese translations, when merged, follow the _vi schema', () => {
+  // Guards the merge (merge_vi.py): every _vi field present must match the
+  // English structure it translates. Passes vacuously before the merge.
+  for (const f of heroFiles) {
+    const rec = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', f), 'utf8'));
+    if (!rec.vi) continue;
+    const v = rec.vi;
+    if (v.overview_desc) assert.equal(typeof v.overview_desc, 'string', `${f} vi.overview_desc must be a string`);
+    if (v.lore) assert.equal(typeof v.lore, 'string', `${f} vi.lore must be a string`);
+    if (v.builds) {
+      assert.equal(v.builds.length, rec.builds.length, `${f} vi.builds must match the English builds`);
+    }
+    if (v.skills) {
+      for (const [key, sk] of Object.entries(v.skills)) {
+        const [ver, skey] = key.split(':');
+        const orig = (rec.skills[ver] || []).find(s => s.key === skey);
+        assert.ok(orig, `${f} vi skill ${key} has no English original`);
+        if (sk.effects) assert.equal(sk.effects.length, orig.effects.length, `${f} vi skill ${key} effects must match`);
+        if (sk.tips) assert.equal(sk.tips.length, orig.tips.length, `${f} vi skill ${key} tips must match`);
+        if (sk.enhancement) assert.equal(sk.enhancement.length, orig.enhancement.length, `${f} vi skill ${key} enhancement must match`);
+        if (sk.tx) assert.equal(sk.tx.length, orig.tx.length, `${f} vi skill ${key} tx must match`);
+      }
     }
   }
 });

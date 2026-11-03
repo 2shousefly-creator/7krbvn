@@ -9,8 +9,7 @@
   var MODE_LABELS = { 'ARENA': 'Arena', 'TOTAL WAR': 'Total War', 'GUILD WAR': 'Guild War', 'REAL-TIME ARENA': 'Real-Time Arena', 'ADVENTURE BOTH': 'Adventure (Both)', 'ADVENTURE (NORMAL)': 'Adventure (Normal)', 'ADVENTURE (CHALLENGE)': 'Adventure (Challenge)', 'INFINITE TOWER': 'Infinite Tower', 'TOWER OF TRIALS': 'Tower of Trials', 'ADVENT-GOD': 'God of Destruction', 'ADVENT-PHYS': 'Kyle & Karma', 'PUDUNGEON-EARTH': 'Earth', 'PUDUNGEON-GOLD': 'Gold', 'PUDUNGEON-FIRE': 'Fire', 'PUDUNGEON-WATER': 'Water', 'PUDUNGEON-LIGHT': 'Light', 'PUDUNGEON-DARK': 'Dark', 'SUDDENRAID-LEONID': 'Leonid', 'SUDDENRAID-CALISTRA': 'Calistra', 'CR-456': 'Castle Rush (Thu/Fri/Sat)', 'CR-KRIS': 'Castle Rush: Kris', 'CR-LEONID': 'Castle Rush: Leonid' };
   var TIER_COLORS = { 'SSS': '#EB8DFF', 'SS': '#FF6767', 'S': '#FBBC04', 'A': '#FEFF31', 'B': '#8CE669', 'C': '#58CDDA', 'D': '#699FE6', 'NOT USED': '#D9D9D9' };
   var DASHBOARD_ART = { 'power-up-dungeon-roles': 'powerupdungeon', 'raid': 'raid', 'sudden-raid': 'suddenraid', 'castle-rush': 'castlerush', 'advent-expedition': 'adventexpedition', 'arena': 'arena', 'total-war': 'totalwar', 'guild-war': 'guildwar', 'farming': 'farming' };
-  var TX_GOALS = [['pve', 'PVE'], ['tower', 'Towers'], ['pvp', 'PVP'], ['gw', 'Guild War'], ['cp', 'Combat Power']];
-  var TX_TIERS = [0, 1, 2, 3, 4, 5, 6, 12];
+  var SET_ICONS = { 'Bounty Tracker': 'Bounty.webp', 'Spellweaver': 'Spellweaver.webp', 'Avenger': 'Avenger.webp', 'Gatekeeper': 'Gatekeeper.webp', 'Guardian': 'Guardian.webp', 'Orchestrator': 'Orchestrator.webp', 'Paladin': 'Paladin.webp', 'Assassin': 'Assassin.webp', 'Vanguard': 'Vanguard.webp' };
   var REASON_LABEL = { 'awakened': 'Awakened', 'effect': 'Effect', 'role-single': 'Single-Target DPS', 'role-three': '3-Target DPS', 'role-aoe': '4/5-Target DPS', 'widely-used': 'Widely used' };
 
   var params = new URLSearchParams(location.search);
@@ -53,6 +52,13 @@
   }
   function skillIcon(sk) {
     return sk.icon ? 'assets/skills-raw/' + sk.icon : null;
+  }
+  /* Vietnamese translation (hero.vi, merged from ~/workspace/i18n/vi/).
+   * Every lookup falls back to the original English when no translation
+   * exists yet, so the page works before/after the merge. */
+  function vi() { return (hero && hero.vi) || {}; }
+  function setIcon(setName) {
+    return SET_ICONS[setName] || (setName ? setName.replace(/\s+/g, '') + '.webp' : null);
   }
 
   /* ---------- left column ---------- */
@@ -116,29 +122,39 @@
     if (isAwakened) {
       cd = sk.gauge != null ? '<div class="hx-skill-cd">Awakening Gauge: ' + esc(sk.gauge) + '</div>' : '';
     } else if (sk.cd) {
-      cd = '<div class="hx-skill-cd">⏱ Cooldown: ' + esc(sk.cd) + 's</div>';
+      cd = '<div class="hx-skill-cd">⏱ Hồi chiêu: ' + esc(sk.cd) + 's</div>';
     } else if (!isPassive && sk.key !== 'basic') {
-      cd = '<div class="hx-skill-cd">⏱ Cooldown: –</div>';
+      cd = '<div class="hx-skill-cd">⏱ Hồi chiêu: –</div>';
     }
-    var groups = (sk.effects || []).map(function (g) {
+    var groups = (sk.effects || []).map(function (g, gi) {
+      var lines = (sk.effects_vi && sk.effects_vi[gi]) || g.lines || [];
       return (g.target ? '<div class="hx-skill-target">' + esc(g.target) + '</div>' : '')
-        + (g.lines || []).map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('');
+        + lines.map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('');
     }).join('');
+    var tipByName = {};
+    (sk.tips || []).forEach(function (t, ti) {
+      var body = (sk.tips_vi && sk.tips_vi[ti] && sk.tips_vi[ti].body) || t.body || '';
+      if (t.name) tipByName[t.name] = body;
+    });
     var bubbles = (sk.bubbles || []).length
       ? '<div class="hx-tips">' + sk.bubbles.map(function (b) {
         var suffix = [b.variant, b.note].filter(Boolean).join(', ');
-        return '<span class="hx-tip" title="' + esc(b.label) + '">' + esc(b.label + (suffix ? ' (' + suffix + ')' : '')) + '</span>';
+        var tip = tipByName[b.label] || '';
+        return '<span class="hx-tip" title="' + esc(tip || b.label) + '">' + esc(b.label + (suffix ? ' (' + suffix + ')' : '')) + '</span>';
       }).join('') + '</div>' : '';
     var enhance = (sk.enhancement || []).length
-      ? '<div class="hx-notes" style="background:#f2f7ff;border-color:#c8d8f2"><b>Skill Enhancement</b>'
-        + sk.enhancement.map(function (e) {
-          return '<p style="margin:6px 0 0">' + (e.target ? '<b>' + esc(e.target) + ':</b> ' : '') + esc(e.effect) + '</p>';
+      ? '<div class="hx-notes" style="background:#f2f7ff;border-color:#c8d8f2"><b>Nâng cấp kỹ năng</b>'
+        + sk.enhancement.map(function (e, ei) {
+          var effect = (sk.enhancement_vi && sk.enhancement_vi[ei] && sk.enhancement_vi[ei].effect) || e.effect;
+          return '<p style="margin:6px 0 0">' + (e.target ? '<b>' + esc(e.target) + ':</b> ' : '') + esc(effect) + '</p>';
         }).join('') + '</div>' : '';
     var txOrder = { T2: 0, T4: 1, T6: 2 };
     var tx = (sk.tx || []).slice().sort(function (a, b) { return (txOrder[a.tier] || 99) - (txOrder[b.tier] || 99); });
     var txHtml = tx.length
       ? '<div style="margin-top:8px">' + tx.map(function (t) {
-        return '<p style="font-size:12.5px;color:#946b25;margin:4px 0"><b>' + esc(t.tier) + '</b> ' + esc(t.effect) + '</p>';
+        var idx = sk.tx.indexOf(t);
+        var effect = (sk.tx_vi && sk.tx_vi[idx] && sk.tx_vi[idx].effect) || t.effect;
+        return '<p style="font-size:12.5px;color:#946b25;margin:4px 0"><b>' + esc(t.tier) + '</b> ' + esc(effect) + '</p>';
       }).join('') + '</div>' : '';
     return '<div class="hx-skill" id="skill-' + esc(sk.key) + '">' + iconHtml
       + '<div style="flex:1;min-width:0"><h4>' + esc(sk.name || 'Basic Attack') + '</h4>'
@@ -154,7 +170,7 @@
       seen[sk.key] = true;
       var after = skills.find(function (o) { return o.key === sk.key && o.converts; });
       if (after && !sk.converts) {
-        out += '<div class="hx-cardbox" style="margin-bottom:10px"><b style="font-size:13px">⇄ Skill Conversion — kỹ năng thay đổi sau khi biến hình</b>'
+        out += '<div class="hx-cardbox" style="margin-bottom:10px"><b style="font-size:13px">⇄ Chuyển đổi kỹ năng — kỹ năng thay đổi sau khi biến hình</b>'
           + '<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:start;margin-top:10px">'
           + '<div><small style="font-weight:800;color:#8b8578">TRƯỚC</small>' + skillCardHtml(sk) + '</div>'
           + '<div style="font-size:22px;padding-top:40px">→</div>'
@@ -167,64 +183,19 @@
     return out;
   }
 
-  function txStarState(i, n) { return n >= 6 + i ? 2 : n >= i ? 1 : 0; }
-
-  function renderGrowth() {
-    var tx = (hero.growth || {}).transcendence || {};
-    var rows = TX_GOALS.map(function (goal) {
-      var key = goal[0], label = goal[1];
-      var tiers = TX_TIERS.filter(function (n) { return ((tx['t' + n] || {}).badges || {})[key]; });
-      if (!tiers.length) return '';
-      var top = tiers[tiers.length - 1];
-      var topTier = tx['t' + top] || {};
-      var stars = '';
-      for (var i = 1; i <= 6; i++) {
-        var s = txStarState(i, top);
-        stars += '<span style="color:' + (s === 2 ? '#c9a227' : s === 1 ? '#946b25' : '#d8d5cc') + '">★</span>';
-      }
-      var links = (topTier.skill_links || []).map(function (l) {
-        return ' <a href="#skill-' + esc(l.target_id ? l.target_id.split('-')[0] : '') + '">↓ ' + esc(l.label) + '</a>';
-      }).join('');
-      var tierText = tiers.length > 1 ? 'T' + tiers[0] + ' → T' + top : 'T' + top;
-      return '<div class="hx-tx-row"><div style="flex:1"><span class="hx-tx-level">' + esc(label) + ' · ' + tierText + '</span> '
-        + '<span style="letter-spacing:2px">' + stars + '</span>'
-        + '<div class="hx-tx-effect">' + esc(topTier.effect || '') + links + '</div></div></div>';
-    }).join('');
-    var pot = (hero.growth || {}).potential || {};
-    var potHtml = Object.keys(pot).map(function (k) {
-      var p = pot[k];
-      // Atlas has no potential-SPD.webp (404); reuse the substat Speed icon.
-      var icon = k.toUpperCase() === 'SPD' ? 'assets/substats/Speed.webp'
-        : 'assets/ui/potential-' + k.toUpperCase() + '.webp';
-      return '<div class="hx-pot-item"><span><img src="' + esc(icon) + '" alt="" style="width:18px;height:18px;vertical-align:-4px;margin-right:6px">' + esc(k.toUpperCase()) + '</span><b>' + esc(p.value || '') + (p.rec ? ' <span style="color:#1f7a74;font-size:11.5px">· Khuyên dùng</span>' : '') + '</b></div>';
-    }).join('');
-    return '<div class="hx-growth"><div><h4 style="margin:0 0 10px;font-size:13px">Transcendence</h4>' + (rows || '<p style="font-size:13.5px;color:#8b8578">Chưa có dữ liệu.</p>') + '</div>'
-      + '<div><h4 style="margin:0 0 10px;font-size:13px">Potential</h4>' + (potHtml || '<p style="font-size:13.5px;color:#8b8578">Chưa có dữ liệu.</p>') + '</div></div>';
-  }
-
   function renderMain() {
     var ov = hero.overview || {};
     var skills = skillsFor(version);
     var enh = enhanceFor(version);
-    var util = ov.utility || {};
-    var utilHtml = ['none', 'early', 'mid', 'end'].map(function (k) {
-      var label = { none: 'None', early: 'Early Game', mid: 'Mid Game', end: 'End Game' }[k];
-      var icon = 'assets/ui/utility-' + (k === 'none' ? 'None' : k === 'early' ? 'EarlyGame' : k === 'mid' ? 'MidGame' : 'EndGame') + '.webp';
-      return '<div class="hx-util ' + (util[k] ? 'on' : 'off') + '"><img src="' + esc(icon) + '" alt="" style="width:22px;height:22px;display:block;margin:0 auto 4px">' + esc(label) + '</div>';
-    }).join('');
-    var sources = (ov.sources || []).map(function (s) {
-      var label = typeof s === 'string' ? s : (s.label || '');
-      var icon = typeof s === 'object' && s.icon ? '<img src="assets/herosource/' + esc(s.icon) + '" alt="" style="width:20px;height:20px;object-fit:contain;vertical-align:-5px;margin-right:5px">' : '✦ ';
-      return '<span class="hx-chip">' + icon + esc(label) + '</span>';
-    }).join('');
+    /* Tier List Grades: chỉ ảnh đại diện chế độ + điểm đánh giá (to, đậm,
+     * nền tối + viền màu tier để nổi trên ảnh). Bỏ dòng role và "at T0". */
     var tiers = (hero.tiers || []).map(function (t) {
       var art = DASHBOARD_ART[t.mode] || 'arena';
       var color = TIER_COLORS[t.tier] || '#8b8578';
-      return '<div class="hx-tier" style="position:relative;overflow:hidden">'
-        + '<img src="assets/ui/dashboard-' + esc(art) + '.webp" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35">'
-        + '<div style="position:relative"><b>' + esc(t.label) + '</b>'
-        + '<div class="hx-tier-grade" style="color:' + color + '">' + esc(t.tier) + '</div>'
-        + '<small>' + (t.role ? esc(t.role) + ' · ' : '') + (t.tx ? 'at ' + esc(t.tx) : '') + '</small></div></div>';
+      return '<div class="hx-tier">'
+        + '<img src="assets/ui/dashboard-' + esc(art) + '.webp" alt="" loading="lazy">'
+        + '<span class="hx-tier-mode">' + esc(t.label) + '</span>'
+        + '<span class="hx-tier-grade" style="color:' + color + ';border-color:' + color + '">' + esc(t.tier) + '</span></div>';
     }).join('');
     var enhHtml = enh.length ? '<div class="hx-enhance">' + enh.map(function (e, i) {
       var sk = skills.find(function (s) { return s.key === e.key; });
@@ -233,11 +204,12 @@
         + (icon ? '<img src="' + esc(icon) + '" alt="" loading="lazy">' : '')
         + '<b>' + esc(e.name) + '</b><span class="hx-enhance-tag">ENHANCE · ' + esc(REASON_LABEL[e.reason] || e.reason) + '</span></div>';
     }).join('') + '</div>' : '<p style="font-size:13.5px;color:#8b8578">Chưa có dữ liệu ưu tiên nâng skill.</p>';
-    var bg = hero.lore ? '<details class="hx-bgdetails"><summary>Background</summary><div class="hx-bgbody">'
-      + hero.lore.split('\n').filter(function (l) { return l.trim(); }).map(function (l) { return '<p>' + esc(l.trim()) + '</p>'; }).join('') + '</div></details>' : '';
+    var lore = vi().lore || hero.lore || '';
+    var bg = lore ? '<details class="hx-bgdetails"><summary>Cốt truyện</summary><div class="hx-bgbody">'
+      + lore.split('\n').filter(function (l) { return l.trim(); }).map(function (l) { return '<p>' + esc(l.trim()) + '</p>'; }).join('') + '</div></details>' : '';
     mainEl.innerHTML =
-      sectionTitle('Hero Overview')
-      + '<div class="hx-cardbox"><p style="margin:0 0 12px;font-size:14px;line-height:1.65">' + esc(ov.desc || 'Chưa có mô tả.') + '</p>'
+      sectionTitle('Tổng quan hero')
+      + '<div class="hx-cardbox"><p style="margin:0 0 12px;font-size:14px;line-height:1.65">' + esc(vi().overview_desc || ov.desc || 'Chưa có mô tả.') + '</p>'
       + '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin-bottom:6px">TAGS</div>'
       + '<div class="hx-chips">' + (hero.tags || []).map(function (t) { return '<span class="hx-chip">' + esc(t) + '</span>'; }).join('') + '</div>'
       + ((ov.effects || []).length ? '<div class="hx-chips" style="margin-top:8px">' + ov.effects.map(function (b) {
@@ -245,14 +217,10 @@
         return '<span class="hx-chip effect">' + esc(b.label + (suffix ? ' (' + suffix + ')' : '')) + '</span>';
       }).join('') + '</div>' : '')
       + '</div>'
-      + sectionTitle('Hero Utility by Progression')
-      + '<div class="hx-utility">' + utilHtml + '</div>'
-      + (sources ? sectionTitle('Special Sources') + '<div class="hx-chips">' + sources + '</div>' : '')
-      + (tiers ? sectionTitle('Tier List Grades') + '<div class="hx-tiergrid">' + tiers + '</div>' : '')
-      + sectionTitle('Growth') + renderGrowth()
-      + sectionTitle(hero.awakened_date ? (version === 'awk' ? 'Skills (Awakened)' : 'Skills (Pre-Awakening)') : 'Skills')
+      + (tiers ? sectionTitle('Xếp hạng theo chế độ') + '<div class="hx-tiergrid">' + tiers + '</div>' : '')
+      + sectionTitle(hero.awakened_date ? (version === 'awk' ? 'Kỹ năng (Thức tỉnh)' : 'Kỹ năng (Trước thức tỉnh)') : 'Kỹ năng')
       + renderSkills(skills)
-      + sectionTitle('Skill Enhancement Priority') + enhHtml
+      + sectionTitle('Ưu tiên nâng kỹ năng') + enhHtml
       + bg;
   }
 
@@ -272,10 +240,16 @@
         + (modes ? '<span class="hx-build-modes">' + esc(modes) + '</span>' : '') + '</button>';
     }).join('') + '</div>';
     var set = (b.gear.sets || [])[0] || {};
-    function mainStatHtml(label, arr) {
+    var setImg = setIcon(set.name || '');
+    /* Main stat: BEST (Chính) và ALT (Phụ) tách thành 2 hàng riêng. */
+    function mainStatHtml(label, iconFile, arr) {
       var best = arr[0], alt = arr.slice(1);
-      return '<div class="hx-mainstat"><small>' + esc(label) + '</small><b>BEST</b> ' + esc(statLabel(best || '—'))
-        + (alt.length ? '<br><span style="color:#8b8578">ALT</span> ' + esc(alt.map(statLabel).join(' / ')) : '') + '</div>';
+      var row = '<div class="hx-mainstat"><small><img src="assets/gearui/' + esc(iconFile) + '" alt="" loading="lazy">' + esc(label) + '</small>'
+        + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span>' + esc(statLabel(best || '—')) + '</span></div>';
+      if (alt.length) {
+        row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + esc(alt.map(statLabel).join(' / ')) + '</span></div>';
+      }
+      return row + '</div>';
     }
     var subs = (b.substats || []).map(function (s) {
       var icon = STAT_ICONS[s];
@@ -316,32 +290,38 @@
         : ded.second === 'no' ? '<span class="hx-pill no">NO</span>'
         : ded.second === 'optional' ? '<span class="hx-pill" style="background:#fdf6e3;color:#946b25">OPTIONAL</span>'
         : esc(ded.second || '');
-      var why = pick && ded.why_by_stat ? (ded.why_by_stat[pick] || '') : '';
-      dedHtml = '<div class="hx-cardbox hx-dedicated">' + sectionTitle('Dedicated Equipment')
+      var why = pick ? ((vi().dedicated_why && vi().dedicated_why[pick]) || (ded.why_by_stat && ded.why_by_stat[pick]) || '') : '';
+      var story = vi().dedicated_story || ded.story || '';
+      dedHtml = '<div class="hx-cardbox hx-dedicated">' + sectionTitle('Trang bị riêng')
         + '<div class="hx-de-head">'
         + (ded.icon ? '<img src="assets/dedicated/' + esc(ded.icon) + '" alt="" loading="lazy">' : '')
-        + '<div><b style="font-size:16px">' + esc(ded.name) + '</b><br><span style="font-size:13.5px;color:#6b6558">Main Stat: ' + esc(ded.main_stat) + '</span></div></div>'
-        + '<div class="hx-de-cols"><div class="hx-de-col this" style="' + (aOn ? '' : 'opacity:.55') + '"><h5>Substats A' + (aOn ? ' — Build này' : '') + '</h5>' + deList(ded.a || []) + '</div>'
-        + '<div class="hx-de-col" style="' + (bOn ? '' : 'opacity:.55') + '"><h5>Substats B' + (bOn ? ' — Build này' : '') + '</h5>' + deList(ded.b || []) + '</div></div>'
+        + '<div><b style="font-size:16px">' + esc(ded.name) + '</b><br><span style="font-size:13.5px;color:#6b6558">Chỉ số chính: ' + esc(ded.main_stat) + '</span></div></div>'
+        + '<div class="hx-de-cols"><div class="hx-de-col this" style="' + (aOn ? '' : 'opacity:.55') + '"><h5>Dòng phụ A' + (aOn ? ' — Build này' : '') + '</h5>' + deList(ded.a || []) + '</div>'
+        + '<div class="hx-de-col" style="' + (bOn ? '' : 'opacity:.55') + '"><h5>Dòng phụ B' + (bOn ? ' — Build này' : '') + '</h5>' + deList(ded.b || []) + '</div></div>'
         + '<p style="font-size:13.5px;margin:14px 0 4px"><b>Nên build trang bị riêng thứ 2 ngay?</b> ' + second + '</p>'
         + (pick ? '<p style="font-size:13.5px;margin:4px 0 0"><b>Vì sao ' + esc(statLabel(pick)) + '?</b> ' + esc(why) + '</p>' : '')
-        + (ded.story ? '<details class="hx-bgdetails" style="margin-top:12px"><summary>Background</summary><div class="hx-bgbody"><p>' + esc(ded.story) + '</p></div></details>' : '')
+        + (story ? '<details class="hx-bgdetails" style="margin-top:12px"><summary>Cốt truyện</summary><div class="hx-bgbody"><p>' + esc(story) + '</p></div></details>' : '')
         + '</div>';
     }
+    var buildNote = (vi().builds && vi().builds[buildIdx] && vi().builds[buildIdx].note) || b.note || '';
+    var gearNotes = (vi().builds && vi().builds[buildIdx] && vi().builds[buildIdx].gear_notes) || b.gear_notes || '';
     mainEl.innerHTML =
       '<div class="hx-builds">' + listHtml
       + '<div class="hx-build-main">'
-      + sectionTitle('Gears')
-      + '<div class="hx-cardbox"><div class="hx-gear-set"><b>' + esc(set.name || '—') + '</b>'
-      + (set.effect ? '<p>' + esc(set.effect) + '</p>' : '') + '</div>'
+      + (buildNote ? '<p style="font-size:14px;line-height:1.65;margin:0 0 16px">' + esc(buildNote) + '</p>' : '')
+      + sectionTitle('Trang bị')
+      + '<div class="hx-cardbox"><div class="hx-gear-set">'
+      + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="" loading="lazy">' : '')
+      + '<div><b>' + esc(set.name || '—') + '</b>'
+      + (set.effect ? '<p>' + esc(set.effect) + '</p>' : '') + '</div></div>'
       + '<div class="hx-mainstats">'
-      + mainStatHtml('Weapon Main Stat', b.gear.weapon || [])
-      + mainStatHtml('Armor Main Stat', b.gear.armor || [])
+      + mainStatHtml('Chỉ số chính Vũ khí', 'weapon.webp', b.gear.weapon || [])
+      + mainStatHtml('Chỉ số chính Giáp', 'armor.webp', b.gear.armor || [])
       + '</div>'
-      + (subs ? '<ol class="hx-substats">' + subs + '</ol>' : '')
-      + (b.gear_notes ? '<div class="hx-notes">' + esc(b.gear_notes) + '</div>' : '')
+      + (subs ? '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:14px 0 6px">ƯU TIÊN DÒNG PHỤ</div><ol class="hx-substats">' + subs + '</ol>' : '')
+      + (gearNotes ? '<div class="hx-notes"><b style="display:block;font-size:11px;letter-spacing:.08em;color:#946b25;margin-bottom:4px">GHI CHÚ</b>' + esc(gearNotes) + '</div>' : '')
       + '</div>'
-      + (accs ? sectionTitle('Accessory Combinations') + '<div class="hx-acc-grid">' + accs + '</div>' : '')
+      + (accs ? sectionTitle('Phụ kiện') + '<div class="hx-acc-grid">' + accs + '</div>' : '')
       + '</div></div>'
       + dedHtml;
     mainEl.querySelectorAll('[data-build]').forEach(function (btn) {
@@ -361,7 +341,7 @@
     tabMainBtn.classList.toggle('active', t === 'main');
     tabBuildsBtn.classList.toggle('active', t === 'builds');
     if (t === 'main') renderMain(); else renderBuilds();
-    window.scrollTo({ top: 0 });
+    /* Không cuộn lên đầu trang khi đổi tab — giữ nguyên vị trí cuộn. */
   }
 
   function renderAll() {

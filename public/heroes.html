@@ -31,12 +31,28 @@
     <option value="newest">Mới nhất</option>
     <option value="oldest">Cũ nhất</option>
   </select>
+  <button id="hx-filter-btn" class="hx-btn hx-filter-btn" type="button" aria-label="Mở bộ lọc" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+    <span>Bộ lọc</span><span id="hx-filter-count" class="hx-filter-count" style="display:none"></span>
+  </button>
   <button id="hx-clear" class="hx-btn" type="button">Xóa bộ lọc</button>
   <span id="hx-count" class="hx-count">Đang tải…</span>
 </div>
 
+<div id="hx-filter-backdrop" class="hx-filter-backdrop" hidden></div>
+<aside id="hx-filter-panel" class="hx-filter-panel" role="dialog" aria-label="Bộ lọc hero" hidden>
+  <div class="hx-filter-head">
+    <h3>Bộ lọc</h3>
+    <button id="hx-filter-close" class="hx-filter-close" type="button" aria-label="Đóng bộ lọc">×</button>
+  </div>
+  <div id="hx-filter-body" class="hx-filter-body"></div>
+  <div class="hx-filter-foot">
+    <button id="hx-filter-clear" class="hx-btn" type="button">Xóa bộ lọc</button>
+    <button id="hx-filter-done" class="hx-btn primary" type="button">Xong</button>
+  </div>
+</aside>
+
 <div class="hx-layout">
-  <aside id="hx-filters" class="hx-filters" aria-label="Bộ lọc hero"></aside>
   <div id="hx-grid" class="hx-grid" aria-live="polite"></div>
 </div>
 
