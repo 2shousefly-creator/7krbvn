@@ -72,7 +72,7 @@
  * header (z-index 200 > 150), trình duyệt không nhìn thấy khi cuộn.
  * 78px lần đầu cũng sai vì cùng lý do. */
 .hx-tabs{position:sticky;top:130px;z-index:150;display:flex;gap:6px;border-bottom:2px solid #e9e8e3;margin-bottom:18px;background:#f7f7f5}
-@media(max-width:680px){.hx-tabs{top:80px}}
+@media(max-width:680px){.hx-tabs{top:62px}}
 .hx-tabs button{font-size:15px;font-weight:800;padding:10px 16px;border:0;background:none;cursor:pointer;color:#6b6558;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit}
 .hx-tabs button.active{color:#b3352c;border-bottom-color:#b3352c}
 .hx-section-title{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:26px 0 10px}
