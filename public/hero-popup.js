@@ -97,9 +97,10 @@
           + '<span class="hx-acc-plus">+</span>'
           + sub + '</div>';
       }
+      var activeIdx = builds.findIndex(function (b) { return b.active; });
       var tabs = builds.length > 1
         ? '<div class="hx-build-tabs">' + builds.map(function (bb, i) {
-          return '<button type="button" data-popup-build="' + i + '" class="' + (i === buildIdx ? 'active' : '') + '">Build ' + (i + 1) + '</button>';
+          return '<button type="button" data-popup-build="' + i + '" class="' + (i === buildIdx ? 'active' : '') + '">Build ' + (i + 1) + (i === activeIdx ? ' <span class="hx-best-tag">BEST</span>' : '') + '</button>';
         }).join('') + '</div>' : '';
       out += '<div class="hx-modal-build">' + tabs
         + '<div class="hx-gear-set">'
@@ -131,28 +132,32 @@
         var aStat = (h.dedicated.a && h.dedicated.a[0] && (typeof h.dedicated.a[0] === 'string' ? h.dedicated.a[0] : h.dedicated.a[0].name)) || '';
         var col = (pick && aStat === pick) ? (h.dedicated.a || []) : (h.dedicated.b || []);
         if (!col.length && pick) col = (h.dedicated.a || []).concat(h.dedicated.b || []);
-        /* Đếm đủ số dòng giống nhau, vd "Crush +12% × 4". */
+        /* Đếm đủ số dòng giống nhau, vd "Crush +12% × 4". Mỗi dòng kèm
+         * icon minh họa của chỉ số đó, lấy từ data (không bịa, không vẽ). */
         var counts = {};
         var order = [];
+        var icons = {};
         col.forEach(function (x) {
           var n = typeof x === 'string' ? x : (x.name || '');
           var val = (typeof x === 'object' && x.value) || '';
+          var icon = (typeof x === 'object' && x.icon) || STAT_ICONS[n] || '';
           if (!n) return;
           var key = n + '|' + val;
-          if (!counts[key]) { counts[key] = 0; order.push(key); }
+          if (!counts[key]) { counts[key] = 0; order.push(key); icons[key] = icon; }
           counts[key]++;
         });
         var lines = order.map(function (k) {
           var parts = k.split('|');
           var c = counts[k];
+          var icon = icons[k];
           var label = statLabel(parts[0]) + (parts[1] ? ' ' + parts[1] : '') + (c > 1 ? ' × ' + c : '');
-          return '<b>' + esc(label) + '</b>';
+          return (icon ? '<img src="assets/substats/' + esc(icon) + '" alt="" class="hx-dedi-icon">' : '') + '<b>' + esc(label) + '</b>';
         });
         out += '<div class="hx-modal-dedi">'
           + (h.dedicated.icon ? '<img src="assets/dedicated/' + esc(h.dedicated.icon) + '" alt="" loading="lazy">' : '')
           + '<div><b>Trang bị riêng:</b> '
           + esc(h.dedicated.name) + ' — ' + esc(h.dedicated.main_stat)
-          + (lines.length ? '<span class="hx-dedi-lines">Nên build: ' + lines.join(' · ') + '</span>' : '')
+          + (lines.length ? '<span class="hx-dedi-lines">' + lines.join(' · ') + '</span>' : '')
           + '</div></div>';
       }
       out += '</div>';

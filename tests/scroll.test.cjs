@@ -140,8 +140,12 @@ test('popup: build tabs (Atlas style), real gear piece art, accessories, bold de
   assert.ok(html.includes('PHỤ KIỆN'), 'popup must have an Accessories section');
   assert.ok(html.includes('assets/acc/L-Immortal.webp'), 'popup must show the main accessory ring image (Immortal)');
   assert.ok(html.includes('assets/acc/L-Guts.webp'), 'popup must show the sub accessory ring image (Guts)');
-  /* Dedicated: stat name + value bold, full line count. */
+  /* Dedicated: stat name + value bold, full line count, with the stat icon. */
   assert.ok(html.includes('<b>Resilience +15% × 4</b>'), 'dedicated stat name, value and line count must all be bold');
+  assert.ok(html.includes('assets/substats/Resilience.webp'), 'dedicated lines must show the stat icon from the data');
+  assert.ok(!html.includes('Nên build'), 'popup dedicated must not say "Nên build"');
+  /* Gear art is compact in the popup (64px, uniform), not the 110px detail size. */
+  assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'popup must still show the real weapon piece art');
   /* Switch to Build 2 (Avenger set) and confirm the popup re-renders. */
   body.querySelector('[data-popup-build="1"]').click();
   await tick();
@@ -173,9 +177,12 @@ test('builds tab: real gear piece art, horizontal accessories, dedicated without
   await tick();
   const doc = dom.window.document;
   const html = doc.querySelector('#hx-content').innerHTML;
-  /* Build names translated (Eileene build 1 "Shock Them All"). */
-  assert.ok(html.includes('Gây choáng tất cả') || html.includes('Choáng tất cả'), 'build list must show the Vietnamese build name');
+  /* Build names translated in Title Case (Eileene build 1 "Shock Them All"). */
+  assert.ok(html.includes('Choáng Tất Cả'), 'build list must show the Vietnamese build name in Title Case');
   assert.ok(!html.includes('>Shock Them All<'), 'build list must not show the English build name as the label');
+  /* The best (active) build carries a BEST tag. */
+  assert.ok(html.includes('<span class="hx-best-tag">BEST</span>'), 'the best build option must carry a BEST tag');
+  assert.ok(html.includes('BEST</span>Choáng Tất Cả'), 'the BEST tag must sit before the best build name');
   /* Gears: real piece art like the popup, not the generic icons. */
   assert.ok(html.includes('assets/gearpieces/ID-Spell1.webp'), 'builds tab must show the real weapon piece art');
   assert.ok(html.includes('assets/gearpieces/ID-Spell3.webp'), 'builds tab must show the real armor piece art');

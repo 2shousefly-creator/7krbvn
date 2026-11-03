@@ -103,6 +103,7 @@
 .hx-build-list button{text-align:left;font-size:13.5px;font-weight:700;padding:10px 12px;border-radius:10px;border:1px solid #e9e8e3;background:#fff;cursor:pointer;font-family:inherit}
 .hx-build-list button.active{border-color:#c9a227;background:#f7f1e4;color:#946b25}
 .hx-build-list .hx-build-modes{display:block;font-size:11px;font-weight:600;color:#8b8578;margin-top:3px}
+.hx-best-tag{display:inline-block;background:#c9a227;color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;border-radius:5px;padding:2px 6px;margin-right:6px;vertical-align:1px}
 .hx-build-main{flex:1;min-width:0}
 .hx-gear-set{display:flex;gap:12px;align-items:flex-start;font-size:14px}
 .hx-gear-set>img{width:52px;height:52px;object-fit:contain;flex:none;border:1px solid #e9e8e3;border-radius:10px;background:#f7f6f2}
@@ -174,6 +175,8 @@
 .hx-modal-dedi{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:10px 0 0;line-height:1.55}
 .hx-modal-dedi>img{width:48px;height:48px;border-radius:10px;border:1px solid #e9e8e3;object-fit:cover;flex:none}
 .hx-modal-dedi .hx-dedi-lines{display:block;margin-top:4px;color:#4a5160}
+.hx-modal-dedi .hx-dedi-icon{width:20px;height:20px;object-fit:contain;vertical-align:-4px;margin-right:4px}
+.hx-modal-build .hx-mainstat .hx-piece{width:64px;height:64px}
 .hx-modal-note{font-size:13px;line-height:1.6;color:#4a5160;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;margin-top:12px}
 .hx-modal-actions{display:flex;gap:10px;margin-top:16px}
 .hx-modal-actions a{flex:1;text-align:center;text-decoration:none}

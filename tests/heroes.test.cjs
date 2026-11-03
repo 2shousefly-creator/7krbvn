@@ -155,7 +155,8 @@ test('quick-build popup: build tabs, gear images, accessories, bold dedicated li
   assert.ok(!js.includes('hx-ms-tag'), 'popup must not show Chính/Phụ main-stat rows (build tabs replace them)');
   assert.ok(js.includes("assets/acc/'"), 'popup must show the accessory rings (main + sub)');
   assert.ok(js.includes('hx-acc-pair'), 'popup accessories must render main + sub side by side');
-  assert.ok(js.includes('Nên build:'), 'popup dedicated equipment must show which substat lines to build');
+  assert.ok(js.includes("hx-dedi-icon"), 'popup dedicated lines must show the stat icon from the data');
+  assert.ok(!js.includes('Nên build:'), 'popup dedicated must not say "Nên build"');
   assert.ok(js.includes("assets/dedicated/'"), 'popup dedicated equipment must show its illustration image');
   assert.ok(js.includes('gear_notes'), 'popup must be able to show the translated build note');
 });
@@ -285,6 +286,8 @@ test('popup shows real gear piece art, "Set 4" and bold dedicated lines', () => 
   const css = read('heroes.css');
   assert.ok(/\.hx-mainstat \.hx-piece\{[^}]*width:110px/.test(css),
     'popup gear art must be shown large (110px, near its native 126px), not icon-sized');
+  assert.ok(/\.hx-modal-build \.hx-mainstat \.hx-piece\{[^}]*width:64px/.test(css),
+    'popup gear art must be compact and uniform (64px) — the 110px size is for the detail page only');
   assert.ok(/\.hx-modal-build \.hx-mainstats\{[^}]*grid-template-columns:1fr/.test(css),
     'popup gear art must sit one item per row so the illustration has room');
   assert.ok(!/\.hx-mainstat small img\.hx-piece/.test(css),
@@ -347,6 +350,6 @@ test('build names translate to Vietnamese in the build list', () => {
   const entries = (m[1].match(/": "/g) || []).length;
   assert.ok(entries >= 200, `BUILD_VI must cover all 200 Atlas build names (found ${entries})`);
   assert.ok(js.includes('BUILD_VI[bb.name]'), 'build list must look up the Vietnamese name');
-  assert.ok(js.includes("'Defensive Utility': 'Tiện ích phòng thủ'") || js.includes('"Defensive Utility": "Tiện ích phòng thủ"'),
-    'BUILD_VI must translate "Defensive Utility"');
+  assert.ok(js.includes("'Defensive Utility': 'Tiện Ích Phòng Thủ'") || js.includes('"Defensive Utility": "Tiện Ích Phòng Thủ"'),
+    'BUILD_VI must translate "Defensive Utility" in Title Case');
 });
