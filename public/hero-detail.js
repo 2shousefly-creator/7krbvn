@@ -333,6 +333,23 @@
   }
 
   /* ---------- tabs + boot ---------- */
+  /* Giữ nguyên vị trí cuộn khi đổi tab. Cơ chế 2 lớp:
+   * 1) Đổi tab tại chỗ: lưu scrollY rồi khôi phục ngay sau khi render.
+   * 2) Nếu trang tải lại vì bất kỳ lý do gì (cache cũ, điều hướng):
+   *    vị trí cuộn được giữ trong sessionStorage theo hero + tab và
+   *    khôi phục sau khi trang render xong. */
+  function scrollKey(t) { return 'hx-scroll:' + heroId + ':' + t; }
+  function saveScroll(t, y) {
+    try { sessionStorage.setItem(scrollKey(t), String(y)); } catch (e) {}
+  }
+  function restoreSavedScroll(t) {
+    var raw = null;
+    try { raw = sessionStorage.getItem(scrollKey(t)); sessionStorage.removeItem(scrollKey(t)); } catch (e) {}
+    if (raw == null) return;
+    var y = parseInt(raw, 10);
+    if (!isNaN(y) && y > 0) requestAnimationFrame(function () { window.scrollTo(0, y); });
+  }
+
   function setTab(t) {
     tab = t;
     var u = new URL(location.href);
@@ -340,10 +357,8 @@
     history.replaceState(null, '', u.toString());
     tabMainBtn.classList.toggle('active', t === 'main');
     tabBuildsBtn.classList.toggle('active', t === 'builds');
-    /* Giữ nguyên vị trí cuộn: ghi lại scrollY trước khi thay nội dung rồi
-     * khôi phục sau khi render — nếu tab mới ngắn hơn thì trình duyệt tự
-     * kẹp về cuối tab mới, chứ không nhảy về đầu trang. */
     var y = window.scrollY || window.pageYOffset || 0;
+    saveScroll(t, y);
     if (t === 'main') renderMain(); else renderBuilds();
     requestAnimationFrame(function () { window.scrollTo(0, y); });
   }
@@ -352,6 +367,7 @@
     document.title = hero.name + ' — Heroes | 7K RBVN';
     renderSide();
     if (tab === 'main') renderMain(); else renderBuilds();
+    restoreSavedScroll(tab);
   }
 
   tabMainBtn.addEventListener('click', function () { setTab('main'); });

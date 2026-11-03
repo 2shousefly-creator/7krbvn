@@ -112,6 +112,8 @@ test('detail page drops Utility, Special Sources and Growth; tabs do not scroll'
   assert.ok(!js.includes('window.scrollTo({ top: 0 })'), 'switching tabs must not scroll the page to the top');
   assert.ok(js.includes('window.scrollY') && js.includes('window.scrollTo(0, y)'),
     'switching tabs must preserve the current scroll position');
+  assert.ok(js.includes('sessionStorage') && js.includes('hx-scroll:'),
+    'scroll position must survive a page reload (saved per hero + tab)');
   /* Vietnamese headings (the small caps labels render in uppercase). */
   var jsLower = js.toLowerCase();
   for (const heading of ['Tổng quan hero', 'Xếp hạng theo chế độ', 'Ưu tiên nâng kỹ năng', 'Trang bị', 'Phụ kiện', 'Trang bị riêng', 'Cốt truyện', 'Chỉ số chính Vũ khí', 'Chỉ số chính Giáp', 'Ưu tiên dòng phụ']) {
