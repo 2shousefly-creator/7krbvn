@@ -6,7 +6,7 @@
 .hero-slider{position:relative;border-radius:20px;overflow:hidden;background:#252d3e;color:#fff}
 .hero-track{display:flex;min-height:150px;transition:transform .5s ease}
 .hero-slide{position:relative;flex:0 0 100%;min-width:0;display:flex;align-items:center}
-.hero-slide-copy{position:relative;z-index:2;padding:16px 26px;max-width:640px}
+.hero-slide-copy{position:relative;z-index:2;padding:16px 26px 16px 56px;max-width:640px}
 .hero-slide-copy .section-kicker{color:#dfc17b}
 .hero-slide-copy h2{font-size:24px;line-height:1.2;letter-spacing:-.03em;margin:6px 0 5px}
 .hero-slide-copy p{color:#c6ccd6;font-size:13.5px;line-height:1.6;margin:0 0 11px;max-width:480px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}

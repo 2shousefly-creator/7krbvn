@@ -28,6 +28,8 @@ test('home hero slider: 5 slides with titles, descriptions and XEM NGAY CTAs', (
   assert.ok(css.includes('.hero-track{display:flex;min-height:150px;transition:transform .5s ease'),
     'hero track must be a flex row that slides left');
   assert.ok(!css.includes('.hero-slide.is-active'), 'slides must not rely on a fade is-active rule');
+  assert.ok(css.includes('.hero-slide-copy{position:relative;z-index:2;padding:16px 26px 16px 56px'),
+    'slide copy must clear the prev arrow (56px left padding)');
   for (const [i, [title, href]] of SLIDES.entries()) {
     const body = slides[i][1];
     assert.ok(body.includes(`<h2>${title}</h2>`), `slide ${i + 1} must be titled ${title}`);
