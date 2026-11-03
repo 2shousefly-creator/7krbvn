@@ -19,10 +19,15 @@ test('home hero slider: 5 slides with titles, descriptions and XEM NGAY CTAs', (
   assert.ok(home.includes('id="hero-slider"'), 'home must have the hero slider');
   assert.ok(home.includes('<h1 class="sr-only">Sổ tay Seven Knights Re:Birth</h1>'),
     'home must keep its h1 for screen readers');
-  const slides = [...home.matchAll(/<article class="hero-slide(?: is-active)?">([\s\S]*?)<\/article>/g)];
+  const slides = [...home.matchAll(/<article class="hero-slide">([\s\S]*?)<\/article>/g)];
   assert.equal(slides.length, 5, 'slider must have exactly 5 slides');
-  assert.ok(slides[0][1].includes('is-active') || slides[0][0].includes('is-active'),
-    'the first slide must start active');
+  // Slide-left: the track is a flex row and the JS moves it with translateX.
+  assert.ok(home.includes("track.style.transform='translateX('+(-cur*100)+'%)'"),
+    'slider must move the track left with translateX(-N*100%)');
+  const css = page('blog.css');
+  assert.ok(css.includes('.hero-track{display:flex;min-height:150px;transition:transform .5s ease'),
+    'hero track must be a flex row that slides left');
+  assert.ok(!css.includes('.hero-slide.is-active'), 'slides must not rely on a fade is-active rule');
   for (const [i, [title, href]] of SLIDES.entries()) {
     const body = slides[i][1];
     assert.ok(body.includes(`<h2>${title}</h2>`), `slide ${i + 1} must be titled ${title}`);
@@ -47,7 +52,7 @@ test('home hero slider: auto-advances every 3s, swipeable, pauses on interaction
   assert.ok(home.includes("addEventListener('mouseenter',stop)"), 'slider must pause on hover');
   assert.ok(home.includes('prefers-reduced-motion'), 'slider must respect reduced-motion');
   const css = page('blog.css');
-  assert.ok(css.includes('.hero-track{position:relative;min-height:150px'), 'desktop slides must stay compact (~150px)');
+  assert.ok(css.includes('.hero-track{display:flex;min-height:150px'), 'desktop slides must stay compact (~150px)');
   assert.ok(css.includes('.hero-track{min-height:196px'), 'mobile slides must stay compact (~196px)');
 });
 
@@ -60,31 +65,62 @@ test('home structure: banner, pinned posts, latest posts, category cards — in 
   assert.ok(home.includes('<p>12 chuyên mục</p>'), 'category count must say 12 (there are 12 cards)');
 });
 
-test('pinned posts: Ruby Farming is pinned with a pin icon, section holds up to 4', () => {
+test('pinned posts: Ruby Farming is pinned with a pin icon, no redundant labels', () => {
   const home = page('index.html');
   const pinned = home.slice(home.indexOf('Bài viết đã ghim'),
     home.indexOf('</section>', home.indexOf('Bài viết đã ghim')));
   assert.ok(pinned.includes('href="ruby-farming.html"'), 'Ruby Farming must be pinned');
   assert.ok(pinned.includes('class="pin-badge"'), 'every pinned post must show a pin icon');
-  assert.ok(pinned.includes('Tối đa 4 bài'), 'pinned section must state the 4-post cap');
+  assert.ok(!home.includes('ĐÃ GHIM'), 'pinned section must not repeat a ĐÃ GHIM label');
+  assert.ok(!home.includes('Tối đa 4 bài'), 'pinned section must not state the 4-post cap');
+  assert.ok(!home.includes('MỚI NHẤT'), 'latest section must not repeat a MỚI NHẤT label');
   assert.equal((pinned.match(/<a class="post-card"/g) || []).length, 1, 'one post is pinned for now');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.equal((latest.match(/<a class="post-card"/g) || []).length, 5, 'latest must list 5 articles');
 });
 
-test('home post grids: 2 compact cards per row on mobile', () => {
+test('post grids: 2 compact cards per row on mobile, synced across all menu pages', () => {
   const css = page('blog.css');
-  assert.ok(css.includes('.home-posts .post-grid{grid-template-columns:repeat(2,minmax(0,1fr))'),
-    'home grids must show 2 cards per row on mobile');
-  assert.ok(css.includes('.home-posts .post-image{height:104px'), 'mobile card images must shrink');
-  assert.ok(css.includes('.home-posts .post-body h3{font-size:15px'), 'mobile card titles must shrink');
-  assert.ok(css.includes('.home-posts .post-link{display:none'), 'mobile cards hide the redundant read link');
+  assert.ok(css.includes('.post-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px'),
+    'mobile grids must show 2 cards per row on every menu page');
+  assert.ok(css.includes('.post-image{height:104px'), 'mobile card images must shrink');
+  assert.ok(css.includes('.post-body h3{font-size:15px'), 'mobile card titles must shrink');
+  assert.ok(css.includes('.post-link{display:none'), 'mobile cards hide the redundant read link');
   const home = page('index.html');
   assert.ok(home.includes('<section class="home-posts" aria-labelledby="pinned-title">'),
     'pinned section must use the compact home grid');
   assert.ok(home.includes('<section class="home-posts" aria-labelledby="posts-title">'),
     'latest section must use the compact home grid');
+});
+
+test('post cards site-wide: image + tag + title + description only', () => {
+  const css = page('blog.css');
+  assert.ok(css.includes('.post-body .article-tag{align-self:flex-end;order:-1'),
+    'card tags must sit at the top-right corner above the title');
+  for (const file of ['index.html', 'cap-nhat.html', 'castle-rush.html', 'celestial-tower.html',
+    'dungeon.html', 'newbie.html', 'raid.html', 'tower-of-trials.html']) {
+    const html = page(file);
+    assert.ok(!html.includes('post-badge'), `${file} must not put a tag label on the cover image`);
+    assert.ok(!html.includes('post-meta'), `${file} must not show a hashtag line above the title`);
+    const cards = [...html.matchAll(/<a class="post-card" href="[^"]+">([\s\S]*?)<\/a>/g)];
+    assert.ok(cards.length >= 1, `${file} must list at least one post card`);
+    for (const [, body] of cards) {
+      assert.equal((body.match(/<span class="article-tag">/g) || []).length, 1,
+        `${file} card must carry exactly one tag`);
+      assert.ok(body.indexOf('article-tag') < body.indexOf('<h3>'),
+        `${file} card tag must sit above the title`);
+    }
+  }
+});
+
+test('menu-page banners: blog-intro is half its old height on every page', () => {
+  const css = page('blog.css');
+  assert.ok(css.includes('.blog-intro{position:relative;display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden;background:#252d3e;color:#fff;border-radius:20px;min-height:145px'),
+    'menu-page banners must be ~145px tall (was 285px)');
+  assert.ok(css.includes('.blog-intro h1{font-size:clamp(26px,3vw,36px)'),
+    'menu-page banner titles must shrink with the banner');
+  assert.ok(css.includes('.blog-intro-art{height:75px'), 'mobile banner art must shrink too');
 });
 
 test('raid guide article: first in Latest, 8 sections, every portrait hero exists', () => {

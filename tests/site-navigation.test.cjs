@@ -246,7 +246,7 @@ test('content text is 20% larger for readability; UI chrome keeps its sizes', ()
   // article body text: 14px -> 16.8px (mobile 13px -> 15.6px)
   assert.ok(base.includes('.article-section>p{font-size:16.8px'), 'article paragraphs must be 16.8px');
   assert.ok(blog.includes('.post-body p{font-size:15.6px'), 'listing card text must be 15.6px');
-  assert.ok(blog.includes('.blog-intro p{color:#c6ccd6;font-size:16.8px'), 'article intro text must be 16.8px');
+  assert.ok(blog.includes('.blog-intro p{color:#c6ccd6;font-size:13.5px'), 'article intro text must be 13.5px');
   // UI chrome must NOT have grown (nav would overflow, inputs must stay >= 16px)
   assert.ok(nav.includes('.main-nav a{font-size:12.5px'), 'main nav must stay 12.5px');
   assert.ok(base.includes('input,textarea,select{font-size:16px!important'), 'inputs must stay 16px (iOS no-zoom floor)');
