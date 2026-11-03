@@ -406,16 +406,20 @@ test('skill conversion renders vertically (no horizontal Before/After grid)', ()
   assert.ok(js.includes('margin-top:12px'), 'SAU card must stack below TRƯỚC with spacing');
 });
 
-test('All Damage Nullification description says hits (đòn), not turns (lượt)', () => {
+test('All Damage Nullification description says hits (đòn), not turns (lượt) — every hero', () => {
   const fs2 = require('node:fs');
   const path2 = require('node:path');
   const root2 = path2.join(__dirname, '..', 'public');
-  for (const hid of ['freyja', 'giyu-tomioka', 'juri']) {
-    const h = JSON.parse(fs2.readFileSync(path2.join(root2, 'data', 'heroes', hid + '.json'), 'utf8'));
-    const s = JSON.stringify(h);
-    assert.ok(s.includes('trong một số đòn nhất định'), hid + ' must describe All Damage Nullification per hit (đòn)');
-    assert.ok(!s.includes('trong một số lượt nhất định'), hid + ' must not say "lượt" for All Damage Nullification');
+  /* The translators used 3 wordings for the same Atlas tip ("toàn bộ" /
+   * "mọi", precomposed "hóa" vs decomposed "hoá"), so assert globally:
+   * no hero may still say "lượt" for this effect. */
+  let don = 0;
+  for (const f of fs2.readdirSync(path2.join(root2, 'data', 'heroes'))) {
+    const s = fs2.readFileSync(path2.join(root2, 'data', 'heroes', f), 'utf8');
+    assert.ok(!s.includes('trong một số lượt nhất định'), f + ' must not say "lượt" for All Damage Nullification');
+    don += (s.match(/trong một số đòn nhất định/g) || []).length;
   }
+  assert.ok(don >= 24, 'expected at least 24 "đòn" explanations across heroes, got ' + don);
 });
 
 test('skill detail spacing: target tags and header elements are not cramped', () => {
