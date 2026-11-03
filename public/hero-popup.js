@@ -30,6 +30,11 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
     });
   }
+  /* Rarity tag colour class: L++ -> rarity-lpp (purple), L+ -> rarity-lp (red),
+   * L -> rarity-l (orange), R -> rarity-r (blue). */
+  function rarityCls(r) {
+    return 'rarity-' + String(r).replace(/\+/g, 'p').toLowerCase();
+  }
   function statLabel(code) { return STAT_LABELS[code] || code; }
   function setIcon(setName) {
     return SET_ICONS[setName] || (setName ? setName.replace(/\s+/g, '') + '.webp' : null);
@@ -61,7 +66,7 @@
     var out = '<div class="hx-modal-hero">'
       + '<img src="assets/hero-' + esc(h.id) + '.webp" alt="' + esc(h.name) + '">'
       + '<div><h3>' + esc(h.name) + '</h3>'
-      + '<div class="hx-badges"><span class="hx-badge rarity">' + esc(h.rarity) + '</span>'
+      + '<div class="hx-badges"><span class="hx-badge rarity ' + rarityCls(h.rarity) + '">' + esc(h.rarity) + '</span>'
       + '<span class="hx-badge type">' + esc(h.type) + '</span></div></div></div>'
       + ((tags || effects) ? '<div class="hx-modal-tags">' + tags + effects + '</div>' : '');
     if (!build) {

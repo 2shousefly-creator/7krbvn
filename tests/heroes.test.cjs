@@ -62,6 +62,22 @@ test('directory cards show only portrait, name and one rarity tag, 4 per row', (
     'mobile image override must sit after the base 96px rule or it loses the cascade');
   assert.ok(css.includes('.hx-card img{width:100%;height:auto;aspect-ratio:1/1'),
     'mobile portraits must scale to the column width');
+  /* Rarity tags change colour by rarity: L++ purple, L+ red, L orange, R blue. */
+  assert.ok(css.includes('.hx-badge.rarity-lpp{background:#ede9fe;color:#7c3aed}'),
+    'L++ tag must be purple');
+  assert.ok(css.includes('.hx-badge.rarity-lp{background:#fee2e2;color:#dc2626}'),
+    'L+ tag must be red');
+  assert.ok(css.includes('.hx-badge.rarity-l{background:#f7f1e4;color:#946b25}'),
+    'L tag must stay orange (current colours)');
+  assert.ok(css.includes('.hx-badge.rarity-r{background:#dbeafe;color:#2563eb}'),
+    'R tag must be blue');
+  assert.ok(js.includes("String(r).replace(/\\+/g, 'p')"),
+    'rarity class must map + to p (L++ -> rarity-lpp, L+ -> rarity-lp)');
+  assert.ok(card.includes('rarityCls(h.rarity)'),
+    'directory card must colour its rarity tag');
+  const popupJs = read('hero-popup.js');
+  assert.ok(popupJs.includes('rarityCls(h.rarity)'),
+    'quick-build popup must colour its rarity tag too');
 });
 
 test('hero.html detail page: two tabs and detail script', () => {
