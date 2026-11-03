@@ -278,8 +278,10 @@ test('popup shows real gear piece art, "Set 4" and the full dedicated line count
   assert.ok(js.includes('hx-with-piece'), 'popup gear art must sit in its own large thumbnail layout');
   assert.ok(js.includes("' × ' + c"), 'popup dedicated equipment must show the line count (e.g. "Crush +12% × 4")');
   const css = read('heroes.css');
-  assert.ok(/\.hx-mainstat \.hx-piece\{[^}]*width:72px/.test(css),
-    'popup gear art must be shown large (72px, near its native 126px), not icon-sized');
+  assert.ok(/\.hx-mainstat \.hx-piece\{[^}]*width:110px/.test(css),
+    'popup gear art must be shown large (110px, near its native 126px), not icon-sized');
+  assert.ok(/\.hx-modal-build \.hx-mainstats\{[^}]*grid-template-columns:1fr/.test(css),
+    'popup gear art must sit one item per row so the illustration has room');
   assert.ok(!/\.hx-mainstat small img\.hx-piece/.test(css),
     'popup gear art must not sit on the small dark icon chip anymore');
   // All 27 Raid gear piece images (9 sets x weapon-physical / weapon-magic / armor) on disk.
