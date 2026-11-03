@@ -114,7 +114,6 @@
 .hx-mainstat small img{width:22px;height:22px;object-fit:contain;background:#202638;border-radius:6px;padding:2px}
 /* Popup: hình minh họa thật của món vũ khí/giáp trong set (ảnh gốc 126px).
  * Hiện gần bằng kích thước gốc để thấy rõ chi tiết, mỗi món một hàng. */
-.hx-modal-build .hx-mainstats{grid-template-columns:1fr}
 .hx-mainstat.hx-with-piece{display:flex;gap:12px;align-items:center}
 .hx-mainstat .hx-piece{width:110px;height:110px;object-fit:contain;border-radius:10px;flex:none}
 .hx-mainstat .hx-ms-body{flex:1;min-width:0}
@@ -165,7 +164,7 @@
 .hx-modal-build h4{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:0 0 8px}
 .hx-modal-build .hx-gear-set{font-size:13.5px}
 .hx-modal-build .hx-gear-set>img{width:44px;height:44px}
-.hx-modal-build .hx-mainstats{grid-template-columns:1fr 1fr}
+.hx-modal-build .hx-mainstats{grid-template-columns:1fr}
 .hx-modal-build .hx-mainstat{padding:8px 10px}
 .hx-modal-dedi{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:10px 0 0;line-height:1.55}
 .hx-modal-dedi>img{width:48px;height:48px;border-radius:10px;border:1px solid #e9e8e3;object-fit:cover;flex:none}
