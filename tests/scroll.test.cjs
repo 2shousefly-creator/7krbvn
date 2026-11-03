@@ -1,8 +1,10 @@
-/* Scroll preservation on the hero detail page (hero-detail.js).
+/* Scroll positions on the hero detail page (hero-detail.js).
  *
- * Tab switching must keep the reader's scroll position, both in place
- * (scrollTo called with the saved scrollY) and across a reload
- * (sessionStorage round-trip on boot). This is a jsdom test; it is skipped
+ * Each tab (Chi tiết / Build đồ) keeps its OWN scroll position,
+ * independent of the other tab. Switching tabs saves the old tab's
+ * position and restores the new tab's saved position (or the top on
+ * first visit). Across a reload the current tab's saved position is
+ * restored from sessionStorage. This is a jsdom test; it is skipped
  * when jsdom is not installed (npm install jsdom --no-save to enable).
  */
 const test = require('node:test');
@@ -50,7 +52,7 @@ function makeDom(url, seedScroll, fakeScrollY) {
 
 const tick = () => new Promise((r) => setTimeout(r, 50));
 
-test('tab switching preserves the scroll position in place and across reload', { skip: !JSDOM }, async () => {
+test('each tab keeps its own scroll position independently', { skip: !JSDOM }, async () => {
   const { dom, calls } = makeDom('https://7krb.io.vn/hero.html?id=eileene', null, 2500);
   await tick();
   const doc = dom.window.document;
@@ -58,29 +60,39 @@ test('tab switching preserves the scroll position in place and across reload', {
     'main tab must render first');
   assert.equal(dom.window.sessionStorage.length, 0, 'no saved scroll before any switch');
 
+  /* Switch to builds: saves main=2500, builds has no saved position -> top (0).
+   * The builds tab must NOT inherit the main tab's scroll position. */
   doc.getElementById('hx-tab-builds').click();
   await tick();
   assert.ok(doc.querySelector('#hx-content').textContent.includes('Trang bị'),
     'builds tab must render after click');
-  assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), '2500',
-    'tab switch must save the scroll position per hero+tab');
-  assert.ok(calls.scrollTo.some(([, y]) => y === 2500),
-    `scrollTo must be called with the saved position (got ${JSON.stringify(calls.scrollTo)})`);
+  assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:main'), '2500',
+    'switching away must save the old (main) tab position');
+  assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), null,
+    'builds tab must not inherit the main tab position');
+  assert.ok(calls.scrollTo.some(([, y]) => y === 0),
+    `first visit to builds must scroll to top (got ${JSON.stringify(calls.scrollTo)})`);
+  assert.ok(!calls.scrollTo.some(([, y]) => y === 2500),
+    'builds must NOT restore the main tab scroll position');
 
+  /* Simulate scrolling inside builds to 1200, then switch back to main. */
+  Object.defineProperty(dom.window, 'scrollY', { value: 1200, configurable: true });
+  Object.defineProperty(dom.window, 'pageYOffset', { value: 1200, configurable: true });
   calls.scrollTo.length = 0;
   doc.getElementById('hx-tab-main').click();
   await tick();
-  assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:main'), '2500',
-    'switching back must save the scroll position for the main tab');
+  assert.equal(dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), '1200',
+    'switching away must save the builds tab position');
   assert.ok(calls.scrollTo.some(([, y]) => y === 2500),
-    'switching back must also restore the scroll position');
+    `switching back must restore the main tab position (got ${JSON.stringify(calls.scrollTo)})`);
 
-  const reloaded = makeDom('https://7krb.io.vn/hero.html?id=eileene&tab=builds', 2500, 0);
+  /* Reload on builds restores builds' own position (1200), and the key persists. */
+  const reloaded = makeDom('https://7krb.io.vn/hero.html?id=eileene&tab=builds', 1200, 0);
   await tick();
-  assert.ok(reloaded.calls.scrollTo.some(([, y]) => y === 2500),
-    `boot must restore the saved scroll position (got ${JSON.stringify(reloaded.calls.scrollTo)})`);
-  assert.equal(reloaded.dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), null,
-    'the saved scroll key must be consumed on boot (no stale restore later)');
+  assert.ok(reloaded.calls.scrollTo.some(([, y]) => y === 1200),
+    `boot must restore the saved builds position (got ${JSON.stringify(reloaded.calls.scrollTo)})`);
+  assert.equal(reloaded.dom.window.sessionStorage.getItem('hx-scroll:eileene:builds'), '1200',
+    'the saved scroll key must persist (each tab keeps its own position)');
 });
 
 test('skill targets translate to Vietnamese and effects are explained', { skip: !JSDOM }, async () => {

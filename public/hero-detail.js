@@ -988,41 +988,42 @@
   }
 
   /* ---------- tabs + boot ---------- */
-  /* Giữ nguyên vị trí cuộn khi đổi tab. Cơ chế 2 lớp:
-   * 1) Đổi tab tại chỗ: lưu scrollY rồi khôi phục ngay sau khi render.
-   * 2) Nếu trang tải lại vì bất kỳ lý do gì (cache cũ, điều hướng):
-   *    vị trí cuộn được giữ trong sessionStorage theo hero + tab và
-   *    khôi phục sau khi trang render xong. */
+  /* Mỗi tab giữ vị trí cuộn RIÊNG, độc lập với tab còn lại.
+   * Chuyển tab: lưu vị trí của tab cũ, khôi phục vị trí đã lưu của tab mới
+   * (hoặc về đầu trang nếu tab mới chưa từng cuộn). Không còn đồng bộ
+   * vị trí cuộn giữa 2 tab như trước (user 2026-11-03). */
   function scrollKey(t) { return 'hx-scroll:' + heroId + ':' + t; }
   function saveScroll(t, y) {
     try { sessionStorage.setItem(scrollKey(t), String(y)); } catch (e) {}
   }
-  function restoreSavedScroll(t) {
+  function getSavedScroll(t) {
     var raw = null;
-    try { raw = sessionStorage.getItem(scrollKey(t)); sessionStorage.removeItem(scrollKey(t)); } catch (e) {}
-    if (raw == null) return;
+    try { raw = sessionStorage.getItem(scrollKey(t)); } catch (e) {}
     var y = parseInt(raw, 10);
-    if (!isNaN(y) && y > 0) requestAnimationFrame(function () { window.scrollTo(0, y); });
+    return isNaN(y) ? 0 : Math.max(0, y);
   }
 
   function setTab(t) {
+    if (t === tab) return;
+    var y = window.scrollY || window.pageYOffset || 0;
+    saveScroll(tab, y);
     tab = t;
     var u = new URL(location.href);
     u.searchParams.set('tab', t);
     history.replaceState(null, '', u.toString());
     tabMainBtn.classList.toggle('active', t === 'main');
     tabBuildsBtn.classList.toggle('active', t === 'builds');
-    var y = window.scrollY || window.pageYOffset || 0;
-    saveScroll(t, y);
     if (t === 'main') renderMain(); else renderBuilds();
-    requestAnimationFrame(function () { window.scrollTo(0, y); });
+    var y2 = getSavedScroll(t);
+    requestAnimationFrame(function () { window.scrollTo(0, y2); });
   }
 
   function renderAll() {
     document.title = hero.name + ' — Heroes | 7K RBVN';
     renderSide();
     if (tab === 'main') renderMain(); else renderBuilds();
-    restoreSavedScroll(tab);
+    var y = getSavedScroll(tab);
+    if (y > 0) requestAnimationFrame(function () { window.scrollTo(0, y); });
   }
 
   tabMainBtn.addEventListener('click', function () { setTab('main'); });

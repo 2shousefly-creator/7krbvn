@@ -260,7 +260,7 @@ test('tabs are sticky at the top when scrolling (user asked again 2026-11-03)', 
     'tabs must stick flush under the 62px mobile header (no gap)');
   const js = read('hero-detail.js');
   assert.ok(js.includes('window.scrollY') && js.includes('sessionStorage'),
-    'scroll preservation must stay with sticky tabs');
+    'per-tab independent scroll must stay with sticky tabs');
 });
 
 test('skill target scopes translate to Vietnamese (TARGET_VI, all 66 Atlas strings)', () => {
