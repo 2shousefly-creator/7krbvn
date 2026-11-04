@@ -79,6 +79,9 @@
        * minh họa thật của món đồ trong set (ảnh 126px). Mỗi hero có 2 slot
        * cho vũ khí và 2 slot cho giáp nên dòng chính ghi "× 2" và in đậm. */
       function mainStatHtml(label, pieceFile, arr) {
+        /* Dòng chỉ số chính trống (Atlas không có dữ liệu) thì ẩn hẳn,
+         * không hiện "— × 2". */
+        if (!arr || !arr.length) return '';
         var best = arr[0];
         return '<div class="hx-mainstat hx-with-piece">'
           + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="">' : '')
@@ -108,8 +111,12 @@
         ? '<div class="hx-build-tabs">' + builds.map(function (bb, i) {
           return '<button type="button" data-popup-build="' + i + '" class="' + (i === buildIdx ? 'active' : '') + '">Build ' + (i + 1) + (i === activeIdx ? ' <span class="hx-best-tag">BEST</span>' : '') + '</button>';
         }).join('') + '</div>' : '';
-      out += '<div class="hx-modal-build">' + tabs
-        + '<div class="hx-gear-set">'
+      /* Build rỗng hoàn toàn trong dữ liệu Atlas (không set, không chỉ số
+       * chính, không dòng phụ, không phụ kiện) thì ẩn cả khối gear —
+       * chỉ còn tab build và Trang bị riêng của hero (nếu có). */
+      var gearEmpty = !(build.gear.sets || []).length && !(build.gear.weapon || []).length
+        && !(build.gear.armor || []).length && !(build.substats || []).length && !(build.acc || []).length;
+      var gearHtml = gearEmpty ? '' : '<div class="hx-gear-set">'
         + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="">' : '')
         + '<div><b>' + esc(set.name || '') + '</b>'
         + (set.effect ? '<p>' + esc(set.effect.replace('4pc', 'Set 4')) + '</p>' : '') + '</div></div>'
@@ -124,6 +131,7 @@
           return '<li>' + (icon ? '<img src="assets/substats/' + esc(icon) + '" alt="" style="width:20px;height:20px;object-fit:contain">' : '') + esc(statLabel(s)) + '</li>';
         }).join('')
         + '</ul>';
+      out += '<div class="hx-modal-build">' + tabs + gearHtml;
       var acc0 = (build.acc || [])[0];
       if (acc0) {
         out += '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:12px 0 6px">PHỤ KIỆN</div>' + accHtml(acc0);

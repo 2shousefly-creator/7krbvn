@@ -886,6 +886,9 @@
      * khí và 2 slot cho giáp nên mỗi chỉ số ghi "× 2"; dòng Chính in đậm
      * (kể cả "× 2") để nổi bật so với dòng Phụ. */
     function mainStatHtml(label, pieceFile, arr) {
+      /* Dòng chỉ số chính trống (Atlas không có dữ liệu) thì ẩn hẳn,
+       * không hiện "— × 2". */
+      if (!arr || !arr.length) return '';
       var best = arr[0], alt = arr.slice(1);
       var row = '<div class="hx-mainstat hx-with-piece">'
         + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + esc(pieceFile) + '" alt="" loading="lazy">' : '')
@@ -962,11 +965,12 @@
     }
     var buildNote = (vi().builds && vi().builds[buildIdx] && vi().builds[buildIdx].note) || b.note || '';
     var gearNotes = (vi().builds && vi().builds[buildIdx] && vi().builds[buildIdx].gear_notes) || b.gear_notes || '';
-    mainEl.innerHTML =
-      '<div class="hx-builds">' + listHtml
-      + '<div class="hx-build-main">'
-      + (buildNote ? '<p style="font-size:14px;line-height:1.65;margin:0 0 16px">' + esc(buildNote) + '</p>' : '')
-      + sectionTitle('Trang bị')
+    /* Build rỗng hoàn toàn trong dữ liệu Atlas (không set, không chỉ số
+     * chính, không dòng phụ, không phụ kiện) thì ẩn cả khối Trang bị —
+     * chỉ còn tên build, ghi chú (nếu có) và Trang bị riêng của hero. */
+    var gearEmpty = !(b.gear.sets || []).length && !(b.gear.weapon || []).length
+      && !(b.gear.armor || []).length && !(b.substats || []).length && !(b.acc || []).length;
+    var gearHtml = gearEmpty ? '' : sectionTitle('Trang bị')
       + '<div class="hx-cardbox"><div class="hx-gear-set">'
       + (setImg ? '<img src="assets/seticons/' + esc(setImg) + '" alt="" loading="lazy">' : '')
       + '<div><b>' + esc(set.name || '—') + '</b>'
@@ -977,7 +981,12 @@
       + '</div>'
       + (subs ? '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:14px 0 6px">ƯU TIÊN DÒNG PHỤ</div><ol class="hx-substats">' + subs + '</ol>' : '')
       + (gearNotes ? '<div class="hx-notes"><b style="display:block;font-size:11px;letter-spacing:.08em;color:#946b25;margin-bottom:4px">GHI CHÚ</b>' + esc(gearNotes) + '</div>' : '')
-      + '</div>'
+      + '</div>';
+    mainEl.innerHTML =
+      '<div class="hx-builds">' + listHtml
+      + '<div class="hx-build-main">'
+      + (buildNote ? '<p style="font-size:14px;line-height:1.65;margin:0 0 16px">' + esc(buildNote) + '</p>' : '')
+      + gearHtml
       + (accs ? sectionTitle('Phụ kiện') + '<div class="hx-acc-grid">' + accs + '</div>' : '')
       + '</div></div>'
       + dedHtml;

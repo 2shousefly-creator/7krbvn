@@ -494,3 +494,32 @@ test('skill detail spacing: target tags and header elements are not cramped', ()
   assert.ok(/\.hx-skill \.hx-skill-cd\{[^}]*margin-bottom:2px/.test(css),
     'cooldown line must have spacing below it');
 });
+
+test('empty main-stat lines are hidden and fully-empty builds hide the whole gear block', () => {
+  const detail = read('hero-detail.js');
+  const popup = read('hero-popup.js');
+  /* A main-stat array with no entry must not render a "— × 2" line. */
+  assert.ok(detail.includes("if (!arr || !arr.length) return '';"),
+    'detail mainStatHtml must hide an empty main-stat line instead of showing "— × 2"');
+  assert.ok(popup.includes("if (!arr || !arr.length) return '';"),
+    'popup mainStatHtml must hide an empty main-stat line instead of showing "— × 2"');
+  assert.ok(detail.includes('gearEmpty'), 'detail page must detect fully-empty builds to hide the gear block');
+  assert.ok(popup.includes('gearEmpty'), 'popup must detect fully-empty builds to hide the gear block');
+  /* Real Atlas data behind the fix: exactly 4 fully-empty builds + 1 partial. */
+  const shinobu = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'shinobu-kocho.json'), 'utf8'));
+  const b6 = shinobu.builds.find((b) => b.name === 'Tower of Trials');
+  assert.deepEqual(b6.gear, { sets: [], weapon: [], armor: [] }, 'Shinobu Build 6 must be fully empty in Atlas data');
+  assert.deepEqual(b6.substats, []);
+  assert.deepEqual(b6.acc, []);
+  const biscuit = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'biscuit.json'), 'utf8'));
+  for (const name of ['Advent Expedition', 'Castle Rush', 'Sudden Raid']) {
+    const b = biscuit.builds.find((x) => x.name === name);
+    assert.deepEqual(b.gear, { sets: [], weapon: [], armor: [] }, `Biscuit ${name} must be fully empty in Atlas data`);
+    assert.deepEqual(b.substats, []);
+    assert.deepEqual(b.acc, []);
+  }
+  const sunran = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'sunran.json'), 'utf8'));
+  const aoe = sunran.builds.find((b) => b.name === 'AOE Slasher');
+  assert.deepEqual(aoe.gear.weapon, ['Crit', 'CritDMG'], 'Sunran AOE Slasher weapon must have main stats');
+  assert.deepEqual(aoe.gear.armor, [], 'Sunran AOE Slasher armor must be empty');
+});
