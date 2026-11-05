@@ -12,11 +12,11 @@
   .stat-icon{width:20px;height:20px;vertical-align:-4px;margin-right:6px}
   .gear-picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
   .gear-picks figure{margin:0;border:1px solid #eae6de;border-radius:12px;overflow:hidden;background:#f9f7f2}
-  .gear-picks img{display:block;width:100%;height:auto}
+  .gear-picks img{display:block;width:100%;height:150px;object-fit:contain;background:linear-gradient(145deg,#e9e5dc,#f6f3ed)}
   .gear-picks figcaption{padding:10px 12px;font-size:13px;line-height:1.5;color:#5f6675}
   .gear-picks figcaption b{display:block;font-size:14.4px;color:#353c4c}
   .hero-picks figure[data-hero-popup]{cursor:pointer}
-  @media(max-width:680px){.gear-picks{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.gear-picks figcaption{font-size:11px;padding:8px}}
+  @media(max-width:680px){.gear-picks{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.gear-picks img{height:96px}.gear-picks figcaption{font-size:11px;padding:8px}}
   </style>
 </head>
 <body>
@@ -47,7 +47,12 @@
         <li><b>Đồ Seven Knights:</b> vũ khí 58, giáp DEF 36 + HP 193, kèm All Attack 6.5% cố định.</li>
       </ul>
       <p>Chỉ số nền chỉ là điểm khởi đầu — sức mạnh thật của một món đồ nằm ở <b>set</b>, <b>dòng chính</b> và <b>dòng phụ</b> của nó. Ba phần sau giải thích từng thứ một.</p>
-      <figure><button class="image-button" type="button" data-full="assets/gearpieces/ID-Avenger1.webp"><img src="assets/gearpieces/ID-Avenger1.webp" alt="Vũ khí Avenger" loading="lazy"><span>Phóng to 🔍</span></button><figcaption>Vũ khí của set Avenger — set PvE được dùng nhiều nhất. Mảnh đồ thật trong game có hình riêng cho từng set.</figcaption></figure>
+      <div class="gear-picks">
+        <figure><img src="assets/gearpieces/ID-Avenger1.webp" alt="Vũ khí vật lý Avenger" loading="lazy"><figcaption><b>Vũ khí vật lý</b>Set Avenger — vũ khí cho tướng đánh vật lý (PATK).</figcaption></figure>
+        <figure><img src="assets/gearpieces/ID-Avenger2.webp" alt="Vũ khí phép Avenger" loading="lazy"><figcaption><b>Vũ khí phép</b>Set Avenger — vũ khí cho tướng đánh phép (MATK).</figcaption></figure>
+        <figure><img src="assets/gearpieces/ID-Avenger3.webp" alt="Giáp Avenger" loading="lazy"><figcaption><b>Giáp</b>Set Avenger — giáp tăng DEF và HP.</figcaption></figure>
+      </div>
+      <p>Mỗi set đều có 3 dạng mảnh đồ như trên: vũ khí vật lý, vũ khí phép và giáp — khác nhau ở chỉ số nền và dòng chính có thể roll ra.</p>
     </section>
 
     <section class="article-section" id="bo-set"><div class="article-number">02 <span>/ BỘ SET</span></div><h2>🛡️ Set là gì, hiệu ứng bộ 2 và bộ 4 món</h2>
@@ -217,7 +222,7 @@
         <figure data-hero-popup="evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"><figcaption><b>Evan</b><small>Gatekeeper · Vũ khí DEF% · Giáp Block + Damage Taken Reduction · Nhẫn Revive · Đồ riêng tăng DEF%</small></figcaption></figure>
         <figure data-hero-popup="rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"><figcaption><b>Rudy</b><small>Guardian (hoặc Gatekeeper nếu muốn 100% Block) · Tuning đồ riêng ưu tiên Resilience</small></figcaption></figure>
         <figure data-hero-popup="lina"><img src="assets/hero-lina.webp" alt="Lina" loading="lazy"><figcaption><b>Lina</b><small>Paladin · Vũ khí HP% · Giáp HP% + Damage Taken Reduction · Hồi máu tính theo Max HP</small></figcaption></figure>
-        <figure data-hero-popup="karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"><figcaption><b>Karin</b><small>Gatekeeper · Support đầu game — Tuning đồ riêng ưu tiên Rejuvenate, đừng đầu tư tối ưu quá mức</small></figcaption></figure>
+        <figure data-hero-popup="alice"><img src="assets/hero-alice.webp" alt="Alice" loading="lazy"><figcaption><b>Alice</b><small>Paladin · Vũ khí HP% · Giáp Damage Taken Reduction + Block · Healer hồi máu theo Max HP</small></figcaption></figure>
       </div>
     </section>
 
