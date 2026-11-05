@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f6f1">
-  <meta name="description" content="Cốt truyện Act 2 (The Journey Continues): 25 chương với tóm tắt và hội thoại đầy đủ bằng tiếng Việt.">
-  <meta property="og:title" content="Act 2 — Hành trình tiếp nối · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 2 — Hành trình tiếp nối: 25 chương, tóm tắt và hội thoại đầy đủ."><meta property="og:type" content="website">
+  <meta name="description" content="Cốt truyện Act 2 (The Journey Continues): 25 chương, hội thoại đầy đủ bằng tiếng Việt, đọc như lật sách.">
+  <meta property="og:title" content="Act 2 — Hành trình tiếp nối · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 2 — Hành trình tiếp nối: 25 chương, hội thoại đầy đủ."><meta property="og:type" content="website">
   <title>Act 2 — Hành trình tiếp nối · Cốt truyện | 7K RBVN</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='23' width='100' height='100' fill='%23192033'/%3E%3Ctext x='50' y='69' font-size='55' text-anchor='middle' fill='%23e8c16c' font-family='Arial' font-weight='bold'%3E7K%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles-v3.css"><link rel="stylesheet" href="blog.css"><link rel="stylesheet" href="site-nav.css"><link rel="stylesheet" href="heroes.css">
@@ -26,8 +26,12 @@
   .story-ch-num{font-size:10px;font-weight:800;letter-spacing:.1em;color:#ac8844}
   .story-ch-body h3{font-size:21.6px;margin:6px 0 2px}
   .story-ch-en{font-size:12px;color:#959aa4;margin:0 0 10px}
-  .story-sum-label{font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin:0 0 4px}
-  .story-summary{font-size:16.8px;line-height:1.7;color:#5f6675;margin:0 0 12px}
+  .story-lead{border:1px dashed #d7be89;border-radius:12px;background:#fbf8ef;padding:14px 16px;margin:0 0 14px}
+  .story-lead-tag{font-size:10px;font-weight:800;letter-spacing:.1em;color:#9b772f;margin-bottom:4px}
+  .story-lead h4{font-size:18px;margin:0 0 2px}
+  .story-lead-en{font-size:12px;color:#959aa4;margin:0 0 8px}
+  .story-lead-text{font-size:15.6px;line-height:1.7;color:#5f6675;margin:0}
+  .story-epilogue{margin:14px 0 0}
   .story-chars{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
   .story-chars>span{font-size:11px;font-weight:800;letter-spacing:.06em;color:#959aa4;margin-right:2px}
   .story-char{width:44px;height:44px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;cursor:pointer}
@@ -38,6 +42,9 @@
   .story-line b{color:#353c4c}
   .story-line-text{flex:1;min-width:0}
   .story-line.nar{padding-left:50px;font-style:italic;color:#858b96}
+  .story-line.sys{display:block;text-align:center;border:1px solid #e9e8e3;border-radius:12px;background:#f9f7f2;padding:12px 16px}
+  .story-sys-tag{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin-bottom:4px}
+  .story-line.sys .story-line-text{font-style:normal;color:#9b772f}
   .story-ava{flex:0 0 40px;width:40px;height:40px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;margin-top:2px}
   button.story-ava{cursor:pointer}
   button.story-ava:hover{border-color:#d7be89}
@@ -46,7 +53,7 @@
   .story-act-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;flex-wrap:wrap}
   .story-act-nav a{font-weight:800;color:#9b772f;font-size:14.4px}
   .story-act-nav a:hover{text-decoration:underline}
-  .story-reader{margin:0 0 10px}
+  .story-reader{margin:0 0 10px;scroll-margin-top:150px}
   .story-toc-toggle{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:12px 16px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;margin:0 0 12px}
   .story-toc-toggle:hover{border-color:#d7be89}
   .story-toc-panel{max-height:60vh;overflow:auto;border:1px solid #e9e8e3;border-radius:14px;background:#fff;padding:14px 16px;margin:0 0 14px}
@@ -55,18 +62,21 @@
   .story-toc-panel [data-goto]{display:block;width:100%;text-align:left;background:none;border:0;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:14.4px;color:#4a5160}
   .story-toc-panel [data-goto]:hover{background:#f7f1e4}
   .story-toc-panel [data-goto].toc-current{background:#f7f1e4;font-weight:800;color:#9b772f}
-  .story-book{perspective:1400px;padding-bottom:24px}
-  .story-book.turn-next .story-page{animation:page-next .45s ease;transform-origin:left center}
-  .story-book.turn-prev .story-page{animation:page-prev .45s ease;transform-origin:right center}
-  @keyframes page-next{from{opacity:0;transform:rotateY(16deg) translateX(40px)}to{opacity:1;transform:none}}
-  @keyframes page-prev{from{opacity:0;transform:rotateY(-16deg) translateX(-40px)}to{opacity:1;transform:none}}
+  .story-toc-panel [data-goto].toc-lead{font-size:13.5px;color:#858b96;font-style:italic;padding-left:20px}
+  .story-book{padding-bottom:24px}
+  .story-book.turn-next .story-page{animation:page-next .32s ease-out}
+  .story-book.turn-prev .story-page{animation:page-prev .32s ease-out}
+  @keyframes page-next{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes page-prev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
   .story-controls{position:sticky;bottom:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffdf8f2;border:1px solid #e9e8e3;border-radius:14px;padding:10px 12px;margin:14px 0 0;box-shadow:0 -6px 24px #20263814}
   .story-controls button{border:1px solid #e9e8e3;background:#fff;border-radius:10px;padding:9px 14px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;white-space:nowrap}
   .story-controls button:hover:not(:disabled){border-color:#d7be89}
   .story-controls button:disabled{opacity:.4;cursor:default}
+  .story-controls .lbl-short{display:none}
   .story-progress{font-size:13px;font-weight:800;color:#9b772f;text-align:center;flex:1;min-width:0}
+  .back-to-top{bottom:88px}
   @media (prefers-reduced-motion:reduce){.story-book.turn-next .story-page,.story-book.turn-prev .story-page{animation:none}}
-  @media(max-width:680px){.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-summary{font-size:15.6px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-progress{font-size:12px}}
+  @media(max-width:680px){.story-reader{scroll-margin-top:130px}.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px;gap:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-controls .lbl-full{display:none}.story-controls .lbl-short{display:inline}.story-progress{font-size:12px}.story-progress-ep{display:none}.back-to-top{bottom:80px}}
   </style>
 </head>
 <body>
@@ -77,60 +87,53 @@
     <div class="breadcrumbs"><a href="index.html">Trang chủ</a><span>›</span><a href="cot-truyen.html">Cốt truyện</a><span>›</span><span>Act 2 — Hành trình tiếp nối</span></div>
     <section class="blog-intro"><div class="blog-intro-copy"><span class="article-tag">CỐT TRUYỆN</span><div class="section-kicker">CỐT TRUYỆN · ACT 2</div><h1>Act 2 — Hành trình tiếp nối</h1><p>Act 2 đưa Evan, Karin và người chơi về quá khứ, tới thời đại mà Silvesta — chủ nhân trước đây của Vòng cổ Thanh Tẩy — đang cùng các đồng đội thu thập và phong ấn các Mảnh vỡ Hủy Diệt. Trong lúc giúp Silvesta bảo vệ Cây Huyền Bí và truy tìm kẻ đứng sau sự hỗn loạn, cả nhóm gặp gỡ Teo, Yeonhee, Vanessa và một Dellons hoàn toàn khác: một hiệp sĩ mất trí nhớ, tốt bụng, đang học cách chuộc lại quá khứ nhờ sự dẫn dắt của Silvesta. Song song đó, hai Người Giữ Cổng Không Gian Vanessa và Yeonhee âm thầm theo dõi dòng thời gian, ngăn chặn sự hồi sinh của Ox King và nhận ra kẻ chủ mưu thật sự là con quỷ cổ đại Rahal — một kẻ đến từ thế giới đã diệt vong, muốn dùng Sức mạnh Hủy Diệt để làm chủ vận mệnh. Act khép lại khi Silvesta cùng các đồng đội đánh bại và phong ấn Rahal sâu dưới Tàn Tích Skytria, nhưng giọng nói bí ẩn vẫn thì thầm trong đầu Dellons, báo hiệu bóng tối vẫn chưa buông tha anh.</p></div><div class="blog-intro-art" aria-hidden="true"><img src="assets/hero-yeonhee.webp" alt="" loading="lazy"><img src="assets/hero-silvesta.webp" alt="" loading="lazy"></div></section>
 
-    <div class="story-reader" data-act="2">
+    <div class="story-reader" data-act="2" data-total="25">
       <button type="button" class="story-toc-toggle" aria-expanded="false">☰ Mục lục — 25 chương</button>
       <div class="story-toc-panel" hidden>
         <h4>Tập 11 — Con đường mới</h4>
-        <button type="button" data-goto="ch-67">Chương 1 — Chiếc vòng cổ rắc rối</button>
-        <button type="button" data-goto="ch-68">Chương 2 — Ánh sáng từ bầu trời</button>
-        <button type="button" data-goto="ch-69">Chương 3 — Mục đích của chuyến hành trình của Silvesta</button>
-        <button type="button" data-goto="ch-70">Chương 4 — Karon không nhận ra Evan</button>
-        <button type="button" data-goto="ch-71">Chương 5 — Du hành về quá khứ</button>
-        <button type="button" data-goto="ch-72">Chương 6 — Chào mừng đến với đội của Silvesta</button>
+        <button type="button" class="toc-lead" data-goto="ch-68">Chương 1 — Chiếc vòng cổ rắc rối</button>
+        <button type="button" class="toc-ch" data-goto="ch-68">Chương 2 — Ánh sáng từ bầu trời</button>
+        <button type="button" class="toc-ch" data-goto="ch-69">Chương 3 — Mục đích của chuyến hành trình của Silvesta</button>
+        <button type="button" class="toc-ch" data-goto="ch-70">Chương 4 — Karon không nhận ra Evan</button>
+        <button type="button" class="toc-ch" data-goto="ch-71">Chương 5 — Du hành về quá khứ</button>
+        <button type="button" class="toc-ch" data-goto="ch-72">Chương 6 — Chào mừng đến với đội của Silvesta</button>
         <h4>Tập 12 — Những người chống lại Hủy Diệt</h4>
-        <button type="button" data-goto="ch-73">Chương 7 — Một lũ ngốc, tất cả các ngươi!</button>
-        <button type="button" data-goto="ch-74">Chương 8 — Teo và Feng Yan</button>
-        <button type="button" data-goto="ch-75">Chương 9 — Cứ thử xem</button>
-        <button type="button" data-goto="ch-76">Chương 10 — Ranh giới trên cát</button>
+        <button type="button" class="toc-ch" data-goto="ch-73">Chương 7 — Một lũ ngốc, tất cả các ngươi!</button>
+        <button type="button" class="toc-ch" data-goto="ch-74">Chương 8 — Teo và Feng Yan</button>
+        <button type="button" class="toc-ch" data-goto="ch-75">Chương 9 — Cứ thử xem</button>
+        <button type="button" class="toc-ch" data-goto="ch-76">Chương 10 — Ranh giới trên cát</button>
         <h4>Tập 13 — Những người giữ Chiều không gian</h4>
-        <button type="button" data-goto="ch-77">Chương 11 — Dị điểm và Sức mạnh Hủy Diệt</button>
-        <button type="button" data-goto="ch-78">Chương 12 — Đã là bạn, mãi là bạn</button>
-        <button type="button" data-goto="ch-79">Chương 13 — Cô gái như ảo ảnh</button>
-        <button type="button" data-goto="ch-80">Chương 14 — Tôi sẽ cứu cô!</button>
-        <button type="button" data-goto="ch-81">Chương 15 — Cuộc tàn sát ở sa mạc</button>
-        <button type="button" data-goto="ch-82">Chương 16 — Những sinh vật bất tử</button>
-        <button type="button" data-goto="ch-83">Chương 17 — Yeonhee đối đầu Ox King</button>
-        <button type="button" data-goto="ch-84">Chương 18 — Sự im lặng tai họa</button>
-        <button type="button" data-goto="ch-85">Chương 19 — Đứa trẻ này trông quen quen</button>
+        <button type="button" class="toc-ch" data-goto="ch-77">Chương 11 — Dị điểm và Sức mạnh Hủy Diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-78">Chương 12 — Đã là bạn, mãi là bạn</button>
+        <button type="button" class="toc-ch" data-goto="ch-79">Chương 13 — Cô gái như ảo ảnh</button>
+        <button type="button" class="toc-ch" data-goto="ch-80">Chương 14 — Tôi sẽ cứu cô!</button>
+        <button type="button" class="toc-ch" data-goto="ch-81">Chương 15 — Cuộc tàn sát ở sa mạc</button>
+        <button type="button" class="toc-ch" data-goto="ch-82">Chương 16 — Những sinh vật bất tử</button>
+        <button type="button" class="toc-ch" data-goto="ch-83">Chương 17 — Yeonhee đối đầu Ox King</button>
+        <button type="button" class="toc-ch" data-goto="ch-84">Chương 18 — Sự im lặng tai họa</button>
+        <button type="button" class="toc-ch" data-goto="ch-85">Chương 19 — Đứa trẻ này trông quen quen</button>
         <h4>Tập 14 — Ác quỷ từ thế giới khác</h4>
-        <button type="button" data-goto="ch-86">Chương 20 — Điều gì làm nên một con người</button>
-        <button type="button" data-goto="ch-87">Chương 21 — Cách ngăn chặn Iron Devourer</button>
-        <button type="button" data-goto="ch-88">Chương 22 — Cái bóng của Dellons</button>
-        <button type="button" data-goto="ch-89">Chương 23 — Dellons?! Về phe chúng ta?!</button>
-        <button type="button" data-goto="ch-90">Chương 24 — Con quỷ mơ về sự hủy diệt</button>
-        <button type="button" data-goto="ch-91">Chương 25 — Nếu không giết được nó, hãy nhốt nó lại mãi mãi</button>
+        <button type="button" class="toc-ch" data-goto="ch-86">Chương 20 — Điều gì làm nên một con người</button>
+        <button type="button" class="toc-ch" data-goto="ch-87">Chương 21 — Cách ngăn chặn Iron Devourer</button>
+        <button type="button" class="toc-ch" data-goto="ch-88">Chương 22 — Cái bóng của Dellons</button>
+        <button type="button" class="toc-ch" data-goto="ch-89">Chương 23 — Dellons?! Về phe chúng ta?!</button>
+        <button type="button" class="toc-ch" data-goto="ch-90">Chương 24 — Con quỷ mơ về sự hủy diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-91">Chương 25 — Nếu không giết được nó, hãy nhốt nó lại mãi mãi</button>
       </div>
       <div class="story-book">
-    <article class="story-ch story-page" id="ch-67" data-num="1" data-ep="Tập 11 — Con đường mới">
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_3.webp" alt="Chiếc vòng cổ rắc rối" loading="lazy">
-      <div class="story-ch-body">
-        <div class="story-ch-ep">TẬP 11 — CON ĐƯỜNG MỚI</div>
-        <div class="story-ch-num">CHƯƠNG 1</div>
-        <h3>Chiếc vòng cổ rắc rối</h3>
-        <p class="story-ch-en">The Troublesome Necklace</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Ngay khi quân đồng minh bắt đầu ăn mừng khoảnh khắc chiến thắng, Dellons bất ngờ ập tới phục kích Evan.</p>
-      </div>
-    </article>
-    <article class="story-ch story-page" id="ch-68" data-num="2" data-ep="Tập 11 — Con đường mới" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_3.webp" alt="Ánh sáng từ bầu trời" loading="lazy">
+    <article class="story-ch story-page" id="ch-68" data-num="2" data-ep="Tập 11 — Con đường mới">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_3.webp" alt="Ánh sáng từ bầu trời" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 11 — CON ĐƯỜNG MỚI</div>
         <div class="story-ch-num">CHƯƠNG 2</div>
         <h3>Ánh sáng từ bầu trời</h3>
         <p class="story-ch-en">Light from the Sky</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trong Rừng Huyền Bí (Mystic Woods), Silvesta và Pascal phát hiện một cột sáng khổng lồ vươn thẳng lên trời.</p>
+        <div class="story-lead">
+          <div class="story-lead-tag">DẪN TRUYỆN · CHƯƠNG 1</div>
+          <h4>Chiếc vòng cổ rắc rối</h4>
+          <p class="story-lead-en">The Troublesome Necklace</p>
+          <p class="story-lead-text">Ngay khi quân đồng minh bắt đầu ăn mừng khoảnh khắc chiến thắng, Dellons bất ngờ ập tới phục kích Evan.</p>
+        </div>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong Rừng Huyền Bí thuộc Vương quốc Terra, Silvesta và Pascal phát hiện một cột sáng khổng lồ từ trên trời giáng xuống.</p>
@@ -155,14 +158,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-69" data-num="3" data-ep="Tập 11 — Con đường mới" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_5.webp" alt="Mục đích của chuyến hành trình của Silvesta" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_5.webp" alt="Mục đích của chuyến hành trình của Silvesta" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 11 — CON ĐƯỜNG MỚI</div>
         <div class="story-ch-num">CHƯƠNG 3</div>
         <h3>Mục đích của chuyến hành trình của Silvesta</h3>
         <p class="story-ch-en">The Purpose of Silvesta&#x27;s Journey</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Silvesta giải thích rằng Sức mạnh Hủy Diệt luôn hoành hành sau mỗi cuộc đại chiến, gây ra thiệt hại khủng khiếp. Ông đã lên đường để thanh tẩy nó.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Evan và Karin dẫn Silvesta cùng Pascal tới Cây Huyền Bí (Mystic Tree) nơi Karon đang ở.</p>
@@ -201,14 +202,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-70" data-num="4" data-ep="Tập 11 — Con đường mới" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_2.webp" alt="Karon không nhận ra Evan" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_2.webp" alt="Karon không nhận ra Evan" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 11 — CON ĐƯỜNG MỚI</div>
         <div class="story-ch-num">CHƯƠNG 4</div>
         <h3>Karon không nhận ra Evan</h3>
         <p class="story-ch-en">Karon Doesn&#x27;t Recognize Evan</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karon chẳng nhận ra ai trong chúng ta cả! Chắc chắn chúng ta đang ở một thế giới khác...</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karon" title="Karon"><img src="assets/hero-karon.webp" alt="Karon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi cả nhóm tới Cây Huyền Bí, Karon đã ở đó chờ sẵn, vì ông đã bói được rằng nhóm sẽ đến vào ngày hôm nay.</p>
@@ -246,14 +245,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-71" data-num="5" data-ep="Tập 11 — Con đường mới" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_4.webp" alt="Du hành về quá khứ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_4.webp" alt="Du hành về quá khứ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 11 — CON ĐƯỜNG MỚI</div>
         <div class="story-ch-num">CHƯƠNG 5</div>
         <h3>Du hành về quá khứ</h3>
         <p class="story-ch-en">Time Travel to the Past</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nơi Evan và Karin đặt chân tới chính là Rừng Huyền Bí — nhưng là của quá khứ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nơi cả nhóm tới cùng với nhóm của Silvesta chắc chắn là Cây Huyền Bí. Thế nhưng, đó không phải là cái cây mà Evan và Karin biết. Karin trầm ngâm suy nghĩ về ý nghĩa của tình huống này.</p>
@@ -284,14 +281,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-72" data-num="6" data-ep="Tập 11 — Con đường mới" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_3.webp" alt="Chào mừng đến với đội của Silvesta" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_01_3.webp" alt="Chào mừng đến với đội của Silvesta" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 11 — CON ĐƯỜNG MỚI</div>
         <div class="story-ch-num">CHƯƠNG 6</div>
         <h3>Chào mừng đến với đội của Silvesta</h3>
         <p class="story-ch-en">Welcome to Team Silvesta</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Silvesta thấy được tiềm năng của Evan và mời cậu tham gia đội của mình. Ông nói rằng thu thập các Mảnh vỡ Hủy Diệt sẽ cứu thế giới.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi cả nhóm tới bìa Rừng Huyền Bí, Silvesta chìa tay ra với Evan.</p>
@@ -316,14 +311,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-73" data-num="7" data-ep="Tập 12 — Những người chống lại Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_3.webp" alt="Một lũ ngốc, tất cả các ngươi!" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_3.webp" alt="Một lũ ngốc, tất cả các ngươi!" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 12 — NHỮNG NGƯỜI CHỐNG LẠI HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 7</div>
         <h3>Một lũ ngốc, tất cả các ngươi!</h3>
         <p class="story-ch-en">Fools, the Lot of You!</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo là một trong những người đang cùng Silvesta thanh tẩy Sức mạnh Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau mỗi cuộc đại chiến đều là một thời kỳ hỗn loạn, đánh dấu bởi sự hiện diện của một sức mạnh điềm gở.</p>
@@ -364,14 +357,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-74" data-num="8" data-ep="Tập 12 — Những người chống lại Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_3.webp" alt="Teo và Feng Yan" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_3.webp" alt="Teo và Feng Yan" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 12 — NHỮNG NGƯỜI CHỐNG LẠI HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 8</div>
         <h3>Teo và Feng Yan</h3>
         <p class="story-ch-en">Teo and Feng Yan</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Cả Teo và Feng Yan đều đang tìm kiếm Sức mạnh Hủy Diệt, mỗi người vì mục đích riêng của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi Teo đang dọn sạch lũ quái vật trong Hầm Mỏ Im Lặng (Silent Mine), một kiếm sĩ khác bước vào đường hầm từ phía bên kia.</p>
@@ -399,14 +390,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-75" data-num="9" data-ep="Tập 12 — Những người chống lại Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_2.webp" alt="Cứ thử xem" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_2.webp" alt="Cứ thử xem" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 12 — NHỮNG NGƯỜI CHỐNG LẠI HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 9</div>
         <h3>Cứ thử xem</h3>
         <p class="story-ch-en">Try Me</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo đánh bại lũ quái vật và lấy lại Mảnh vỡ Hủy Diệt từng được dùng để phá bỏ phong ấn của con rồng. Ngay sau đó, anh bị Feng Yan chặn lại.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Hàng đàn quái vật chặn đường Teo trong đường hầm, nhưng Teo không bao giờ phải vung kiếm quá một lần.</p>
@@ -443,28 +432,24 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-76" data-num="10" data-ep="Tập 12 — Những người chống lại Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_2.webp" alt="Ranh giới trên cát" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_02_2.webp" alt="Ranh giới trên cát" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 12 — NHỮNG NGƯỜI CHỐNG LẠI HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 10</div>
         <h3>Ranh giới trên cát</h3>
         <p class="story-ch-en">Line in the Sand</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo tạo ra một khe nứt khổng lồ trên mặt đất chỉ bằng một nhát kiếm. Anh bảo lũ quái vật đừng bao giờ vượt qua khe nứt đó nữa, nếu không muốn bị giết ngay tại chỗ.</p>
         <div class="story-lines">
             <p class="story-line nar">Sau khi Feng Yan rút lui, Teo xác nhận phong ấn của con rồng vẫn còn nguyên vẹn rồi quay lại để hội ngộ với nhóm của Silvesta. Tuy nhiên, một bầy orc đuổi theo Teo.</p>
         </div>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-77" data-num="11" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Dị điểm và Sức mạnh Hủy Diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Dị điểm và Sức mạnh Hủy Diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 11</div>
         <h3>Dị điểm và Sức mạnh Hủy Diệt</h3>
         <p class="story-ch-en">Singularities and the Power of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Người Giữ Cổng Không Gian (Dimensional Keeper) Vanessa đã can thiệp để đảm bảo Sức mạnh Hủy Diệt — thứ có thể thay đổi quá khứ và tương lai, tạo ra dòng thời gian mới và gây ra các dị điểm trong vận mệnh — không hủy hoại vận mệnh của thế giới.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="vanessa" title="Vanessa"><img src="assets/hero-vanessa.webp" alt="Vanessa" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Quá khứ và tương lai không được nối với nhau bằng một đường thẳng, và cũng không phải bằng một vòng lặp. Chúng được nối với nhau bằng vô số đường thẳng thể hiện ảnh hưởng của chúng lên nhau.</p>
@@ -496,14 +481,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-78" data-num="12" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_4.webp" alt="Đã là bạn, mãi là bạn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_4.webp" alt="Đã là bạn, mãi là bạn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 12</div>
         <h3>Đã là bạn, mãi là bạn</h3>
         <p class="story-ch-en">Once a Friend, Always a Friend</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Người bạn thời thơ ấu của Vanessa, Rachel, đã bị bắt cóc. Tuy nhiên, Rachel của thời đại này còn quá nhỏ nên chưa từng gặp Vanessa. Dù vậy, Vanessa vẫn quyết định đi cứu bạn mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="vanessa" title="Vanessa"><img src="assets/hero-vanessa.webp" alt="Vanessa" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lúc Vanessa thu thập thông tin ở Pháo Đài Agnia (Fort Agnia), cô biết được rằng ở dòng thời gian này, Rachel đã bị bắt cóc bởi một thế lực bí ẩn.</p>
@@ -528,14 +511,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-79" data-num="13" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Cô gái như ảo ảnh" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Cô gái như ảo ảnh" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 13</div>
         <h3>Cô gái như ảo ảnh</h3>
         <p class="story-ch-en">The Mirage-like Girl</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Cảm nhận được sự hồi sinh sắp xảy ra của Ox King, hiền nhân Yu Shin đã dẫn các Hwarang tiến vào Sa Mạc Rực Lửa để cố ngăn chặn nó. Tuy nhiên, họ đã bị chiếc quạt sắt của Ox King thổi bay. Khi Yu Shin tỉnh lại, ông thấy mình đang nhìn chằm chằm vào một cô gái trẻ xinh đẹp.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yu-shin" title="Yu Shin"><img src="assets/hero-yu-shin.webp" alt="Yu Shin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Cảm nhận được phong ấn của Ox King đang ngày càng yếu đi, các hiền nhân của Đỉnh Hiền Nhân (Sage Peak) đã cử Yu Shin trẻ tuổi tới Sa Mạc Rực Lửa để điều tra.</p>
@@ -571,14 +552,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-80" data-num="14" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Tôi sẽ cứu cô!" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Tôi sẽ cứu cô!" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 14</div>
         <h3>Tôi sẽ cứu cô!</h3>
         <p class="story-ch-en">I&#x27;ll Save You!</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Cô ấy có thể còn trẻ, nhưng cô ấy vẫn là Rachel mà chúng ta biết ngày nay. Khi Vanessa tới nơi, Rachel đã tự mình trốn thoát, đánh bại lũ quái vật trên đường đi. May mắn thay, Vanessa đã biết trước nơi ẩn náu mà cô bé sẽ tới.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="vanessa" title="Vanessa"><img src="assets/hero-vanessa.webp" alt="Vanessa" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Vanessa xông vào hết hang ổ của bọn cướp này đến hang ổ khác, lật tung tất cả lên để tìm Rachel.</p>
@@ -621,14 +600,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-81" data-num="15" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Cuộc tàn sát ở sa mạc" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Cuộc tàn sát ở sa mạc" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 15</div>
         <h3>Cuộc tàn sát ở sa mạc</h3>
         <p class="story-ch-en">Desert Wipeout</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Một kẻ thù hùng mạnh đã quét sạch các Hiệp sĩ của Sa Mạc Rực Lửa, nhưng Vanessa hứa sẽ bảo vệ Rachel trẻ tuổi, vì danh dự của cô với tư cách là Người Giữ Cổng Không Gian đang bị đặt cược.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="vanessa" title="Vanessa"><img src="assets/hero-vanessa.webp" alt="Vanessa" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Ẩn sâu dưới lớp cát, con quái vật đã quét sạch các Hiệp sĩ của Sa Mạc Rực Lửa háo hức chờ đợi bữa ăn tiếp theo của nó.</p>
@@ -658,14 +635,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-82" data-num="16" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Những sinh vật bất tử" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Những sinh vật bất tử" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 16</div>
         <h3>Những sinh vật bất tử</h3>
         <p class="story-ch-en">Undying Beings</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi các Chúa Quỷ (Demon Lords) ra đời, nguyên tắc được gọi là &#x27;cái chết&#x27; chưa tồn tại, và chúng trở thành những sinh vật không biết đến cái chết. Vì vậy, chúng chỉ có thể bị phong ấn. Ox King là một ví dụ như vậy.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Từ rất, rất lâu trước đây... Một cuộc đại chiến đã tàn phá Thiên Giới (Celestial Realm).</p>
@@ -690,14 +665,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-83" data-num="17" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Yeonhee đối đầu Ox King" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Yeonhee đối đầu Ox King" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 17</div>
         <h3>Yeonhee đối đầu Ox King</h3>
         <p class="story-ch-en">Yeonhee vs. The Ox King</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Ox King chế nhạo Yeonhee, cho rằng hắn đang chiếm ưu thế vì cô chỉ có một mình. Nhưng hắn đã quên mất một điều: Yeonhee mạnh nhất khi cô ở một mình, vì cô có thể tung ra phép thuật mà không sợ đánh trúng đồng minh.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><img class="story-ava" src="assets/avatar-npc.svg" alt="" loading="lazy"><span class="story-line-text"><b>Ox King:</b> Kẻ nào dám đặt chân vào cung điện của ta? Có phải lại là lũ hiền nhân phiền phức đó không?</span></p>
@@ -715,14 +688,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-84" data-num="18" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Sự im lặng tai họa" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Sự im lặng tai họa" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 18</div>
         <h3>Sự im lặng tai họa</h3>
         <p class="story-ch-en">Calamitous Silence</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Đi ngủ đi... Mãi mãi.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><img class="story-ava" src="assets/avatar-npc.svg" alt="" loading="lazy"><span class="story-line-text"><b>Ox King:</b> Ha ha ha! Ngươi đã yếu đi nhiều rồi đấy, Yeonhee! Hay là ta đã mạnh lên?</span></p>
@@ -736,14 +707,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-85" data-num="19" data-ep="Tập 13 — Những người giữ Chiều không gian" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Đứa trẻ này trông quen quen" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_03_1.webp" alt="Đứa trẻ này trông quen quen" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 13 — NHỮNG NGƯỜI GIỮ CHIỀU KHÔNG GIAN</div>
         <div class="story-ch-num">CHƯƠNG 19</div>
         <h3>Đứa trẻ này trông quen quen</h3>
         <p class="story-ch-en">This Kid Looks Familiar</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhóm đã tìm thấy thành viên cuối cùng trong số các đồng đội của Silvesta, một pháp sư. Cô ấy trông rất giống cô gái đã thanh tẩy lũ undead ở Sa Mạc Rực Lửa.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="vanessa" title="Vanessa"><img src="assets/hero-vanessa.webp" alt="Vanessa" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Thiên thạch của Yeonhee để lại một hố lớn khổng lồ giữa Sa Mạc Rực Lửa.</p>
@@ -776,14 +745,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-86" data-num="20" data-ep="Tập 14 — Ác quỷ từ thế giới khác" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_04_1.webp" alt="Điều gì làm nên một con người" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_04_1.webp" alt="Điều gì làm nên một con người" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 14 — ÁC QUỶ TỪ THẾ GIỚI KHÁC</div>
         <div class="story-ch-num">CHƯƠNG 20</div>
         <h3>Điều gì làm nên một con người</h3>
         <p class="story-ch-en">What Defines a Man</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons từng sống những ngày lang thang ở Dark Grave, chống lại quái vật và undead. Silvesta đã chìa tay ra với hiệp sĩ lạc lối và mời Dellons gia nhập cùng mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bane" title="Bane"><img src="assets/hero-bane.webp" alt="Bane" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><button type="button" class="story-ava" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><span class="story-line-text"><b>Dellons:</b> Ký ức của ta bắt đầu ở đây, tại Dark Grave.</span></p>
@@ -842,14 +809,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-87" data-num="21" data-ep="Tập 14 — Ác quỷ từ thế giới khác" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_05_3.webp" alt="Cách ngăn chặn Iron Devourer" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_05_3.webp" alt="Cách ngăn chặn Iron Devourer" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 14 — ÁC QUỶ TỪ THẾ GIỚI KHÁC</div>
         <div class="story-ch-num">CHƯƠNG 21</div>
         <h3>Cách ngăn chặn Iron Devourer</h3>
         <p class="story-ch-en">How to Stop Iron Devourer</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons và Bane đã vạch ra kế hoạch ngăn chặn Iron Devourer tới bờ biển mãi mãi.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bane" title="Bane"><img src="assets/hero-bane.webp" alt="Bane" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi Dellons tới thị trấn cảng nhỏ bé, hầu hết cư dân đã sơ tán khỏi khu vực.</p>
@@ -866,14 +831,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-88" data-num="22" data-ep="Tập 14 — Ác quỷ từ thế giới khác" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_05_3.webp" alt="Cái bóng của Dellons" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_05_3.webp" alt="Cái bóng của Dellons" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 14 — ÁC QUỶ TỪ THẾ GIỚI KHÁC</div>
         <div class="story-ch-num">CHƯƠNG 22</div>
         <h3>Cái bóng của Dellons</h3>
         <p class="story-ch-en">Dellons&#x27;s Shadow</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bane nhận ra rằng Silvesta và những người khác sẽ từ chối sự hiện diện của anh ta. Bane thuyết phục Dellons để anh ta cư ngụ trong bóng của Dellons để tránh tiếp xúc với các đồng đội của Dellons.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bane" title="Bane"><img src="assets/hero-bane.webp" alt="Bane" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><button type="button" class="story-ava" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><span class="story-line-text"><b>Dellons:</b> Chậc, nó đang chạy trốn sao? Ta chỉ cắt được một cái đầu của nó.</span></p>
@@ -900,14 +863,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-89" data-num="23" data-ep="Tập 14 — Ác quỷ từ thế giới khác" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_05_3.webp" alt="Dellons?! Về phe chúng ta?!" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_05_3.webp" alt="Dellons?! Về phe chúng ta?!" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 14 — ÁC QUỶ TỪ THẾ GIỚI KHÁC</div>
         <div class="story-ch-num">CHƯƠNG 23</div>
         <h3>Dellons?! Về phe chúng ta?!</h3>
         <p class="story-ch-en">Dellons?! On Our Side?!</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Chúng ta ngạc nhiên khi thấy Dellons ở quá khứ. Không chỉ trông anh ta giống hệt Dellons ở thế giới của chúng ta, mà anh ta còn là một người thực sự tốt bụng.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Silvesta, Teo, Yeonhee, Dellons và Pascal. Những người mạnh nhất của thời đại cuối cùng đã tụ họp tại một nơi.</p>
@@ -958,14 +919,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-90" data-num="24" data-ep="Tập 14 — Ác quỷ từ thế giới khác" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_04_3.webp" alt="Con quỷ mơ về sự hủy diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_04_3.webp" alt="Con quỷ mơ về sự hủy diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 14 — ÁC QUỶ TỪ THẾ GIỚI KHÁC</div>
         <div class="story-ch-num">CHƯƠNG 24</div>
         <h3>Con quỷ mơ về sự hủy diệt</h3>
         <p class="story-ch-en">The Demon Dreams of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Rahal là một con quỷ cổ đại đến từ một thế giới đã diệt vong, không thể thoát khỏi số phận của nó. Hắn dự định sử dụng Sức mạnh Hủy Diệt để thách thức vận mệnh và điều khiển dòng thời gian theo ý muốn, về cơ bản là trở thành một vị thần.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Từ rất, rất lâu trước đây... Thế giới của ta đã bị hủy diệt.</p>
@@ -983,14 +942,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-91" data-num="25" data-ep="Tập 14 — Ác quỷ từ thế giới khác" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_04_3.webp" alt="Nếu không giết được nó, hãy nhốt nó lại mãi mãi" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_04_3.webp" alt="Nếu không giết được nó, hãy nhốt nó lại mãi mãi" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 14 — ÁC QUỶ TỪ THẾ GIỚI KHÁC</div>
         <div class="story-ch-num">CHƯƠNG 25</div>
         <h3>Nếu không giết được nó, hãy nhốt nó lại mãi mãi</h3>
         <p class="story-ch-en">If You Can&#x27;t Kill It, Lock It Away Forever</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Rahal đã bị phong ấn sâu dưới Tàn Tích Skytria bằng Sức mạnh Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><img class="story-ava" src="assets/avatar-npc.svg" alt="" loading="lazy"><span class="story-line-text"><b>Rahal:</b> Ta phải thừa nhận các ngươi rất mạnh... Mạnh như những phàm nhân phiền phức đã phong ấn ta nhiều năm trước.</span></p>
@@ -1005,12 +962,14 @@
       </div>
     </article>
       </div>
-      <div class="story-controls"><button type="button" class="story-prev" disabled>← Chương trước</button><span class="story-progress">Chương 1 / 25 · Tập 11 — Con đường mới</span><button type="button" class="story-next">Chương sau →</button></div>
+      <div class="story-controls"><button type="button" class="story-prev" disabled><span class="lbl-full">← Chương trước</span><span class="lbl-short">← Trước</span></button><span class="story-progress"><span class="story-progress-num">Chương 2 / 25</span> <span class="story-progress-ep">· Tập 11 — Con đường mới</span></span><button type="button" class="story-next"><span class="lbl-full">Chương sau →</span><span class="lbl-short">Sau →</span></button></div>
     </div>
     <noscript><style>.story-page[hidden]{display:block!important}.story-controls,.story-toc-toggle{display:none!important}</style></noscript>
     <script>
-// Story reader: one chapter = one page, flip-book navigation.
-// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<id> deep link.
+// Story reader: one dialogue chapter = one page, flip-book navigation.
+// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<chapter id> deep link.
+// After every turn the reader scrolls back to the top of the book (the TOC
+// position) so the reading position is identical on every page.
 (function () {
   var reader = document.querySelector('.story-reader');
   if (!reader) return;
@@ -1019,14 +978,11 @@
   if (!pages.length) return;
   var prevBtn = reader.querySelector('.story-prev');
   var nextBtn = reader.querySelector('.story-next');
-  var prog = reader.querySelector('.story-progress');
+  var progNum = reader.querySelector('.story-progress-num');
+  var progEp = reader.querySelector('.story-progress-ep');
   var toc = reader.querySelector('.story-toc-panel');
   var tocBtn = reader.querySelector('.story-toc-toggle');
   var current = 0;
-
-  function label(i) {
-    return 'Chương ' + pages[i].dataset.num + ' / ' + pages.length + ' · ' + pages[i].dataset.ep;
-  }
 
   function show(i, dir, scroll) {
     if (i < 0) i = 0;
@@ -1034,19 +990,21 @@
     pages.forEach(function (p, idx) { p.hidden = idx !== i; });
     if (dir) {
       book.classList.remove('turn-next', 'turn-prev');
-      void book.offsetWidth; // restart the flip animation
+      void book.offsetWidth; // restart the page-turn animation
       book.classList.add(dir > 0 ? 'turn-next' : 'turn-prev');
     }
     current = i;
-    prog.textContent = label(i);
+    progNum.textContent = 'Chương ' + pages[i].dataset.num + ' / ' + reader.dataset.total;
+    progEp.textContent = '· ' + pages[i].dataset.ep;
     prevBtn.disabled = i === 0;
     nextBtn.disabled = i === pages.length - 1;
     var cur = toc.querySelector('.toc-current');
     if (cur) cur.classList.remove('toc-current');
-    var btn = toc.querySelector('[data-goto="' + pages[i].id + '"]');
+    // highlight the host chapter button (lead-in buttons share its data-goto)
+    var btn = toc.querySelector('.toc-ch[data-goto="' + pages[i].id + '"]');
     if (btn) btn.classList.add('toc-current');
     try { history.replaceState(null, '', '#' + pages[i].id); } catch (e) { /* old browser */ }
-    if (scroll) book.scrollIntoView();
+    if (scroll) reader.scrollIntoView();
   }
 
   function go(d) { show(current + d, d, true); }

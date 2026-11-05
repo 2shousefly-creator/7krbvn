@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f6f1">
-  <meta name="description" content="Cốt truyện Act 5 (Guardians of the Rift): 27 chương với tóm tắt và hội thoại đầy đủ bằng tiếng Việt.">
-  <meta property="og:title" content="Act 5 — Người canh giữ Vết Nứt · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 5 — Người canh giữ Vết Nứt: 27 chương, tóm tắt và hội thoại đầy đủ."><meta property="og:type" content="website">
+  <meta name="description" content="Cốt truyện Act 5 (Guardians of the Rift): 27 chương, hội thoại đầy đủ bằng tiếng Việt, đọc như lật sách.">
+  <meta property="og:title" content="Act 5 — Người canh giữ Vết Nứt · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 5 — Người canh giữ Vết Nứt: 27 chương, hội thoại đầy đủ."><meta property="og:type" content="website">
   <title>Act 5 — Người canh giữ Vết Nứt · Cốt truyện | 7K RBVN</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='23' width='100' height='100' fill='%23192033'/%3E%3Ctext x='50' y='69' font-size='55' text-anchor='middle' fill='%23e8c16c' font-family='Arial' font-weight='bold'%3E7K%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles-v3.css"><link rel="stylesheet" href="blog.css"><link rel="stylesheet" href="site-nav.css"><link rel="stylesheet" href="heroes.css">
@@ -26,8 +26,12 @@
   .story-ch-num{font-size:10px;font-weight:800;letter-spacing:.1em;color:#ac8844}
   .story-ch-body h3{font-size:21.6px;margin:6px 0 2px}
   .story-ch-en{font-size:12px;color:#959aa4;margin:0 0 10px}
-  .story-sum-label{font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin:0 0 4px}
-  .story-summary{font-size:16.8px;line-height:1.7;color:#5f6675;margin:0 0 12px}
+  .story-lead{border:1px dashed #d7be89;border-radius:12px;background:#fbf8ef;padding:14px 16px;margin:0 0 14px}
+  .story-lead-tag{font-size:10px;font-weight:800;letter-spacing:.1em;color:#9b772f;margin-bottom:4px}
+  .story-lead h4{font-size:18px;margin:0 0 2px}
+  .story-lead-en{font-size:12px;color:#959aa4;margin:0 0 8px}
+  .story-lead-text{font-size:15.6px;line-height:1.7;color:#5f6675;margin:0}
+  .story-epilogue{margin:14px 0 0}
   .story-chars{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
   .story-chars>span{font-size:11px;font-weight:800;letter-spacing:.06em;color:#959aa4;margin-right:2px}
   .story-char{width:44px;height:44px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;cursor:pointer}
@@ -38,6 +42,9 @@
   .story-line b{color:#353c4c}
   .story-line-text{flex:1;min-width:0}
   .story-line.nar{padding-left:50px;font-style:italic;color:#858b96}
+  .story-line.sys{display:block;text-align:center;border:1px solid #e9e8e3;border-radius:12px;background:#f9f7f2;padding:12px 16px}
+  .story-sys-tag{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin-bottom:4px}
+  .story-line.sys .story-line-text{font-style:normal;color:#9b772f}
   .story-ava{flex:0 0 40px;width:40px;height:40px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;margin-top:2px}
   button.story-ava{cursor:pointer}
   button.story-ava:hover{border-color:#d7be89}
@@ -46,7 +53,7 @@
   .story-act-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;flex-wrap:wrap}
   .story-act-nav a{font-weight:800;color:#9b772f;font-size:14.4px}
   .story-act-nav a:hover{text-decoration:underline}
-  .story-reader{margin:0 0 10px}
+  .story-reader{margin:0 0 10px;scroll-margin-top:150px}
   .story-toc-toggle{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:12px 16px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;margin:0 0 12px}
   .story-toc-toggle:hover{border-color:#d7be89}
   .story-toc-panel{max-height:60vh;overflow:auto;border:1px solid #e9e8e3;border-radius:14px;background:#fff;padding:14px 16px;margin:0 0 14px}
@@ -55,18 +62,21 @@
   .story-toc-panel [data-goto]{display:block;width:100%;text-align:left;background:none;border:0;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:14.4px;color:#4a5160}
   .story-toc-panel [data-goto]:hover{background:#f7f1e4}
   .story-toc-panel [data-goto].toc-current{background:#f7f1e4;font-weight:800;color:#9b772f}
-  .story-book{perspective:1400px;padding-bottom:24px}
-  .story-book.turn-next .story-page{animation:page-next .45s ease;transform-origin:left center}
-  .story-book.turn-prev .story-page{animation:page-prev .45s ease;transform-origin:right center}
-  @keyframes page-next{from{opacity:0;transform:rotateY(16deg) translateX(40px)}to{opacity:1;transform:none}}
-  @keyframes page-prev{from{opacity:0;transform:rotateY(-16deg) translateX(-40px)}to{opacity:1;transform:none}}
+  .story-toc-panel [data-goto].toc-lead{font-size:13.5px;color:#858b96;font-style:italic;padding-left:20px}
+  .story-book{padding-bottom:24px}
+  .story-book.turn-next .story-page{animation:page-next .32s ease-out}
+  .story-book.turn-prev .story-page{animation:page-prev .32s ease-out}
+  @keyframes page-next{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes page-prev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
   .story-controls{position:sticky;bottom:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffdf8f2;border:1px solid #e9e8e3;border-radius:14px;padding:10px 12px;margin:14px 0 0;box-shadow:0 -6px 24px #20263814}
   .story-controls button{border:1px solid #e9e8e3;background:#fff;border-radius:10px;padding:9px 14px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;white-space:nowrap}
   .story-controls button:hover:not(:disabled){border-color:#d7be89}
   .story-controls button:disabled{opacity:.4;cursor:default}
+  .story-controls .lbl-short{display:none}
   .story-progress{font-size:13px;font-weight:800;color:#9b772f;text-align:center;flex:1;min-width:0}
+  .back-to-top{bottom:88px}
   @media (prefers-reduced-motion:reduce){.story-book.turn-next .story-page,.story-book.turn-prev .story-page{animation:none}}
-  @media(max-width:680px){.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-summary{font-size:15.6px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-progress{font-size:12px}}
+  @media(max-width:680px){.story-reader{scroll-margin-top:130px}.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px;gap:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-controls .lbl-full{display:none}.story-controls .lbl-short{display:inline}.story-progress{font-size:12px}.story-progress-ep{display:none}.back-to-top{bottom:80px}}
   </style>
 </head>
 <body>
@@ -77,49 +87,47 @@
     <div class="breadcrumbs"><a href="index.html">Trang chủ</a><span>›</span><a href="cot-truyen.html">Cốt truyện</a><span>›</span><span>Act 5 — Người canh giữ Vết Nứt</span></div>
     <section class="blog-intro"><div class="blog-intro-copy"><span class="article-tag">CỐT TRUYỆN</span><div class="section-kicker">CỐT TRUYỆN · ACT 5</div><h1>Act 5 — Người canh giữ Vết Nứt</h1><p>Act 5 đưa Evan đến Shinji, quê hương của Teo, để rèn luyện kiếm thuật dưới sự chỉ dạy của sư phụ, trong lúc Feng Yan cũng tìm đến xin học kiếm đạo. Xen kẽ với hành trình tu luyện ấy là câu chuyện của hai chị em song sinh Sunran và Hayeon: sáu mươi năm trước, Hayeon đã lao mình vào khe nứt để phong ấn nó từ bên trong, rồi bị mắc kẹt trong Vực Thẳm, nơi nàng buộc phải lập khế ước với Đại Ác Ma Judas để có cơ hội trở về. Nhiều năm sau, Hayeon trở lại mặt đất trong hình hài một vị sư lang thang bí ẩn, trong khi Sunran đã trở thành Lãnh Chúa Hộ Vệ của tộc. Khi hai chị em cuối cùng cũng đối mặt nhau, những hiểu lầm chất chồng và sự thao túng của Dongyoung đẩy họ vào xung đột — và chỉ sức mạnh của tình chị em mới có thể hóa giải tất cả.</p></div><div class="blog-intro-art" aria-hidden="true"><img src="assets/hero-hayeon.webp" alt="" loading="lazy"><img src="assets/hero-evan.webp" alt="" loading="lazy"></div></section>
 
-    <div class="story-reader" data-act="5">
+    <div class="story-reader" data-act="5" data-total="27">
       <button type="button" class="story-toc-toggle" aria-expanded="false">☰ Mục lục — 27 chương</button>
       <div class="story-toc-panel" hidden>
         <h4>Tập 29 — Người canh giữ Vết Nứt</h4>
-        <button type="button" data-goto="ch-521">Chương 1 — Quê hương của Teo</button>
-        <button type="button" data-goto="ch-522">Chương 2 — Quái vật ở Rừng Whitecrest</button>
-        <button type="button" data-goto="ch-523">Chương 3 — Feng Yan bái Teo làm sư phụ</button>
-        <button type="button" data-goto="ch-524">Chương 4 — Người “sếp” của Teo?</button>
-        <button type="button" data-goto="ch-525">Chương 5 — Dù đáp án vẫn chưa tìm ra...</button>
-        <button type="button" data-goto="ch-526">Chương 6 — Vị sư lang thang bí ẩn</button>
-        <button type="button" data-goto="ch-527">Chương 7 — Người Canh Giữ Biên Giới</button>
-        <button type="button" data-goto="ch-528">Chương 8 — Thần lực của Hayeon</button>
-        <button type="button" data-goto="ch-529">Chương 9 — Khe nứt làm rung chuyển Shinji</button>
-        <button type="button" data-goto="ch-530">Chương 10 — Thiên mệnh của Hayeon</button>
-        <button type="button" data-goto="ch-531">Chương 11 — Chờ đợi chị gái...</button>
-        <button type="button" data-goto="ch-532">Chương 12 — Thứ nàng tìm thấy trong Vực Thẳm</button>
-        <button type="button" data-goto="ch-533">Chương 13 — Giá như có thể quay về...</button>
-        <button type="button" data-goto="ch-534">Chương 14 — Tên của ác ma...</button>
+        <button type="button" class="toc-ch" data-goto="ch-521">Chương 1 — Quê hương của Teo</button>
+        <button type="button" class="toc-ch" data-goto="ch-522">Chương 2 — Quái vật ở Rừng Whitecrest</button>
+        <button type="button" class="toc-ch" data-goto="ch-523">Chương 3 — Feng Yan bái Teo làm sư phụ</button>
+        <button type="button" class="toc-ch" data-goto="ch-524">Chương 4 — Người “sếp” của Teo?</button>
+        <button type="button" class="toc-ch" data-goto="ch-525">Chương 5 — Dù đáp án vẫn chưa tìm ra...</button>
+        <button type="button" class="toc-ch" data-goto="ch-526">Chương 6 — Vị sư lang thang bí ẩn</button>
+        <button type="button" class="toc-ch" data-goto="ch-527">Chương 7 — Người Canh Giữ Biên Giới</button>
+        <button type="button" class="toc-ch" data-goto="ch-528">Chương 8 — Thần lực của Hayeon</button>
+        <button type="button" class="toc-ch" data-goto="ch-529">Chương 9 — Khe nứt làm rung chuyển Shinji</button>
+        <button type="button" class="toc-ch" data-goto="ch-530">Chương 10 — Thiên mệnh của Hayeon</button>
+        <button type="button" class="toc-ch" data-goto="ch-531">Chương 11 — Chờ đợi chị gái...</button>
+        <button type="button" class="toc-ch" data-goto="ch-532">Chương 12 — Thứ nàng tìm thấy trong Vực Thẳm</button>
+        <button type="button" class="toc-ch" data-goto="ch-533">Chương 13 — Giá như có thể quay về...</button>
+        <button type="button" class="toc-ch" data-goto="ch-534">Chương 14 — Tên của ác ma...</button>
         <h4>Tập 30 — Nữ tư tế lang thang</h4>
-        <button type="button" data-goto="ch-563">Chương 15 — Những người bạn quê hương</button>
-        <button type="button" data-goto="ch-564">Chương 16 — Hắc Nguyệt mọc trên Skyward Keep</button>
-        <button type="button" data-goto="ch-565">Chương 17 — Chúa Tể Hộ Vệ Bảy Đêm xuất hiện!</button>
-        <button type="button" data-goto="ch-566">Chương 18 — Chủ nhân khác của Hắc Kiếm</button>
-        <button type="button" data-goto="ch-567">Chương 19 — Kẻ lạ từ Vực Thẳm</button>
-        <button type="button" data-goto="ch-568">Chương 20 — Thế giới qua đôi mắt Hayeon</button>
-        <button type="button" data-goto="ch-569">Chương 21 — Em gái chẳng bao giờ rời khỏi tâm trí chị</button>
-        <button type="button" data-goto="ch-570">Chương 22 — Dù lòng còn chất chứa...</button>
-        <button type="button" data-goto="ch-571">Chương 23 — Đứa trẻ mất tích của các hiền nhân</button>
-        <button type="button" data-goto="ch-572">Chương 24 — Quyết tâm lung lay của Hayeon</button>
-        <button type="button" data-goto="ch-573">Chương 25 — Điều tra Khe Nứt</button>
-        <button type="button" data-goto="ch-574">Chương 26 — Hiểu lầm ngày càng sâu</button>
-        <button type="button" data-goto="ch-575">Chương 27 — Sức mạnh của gắn kết</button>
+        <button type="button" class="toc-ch" data-goto="ch-563">Chương 15 — Những người bạn quê hương</button>
+        <button type="button" class="toc-ch" data-goto="ch-564">Chương 16 — Hắc Nguyệt mọc trên Skyward Keep</button>
+        <button type="button" class="toc-ch" data-goto="ch-565">Chương 17 — Chúa Tể Hộ Vệ Bảy Đêm xuất hiện!</button>
+        <button type="button" class="toc-ch" data-goto="ch-566">Chương 18 — Chủ nhân khác của Hắc Kiếm</button>
+        <button type="button" class="toc-ch" data-goto="ch-567">Chương 19 — Kẻ lạ từ Vực Thẳm</button>
+        <button type="button" class="toc-ch" data-goto="ch-568">Chương 20 — Thế giới qua đôi mắt Hayeon</button>
+        <button type="button" class="toc-ch" data-goto="ch-569">Chương 21 — Em gái chẳng bao giờ rời khỏi tâm trí chị</button>
+        <button type="button" class="toc-ch" data-goto="ch-570">Chương 22 — Dù lòng còn chất chứa...</button>
+        <button type="button" class="toc-ch" data-goto="ch-571">Chương 23 — Đứa trẻ mất tích của các hiền nhân</button>
+        <button type="button" class="toc-ch" data-goto="ch-572">Chương 24 — Quyết tâm lung lay của Hayeon</button>
+        <button type="button" class="toc-ch" data-goto="ch-573">Chương 25 — Điều tra Khe Nứt</button>
+        <button type="button" class="toc-ch" data-goto="ch-574">Chương 26 — Hiểu lầm ngày càng sâu</button>
+        <button type="button" class="toc-ch" data-goto="ch-575">Chương 27 — Sức mạnh của gắn kết</button>
       </div>
       <div class="story-book">
     <article class="story-ch story-page" id="ch-521" data-num="1" data-ep="Tập 29 — Người canh giữ Vết Nứt">
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Quê hương của Teo" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Quê hương của Teo" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 1</div>
         <h3>Quê hương của Teo</h3>
         <p class="story-ch-en">Teo&#x27;s Hometown</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan đến Shinji, quê hương của Teo — nơi sư phụ từng rèn luyện kiếm thuật — để trải qua quá trình huấn luyện khắc nghiệt hơn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Shinji — vùng đất nơi Teo được sinh ra và trưởng thành. Tại đây, truyền thuyết về đại ác ma từng đẩy thế giới đến bờ vực diệt vong và sự hy sinh của các Dạ Tinh Linh đã đánh bại hắn vẫn được truyền tụng từ đời này sang đời khác.</p>
@@ -144,14 +152,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-522" data-num="2" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_2.webp" alt="Quái vật ở Rừng Whitecrest" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_2.webp" alt="Quái vật ở Rừng Whitecrest" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 2</div>
         <h3>Quái vật ở Rừng Whitecrest</h3>
         <p class="story-ch-en">The Monsters of Whitecrest Woods</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi khe nứt vốn bị Cổng Quỷ kìm giữ bắt đầu rung chuyển, vô số quái vật đột nhiên tràn ra và kéo về phía Rừng Whitecrest.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yoongun" title="Yoongun"><img src="assets/hero-yoongun.webp" alt="Yoongun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="soi" title="Soi"><img src="assets/hero-soi.webp" alt="Soi" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi Karin bị bắt cóc, các Hắc Nguyệt bắt đầu mở ra khắp Gaia. Trước nỗi đau của nàng, khe nứt — vốn chỉ được Cổng Quỷ kìm giữ một cách mong manh — bắt đầu rung chuyển đầy bất an trong lòng đất Shinji.</p>
@@ -213,14 +219,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-523" data-num="3" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Feng Yan bái Teo làm sư phụ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Feng Yan bái Teo làm sư phụ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 3</div>
         <h3>Feng Yan bái Teo làm sư phụ</h3>
         <p class="story-ch-en">Feng Yan Becomes Teo&#x27;s Disciple</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Feng Yan thành tâm xin được học kiếm thuật từ Teo, dù chỉ được quan sát từ bên cạnh.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Evan cùng người bạn đồng hành đến quê hương Shinji của Teo. Không lâu sau, Feng Yan tìm đến gặp họ.</p>
@@ -249,14 +253,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-524" data-num="4" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Người “sếp” của Teo?" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Người “sếp” của Teo?" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 4</div>
         <h3>Người “sếp” của Teo?</h3>
         <p class="story-ch-en">Teo&#x27;s Boss?</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Quái vật ở Shinji quả thực rất đáng gờm, nhưng các ngôi làng của con người vẫn an toàn nhờ sự bảo vệ của “sếp” của Teo.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Những con quái vật xuất hiện ở Shinji hung dữ và mạnh mẽ hơn nhiều so với những lần chạm trán trước đây.</p>
@@ -301,14 +303,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-525" data-num="5" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_6.webp" alt="Dù đáp án vẫn chưa tìm ra..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_6.webp" alt="Dù đáp án vẫn chưa tìm ra..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 5</div>
         <h3>Dù đáp án vẫn chưa tìm ra...</h3>
         <p class="story-ch-en">Though the Answer Has Yet to be Found...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo đến thăm mộ cha, rót một chén rượu và bày tỏ lòng thành kính.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Teo đứng trước một ngôi mộ và lặng lẽ rót một chén rượu trước khi bày tỏ lòng thành kính.</p>
@@ -342,14 +342,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-526" data-num="6" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Vị sư lang thang bí ẩn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Vị sư lang thang bí ẩn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 6</div>
         <h3>Vị sư lang thang bí ẩn</h3>
         <p class="story-ch-en">The Mysterious Wandering Monk</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan kết bạn với một vị sư lang thang ghé qua để quan sát buổi luyện tập của cậu.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lúc Evan miệt mài luyện tập bằng cách chiến đấu với quái vật ở Shinji, một vị sư lang thang quan sát cậu với vẻ thích thú và tò mò.</p>
@@ -389,14 +387,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-527" data-num="7" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Người Canh Giữ Biên Giới" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Người Canh Giữ Biên Giới" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 7</div>
         <h3>Người Canh Giữ Biên Giới</h3>
         <p class="story-ch-en">Guardians of the Boundary</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Từ bao đời nay, các chiến binh và nữ tư tế của Biên Giới đã hy sinh hết lớp này đến lớp khác để bảo vệ Shinji khỏi những quái vật tràn ra từ khe nứt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sáu mươi năm trước, tại Shinji, sự ổn định của khe nứt được đảm bảo sau sự hy sinh của vô số nữ tư tế.</p>
@@ -451,14 +447,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-528" data-num="8" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_4.webp" alt="Thần lực của Hayeon" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_4.webp" alt="Thần lực của Hayeon" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 8</div>
         <h3>Thần lực của Hayeon</h3>
         <p class="story-ch-en">Hayeon&#x27;s Divine Power</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Thần lực mà Hayeon sở hữu có lẽ đủ mạnh để đóng khe nứt lại — vĩnh viễn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><img class="story-ava" src="assets/avatar-npc.svg" alt="" loading="lazy"><span class="story-line-text"><b>Nữ Tư Tế Biên Giới:</b> Không phải như vậy đâu, Hayeon! Con nhất định phải tập trung! Con phải học cách cảm nhận dòng chảy sức mạnh của người khác như thể đó là của chính mình!</span></p>
@@ -516,14 +510,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-529" data-num="9" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Khe nứt làm rung chuyển Shinji" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Khe nứt làm rung chuyển Shinji" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 9</div>
         <h3>Khe nứt làm rung chuyển Shinji</h3>
         <p class="story-ch-en">The Rift That Shakes Shinji</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Người Canh Giữ Biên Giới phát hiện một dị thường trong khe nứt chưa từng thấy trước đây.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Người Canh Giữ Biên Giới phát hiện một dị thường trong khe nứt chưa từng thấy trước đây.</p>
@@ -547,14 +539,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-530" data-num="10" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Thiên mệnh của Hayeon" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Thiên mệnh của Hayeon" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 10</div>
         <h3>Thiên mệnh của Hayeon</h3>
         <p class="story-ch-en">Hayeon&#x27;s Calling</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhận ra thiên mệnh của mình là đóng khe nứt lại, Hayeon đã lao vào đó mà không chút do dự.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Có lẽ do tính chất dị thường của khe nứt, những con quái vật xuất hiện dường như còn hung dữ hơn trước. Trận chiến càng lúc càng ác liệt, và khe nứt rung chuyển rồi co giật — rồi đột nhiên một hàng nữ tư tế đồng loạt ho ra máu và gục xuống.</p>
@@ -620,14 +610,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-531" data-num="11" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Chờ đợi chị gái..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Chờ đợi chị gái..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 11</div>
         <h3>Chờ đợi chị gái...</h3>
         <p class="story-ch-en">Waiting For Her Sister...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Thế giới đã được cứu sau khi Hayeon lao vào Vực Thẳm để ổn định khe nứt từ bên trong. Nhưng câu chuyện của nàng còn lâu mới kết thúc.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lòng Vực Thẳm, sau khi Hayeon tự nguyện lao mình xuống...</p>
@@ -647,14 +635,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-532" data-num="12" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Thứ nàng tìm thấy trong Vực Thẳm" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Thứ nàng tìm thấy trong Vực Thẳm" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 12</div>
         <h3>Thứ nàng tìm thấy trong Vực Thẳm</h3>
         <p class="story-ch-en">What She Found in the Abyss</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trong khoảng không mênh mông của Vực Thẳm, một ác ma đã mở miệng cất lời.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Vào một thời điểm nào đó trong Vực Thẳm, một ác ma bắt đầu lặng lẽ lượn quanh Hayeon trong lúc nàng thiền định chờ đợi chị gái.</p>
@@ -702,14 +688,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-533" data-num="13" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Giá như có thể quay về..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Giá như có thể quay về..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 13</div>
         <h3>Giá như có thể quay về...</h3>
         <p class="story-ch-en">If Only I Could Go Back...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Tuyệt vọng muốn trở về và đoàn tụ với chị gái, Hayeon đã lập khế ước với Đại Ác Ma của Vực Thẳm.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Evan bắt đầu luyện tập một cách nghiêm túc. Quái vật ở Shinji chết chóc đến mức chỉ một khoảnh khắc mất tập trung cũng có thể khiến cậu mất mạng — nhưng với quyết tâm duy nhất là tăng cường sức mạnh, Evan tiếp tục chiến đấu với lũ quái vật như thể mỗi khoảnh khắc đều có thể là khoảnh khắc cuối cùng của mình.</p>
@@ -750,14 +734,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-534" data-num="14" data-ep="Tập 29 — Người canh giữ Vết Nứt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_9.webp" alt="Tên của ác ma..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_9.webp" alt="Tên của ác ma..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 29 — NGƯỜI CANH GIỮ VẾT NỨT</div>
         <div class="story-ch-num">CHƯƠNG 14</div>
         <h3>Tên của ác ma...</h3>
         <p class="story-ch-en">The Name of the Demon...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Đại Ác Ma của Vực Thẳm đã đưa ra một ván cược với Hayeon, nhưng Hayeon tin chắc mình sẽ không bao giờ hành động theo ý muốn của đại ác ma.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Ngay khoảnh khắc Hayeon đồng ý chấp nhận Đại Ác Ma của Vực Thẳm, một ý thức vĩ đại và khủng khiếp vang vọng trong tâm trí nàng.</p>
@@ -813,14 +795,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-563" data-num="15" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_5.webp" alt="Những người bạn quê hương" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_5.webp" alt="Những người bạn quê hương" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 15</div>
         <h3>Những người bạn quê hương</h3>
         <p class="story-ch-en">Hometown Friends</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Junghyeon đoàn tụ với người bạn cũ Yoongun sau nhiều năm xa cách và biết được tình hình hiện tại ở Shinji.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yoongun" title="Yoongun"><img src="assets/hero-yoongun.webp" alt="Yoongun" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Từ bao đời nay, các Dạ Tinh Linh của Skyward Keep đã canh giữ Khe Nứt, nơi phong ấn một thế lực tà ác.</p>
@@ -870,14 +850,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-564" data-num="16" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_11.webp" alt="Hắc Nguyệt mọc trên Skyward Keep" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_11.webp" alt="Hắc Nguyệt mọc trên Skyward Keep" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 16</div>
         <h3>Hắc Nguyệt mọc trên Skyward Keep</h3>
         <p class="story-ch-en">Black Moons Rising Over Skyward Keep</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan và Feng Yan đang tập luyện thì nhìn thấy Hắc Nguyệt mọc lên trên bầu trời Skyward Keep, liền vội vã quay về làng.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Ở một nơi khác, tại bãi tập của Evan và Feng Yan...</p>
@@ -916,14 +894,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-565" data-num="17" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_13.webp" alt="Chúa Tể Hộ Vệ Bảy Đêm xuất hiện!" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_13.webp" alt="Chúa Tể Hộ Vệ Bảy Đêm xuất hiện!" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 17</div>
         <h3>Chúa Tể Hộ Vệ Bảy Đêm xuất hiện!</h3>
         <p class="story-ch-en">The Lord Guardian of the Seven Nights Appears!</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dù có Evan và Feng Yan hỗ trợ, Skyward Keep vẫn lâm vào nguy hiểm. Vào giờ phút quyết định, Sunran đến kịp thời và tiêu diệt sạch lũ quái vật còn lại.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yoongun" title="Yoongun"><img src="assets/hero-yoongun.webp" alt="Yoongun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Evan và đồng đội chiến đấu dũng cảm cùng binh sĩ địa phương để bảo vệ dân làng khỏi lũ quái vật. Nhưng với vô số kẻ địch không ngừng tràn ra từ màn sương, họ chật vật mới giữ được thế thượng phong.</p>
@@ -944,14 +920,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-566" data-num="18" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_13.webp" alt="Chủ nhân khác của Hắc Kiếm" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_13.webp" alt="Chủ nhân khác của Hắc Kiếm" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 18</div>
         <h3>Chủ nhân khác của Hắc Kiếm</h3>
         <p class="story-ch-en">The Other Master of the Black Sword</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau chiến thắng, Sunran mời Evan và đồng đội về tư dinh của mình để tỏ lòng biết ơn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yoongun" title="Yoongun"><img src="assets/hero-yoongun.webp" alt="Yoongun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Các chiến binh do Chúa Tể Hộ Vệ Bảy Đêm dẫn đầu mạnh mẽ đến khó tin, chém qua những đợt quái vật tưởng chừng vô tận như dao nóng cắt bơ cho đến khi không còn một con nào. Và đến khi bình minh lên, Hắc Nguyệt cũng đã biến mất.</p>
@@ -1000,14 +974,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-567" data-num="19" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_14.webp" alt="Kẻ lạ từ Vực Thẳm" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_14.webp" alt="Kẻ lạ từ Vực Thẳm" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 19</div>
         <h3>Kẻ lạ từ Vực Thẳm</h3>
         <p class="story-ch-en">The Outsider from the Abyss</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Hayeon tràn đầy tự hào khi thấy chị gái mình được dân chúng tin tưởng và kính trọng đến nhường nào.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi nhóm của Evan đang trên đường đến tư dinh của Sunran, một bóng đen đơn độc dõi theo họ từ xa.</p>
@@ -1050,14 +1022,12 @@ Tim cô bắt đầu đập loạn. Chân cô tự quay lại. Và trước khi 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-568" data-num="20" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_12.webp" alt="Thế giới qua đôi mắt Hayeon" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_12.webp" alt="Thế giới qua đôi mắt Hayeon" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 20</div>
         <h3>Thế giới qua đôi mắt Hayeon</h3>
         <p class="story-ch-en">The World Through Hayeon&#x27;s Eyes</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Thế giới mà Hayeon quan sát thật yên bình. Thế nhưng, cô cảm thấy mình không còn chỗ đứng nào trong đó nữa.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Thế giới mà Hayeon quan sát thật yên bình. Cô đã vô cùng lo lắng cho chị gái, tưởng tượng rằng chị sẽ chìm trong đau buồn khi tìm kiếm cô...</p>
@@ -1082,14 +1052,12 @@ Tim cô bắt đầu đập loạn. Chân cô tự quay lại. Và trước khi 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-569" data-num="21" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_5.webp" alt="Em gái chẳng bao giờ rời khỏi tâm trí chị" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_5.webp" alt="Em gái chẳng bao giờ rời khỏi tâm trí chị" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 21</div>
         <h3>Em gái chẳng bao giờ rời khỏi tâm trí chị</h3>
         <p class="story-ch-en">Never Far From a Sister&#x27;s Mind</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Đoàn tụ với Teo sau một thời gian dài, Sunran cùng anh ôn lại chuyện về em gái mình trong lúc uống rượu.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Vài ngày sau, Teo cũng đến Skyward Keep. Đoàn tụ sau một thời gian dài xa cách, Teo và Sunran cùng nhau uống rượu và ôn lại mọi chuyện họ đã trải qua.</p>
@@ -1118,14 +1086,12 @@ Tim cô bắt đầu đập loạn. Chân cô tự quay lại. Và trước khi 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-570" data-num="22" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Dù lòng còn chất chứa..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_7.webp" alt="Dù lòng còn chất chứa..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 22</div>
         <h3>Dù lòng còn chất chứa...</h3>
         <p class="story-ch-en">In Spite of Deep-Seated Feelings...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Tôi đã an ủi nhà sư lang thang, rằng nếu chị gái cô ấy không đến tìm thì hẳn phải có lý do bất khả kháng khiến chị ấy không thể đến.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi Evan và Feng Yan giúp bảo vệ dân chúng khỏi lũ quái vật, các Dạ Tinh Linh cho phép họ tự do ở lại lãnh địa của mình và tiếp tục luyện kiếm dưới sự dạy dỗ của Teo.
@@ -1182,14 +1148,12 @@ Teo nhanh đến chói mắt khiến Hayeon khó có thể theo dõi chuyển đ
       </div>
     </article>
     <article class="story-ch story-page" id="ch-571" data-num="23" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_6.webp" alt="Đứa trẻ mất tích của các hiền nhân" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_6.webp" alt="Đứa trẻ mất tích của các hiền nhân" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 23</div>
         <h3>Đứa trẻ mất tích của các hiền nhân</h3>
         <p class="story-ch-en">The Missing Child of the Sages</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Yu Shin cố gắng nhờ Feng Yan giúp tìm đứa trẻ mất tích của các hiền nhân, nhưng Feng Yan từ chối, viện cớ hiện đang tập luyện dưới sự dạy dỗ của Teo.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yu-shin" title="Yu Shin"><img src="assets/hero-yu-shin.webp" alt="Yu Shin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="feng-yan" title="Feng Yan"><img src="assets/hero-feng-yan.webp" alt="Feng Yan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khoảng thời gian Evan gặp nhà sư lang thang, Feng Yan có cuộc trò chuyện với Yu Shin.</p>
@@ -1230,14 +1194,12 @@ Cảm nhận được ánh mắt sắc bén của Feng Yan, nhà sư lang thang 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-572" data-num="24" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Quyết tâm lung lay của Hayeon" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Quyết tâm lung lay của Hayeon" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 24</div>
         <h3>Quyết tâm lung lay của Hayeon</h3>
         <p class="story-ch-en">Hayeon&#x27;s Wavering Resolve</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dongyoung thao túng Hayeon nhằm kích động cô xé toạc Khe Nứt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Tránh được khả năng nhận biết của Feng Yan, Hayeon lẻn vào sâu trong rừng, một mình.</p>
@@ -1272,14 +1234,12 @@ Thay vào đó, cô giơ cao lá bùa mình đang mang. Khi ánh sáng của lá
       </div>
     </article>
     <article class="story-ch story-page" id="ch-573" data-num="25" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_4.webp" alt="Điều tra Khe Nứt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_4.webp" alt="Điều tra Khe Nứt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 25</div>
         <h3>Điều tra Khe Nứt</h3>
         <p class="story-ch-en">Investigating the Rift</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Jieun đã thành công nhận được sự cho phép của Sunran để điều tra Khe Nứt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yoongun" title="Yoongun"><img src="assets/hero-yoongun.webp" alt="Yoongun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Jieun, hành động theo lệnh của Hội, gặp Yoongun, quan cai quản Skyward Keep. Họ thảo luận về Khe Nứt hiện đang bị phong ấn trong lãnh thổ Shinji.</p>
@@ -1344,14 +1304,12 @@ Thay vào đó, cô giơ cao lá bùa mình đang mang. Khi ánh sáng của lá
       </div>
     </article>
     <article class="story-ch story-page" id="ch-574" data-num="26" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Hiểu lầm ngày càng sâu" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_8.webp" alt="Hiểu lầm ngày càng sâu" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 26</div>
         <h3>Hiểu lầm ngày càng sâu</h3>
         <p class="story-ch-en">A Deepening Misunderstanding</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Không nhận ra Hayeon, Sunran đã giao chiến với chính em gái ruột đã thất lạc từ lâu của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="hayeon" title="Hayeon"><img src="assets/hero-hayeon.webp" alt="Hayeon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sunran" title="Sunran"><img src="assets/hero-sunran.webp" alt="Sunran" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Lối vào nơi Khe Nứt đang ngủ yên đã bị phong tỏa bởi nhiều lớp rào chắn, bùa hộ mệnh, và một Demon Gate được truyền thần lực của vô số nữ tế.
@@ -1404,14 +1362,12 @@ Do đó, việc vào trong là không thể. Và ngay cả khi ai đó phá đư
       </div>
     </article>
     <article class="story-ch story-page" id="ch-575" data-num="27" data-ep="Tập 30 — Nữ tư tế lang thang" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_10.webp" alt="Sức mạnh của gắn kết" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_17_10.webp" alt="Sức mạnh của gắn kết" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 30 — NỮ TƯ TẾ LANG THANG</div>
         <div class="story-ch-num">CHƯƠNG 27</div>
         <h3>Sức mạnh của gắn kết</h3>
         <p class="story-ch-en">The Power of Bonds</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bất chấp nhiều năm bị tẩy não và thao túng trong Vực Thẳm, Hayeon đã quyết định đối mặt với chị gái mình một lần nữa và cố gắng nói chuyện với chị.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dongyoung" title="Dongyoung"><img src="assets/hero-dongyoung.webp" alt="Dongyoung" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Hayeon thốt ra những lời đủ độc để giết người, nhưng khi cô quay đi bỏ chạy, cô đang khóc. Bất chấp sự tàn nhẫn trong lời nói của cô, chúng đơn giản không phản ánh cảm xúc thực sự của cô.</p>
@@ -1462,12 +1418,14 @@ Do đó, việc vào trong là không thể. Và ngay cả khi ai đó phá đư
       </div>
     </article>
       </div>
-      <div class="story-controls"><button type="button" class="story-prev" disabled>← Chương trước</button><span class="story-progress">Chương 1 / 27 · Tập 29 — Người canh giữ Vết Nứt</span><button type="button" class="story-next">Chương sau →</button></div>
+      <div class="story-controls"><button type="button" class="story-prev" disabled><span class="lbl-full">← Chương trước</span><span class="lbl-short">← Trước</span></button><span class="story-progress"><span class="story-progress-num">Chương 1 / 27</span> <span class="story-progress-ep">· Tập 29 — Người canh giữ Vết Nứt</span></span><button type="button" class="story-next"><span class="lbl-full">Chương sau →</span><span class="lbl-short">Sau →</span></button></div>
     </div>
     <noscript><style>.story-page[hidden]{display:block!important}.story-controls,.story-toc-toggle{display:none!important}</style></noscript>
     <script>
-// Story reader: one chapter = one page, flip-book navigation.
-// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<id> deep link.
+// Story reader: one dialogue chapter = one page, flip-book navigation.
+// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<chapter id> deep link.
+// After every turn the reader scrolls back to the top of the book (the TOC
+// position) so the reading position is identical on every page.
 (function () {
   var reader = document.querySelector('.story-reader');
   if (!reader) return;
@@ -1476,14 +1434,11 @@ Do đó, việc vào trong là không thể. Và ngay cả khi ai đó phá đư
   if (!pages.length) return;
   var prevBtn = reader.querySelector('.story-prev');
   var nextBtn = reader.querySelector('.story-next');
-  var prog = reader.querySelector('.story-progress');
+  var progNum = reader.querySelector('.story-progress-num');
+  var progEp = reader.querySelector('.story-progress-ep');
   var toc = reader.querySelector('.story-toc-panel');
   var tocBtn = reader.querySelector('.story-toc-toggle');
   var current = 0;
-
-  function label(i) {
-    return 'Chương ' + pages[i].dataset.num + ' / ' + pages.length + ' · ' + pages[i].dataset.ep;
-  }
 
   function show(i, dir, scroll) {
     if (i < 0) i = 0;
@@ -1491,19 +1446,21 @@ Do đó, việc vào trong là không thể. Và ngay cả khi ai đó phá đư
     pages.forEach(function (p, idx) { p.hidden = idx !== i; });
     if (dir) {
       book.classList.remove('turn-next', 'turn-prev');
-      void book.offsetWidth; // restart the flip animation
+      void book.offsetWidth; // restart the page-turn animation
       book.classList.add(dir > 0 ? 'turn-next' : 'turn-prev');
     }
     current = i;
-    prog.textContent = label(i);
+    progNum.textContent = 'Chương ' + pages[i].dataset.num + ' / ' + reader.dataset.total;
+    progEp.textContent = '· ' + pages[i].dataset.ep;
     prevBtn.disabled = i === 0;
     nextBtn.disabled = i === pages.length - 1;
     var cur = toc.querySelector('.toc-current');
     if (cur) cur.classList.remove('toc-current');
-    var btn = toc.querySelector('[data-goto="' + pages[i].id + '"]');
+    // highlight the host chapter button (lead-in buttons share its data-goto)
+    var btn = toc.querySelector('.toc-ch[data-goto="' + pages[i].id + '"]');
     if (btn) btn.classList.add('toc-current');
     try { history.replaceState(null, '', '#' + pages[i].id); } catch (e) { /* old browser */ }
-    if (scroll) book.scrollIntoView();
+    if (scroll) reader.scrollIntoView();
   }
 
   function go(d) { show(current + d, d, true); }

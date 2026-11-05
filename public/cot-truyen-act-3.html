@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f6f1">
-  <meta name="description" content="Cốt truyện Act 3 (The Power of Destruction): 61 chương với tóm tắt và hội thoại đầy đủ bằng tiếng Việt.">
-  <meta property="og:title" content="Act 3 — Sức mạnh Hủy Diệt · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 3 — Sức mạnh Hủy Diệt: 61 chương, tóm tắt và hội thoại đầy đủ."><meta property="og:type" content="website">
+  <meta name="description" content="Cốt truyện Act 3 (The Power of Destruction): 61 chương, hội thoại đầy đủ bằng tiếng Việt, đọc như lật sách.">
+  <meta property="og:title" content="Act 3 — Sức mạnh Hủy Diệt · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 3 — Sức mạnh Hủy Diệt: 61 chương, hội thoại đầy đủ."><meta property="og:type" content="website">
   <title>Act 3 — Sức mạnh Hủy Diệt · Cốt truyện | 7K RBVN</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='23' width='100' height='100' fill='%23192033'/%3E%3Ctext x='50' y='69' font-size='55' text-anchor='middle' fill='%23e8c16c' font-family='Arial' font-weight='bold'%3E7K%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles-v3.css"><link rel="stylesheet" href="blog.css"><link rel="stylesheet" href="site-nav.css"><link rel="stylesheet" href="heroes.css">
@@ -26,8 +26,12 @@
   .story-ch-num{font-size:10px;font-weight:800;letter-spacing:.1em;color:#ac8844}
   .story-ch-body h3{font-size:21.6px;margin:6px 0 2px}
   .story-ch-en{font-size:12px;color:#959aa4;margin:0 0 10px}
-  .story-sum-label{font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin:0 0 4px}
-  .story-summary{font-size:16.8px;line-height:1.7;color:#5f6675;margin:0 0 12px}
+  .story-lead{border:1px dashed #d7be89;border-radius:12px;background:#fbf8ef;padding:14px 16px;margin:0 0 14px}
+  .story-lead-tag{font-size:10px;font-weight:800;letter-spacing:.1em;color:#9b772f;margin-bottom:4px}
+  .story-lead h4{font-size:18px;margin:0 0 2px}
+  .story-lead-en{font-size:12px;color:#959aa4;margin:0 0 8px}
+  .story-lead-text{font-size:15.6px;line-height:1.7;color:#5f6675;margin:0}
+  .story-epilogue{margin:14px 0 0}
   .story-chars{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
   .story-chars>span{font-size:11px;font-weight:800;letter-spacing:.06em;color:#959aa4;margin-right:2px}
   .story-char{width:44px;height:44px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;cursor:pointer}
@@ -38,6 +42,9 @@
   .story-line b{color:#353c4c}
   .story-line-text{flex:1;min-width:0}
   .story-line.nar{padding-left:50px;font-style:italic;color:#858b96}
+  .story-line.sys{display:block;text-align:center;border:1px solid #e9e8e3;border-radius:12px;background:#f9f7f2;padding:12px 16px}
+  .story-sys-tag{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin-bottom:4px}
+  .story-line.sys .story-line-text{font-style:normal;color:#9b772f}
   .story-ava{flex:0 0 40px;width:40px;height:40px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;margin-top:2px}
   button.story-ava{cursor:pointer}
   button.story-ava:hover{border-color:#d7be89}
@@ -46,7 +53,7 @@
   .story-act-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;flex-wrap:wrap}
   .story-act-nav a{font-weight:800;color:#9b772f;font-size:14.4px}
   .story-act-nav a:hover{text-decoration:underline}
-  .story-reader{margin:0 0 10px}
+  .story-reader{margin:0 0 10px;scroll-margin-top:150px}
   .story-toc-toggle{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:12px 16px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;margin:0 0 12px}
   .story-toc-toggle:hover{border-color:#d7be89}
   .story-toc-panel{max-height:60vh;overflow:auto;border:1px solid #e9e8e3;border-radius:14px;background:#fff;padding:14px 16px;margin:0 0 14px}
@@ -55,18 +62,21 @@
   .story-toc-panel [data-goto]{display:block;width:100%;text-align:left;background:none;border:0;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:14.4px;color:#4a5160}
   .story-toc-panel [data-goto]:hover{background:#f7f1e4}
   .story-toc-panel [data-goto].toc-current{background:#f7f1e4;font-weight:800;color:#9b772f}
-  .story-book{perspective:1400px;padding-bottom:24px}
-  .story-book.turn-next .story-page{animation:page-next .45s ease;transform-origin:left center}
-  .story-book.turn-prev .story-page{animation:page-prev .45s ease;transform-origin:right center}
-  @keyframes page-next{from{opacity:0;transform:rotateY(16deg) translateX(40px)}to{opacity:1;transform:none}}
-  @keyframes page-prev{from{opacity:0;transform:rotateY(-16deg) translateX(-40px)}to{opacity:1;transform:none}}
+  .story-toc-panel [data-goto].toc-lead{font-size:13.5px;color:#858b96;font-style:italic;padding-left:20px}
+  .story-book{padding-bottom:24px}
+  .story-book.turn-next .story-page{animation:page-next .32s ease-out}
+  .story-book.turn-prev .story-page{animation:page-prev .32s ease-out}
+  @keyframes page-next{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes page-prev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
   .story-controls{position:sticky;bottom:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffdf8f2;border:1px solid #e9e8e3;border-radius:14px;padding:10px 12px;margin:14px 0 0;box-shadow:0 -6px 24px #20263814}
   .story-controls button{border:1px solid #e9e8e3;background:#fff;border-radius:10px;padding:9px 14px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;white-space:nowrap}
   .story-controls button:hover:not(:disabled){border-color:#d7be89}
   .story-controls button:disabled{opacity:.4;cursor:default}
+  .story-controls .lbl-short{display:none}
   .story-progress{font-size:13px;font-weight:800;color:#9b772f;text-align:center;flex:1;min-width:0}
+  .back-to-top{bottom:88px}
   @media (prefers-reduced-motion:reduce){.story-book.turn-next .story-page,.story-book.turn-prev .story-page{animation:none}}
-  @media(max-width:680px){.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-summary{font-size:15.6px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-progress{font-size:12px}}
+  @media(max-width:680px){.story-reader{scroll-margin-top:130px}.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px;gap:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-controls .lbl-full{display:none}.story-controls .lbl-short{display:inline}.story-progress{font-size:12px}.story-progress-ep{display:none}.back-to-top{bottom:80px}}
   </style>
 </head>
 <body>
@@ -77,99 +87,92 @@
     <div class="breadcrumbs"><a href="index.html">Trang chủ</a><span>›</span><a href="cot-truyen.html">Cốt truyện</a><span>›</span><span>Act 3 — Sức mạnh Hủy Diệt</span></div>
     <section class="blog-intro"><div class="blog-intro-copy"><span class="article-tag">CỐT TRUYỆN</span><div class="section-kicker">CỐT TRUYỆN · ACT 3</div><h1>Act 3 — Sức mạnh Hủy Diệt</h1><p>Act 3 mở đầu khi đoàn viễn chinh của Silvesta đặt chân tới Quần đảo Nguyệt Quang, cánh cổng dẫn tới Aisha, nơi đang chìm trong cuộc chiến giữa phe tiểu lãnh chúa Ace và liên minh quý tộc do Waki cầm đầu. Trong lúc Teo và Silvesta dấn thân vào cuộc chiến để bảo vệ Ace, Evan, Karin và người bạn đồng hành được giao cho Kyle, sát thủ vĩ đại nhất của Ảnh Tộc, để thu thập Mảnh vỡ Hủy Diệt. Sức mạnh Hủy Diệt lan rộng khắp đảo, khuếch đại hận thù và đẩy Dellons cùng Pascal tới quyết định tàn sát dân thường để chấm dứt chiến tranh, khiến cả hai bị trục xuất khỏi đoàn và đánh cắp toàn bộ Mảnh vỡ Hủy Diệt. Hành trình khép lại với sự thức tỉnh của Orochi, đại yêu quái bị phong ấn tại Đền Đơn Hồn, khi Dellons và Pascal phá phong ấn để đoạt lấy mảnh vỡ cuối cùng trên đảo.</p></div><div class="blog-intro-art" aria-hidden="true"><img src="assets/hero-dellons.webp" alt="" loading="lazy"><img src="assets/hero-evan.webp" alt="" loading="lazy"></div></section>
 
-    <div class="story-reader" data-act="3">
+    <div class="story-reader" data-act="3" data-total="61">
       <button type="button" class="story-toc-toggle" aria-expanded="false">☰ Mục lục — 61 chương</button>
       <div class="story-toc-panel" hidden>
         <h4>Tập 15 — Đoàn thám hiểm của Silvesta</h4>
-        <button type="button" data-goto="ch-92">Chương 1 — Cánh cổng tới Aisha</button>
-        <button type="button" data-goto="ch-93">Chương 2 — Quần đảo phủ mây mù</button>
-        <button type="button" data-goto="ch-94">Chương 3 — Sức nặng của sinh mệnh</button>
-        <button type="button" data-goto="ch-95">Chương 4 — Sức nặng của hy vọng</button>
+        <button type="button" class="toc-lead" data-goto="ch-93">Chương 1 — Cánh cổng tới Aisha</button>
+        <button type="button" class="toc-ch" data-goto="ch-93">Chương 2 — Quần đảo phủ mây mù</button>
+        <button type="button" class="toc-ch" data-goto="ch-94">Chương 3 — Sức nặng của sinh mệnh</button>
+        <button type="button" class="toc-ch" data-goto="ch-95">Chương 4 — Sức nặng của hy vọng</button>
         <h4>Tập 16 — Sát thủ đi tìm kẻ mạnh nhất</h4>
-        <button type="button" data-goto="ch-96">Chương 5 — Sát thủ vĩ đại nhất Aisha</button>
-        <button type="button" data-goto="ch-97">Chương 6 — Silvesta đối đầu Kyle</button>
-        <button type="button" data-goto="ch-98">Chương 7 — Cách đối phó với sát thủ vĩ đại nhất</button>
+        <button type="button" class="toc-ch" data-goto="ch-96">Chương 5 — Sát thủ vĩ đại nhất Aisha</button>
+        <button type="button" class="toc-ch" data-goto="ch-97">Chương 6 — Silvesta đối đầu Kyle</button>
+        <button type="button" class="toc-ch" data-goto="ch-98">Chương 7 — Cách đối phó với sát thủ vĩ đại nhất</button>
         <h4>Tập 17 — Vết Nứt ngày càng lớn</h4>
-        <button type="button" data-goto="ch-99">Chương 8 — Tiểu lãnh chúa Ace</button>
-        <button type="button" data-goto="ch-100">Chương 9 — Nữ pháp sư tựa thiên nga</button>
-        <button type="button" data-goto="ch-101">Chương 10 — Xung động hủy diệt ngày càng lớn</button>
-        <button type="button" data-goto="ch-102">Chương 11 — Giờ đây có thể làm gì</button>
-        <button type="button" data-goto="ch-103">Chương 12 — Dellons bị Sức mạnh Hủy Diệt tha hóa</button>
+        <button type="button" class="toc-ch" data-goto="ch-99">Chương 8 — Tiểu lãnh chúa Ace</button>
+        <button type="button" class="toc-ch" data-goto="ch-100">Chương 9 — Nữ pháp sư tựa thiên nga</button>
+        <button type="button" class="toc-ch" data-goto="ch-101">Chương 10 — Xung động hủy diệt ngày càng lớn</button>
+        <button type="button" class="toc-ch" data-goto="ch-102">Chương 11 — Giờ đây có thể làm gì</button>
+        <button type="button" class="toc-ch" data-goto="ch-103">Chương 12 — Dellons bị Sức mạnh Hủy Diệt tha hóa</button>
         <h4>Tập 18 — Tử thần thức tỉnh</h4>
-        <button type="button" data-goto="ch-104">Chương 13 — Tiểu lãnh chúa bị bắt cóc</button>
-        <button type="button" data-goto="ch-105">Chương 14 — Lịch sử đổ máu không hồi kết</button>
-        <button type="button" data-goto="ch-106">Chương 15 — Kẻ muốn bảo vệ tất cả</button>
-        <button type="button" data-goto="ch-107">Chương 16 — Cách tìm Mảnh vỡ Hủy Diệt</button>
-        <button type="button" data-goto="ch-108">Chương 17 — Điều đúng đắn</button>
-        <button type="button" data-goto="ch-109">Chương 18 — Quyết định của Daisy</button>
-        <button type="button" data-goto="ch-110">Chương 19 — Giải cứu Ace!</button>
-        <button type="button" data-goto="ch-111">Chương 20 — Cậu đang cười kìa.</button>
-        <button type="button" data-goto="ch-112">Chương 21 — Tội ác bị phơi bày</button>
-        <button type="button" data-goto="ch-113">Chương 22 — Không còn đường lui</button>
-        <button type="button" data-goto="ch-114">Chương 23 — Đoàn viễn chinh Silvesta tan vỡ</button>
+        <button type="button" class="toc-ch" data-goto="ch-104">Chương 13 — Tiểu lãnh chúa bị bắt cóc</button>
+        <button type="button" class="toc-ch" data-goto="ch-105">Chương 14 — Lịch sử đổ máu không hồi kết</button>
+        <button type="button" class="toc-ch" data-goto="ch-106">Chương 15 — Kẻ muốn bảo vệ tất cả</button>
+        <button type="button" class="toc-ch" data-goto="ch-107">Chương 16 — Cách tìm Mảnh vỡ Hủy Diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-108">Chương 17 — Điều đúng đắn</button>
+        <button type="button" class="toc-ch" data-goto="ch-109">Chương 18 — Quyết định của Daisy</button>
+        <button type="button" class="toc-ch" data-goto="ch-110">Chương 19 — Giải cứu Ace!</button>
+        <button type="button" class="toc-ch" data-goto="ch-111">Chương 20 — Cậu đang cười kìa.</button>
+        <button type="button" class="toc-ch" data-goto="ch-112">Chương 21 — Tội ác bị phơi bày</button>
+        <button type="button" class="toc-ch" data-goto="ch-113">Chương 22 — Không còn đường lui</button>
+        <button type="button" class="toc-ch" data-goto="ch-114">Chương 23 — Đoàn viễn chinh Silvesta tan vỡ</button>
         <h4>Tập 19 — Huyền thoại Orochi</h4>
-        <button type="button" data-goto="ch-115">Chương 24 — Hậu quả của chiến tranh</button>
-        <button type="button" data-goto="ch-116">Chương 25 — Tái ngộ Yuri</button>
-        <button type="button" data-goto="ch-117">Chương 26 — Yuri quyến rũ</button>
-        <button type="button" data-goto="ch-118">Chương 27 — Điềm gở</button>
-        <button type="button" data-goto="ch-119">Chương 28 — Dellons và Pascal tìm kiếm Mảnh vỡ Hủy Diệt</button>
-        <button type="button" data-goto="ch-120">Chương 29 — Orochi thức tỉnh</button>
-        <button type="button" data-goto="ch-121">Chương 30 — Orochi rời Đền Đơn Hồn</button>
-        <button type="button" data-goto="ch-122">Chương 31 — Truyền thuyết về yêu quái rắn</button>
-        <button type="button" data-goto="ch-123">Chương 32 — Bóng tối rình rập</button>
-        <button type="button" data-goto="ch-124">Chương 33 — Dellons và Pascal nhập nhóm</button>
-        <button type="button" data-goto="ch-125">Chương 34 — Linh hồn hộ vệ của Leader Sword, Yu</button>
-        <button type="button" data-goto="ch-126">Chương 35 — Phong ấn của Orochi</button>
-        <button type="button" data-goto="ch-127">Chương 36 — Dellons lộ bộ mặt thật</button>
+        <button type="button" class="toc-ch" data-goto="ch-115">Chương 24 — Hậu quả của chiến tranh</button>
+        <button type="button" class="toc-ch" data-goto="ch-116">Chương 25 — Tái ngộ Yuri</button>
+        <button type="button" class="toc-ch" data-goto="ch-117">Chương 26 — Yuri quyến rũ</button>
+        <button type="button" class="toc-ch" data-goto="ch-118">Chương 27 — Điềm gở</button>
+        <button type="button" class="toc-ch" data-goto="ch-119">Chương 28 — Dellons và Pascal tìm kiếm Mảnh vỡ Hủy Diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-120">Chương 29 — Orochi thức tỉnh</button>
+        <button type="button" class="toc-ch" data-goto="ch-121">Chương 30 — Orochi rời Đền Đơn Hồn</button>
+        <button type="button" class="toc-ch" data-goto="ch-122">Chương 31 — Truyền thuyết về yêu quái rắn</button>
+        <button type="button" class="toc-ch" data-goto="ch-123">Chương 32 — Bóng tối rình rập</button>
+        <button type="button" class="toc-ch" data-goto="ch-124">Chương 33 — Dellons và Pascal nhập nhóm</button>
+        <button type="button" class="toc-ch" data-goto="ch-125">Chương 34 — Linh hồn hộ vệ của Leader Sword, Yu</button>
+        <button type="button" class="toc-ch" data-goto="ch-126">Chương 35 — Phong ấn của Orochi</button>
+        <button type="button" class="toc-ch" data-goto="ch-127">Chương 36 — Dellons lộ bộ mặt thật</button>
         <h4>Tập 20 — Anh hùng trăm trận</h4>
-        <button type="button" data-goto="ch-128">Chương 37 — Thoát khỏi Moonlit Isles</button>
-        <button type="button" data-goto="ch-129">Chương 38 — Lời hứa của Kyle</button>
-        <button type="button" data-goto="ch-130">Chương 39 — Bước vào chiến tranh</button>
-        <button type="button" data-goto="ch-131">Chương 40 — Karma, vị tướng bất bại</button>
-        <button type="button" data-goto="ch-132">Chương 41 — Karma tham chiến</button>
-        <button type="button" data-goto="ch-133">Chương 42 — Karma rút lui</button>
-        <button type="button" data-goto="ch-134">Chương 43 — Thiên nga trắng nhuốm đen</button>
-        <button type="button" data-goto="ch-135">Chương 44 — Lựa chọn của Karma</button>
-        <button type="button" data-goto="ch-136">Chương 45 — Lòng dũng cảm cứu kẻ thù</button>
-        <button type="button" data-goto="ch-137">Chương 46 — Giá trị của Waki</button>
-        <button type="button" data-goto="ch-138">Chương 47 — Kẻ đọc màn đêm</button>
+        <button type="button" class="toc-ch" data-goto="ch-128">Chương 37 — Thoát khỏi Moonlit Isles</button>
+        <button type="button" class="toc-lead" data-goto="ch-130">Chương 38 — Lời hứa của Kyle</button>
+        <button type="button" class="toc-ch" data-goto="ch-130">Chương 39 — Bước vào chiến tranh</button>
+        <button type="button" class="toc-ch" data-goto="ch-131">Chương 40 — Karma, vị tướng bất bại</button>
+        <button type="button" class="toc-ch" data-goto="ch-132">Chương 41 — Karma tham chiến</button>
+        <button type="button" class="toc-ch" data-goto="ch-133">Chương 42 — Karma rút lui</button>
+        <button type="button" class="toc-ch" data-goto="ch-134">Chương 43 — Thiên nga trắng nhuốm đen</button>
+        <button type="button" class="toc-ch" data-goto="ch-135">Chương 44 — Lựa chọn của Karma</button>
+        <button type="button" class="toc-ch" data-goto="ch-136">Chương 45 — Lòng dũng cảm cứu kẻ thù</button>
+        <button type="button" class="toc-ch" data-goto="ch-137">Chương 46 — Giá trị của Waki</button>
+        <button type="button" class="toc-ch" data-goto="ch-138">Chương 47 — Kẻ đọc màn đêm</button>
         <h4>Tập 21 — Những người viết lại số phận</h4>
-        <button type="button" data-goto="ch-139">Chương 48 — Dù cuộc nổi loạn đã kết thúc...</button>
-        <button type="button" data-goto="ch-140">Chương 49 — Quân đội của Dellons</button>
-        <button type="button" data-goto="ch-141">Chương 50 — Thánh chiến sĩ mang dòng máu quỷ</button>
-        <button type="button" data-goto="ch-142">Chương 51 — Nếu chúng ta có cùng mục tiêu...</button>
-        <button type="button" data-goto="ch-143">Chương 52 — Liên minh tạm thời để ngăn chặn Sức mạnh Hủy Diệt</button>
-        <button type="button" data-goto="ch-144">Chương 53 — Để ngăn chặn Sức mạnh Hủy Diệt</button>
-        <button type="button" data-goto="ch-145">Chương 54 — Silvesta giúp Evan một tay</button>
-        <button type="button" data-goto="ch-146">Chương 55 — Tôi có điều muốn nói...</button>
-        <button type="button" data-goto="ch-147">Chương 56 — Giấc mơ của Sư phụ</button>
-        <button type="button" data-goto="ch-148">Chương 57 — Bóng tối giáng xuống</button>
-        <button type="button" data-goto="ch-149">Chương 58 — Chìa khóa của trận chiến này</button>
-        <button type="button" data-goto="ch-150">Chương 59 — Thần Hủy Diệt sụp đổ</button>
-        <button type="button" data-goto="ch-151">Chương 60 — Lựa chọn của một người cha</button>
-        <button type="button" data-goto="ch-152">Chương 61 — Vật mẫu 10114</button>
+        <button type="button" class="toc-ch" data-goto="ch-139">Chương 48 — Dù cuộc nổi loạn đã kết thúc...</button>
+        <button type="button" class="toc-ch" data-goto="ch-140">Chương 49 — Quân đội của Dellons</button>
+        <button type="button" class="toc-ch" data-goto="ch-141">Chương 50 — Thánh chiến sĩ mang dòng máu quỷ</button>
+        <button type="button" class="toc-ch" data-goto="ch-142">Chương 51 — Nếu chúng ta có cùng mục tiêu...</button>
+        <button type="button" class="toc-ch" data-goto="ch-143">Chương 52 — Liên minh tạm thời để ngăn chặn Sức mạnh Hủy Diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-144">Chương 53 — Để ngăn chặn Sức mạnh Hủy Diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-145">Chương 54 — Silvesta giúp Evan một tay</button>
+        <button type="button" class="toc-ch" data-goto="ch-146">Chương 55 — Tôi có điều muốn nói...</button>
+        <button type="button" class="toc-ch" data-goto="ch-147">Chương 56 — Giấc mơ của Sư phụ</button>
+        <button type="button" class="toc-ch" data-goto="ch-148">Chương 57 — Bóng tối giáng xuống</button>
+        <button type="button" class="toc-ch" data-goto="ch-149">Chương 58 — Chìa khóa của trận chiến này</button>
+        <button type="button" class="toc-ch" data-goto="ch-150">Chương 59 — Thần Hủy Diệt sụp đổ</button>
+        <button type="button" class="toc-ch" data-goto="ch-151">Chương 60 — Lựa chọn của một người cha</button>
+        <button type="button" class="toc-lead" data-goto="ch-151">Chương 61 — Vật mẫu 10114</button>
       </div>
       <div class="story-book">
-    <article class="story-ch story-page" id="ch-92" data-num="1" data-ep="Tập 15 — Đoàn thám hiểm của Silvesta">
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_4.webp" alt="Cánh cổng tới Aisha" loading="lazy">
-      <div class="story-ch-body">
-        <div class="story-ch-ep">TẬP 15 — ĐOÀN THÁM HIỂM CỦA SILVESTA</div>
-        <div class="story-ch-num">CHƯƠNG 1</div>
-        <h3>Cánh cổng tới Aisha</h3>
-        <p class="story-ch-en">The Gateway to Aisha</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi thu thập toàn bộ Mảnh vỡ Hủy Diệt rải rác khắp Asgar, nhóm của Silvesta lên đường tới Đảo Nguyệt Quang, cánh cổng dẫn tới Aisha, để tìm những mảnh vỡ trên đảo.</p>
-      </div>
-    </article>
-    <article class="story-ch story-page" id="ch-93" data-num="2" data-ep="Tập 15 — Đoàn thám hiểm của Silvesta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_5.webp" alt="Quần đảo phủ mây mù" loading="lazy">
+    <article class="story-ch story-page" id="ch-93" data-num="2" data-ep="Tập 15 — Đoàn thám hiểm của Silvesta">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_5.webp" alt="Quần đảo phủ mây mù" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 15 — ĐOÀN THÁM HIỂM CỦA SILVESTA</div>
         <div class="story-ch-num">CHƯƠNG 2</div>
         <h3>Quần đảo phủ mây mù</h3>
         <p class="story-ch-en">Overcast Isles</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo từng tham gia một cuộc chiến trên Quần đảo Nguyệt Quang trước đây. Nhận thấy quần đảo đã thay đổi, ông tới lâu đài của lãnh chúa.</p>
+        <div class="story-lead">
+          <div class="story-lead-tag">DẪN TRUYỆN · CHƯƠNG 1</div>
+          <h4>Cánh cổng tới Aisha</h4>
+          <p class="story-lead-en">The Gateway to Aisha</p>
+          <p class="story-lead-text">Sau khi thu thập toàn bộ Mảnh vỡ Hủy Diệt rải rác khắp Asgar, nhóm của Silvesta lên đường tới Đảo Nguyệt Quang, cánh cổng dẫn tới Aisha, để tìm những mảnh vỡ trên đảo.</p>
+        </div>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Quần đảo Nguyệt Quang bị chia thành hai phe: phe ủng hộ lãnh chúa và phe ủng hộ giới quý tộc, và mây chiến tranh đang lơ lửng trên đầu.</p>
@@ -197,14 +200,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-94" data-num="3" data-ep="Tập 15 — Đoàn thám hiểm của Silvesta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_2.webp" alt="Sức nặng của sinh mệnh" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_2.webp" alt="Sức nặng của sinh mệnh" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 15 — ĐOÀN THÁM HIỂM CỦA SILVESTA</div>
         <div class="story-ch-num">CHƯƠNG 3</div>
         <h3>Sức nặng của sinh mệnh</h3>
         <p class="story-ch-en">The Weight of Life</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons và Pascal nhận ra Quần đảo Nguyệt Quang đã chia thành phe ủng hộ lãnh chúa và phe ủng hộ giới quý tộc, và họ đang chuẩn bị cho chiến tranh.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhóm của Silvesta chia nhau ra và bắt đầu tuần tra khu vực để tìm những kẻ đào ngũ hay binh sĩ quấy rối dân thường.</p>
@@ -248,14 +249,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-95" data-num="4" data-ep="Tập 15 — Đoàn thám hiểm của Silvesta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_4.webp" alt="Sức nặng của hy vọng" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_4.webp" alt="Sức nặng của hy vọng" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 15 — ĐOÀN THÁM HIỂM CỦA SILVESTA</div>
         <div class="story-ch-num">CHƯƠNG 4</div>
         <h3>Sức nặng của hy vọng</h3>
         <p class="story-ch-en">The Weight of Hope</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Pascal đã thuê tay môi giới giỏi nhất của Ảnh Tộc để thu thập Mảnh vỡ Hủy Diệt ở Aisha.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhóm của Silvesta đánh bại lũ quái vật xuất hiện trong làng và binh sĩ của Waki đang điều khiển chúng.</p>
@@ -295,14 +294,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-96" data-num="5" data-ep="Tập 16 — Sát thủ đi tìm kẻ mạnh nhất" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Sát thủ vĩ đại nhất Aisha" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Sát thủ vĩ đại nhất Aisha" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 16 — SÁT THỦ ĐI TÌM KẺ MẠNH NHẤT</div>
         <div class="story-ch-num">CHƯƠNG 5</div>
         <h3>Sát thủ vĩ đại nhất Aisha</h3>
         <p class="story-ch-en">Aisha&#x27;s Greatest Assassin</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Kyle nhận nhiệm vụ thu thập Mảnh vỡ Hủy Diệt để thách đấu Teo.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhóm được chào đón bằng một đống xác quái vật khi tới chỗ Ảnh Tộc, và ở giữa đống lộn xộn đó ngồi một người đàn ông, đang ngáp như thể đang chán ngán.</p>
@@ -342,14 +339,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-97" data-num="6" data-ep="Tập 16 — Sát thủ đi tìm kẻ mạnh nhất" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Silvesta đối đầu Kyle" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Silvesta đối đầu Kyle" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 16 — SÁT THỦ ĐI TÌM KẺ MẠNH NHẤT</div>
         <div class="story-ch-num">CHƯƠNG 6</div>
         <h3>Silvesta đối đầu Kyle</h3>
         <p class="story-ch-en">Silvesta vs. Kyle</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Silvesta chấp nhận lời thách đấu tay đôi 1 đấu 1 của Kyle thay cho Teo.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đám quái vật bị cuốn vào trận chiến giữa Silvesta và Kyle gần như đã bị quét sạch hoàn toàn.</p>
@@ -366,14 +361,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-98" data-num="7" data-ep="Tập 16 — Sát thủ đi tìm kẻ mạnh nhất" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Cách đối phó với sát thủ vĩ đại nhất" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Cách đối phó với sát thủ vĩ đại nhất" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 16 — SÁT THỦ ĐI TÌM KẺ MẠNH NHẤT</div>
         <div class="story-ch-num">CHƯƠNG 7</div>
         <h3>Cách đối phó với sát thủ vĩ đại nhất</h3>
         <p class="story-ch-en">How to Handle the Greatest Assassin</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Silvesta yêu cầu Kyle thu thập những Mảnh vỡ Hủy Diệt còn lại để đổi lấy một trận tái đấu.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trận chiến giữa Silvesta và Kyle càng kéo dài, mặt Kyle càng đỏ bừng.</p>
@@ -432,14 +425,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-99" data-num="8" data-ep="Tập 17 — Vết Nứt ngày càng lớn" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Tiểu lãnh chúa Ace" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Tiểu lãnh chúa Ace" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 17 — VẾT NỨT NGÀY CÀNG LỚN</div>
         <div class="story-ch-num">CHƯƠNG 8</div>
         <h3>Tiểu lãnh chúa Ace</h3>
         <p class="story-ch-en">Young Lord Ace</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo quyết định nhảy vào cuộc chiến trên Quần đảo Nguyệt Quang vì cháu trai còn nhỏ của người bạn quá cố, Ace.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Việc Teo trở về bị trì hoãn khi cuộc chiến giữa quân đội của lãnh chúa và lực lượng quý tộc ngày càng khốc liệt.</p>
@@ -484,14 +475,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-100" data-num="9" data-ep="Tập 17 — Vết Nứt ngày càng lớn" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_5.webp" alt="Nữ pháp sư tựa thiên nga" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_5.webp" alt="Nữ pháp sư tựa thiên nga" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 17 — VẾT NỨT NGÀY CÀNG LỚN</div>
         <div class="story-ch-num">CHƯƠNG 9</div>
         <h3>Nữ pháp sư tựa thiên nga</h3>
         <p class="story-ch-en">A Mage Who Resembles a Swan</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Orly, nữ pháp sư tựa thiên nga, đã tới tìm Teo.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lúc Teo và Silvesta nói chuyện...</p>
@@ -554,14 +543,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-101" data-num="10" data-ep="Tập 17 — Vết Nứt ngày càng lớn" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Xung động hủy diệt ngày càng lớn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Xung động hủy diệt ngày càng lớn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 17 — VẾT NỨT NGÀY CÀNG LỚN</div>
         <div class="story-ch-num">CHƯƠNG 10</div>
         <h3>Xung động hủy diệt ngày càng lớn</h3>
         <p class="story-ch-en">The Growing Impulse for Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trong lúc Evan và nhóm của cậu tìm kiếm thông tin về Mảnh vỡ Hủy Diệt cùng Kyle, Sức mạnh Hủy Diệt làm xao động nhóm của Silvesta, những người vốn đã căng thẳng vì chiến tranh.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Teo và Silvesta bắt đầu nhận ra có điều gì đó không ổn với cuộc chiến ở Đảo Nguyệt Quang.</p>
@@ -600,14 +587,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-102" data-num="11" data-ep="Tập 17 — Vết Nứt ngày càng lớn" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_6.webp" alt="Giờ đây có thể làm gì" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_6.webp" alt="Giờ đây có thể làm gì" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 17 — VẾT NỨT NGÀY CÀNG LỚN</div>
         <div class="story-ch-num">CHƯƠNG 11</div>
         <h3>Giờ đây có thể làm gì</h3>
         <p class="story-ch-en">What Can Be Done Now</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Không muốn tham gia vào cuộc chiến giữa con người, Yeonhee quyết định rời khỏi Đoàn viễn chinh Silvesta.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi trận chiến tiếp diễn, Silvesta, Teo và Dellons có thể cảm nhận rõ ràng Sức mạnh Hủy Diệt đang lan rộng khắp Đảo Nguyệt Quang.</p>
@@ -641,14 +626,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-103" data-num="12" data-ep="Tập 17 — Vết Nứt ngày càng lớn" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_6.webp" alt="Dellons bị Sức mạnh Hủy Diệt tha hóa" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_6.webp" alt="Dellons bị Sức mạnh Hủy Diệt tha hóa" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 17 — VẾT NỨT NGÀY CÀNG LỚN</div>
         <div class="story-ch-num">CHƯƠNG 12</div>
         <h3>Dellons bị Sức mạnh Hủy Diệt tha hóa</h3>
         <p class="story-ch-en">The Corruption of Dellons by the Power of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Thấy Silvesta đang chịu đựng ảnh hưởng của Sức mạnh Hủy Diệt, Dellons và Pascal nhận ra họ phải đưa ra lựa chọn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Dù là vì hòa bình hay vì một đại nghĩa, mục tiêu của ai đó càng lớn, họ càng đổ nhiều máu.</p>
@@ -686,14 +669,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-104" data-num="13" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Tiểu lãnh chúa bị bắt cóc" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Tiểu lãnh chúa bị bắt cóc" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 13</div>
         <h3>Tiểu lãnh chúa bị bắt cóc</h3>
         <p class="story-ch-en">The Abducted Young Lord</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Ảnh Tộc đề nghị một thỏa thuận với Waki, một khách hàng lớn của họ.</p>
         <div class="story-lines">
             <p class="story-line nar">Khi nhóm của Silvesta tấn công quyết liệt, lực lượng nổi loạn của Waki bắt đầu rút lui khỏi Cổng Trời sau khi mất hầu hết các cứ điểm.</p>
             <p class="story-line"><img class="story-ava" src="assets/avatar-npc.svg" alt="" loading="lazy"><span class="story-line-text"><b>Waki:</b> Ta không ngờ chúng lại giấu sức mạnh như vậy... Cứ đà này, sẽ lặp lại cuộc chiến từ năm năm trước. Cuối cùng, mọi người sẽ gục ngã dưới tay Teo!</span></p>
@@ -717,14 +698,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-105" data-num="14" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Lịch sử đổ máu không hồi kết" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Lịch sử đổ máu không hồi kết" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 14</div>
         <h3>Lịch sử đổ máu không hồi kết</h3>
         <p class="story-ch-en">The Endless History of Bloodshed</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi quan sát lập trường kiên định của Teo chống lại cái ác, Dellons nhận ra con đường công lý của chính mình vẫn còn xa vời.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Teo và Silvesta sớm biết tin Ace đã bị bắt cóc.</p>
@@ -758,14 +737,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-106" data-num="15" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Kẻ muốn bảo vệ tất cả" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Kẻ muốn bảo vệ tất cả" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 15</div>
         <h3>Kẻ muốn bảo vệ tất cả</h3>
         <p class="story-ch-en">The One Who Seeks to Protect Everything</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons hạ quyết tâm bảo vệ trái tim của Silvesta khỏi tan vỡ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhờ nhóm của Silvesta tham gia chiến đấu, phía của Ace giành được chiến thắng này tới chiến thắng khác.</p>
@@ -780,14 +757,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-107" data-num="16" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Cách tìm Mảnh vỡ Hủy Diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Cách tìm Mảnh vỡ Hủy Diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 16</div>
         <h3>Cách tìm Mảnh vỡ Hủy Diệt</h3>
         <p class="story-ch-en">How to Find the Shards of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhóm của Evan đã lấy được thông tin về Mảnh vỡ Hủy Diệt từ một thuộc hạ của Waki.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đúng lúc đó, Evan và Kyle đang tìm kiếm manh mối về Mảnh vỡ Hủy Diệt.</p>
@@ -817,14 +792,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-108" data-num="17" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Điều đúng đắn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Điều đúng đắn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 17</div>
         <h3>Điều đúng đắn</h3>
         <p class="story-ch-en">The Right Thing</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons và Pascal đã đưa ra quyết định để giúp đỡ Silvesta đang suy yếu.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bane" title="Bane"><img src="assets/hero-bane.webp" alt="Bane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lúc Dellons đang lạc lối trong hỗn loạn của vụ bắt cóc Ace và cuộc chiến, Bane đang thổi bùng lòng căm thù của mọi người.</p>
@@ -856,14 +829,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-109" data-num="18" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Quyết định của Daisy" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Quyết định của Daisy" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 18</div>
         <h3>Quyết định của Daisy</h3>
         <p class="story-ch-en">Daisy&#x27;s Decision</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Daisy cần phải trở nên mạnh mẽ nhanh chóng để cứu anh trai mình, vì vậy cô đã giao kèo với một con mèo yêu quái.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau vụ bắt cóc Ace, chị gái của cậu ấy, Daisy, bắt đầu thực hiện một giao kèo nguy hiểm để cứu cậu ấy.</p>
@@ -884,14 +855,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-110" data-num="19" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Giải cứu Ace!" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Giải cứu Ace!" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 19</div>
         <h3>Giải cứu Ace!</h3>
         <p class="story-ch-en">Saving Ace!</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi có được sức mạnh của mèo yêu quái, Daisy đã có thể cứu Ace giữa lúc hỗn loạn trong căn cứ của Waki.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi có được sức mạnh của mèo yêu quái, Daisy tiến vào Lâu đài Waki.</p>
@@ -913,14 +882,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-111" data-num="20" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_6.webp" alt="Cậu đang cười kìa." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_6.webp" alt="Cậu đang cười kìa." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 20</div>
         <h3>Cậu đang cười kìa.</h3>
         <p class="story-ch-en">You&#x27;re Smiling.</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons và Pascal đã tấn công ngôi làng chứa căn cứ chỉ huy của địch để chấm dứt chiến tranh.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Daisy và Ace đã thoát khỏi lâu đài, nhưng vẫn còn ở trong ngôi làng phía sau tuyến địch.</p>
@@ -942,14 +909,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-112" data-num="21" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Tội ác bị phơi bày" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Tội ác bị phơi bày" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 21</div>
         <h3>Tội ác bị phơi bày</h3>
         <p class="story-ch-en">Uncovered Evils</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Daisy đã báo với Teo rằng cô chứng kiến Dellons và Pascal giết dân thường trong lúc cô đang cứu Ace.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Daisy đã cứu được Ace và trở về lâu đài.</p>
@@ -970,14 +935,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-113" data-num="22" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Không còn đường lui" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Không còn đường lui" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 22</div>
         <h3>Không còn đường lui</h3>
         <p class="story-ch-en">No Going Back</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo và Silvesta phát hiện ra vụ thảm sát dân thường của Dellons và Pascal.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Teo khảo sát ngôi làng mà Dellons và Pascal đã tấn công. Tại đó, ông tìm thấy bằng chứng rõ ràng về một vụ thảm sát dân thường và quay trở lại Đoàn viễn chinh Silvesta.</p>
@@ -1021,14 +984,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-114" data-num="23" data-ep="Tập 18 — Tử thần thức tỉnh" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Đoàn viễn chinh Silvesta tan vỡ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Đoàn viễn chinh Silvesta tan vỡ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 18 — TỬ THẦN THỨC TỈNH</div>
         <div class="story-ch-num">CHƯƠNG 23</div>
         <h3>Đoàn viễn chinh Silvesta tan vỡ</h3>
         <p class="story-ch-en">The Fragmented Silvesta Expedition</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi nhận ra điều khủng khiếp mà Pascal và Dellons đã làm, Teo và Silvesta quyết định đuổi họ khỏi Đoàn viễn chinh Silvesta.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sáng hôm sau, Dellons và Pascal lặng lẽ biến mất. Và...</p>
@@ -1048,14 +1009,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-115" data-num="24" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Hậu quả của chiến tranh" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Hậu quả của chiến tranh" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 24</div>
         <h3>Hậu quả của chiến tranh</h3>
         <p class="story-ch-en">The Aftermath of War</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Kyle đã cố gắng lấy thông tin về Mảnh vỡ Hủy Diệt bằng bạo lực.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhóm của Evan có được thông tin rằng Mảnh vỡ Hủy Diệt đang ở trong lâu đài của Waki, nhưng một cuộc chiến giữa lực lượng của Ace và Waki đã bắt đầu và việc tiếp cận trở nên khó khăn.</p>
@@ -1074,14 +1033,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-116" data-num="25" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Tái ngộ Yuri" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Tái ngộ Yuri" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 25</div>
         <h3>Tái ngộ Yuri</h3>
         <p class="story-ch-en">Reunion with Yuri</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhóm của Evan ngạc nhiên khi gặp Yuri trong thời gian cô ở Ảnh Tộc.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhóm của Evan quá quen thuộc với những người mà Kyle gọi là chuyên gia thu thập dữ liệu.</p>
@@ -1118,14 +1075,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-117" data-num="26" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Yuri quyến rũ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Yuri quyến rũ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 26</div>
         <h3>Yuri quyến rũ</h3>
         <p class="story-ch-en">Alluring Yuri</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Yuri đã dùng kỹ năng Hồ Ly Quyến Rũ để lấy thông tin về Mảnh vỡ Hủy Diệt tại Đền Đơn Hồn từ một binh sĩ của Waki.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Yuri và hai chị em yêu tinh bóng tối xâm nhập vào lâu đài của Waki và bắt đầu thu thập thông tin về Mảnh vỡ Hủy Diệt của hắn.</p>
@@ -1154,14 +1109,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-118" data-num="27" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Điềm gở" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Điềm gở" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 27</div>
         <h3>Điềm gở</h3>
         <p class="story-ch-en">Ominous Sign</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi họ tới gần Đền Đơn Hồn, Karin cảm nhận được một sự hiện diện đáng sợ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Ảnh Tộc giao thông tin về Mảnh vỡ Hủy Diệt cho Kyle.</p>
@@ -1194,14 +1147,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-119" data-num="28" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Dellons và Pascal tìm kiếm Mảnh vỡ Hủy Diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Dellons và Pascal tìm kiếm Mảnh vỡ Hủy Diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 28</div>
         <h3>Dellons và Pascal tìm kiếm Mảnh vỡ Hủy Diệt</h3>
         <p class="story-ch-en">Dellons and Pascal in Search of the Shard of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi rời khỏi Silvesta, Dellons và Pascal tới chỗ Waki để lấy thông tin về Mảnh vỡ Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi đó, sau khi rời khỏi Silvesta, Dellons và Pascal tìm thấy Waki.</p>
@@ -1234,14 +1185,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-120" data-num="29" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_3.webp" alt="Orochi thức tỉnh" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_3.webp" alt="Orochi thức tỉnh" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 29</div>
         <h3>Orochi thức tỉnh</h3>
         <p class="story-ch-en">Awakened Orochi</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons và Pascal đã tấn công Đền Đơn Hồn cùng với quân đội của Waki để lấy Mảnh vỡ Hủy Diệt của Orochi.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Quân đội của Waki đánh bại Đền Đơn Hồn với sự hỗ trợ của Dellons và Pascal.</p>
@@ -1271,14 +1220,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-121" data-num="30" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_3.webp" alt="Orochi rời Đền Đơn Hồn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_3.webp" alt="Orochi rời Đền Đơn Hồn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 30</div>
         <h3>Orochi rời Đền Đơn Hồn</h3>
         <p class="story-ch-en">Orochi Leaves the Singular Soul Temple</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi thoát khỏi Vực Thẳm, Orochi rời Đền Đơn Hồn và đi tới thị trấn để xem thế giới đã thay đổi như thế nào.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><img class="story-ava" src="assets/avatar-npc.svg" alt="" loading="lazy"><span class="story-line-text"><b>Orochi:</b> Trò vui kết thúc rồi, lũ người dai dẳng.</span></p>
@@ -1291,14 +1238,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-122" data-num="31" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Truyền thuyết về yêu quái rắn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Truyền thuyết về yêu quái rắn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 31</div>
         <h3>Truyền thuyết về yêu quái rắn</h3>
         <p class="story-ch-en">The Legend of the Snake Yokai</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trên đường tới Đền Singular Soul, chúng tôi nghe được truyền thuyết về Orochi từ đám tay sai rắn của ả.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trên đường tới Đền Singular Soul, Evan và Kyle bắt được một yêu quái rắn, và nó kể cho họ nghe về Orochi — con imugi bị phong ấn tại nơi đây.</p>
@@ -1344,14 +1289,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-123" data-num="32" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_4.webp" alt="Bóng tối rình rập" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_4.webp" alt="Bóng tối rình rập" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 32</div>
         <h3>Bóng tối rình rập</h3>
         <p class="story-ch-en">Lurking Darkness</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi Evan và Kyle tới Đền Singular Soul và xác nhận phong ấn của Orochi đã bị phá vỡ, họ bắt đầu truy đuổi ả để tìm Mảnh vỡ Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi nhóm của Evan tới Đền Singular Soul, nơi đây đã trở thành đống đổ nát.</p>
@@ -1384,14 +1327,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-124" data-num="33" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Dellons và Pascal nhập nhóm" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Dellons và Pascal nhập nhóm" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 33</div>
         <h3>Dellons và Pascal nhập nhóm</h3>
         <p class="story-ch-en">Dellons and Pascal Join the Party</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trên đường tới nơi mà yêu quái gấu trúc nói rằng họ có thể tìm thấy Yu, linh hồn của Leader Sword, Evan và Kyle tình cờ gặp Pascal và Dellons.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trên đường tới nơi mà yêu quái gấu trúc nói rằng họ có thể tìm thấy Yu, linh hồn của Leader Sword, Evan và Kyle tình cờ gặp Pascal và Dellons.</p>
@@ -1412,14 +1353,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-125" data-num="34" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Linh hồn hộ vệ của Leader Sword, Yu" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_1.webp" alt="Linh hồn hộ vệ của Leader Sword, Yu" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 34</div>
         <h3>Linh hồn hộ vệ của Leader Sword, Yu</h3>
         <p class="story-ch-en">Guardian Spirit of the Leader Sword, Yu</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dù Orochi đã cải trang thành người, Linh hồn hộ vệ của Leader Sword vẫn có thể tìm ra ả.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Họ tìm thấy một linh hồn cáo trắng ở nơi mà yêu quái gấu trúc đã nhắc tới.</p>
@@ -1460,14 +1399,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-126" data-num="35" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Phong ấn của Orochi" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Phong ấn của Orochi" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 35</div>
         <h3>Phong ấn của Orochi</h3>
         <p class="story-ch-en">Orochi&#x27;s Seal</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Họ đã có thể đánh bại Orochi nhờ sự giúp đỡ của Yu.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Orochi không có cơ hội nào trước Kyle khi ả còn trong trạng thái suy yếu.</p>
@@ -1484,14 +1421,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-127" data-num="36" data-ep="Tập 19 — Huyền thoại Orochi" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Dellons lộ bộ mặt thật" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Dellons lộ bộ mặt thật" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 19 — HUYỀN THOẠI OROCHI</div>
         <div class="story-ch-num">CHƯƠNG 36</div>
         <h3>Dellons lộ bộ mặt thật</h3>
         <p class="story-ch-en">Dellons Reveals His True Colors</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons đã lộ rõ ý đồ sau khi thu hồi Mảnh vỡ Hủy Diệt cuối cùng từ Orochi.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Kyle lấy lại Mảnh vỡ Hủy Diệt sau khi đánh bại Orochi. Orochi, giờ trong hình dạng một con rắn nhỏ, bị nhốt trong một chiếc lọ thủy tinh để ả không thể chạm tới Sức mạnh Hủy Diệt.</p>
@@ -1515,14 +1450,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-128" data-num="37" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Thoát khỏi Moonlit Isles" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Thoát khỏi Moonlit Isles" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 37</div>
         <h3>Thoát khỏi Moonlit Isles</h3>
         <p class="story-ch-en">Escape from the Moonlit Isles</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dù bị thương nặng bởi đòn tấn công bất ngờ của Dellons, Kyle đã có thể hoàn tất chuẩn bị rời khỏi Moonlit Isles nhờ sự giúp đỡ của Evan và bạn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Kyle bị thương nặng từ đòn tấn công của Dellons, nhưng anh ta vẫn hoàn tất được chuẩn bị rời khỏi Moonlit Isles nhờ sự giúp đỡ của Evan và bạn.</p>
@@ -1560,24 +1493,18 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
         </div>
       </div>
     </article>
-    <article class="story-ch story-page" id="ch-129" data-num="38" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Lời hứa của Kyle" loading="lazy">
-      <div class="story-ch-body">
-        <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
-        <div class="story-ch-num">CHƯƠNG 38</div>
-        <h3>Lời hứa của Kyle</h3>
-        <p class="story-ch-en">Kyle&#x27;s Promise</p>
-      </div>
-    </article>
     <article class="story-ch story-page" id="ch-130" data-num="39" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Bước vào chiến tranh" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Bước vào chiến tranh" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 39</div>
         <h3>Bước vào chiến tranh</h3>
         <p class="story-ch-en">Into War</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhóm của Evan đã tái hợp với Đoàn viễn chinh Silvesta.</p>
+        <div class="story-lead">
+          <div class="story-lead-tag">DẪN TRUYỆN · CHƯƠNG 38</div>
+          <h4>Lời hứa của Kyle</h4>
+          <p class="story-lead-en">Kyle&#x27;s Promise</p>
+        </div>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi tiễn Kyle đi, nhóm của Evan tìm thấy Silvesta và cập nhật tình hình cho anh.</p>
@@ -1600,14 +1527,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-131" data-num="40" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Karma, vị tướng bất bại" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Karma, vị tướng bất bại" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 40</div>
         <h3>Karma, vị tướng bất bại</h3>
         <p class="story-ch-en">Karma, the Undefeated General</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karma, vị tướng bất bại, được Hoàng đế Aisha cử tới gia nhập lực lượng của Waki.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi đó, một vị tướng được Hoàng đế Aisha cử tới đã đến doanh trại của Waki.</p>
@@ -1644,14 +1569,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-132" data-num="41" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Karma tham chiến" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Karma tham chiến" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 41</div>
         <h3>Karma tham chiến</h3>
         <p class="story-ch-en">Karma Enters the War</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Với việc Karma tham gia trận chiến, kết cục của cuộc chiến ở Moonlit Isles lại trở nên khó đoán.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trận chiến trở nên khốc liệt hơn khi Karma và quân của ông hỗ trợ lực lượng của Waki.</p>
@@ -1672,14 +1595,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-133" data-num="42" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Karma rút lui" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_8.webp" alt="Karma rút lui" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 42</div>
         <h3>Karma rút lui</h3>
         <p class="story-ch-en">Karma Retreats</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karma nhận ra rằng Ace sẽ sớm trưởng thành thành lãnh chúa dẫn dắt Moonlit Isles.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><button type="button" class="story-ava" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><span class="story-line-text"><b>Karma:</b> Ồ? Đó có phải là Ace, cậu bé mà các ngươi phục vụ? Cậu ta nhỏ hơn ta tưởng.</span></p>
@@ -1695,14 +1616,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-134" data-num="43" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_2.webp" alt="Thiên nga trắng nhuốm đen" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_2.webp" alt="Thiên nga trắng nhuốm đen" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 43</div>
         <h3>Thiên nga trắng nhuốm đen</h3>
         <p class="story-ch-en">White Swan Stained Black</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Lo lắng Teo có thể bị Sức mạnh Hủy Diệt nuốt chửng, Orly đã dùng ma thuật triệu hồi một thiên thạch khổng lồ hướng về Earth Gate.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Có lẽ vì trận chiến khốc liệt mà họ đã trải qua, Karin giật mình tỉnh giấc sau một cơn ác mộng. Evan quyết định đi dạo cùng cô để cô bình tĩnh lại.</p>
@@ -1748,14 +1667,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-135" data-num="44" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Lựa chọn của Karma" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Lựa chọn của Karma" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 44</div>
         <h3>Lựa chọn của Karma</h3>
         <p class="story-ch-en">Karma&#x27;s Choice</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karma đã cảm động khi Evan và Karin liều mạng để cứu người khác.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhóm của Evan tới lâu đài của Waki để cảnh báo họ về nguy hiểm sắp tới, nhưng các binh sĩ không tin họ.</p>
@@ -1804,14 +1721,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-136" data-num="45" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Lòng dũng cảm cứu kẻ thù" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Lòng dũng cảm cứu kẻ thù" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 45</div>
         <h3>Lòng dũng cảm cứu kẻ thù</h3>
         <p class="story-ch-en">Courage to Save the Enemy</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Waki tới sau và cố làm hại nhóm của Evan, nhưng sau khi chứng kiến hành động anh hùng của họ, binh sĩ của Karma đã từ chối tuân theo mệnh lệnh của hắn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khiên phòng thủ của Karin bảo vệ vô số người khỏi những mảnh vỡ của thiên thạch. Sau khi kiệt sức, Karin gục ngã và Karma tiến tới chỗ cô.</p>
@@ -1856,14 +1771,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-137" data-num="46" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Giá trị của Waki" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_09_2.webp" alt="Giá trị của Waki" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 46</div>
         <h3>Giá trị của Waki</h3>
         <p class="story-ch-en">Waki&#x27;s Worth</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi lấy Mảnh vỡ Hủy Diệt cuối cùng từ Waki, Dellons đã bỏ rơi Waki rồi rời đi. Waki đã bị lãnh chúa trẻ Ace giết chết.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi Karma rời đi, lực lượng của Waki suy giảm đáng kể, và cuối cùng lực lượng của Ace cũng tấn công Earth Gate.</p>
@@ -1901,14 +1814,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-138" data-num="47" data-ep="Tập 20 — Anh hùng trăm trận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_3.webp" alt="Kẻ đọc màn đêm" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_3.webp" alt="Kẻ đọc màn đêm" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 20 — ANH HÙNG TRĂM TRẬN</div>
         <div class="story-ch-num">CHƯƠNG 47</div>
         <h3>Kẻ đọc màn đêm</h3>
         <p class="story-ch-en">Reader of the Night</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi thu thập đủ các Mảnh vỡ Hủy Diệt, Dellons và Pascal hướng tới Ruins of the Ancients, sâu trong Misty Isle.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Dellons và Pascal rời khỏi lâu đài và hướng tới Ruins of the Ancients, sâu trong Misty Isle.</p>
@@ -1952,14 +1863,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-139" data-num="48" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Dù cuộc nổi loạn đã kết thúc..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_7.webp" alt="Dù cuộc nổi loạn đã kết thúc..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 48</div>
         <h3>Dù cuộc nổi loạn đã kết thúc...</h3>
         <p class="story-ch-en">Although the Rebellion is Over...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Cuộc nổi loạn ở Moonlit Isles đã kết thúc, nhưng Silvesta và nhóm của anh đã mất dấu Dellons và Pascal. Đúng lúc đó, Yuri của Shadow Clan xuất hiện.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Cuộc nổi loạn ở Moonlit Isles kết thúc, nhưng Silvesta và nhóm của anh đã mất dấu Dellons và Pascal. Đúng lúc đó, Yuri của Shadow Clan xuất hiện.</p>
@@ -1988,14 +1897,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-140" data-num="49" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_3.webp" alt="Quân đội của Dellons" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_3.webp" alt="Quân đội của Dellons" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 49</div>
         <h3>Quân đội của Dellons</h3>
         <p class="story-ch-en">Dellons&#x27;s Army</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons, sau khi khôi phục toàn bộ ký ức, ra lệnh cho Bane canh giữ tàn tích trong khi hắn thực hiện nghi lễ hồi sinh Thần Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bane" title="Bane"><img src="assets/hero-bane.webp" alt="Bane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="aquila" title="Aquila"><img src="assets/hero-aquila.webp" alt="Aquila" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong Ruins of the Ancients... Trong khi Pascal chuẩn bị phá bỏ phong ấn của Thần Hủy Diệt, Dellons, sau khi đã khôi phục toàn bộ ký ức, triệu tập thuộc hạ đáng tin cậy nhất của mình.</p>
@@ -2025,14 +1932,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-141" data-num="50" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_1.webp" alt="Thánh chiến sĩ mang dòng máu quỷ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_1.webp" alt="Thánh chiến sĩ mang dòng máu quỷ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 50</div>
         <h3>Thánh chiến sĩ mang dòng máu quỷ</h3>
         <p class="story-ch-en">The Crusader with Demon Blood</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bane đã đối đầu với Aquila, thủ lĩnh của Holy Cross Crusaders, người mang dòng máu của quỷ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="aquila" title="Aquila"><img src="assets/hero-aquila.webp" alt="Aquila" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bane" title="Bane"><img src="assets/hero-bane.webp" alt="Bane" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Vô số quân đoàn xác sống lao vào Aquila, nhưng không đòn tấn công nào của chúng có thể xuyên qua khiên của cô và làm cô bị thương.</p>
@@ -2049,14 +1954,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-142" data-num="51" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_1.webp" alt="Nếu chúng ta có cùng mục tiêu..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_1.webp" alt="Nếu chúng ta có cùng mục tiêu..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 51</div>
         <h3>Nếu chúng ta có cùng mục tiêu...</h3>
         <p class="story-ch-en">If We Share the Same Goal...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhóm của Silvesta và Aquila đều đang tìm kiếm các Mảnh vỡ Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="aquila" title="Aquila"><img src="assets/hero-aquila.webp" alt="Aquila" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Yuri và hai chị em dark elf dẫn nhóm của Silvesta tới Ruins of the Ancients.</p>
@@ -2091,14 +1994,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-143" data-num="52" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_2.webp" alt="Liên minh tạm thời để ngăn chặn Sức mạnh Hủy Diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_2.webp" alt="Liên minh tạm thời để ngăn chặn Sức mạnh Hủy Diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 52</div>
         <h3>Liên minh tạm thời để ngăn chặn Sức mạnh Hủy Diệt</h3>
         <p class="story-ch-en">A Temporary Alliance to Stop the Power of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Aquila đã câu giờ cho nhóm của Silvesta tiến vào tàn tích và ngăn chặn sự hồi sinh của Thần Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="aquila" title="Aquila"><img src="assets/hero-aquila.webp" alt="Aquila" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Một dòng quái vật từ Vực Thẳm không ngừng tuôn ra từ vết nứt không gian đang há miệng</p>
@@ -2145,14 +2046,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-144" data-num="53" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_2.webp" alt="Để ngăn chặn Sức mạnh Hủy Diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_2.webp" alt="Để ngăn chặn Sức mạnh Hủy Diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 53</div>
         <h3>Để ngăn chặn Sức mạnh Hủy Diệt</h3>
         <p class="story-ch-en">To Stop the Power of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Hắc Nguyệt không có dấu hiệu đóng lại, vì vậy Aquila đã giải phóng sức mạnh quỷ dữ đang chảy trong cơ thể mình để ngăn chặn nó.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="aquila" title="Aquila"><img src="assets/hero-aquila.webp" alt="Aquila" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Aquila hạ gục vô số quái vật từ Vực Thẳm, nhưng vết nứt không gian đã mở ra tiếp tục phun ra một dòng quái vật như nôn mửa.</p>
@@ -2181,14 +2080,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-145" data-num="54" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_7.webp" alt="Silvesta giúp Evan một tay" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_7.webp" alt="Silvesta giúp Evan một tay" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 54</div>
         <h3>Silvesta giúp Evan một tay</h3>
         <p class="story-ch-en">Silvesta Gives Evan a Hand</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan và Karin chật vật với năng lượng phát ra từ Ruins of the Ancients. Silvesta đã giúp họ vượt qua.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sâu trong Ruins of the Ancients là một nơi kỳ lạ với nhiều chiều không gian chồng chéo lên nhau.</p>
@@ -2214,14 +2111,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-146" data-num="55" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_4.webp" alt="Tôi có điều muốn nói..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_4.webp" alt="Tôi có điều muốn nói..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 55</div>
         <h3>Tôi có điều muốn nói...</h3>
         <p class="story-ch-en">I Have Something to Say...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khoảnh khắc Evan nắm lấy vòng cổ của Silvesta, ký ức của Evan đã tràn vào tâm trí Silvesta.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Bên trong Ruins of the Ancients là một không gian trải dài vô tận: bao la và sâu thẳm không thể lường được.</p>
@@ -2279,14 +2174,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-147" data-num="56" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_5.webp" alt="Giấc mơ của Sư phụ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_5.webp" alt="Giấc mơ của Sư phụ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 56</div>
         <h3>Giấc mơ của Sư phụ</h3>
         <p class="story-ch-en">Master&#x27;s Dream</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Pascal đã lên kế hoạch dùng sức mạnh của Thần Hủy Diệt để thực hiện giấc mơ của Silvesta về việc tạo ra một thế giới hòa bình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><button type="button" class="story-ava" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><span class="story-line-text"><b>Silvesta:</b> Dellons, Pascal! Dừng lại ngay!</span></p>
@@ -2312,14 +2205,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-148" data-num="57" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_4.webp" alt="Bóng tối giáng xuống" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_4.webp" alt="Bóng tối giáng xuống" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 57</div>
         <h3>Bóng tối giáng xuống</h3>
         <p class="story-ch-en">Descending Darkness</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhóm của Silvesta đã đứng lên chống lại Thần Hủy Diệt để cứu thế giới.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Kiếm thuật của Teo và Silvesta áp đảo Pascal và Dellons.</p>
@@ -2350,14 +2241,12 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-149" data-num="58" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_4.webp" alt="Chìa khóa của trận chiến này" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_4.webp" alt="Chìa khóa của trận chiến này" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 58</div>
         <h3>Chìa khóa của trận chiến này</h3>
         <p class="story-ch-en">The Key to This Fight</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Echo đã thông báo cho họ về chìa khóa cuối cùng, thứ có thể chấm dứt trận chiến.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Silvesta và Teo tiến về phía Thần Hủy Diệt. Đúng lúc đó, vòng cổ của Silvesta, thứ mà Evan đang mang, bắt đầu phát sáng.</p>
@@ -2389,28 +2278,24 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-150" data-num="59" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_5.webp" alt="Thần Hủy Diệt sụp đổ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_5.webp" alt="Thần Hủy Diệt sụp đổ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 59</div>
         <h3>Thần Hủy Diệt sụp đổ</h3>
         <p class="story-ch-en">Crumbling God of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Thần Hủy Diệt cuối cùng đã bị phá hủy bởi các đòn tấn công từ nhóm của Silvesta.</p>
         <div class="story-lines">
             <p class="story-line nar">Với một đòn tấn công toàn lực cuối cùng, Silvesta giải phóng chút sức mạnh cuối cùng của mình, và hình dáng khổng lồ của Thần Hủy Diệt sụp đổ.</p>
         </div>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-151" data-num="60" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_6.webp" alt="Lựa chọn của một người cha" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_11_6.webp" alt="Lựa chọn của một người cha" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
         <div class="story-ch-num">CHƯƠNG 60</div>
         <h3>Lựa chọn của một người cha</h3>
         <p class="story-ch-en">A Father&#x27;s Choice</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Silvesta đã nhờ Echo cứu Evan thay cho mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="silvesta" title="Silvesta"><img src="assets/hero-silvesta.webp" alt="Silvesta" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Thế giới đóng băng ngay khoảnh khắc Silvesta đẩy Evan ra và chạm tới Sức mạnh Hủy Diệt.</p>
@@ -2452,26 +2337,23 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
             <p class="story-line nar">Ngay trước khi vụ nổ khổng lồ nuốt chửng họ, những tia sáng từ vòng cổ chạm tới Evan, Karin và bạn. Giống như khi họ mới tới đây, ba người biến mất không một dấu vết.</p>
             <p class="story-line nar">Và rồi...</p>
         </div>
-      </div>
-    </article>
-    <article class="story-ch story-page" id="ch-152" data-num="61" data-ep="Tập 21 — Những người viết lại số phận" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_04_4.webp" alt="Vật mẫu 10114" loading="lazy">
-      <div class="story-ch-body">
-        <div class="story-ch-ep">TẬP 21 — NHỮNG NGƯỜI VIẾT LẠI SỐ PHẬN</div>
-        <div class="story-ch-num">CHƯƠNG 61</div>
-        <h3>Vật mẫu 10114</h3>
-        <p class="story-ch-en">Specimen 10114</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trong khi nghiên cứu hiện trường trận chiến của nhóm Silvesta và Thần Hủy Diệt, Mercure đã tìm thấy một bóng người nằm gục trên mặt đất.</p>
+        <div class="story-lead story-epilogue">
+          <div class="story-lead-tag">KẾT · CHƯƠNG 61</div>
+          <h4>Vật mẫu 10114</h4>
+          <p class="story-lead-en">Specimen 10114</p>
+          <p class="story-lead-text">Trong khi nghiên cứu hiện trường trận chiến của nhóm Silvesta và Thần Hủy Diệt, Mercure đã tìm thấy một bóng người nằm gục trên mặt đất.</p>
+        </div>
       </div>
     </article>
       </div>
-      <div class="story-controls"><button type="button" class="story-prev" disabled>← Chương trước</button><span class="story-progress">Chương 1 / 61 · Tập 15 — Đoàn thám hiểm của Silvesta</span><button type="button" class="story-next">Chương sau →</button></div>
+      <div class="story-controls"><button type="button" class="story-prev" disabled><span class="lbl-full">← Chương trước</span><span class="lbl-short">← Trước</span></button><span class="story-progress"><span class="story-progress-num">Chương 2 / 61</span> <span class="story-progress-ep">· Tập 15 — Đoàn thám hiểm của Silvesta</span></span><button type="button" class="story-next"><span class="lbl-full">Chương sau →</span><span class="lbl-short">Sau →</span></button></div>
     </div>
     <noscript><style>.story-page[hidden]{display:block!important}.story-controls,.story-toc-toggle{display:none!important}</style></noscript>
     <script>
-// Story reader: one chapter = one page, flip-book navigation.
-// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<id> deep link.
+// Story reader: one dialogue chapter = one page, flip-book navigation.
+// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<chapter id> deep link.
+// After every turn the reader scrolls back to the top of the book (the TOC
+// position) so the reading position is identical on every page.
 (function () {
   var reader = document.querySelector('.story-reader');
   if (!reader) return;
@@ -2480,14 +2362,11 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
   if (!pages.length) return;
   var prevBtn = reader.querySelector('.story-prev');
   var nextBtn = reader.querySelector('.story-next');
-  var prog = reader.querySelector('.story-progress');
+  var progNum = reader.querySelector('.story-progress-num');
+  var progEp = reader.querySelector('.story-progress-ep');
   var toc = reader.querySelector('.story-toc-panel');
   var tocBtn = reader.querySelector('.story-toc-toggle');
   var current = 0;
-
-  function label(i) {
-    return 'Chương ' + pages[i].dataset.num + ' / ' + pages.length + ' · ' + pages[i].dataset.ep;
-  }
 
   function show(i, dir, scroll) {
     if (i < 0) i = 0;
@@ -2495,19 +2374,21 @@ Lý do Teo sát cánh cùng Shiroda năm năm trước đâu chỉ vì họ là 
     pages.forEach(function (p, idx) { p.hidden = idx !== i; });
     if (dir) {
       book.classList.remove('turn-next', 'turn-prev');
-      void book.offsetWidth; // restart the flip animation
+      void book.offsetWidth; // restart the page-turn animation
       book.classList.add(dir > 0 ? 'turn-next' : 'turn-prev');
     }
     current = i;
-    prog.textContent = label(i);
+    progNum.textContent = 'Chương ' + pages[i].dataset.num + ' / ' + reader.dataset.total;
+    progEp.textContent = '· ' + pages[i].dataset.ep;
     prevBtn.disabled = i === 0;
     nextBtn.disabled = i === pages.length - 1;
     var cur = toc.querySelector('.toc-current');
     if (cur) cur.classList.remove('toc-current');
-    var btn = toc.querySelector('[data-goto="' + pages[i].id + '"]');
+    // highlight the host chapter button (lead-in buttons share its data-goto)
+    var btn = toc.querySelector('.toc-ch[data-goto="' + pages[i].id + '"]');
     if (btn) btn.classList.add('toc-current');
     try { history.replaceState(null, '', '#' + pages[i].id); } catch (e) { /* old browser */ }
-    if (scroll) book.scrollIntoView();
+    if (scroll) reader.scrollIntoView();
   }
 
   function go(d) { show(current + d, d, true); }

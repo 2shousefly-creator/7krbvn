@@ -2,8 +2,8 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f6f1">
-  <meta name="description" content="Cốt truyện Act 4 (The Shaman of Destruction): 91 chương với tóm tắt và hội thoại đầy đủ bằng tiếng Việt.">
-  <meta property="og:title" content="Act 4 — Pháp sư Hủy Diệt · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 4 — Pháp sư Hủy Diệt: 91 chương, tóm tắt và hội thoại đầy đủ."><meta property="og:type" content="website">
+  <meta name="description" content="Cốt truyện Act 4 (The Shaman of Destruction): 91 chương, hội thoại đầy đủ bằng tiếng Việt, đọc như lật sách.">
+  <meta property="og:title" content="Act 4 — Pháp sư Hủy Diệt · Cốt truyện | 7K RBVN"><meta property="og:description" content="Act 4 — Pháp sư Hủy Diệt: 91 chương, hội thoại đầy đủ."><meta property="og:type" content="website">
   <title>Act 4 — Pháp sư Hủy Diệt · Cốt truyện | 7K RBVN</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='23' width='100' height='100' fill='%23192033'/%3E%3Ctext x='50' y='69' font-size='55' text-anchor='middle' fill='%23e8c16c' font-family='Arial' font-weight='bold'%3E7K%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles-v3.css"><link rel="stylesheet" href="blog.css"><link rel="stylesheet" href="site-nav.css"><link rel="stylesheet" href="heroes.css">
@@ -26,8 +26,12 @@
   .story-ch-num{font-size:10px;font-weight:800;letter-spacing:.1em;color:#ac8844}
   .story-ch-body h3{font-size:21.6px;margin:6px 0 2px}
   .story-ch-en{font-size:12px;color:#959aa4;margin:0 0 10px}
-  .story-sum-label{font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin:0 0 4px}
-  .story-summary{font-size:16.8px;line-height:1.7;color:#5f6675;margin:0 0 12px}
+  .story-lead{border:1px dashed #d7be89;border-radius:12px;background:#fbf8ef;padding:14px 16px;margin:0 0 14px}
+  .story-lead-tag{font-size:10px;font-weight:800;letter-spacing:.1em;color:#9b772f;margin-bottom:4px}
+  .story-lead h4{font-size:18px;margin:0 0 2px}
+  .story-lead-en{font-size:12px;color:#959aa4;margin:0 0 8px}
+  .story-lead-text{font-size:15.6px;line-height:1.7;color:#5f6675;margin:0}
+  .story-epilogue{margin:14px 0 0}
   .story-chars{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px}
   .story-chars>span{font-size:11px;font-weight:800;letter-spacing:.06em;color:#959aa4;margin-right:2px}
   .story-char{width:44px;height:44px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;cursor:pointer}
@@ -38,6 +42,9 @@
   .story-line b{color:#353c4c}
   .story-line-text{flex:1;min-width:0}
   .story-line.nar{padding-left:50px;font-style:italic;color:#858b96}
+  .story-line.sys{display:block;text-align:center;border:1px solid #e9e8e3;border-radius:12px;background:#f9f7f2;padding:12px 16px}
+  .story-sys-tag{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;color:#959aa4;margin-bottom:4px}
+  .story-line.sys .story-line-text{font-style:normal;color:#9b772f}
   .story-ava{flex:0 0 40px;width:40px;height:40px;padding:0;border:2px solid #eee9df;border-radius:50%;overflow:hidden;background:#f9f7f2;margin-top:2px}
   button.story-ava{cursor:pointer}
   button.story-ava:hover{border-color:#d7be89}
@@ -46,7 +53,7 @@
   .story-act-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px;flex-wrap:wrap}
   .story-act-nav a{font-weight:800;color:#9b772f;font-size:14.4px}
   .story-act-nav a:hover{text-decoration:underline}
-  .story-reader{margin:0 0 10px}
+  .story-reader{margin:0 0 10px;scroll-margin-top:150px}
   .story-toc-toggle{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:12px 16px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;margin:0 0 12px}
   .story-toc-toggle:hover{border-color:#d7be89}
   .story-toc-panel{max-height:60vh;overflow:auto;border:1px solid #e9e8e3;border-radius:14px;background:#fff;padding:14px 16px;margin:0 0 14px}
@@ -55,18 +62,21 @@
   .story-toc-panel [data-goto]{display:block;width:100%;text-align:left;background:none;border:0;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:14.4px;color:#4a5160}
   .story-toc-panel [data-goto]:hover{background:#f7f1e4}
   .story-toc-panel [data-goto].toc-current{background:#f7f1e4;font-weight:800;color:#9b772f}
-  .story-book{perspective:1400px;padding-bottom:24px}
-  .story-book.turn-next .story-page{animation:page-next .45s ease;transform-origin:left center}
-  .story-book.turn-prev .story-page{animation:page-prev .45s ease;transform-origin:right center}
-  @keyframes page-next{from{opacity:0;transform:rotateY(16deg) translateX(40px)}to{opacity:1;transform:none}}
-  @keyframes page-prev{from{opacity:0;transform:rotateY(-16deg) translateX(-40px)}to{opacity:1;transform:none}}
+  .story-toc-panel [data-goto].toc-lead{font-size:13.5px;color:#858b96;font-style:italic;padding-left:20px}
+  .story-book{padding-bottom:24px}
+  .story-book.turn-next .story-page{animation:page-next .32s ease-out}
+  .story-book.turn-prev .story-page{animation:page-prev .32s ease-out}
+  @keyframes page-next{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes page-prev{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
   .story-controls{position:sticky;bottom:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fffdf8f2;border:1px solid #e9e8e3;border-radius:14px;padding:10px 12px;margin:14px 0 0;box-shadow:0 -6px 24px #20263814}
   .story-controls button{border:1px solid #e9e8e3;background:#fff;border-radius:10px;padding:9px 14px;font-size:14.4px;font-weight:800;color:#9b772f;cursor:pointer;white-space:nowrap}
   .story-controls button:hover:not(:disabled){border-color:#d7be89}
   .story-controls button:disabled{opacity:.4;cursor:default}
+  .story-controls .lbl-short{display:none}
   .story-progress{font-size:13px;font-weight:800;color:#9b772f;text-align:center;flex:1;min-width:0}
+  .back-to-top{bottom:88px}
   @media (prefers-reduced-motion:reduce){.story-book.turn-next .story-page,.story-book.turn-prev .story-page{animation:none}}
-  @media(max-width:680px){.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-summary{font-size:15.6px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-progress{font-size:12px}}
+  @media(max-width:680px){.story-reader{scroll-margin-top:130px}.act-grid{grid-template-columns:1fr;gap:10px}.act-card-body{padding:16px}.act-card h3{font-size:18px}.story-ch-body{padding:14px 14px 16px}.story-ch-body h3{font-size:18px}.story-line{font-size:15px}.story-line.nar{padding-left:46px}.story-ava{flex-basis:36px;width:36px;height:36px}.story-char{width:38px;height:38px}.story-controls{padding:8px;gap:8px}.story-controls button{padding:8px 10px;font-size:13.5px}.story-controls .lbl-full{display:none}.story-controls .lbl-short{display:inline}.story-progress{font-size:12px}.story-progress-ep{display:none}.back-to-top{bottom:80px}}
   </style>
 </head>
 <body>
@@ -77,129 +87,122 @@
     <div class="breadcrumbs"><a href="index.html">Trang chủ</a><span>›</span><a href="cot-truyen.html">Cốt truyện</a><span>›</span><span>Act 4 — Pháp sư Hủy Diệt</span></div>
     <section class="blog-intro"><div class="blog-intro-copy"><span class="article-tag">CỐT TRUYỆN</span><div class="section-kicker">CỐT TRUYỆN · ACT 4</div><h1>Act 4 — Pháp sư Hủy Diệt</h1><p>Sau khi trở về dòng thời gian hiện tại, Evan và nhóm của mình phát hiện Asgar và Aisha đã rơi vào chiến tranh: Kris dẫn quân yêu quái xâm lược Moonlit Isles, còn Seven Knights Alliance tấn công Aisha để bắt Dellons. Trong khi Evan Expedition tái hợp và tìm cách ngăn chiến tranh, Karma lần theo dấu vết của Bai Jiao — kẻ dùng bùa chú, ác linh và thuốc độc để thao túng dân làng, thí nghiệm sức mạnh quỷ dữ và phục vụ âm mưu của Hoàng đế Pascal, người đã cấy năm Mảnh vỡ Hủy Diệt vào cơ thể mình. Lu Bu, sau khi từ chối chiến đấu vì hoàng đế, cuối cùng nhận lại danh hiệu Tứ Lãnh Chúa để chiến đấu vì người dân, còn các phe phái chạm trán nhau tại Crimson Canyon và Hoàng Cung. Cao trào của Act là khi Pascal hợp nhất các Mảnh vỡ, hóa thân thành Thần Hủy Diệt và khiến chiếc vòng cổ của Evan vỡ tan, Dark Knights xuất hiện, và Evan quyết định trở thành đệ tử của Teo để giành lại Karin — người được tiết lộ là pháp sư mang dòng máu cổ xưa, Shaman of Destruction.</p></div><div class="blog-intro-art" aria-hidden="true"><img src="assets/hero-evan.webp" alt="" loading="lazy"><img src="assets/hero-bai-jiao.webp" alt="" loading="lazy"></div></section>
 
-    <div class="story-reader" data-act="4">
+    <div class="story-reader" data-act="4" data-total="91">
       <button type="button" class="story-toc-toggle" aria-expanded="false">☰ Mục lục — 91 chương</button>
       <div class="story-toc-panel" hidden>
         <h4>Tập 22 — Trở lại con đường của chúng ta</h4>
-        <button type="button" data-goto="ch-297">Chương 1 — Bước vào cột sáng, một lần nữa</button>
-        <button type="button" data-goto="ch-298">Chương 2 — Bị nhầm là gián điệp</button>
-        <button type="button" data-goto="ch-299">Chương 3 — Kris, kẻ xâm lược Moonlit Isles</button>
-        <button type="button" data-goto="ch-300">Chương 4 — Tái ngộ Heavenia</button>
-        <button type="button" data-goto="ch-301">Chương 5 — Knox và Sarah</button>
-        <button type="button" data-goto="ch-302">Chương 6 — Tài đàm phán tệ hại</button>
-        <button type="button" data-goto="ch-303">Chương 7 — Hạm đội của Kris đổ bộ</button>
-        <button type="button" data-goto="ch-304">Chương 8 — Evan gặp Kris và Ace</button>
-        <button type="button" data-goto="ch-305">Chương 9 — Kris đấu Ace</button>
-        <button type="button" data-goto="ch-306">Chương 10 — Dellons và Pascal</button>
-        <button type="button" data-goto="ch-307">Chương 11 — Bai Jiao đánh thức Orochi</button>
-        <button type="button" data-goto="ch-308">Chương 12 — Quái vật bất tử</button>
-        <button type="button" data-goto="ch-309">Chương 13 — Kẻ phá rối bất ngờ</button>
-        <button type="button" data-goto="ch-310">Chương 14 — Đoàn Evan Expedition tái hợp</button>
-        <button type="button" data-goto="ch-311">Chương 15 — Giữa xưa và nay</button>
-        <button type="button" data-goto="ch-312">Chương 16 — Phối hợp vượt thời gian</button>
+        <button type="button" class="toc-lead" data-goto="ch-298">Chương 1 — Bước vào cột sáng, một lần nữa</button>
+        <button type="button" class="toc-ch" data-goto="ch-298">Chương 2 — Bị nhầm là gián điệp</button>
+        <button type="button" class="toc-ch" data-goto="ch-299">Chương 3 — Kris, kẻ xâm lược Moonlit Isles</button>
+        <button type="button" class="toc-ch" data-goto="ch-300">Chương 4 — Tái ngộ Heavenia</button>
+        <button type="button" class="toc-ch" data-goto="ch-301">Chương 5 — Knox và Sarah</button>
+        <button type="button" class="toc-ch" data-goto="ch-302">Chương 6 — Tài đàm phán tệ hại</button>
+        <button type="button" class="toc-ch" data-goto="ch-303">Chương 7 — Hạm đội của Kris đổ bộ</button>
+        <button type="button" class="toc-ch" data-goto="ch-304">Chương 8 — Evan gặp Kris và Ace</button>
+        <button type="button" class="toc-ch" data-goto="ch-305">Chương 9 — Kris đấu Ace</button>
+        <button type="button" class="toc-ch" data-goto="ch-306">Chương 10 — Dellons và Pascal</button>
+        <button type="button" class="toc-ch" data-goto="ch-307">Chương 11 — Bai Jiao đánh thức Orochi</button>
+        <button type="button" class="toc-ch" data-goto="ch-308">Chương 12 — Quái vật bất tử</button>
+        <button type="button" class="toc-ch" data-goto="ch-309">Chương 13 — Kẻ phá rối bất ngờ</button>
+        <button type="button" class="toc-ch" data-goto="ch-310">Chương 14 — Đoàn Evan Expedition tái hợp</button>
+        <button type="button" class="toc-ch" data-goto="ch-311">Chương 15 — Giữa xưa và nay</button>
+        <button type="button" class="toc-ch" data-goto="ch-312">Chương 16 — Phối hợp vượt thời gian</button>
         <h4>Tập 23 — Tường thành chìm trong lửa</h4>
-        <button type="button" data-goto="ch-341">Chương 17 — Tấn công Aisha</button>
-        <button type="button" data-goto="ch-342">Chương 18 — Con gái của Rồng xuất hiện</button>
-        <button type="button" data-goto="ch-343">Chương 19 — Lu Bu, người mạnh nhất Aisha</button>
-        <button type="button" data-goto="ch-344">Chương 20 — Bức thư của Diaochan</button>
-        <button type="button" data-goto="ch-345">Chương 21 — Lu Bu đơn độc xung phong</button>
-        <button type="button" data-goto="ch-346">Chương 22 — Lu Bu gia nhập quân đội của Rin</button>
-        <button type="button" data-goto="ch-347">Chương 23 — Karma điều tra Bai Jiao</button>
-        <button type="button" data-goto="ch-348">Chương 24 — Karma Kẻ Xé Xác</button>
-        <button type="button" data-goto="ch-349">Chương 25 — Những người bảo vệ làng, Mao Song và Ling Ling</button>
-        <button type="button" data-goto="ch-350">Chương 26 — Tà khí trong làng</button>
-        <button type="button" data-goto="ch-351">Chương 27 — Karma thách đấu Sun Wukong</button>
-        <button type="button" data-goto="ch-352">Chương 28 — Bai Jiao rút lui</button>
+        <button type="button" class="toc-ch" data-goto="ch-341">Chương 17 — Tấn công Aisha</button>
+        <button type="button" class="toc-ch" data-goto="ch-342">Chương 18 — Con gái của Rồng xuất hiện</button>
+        <button type="button" class="toc-ch" data-goto="ch-343">Chương 19 — Lu Bu, người mạnh nhất Aisha</button>
+        <button type="button" class="toc-ch" data-goto="ch-344">Chương 20 — Bức thư của Diaochan</button>
+        <button type="button" class="toc-ch" data-goto="ch-345">Chương 21 — Lu Bu đơn độc xung phong</button>
+        <button type="button" class="toc-ch" data-goto="ch-346">Chương 22 — Lu Bu gia nhập quân đội của Rin</button>
+        <button type="button" class="toc-ch" data-goto="ch-347">Chương 23 — Karma điều tra Bai Jiao</button>
+        <button type="button" class="toc-ch" data-goto="ch-348">Chương 24 — Karma Kẻ Xé Xác</button>
+        <button type="button" class="toc-ch" data-goto="ch-349">Chương 25 — Những người bảo vệ làng, Mao Song và Ling Ling</button>
+        <button type="button" class="toc-ch" data-goto="ch-350">Chương 26 — Tà khí trong làng</button>
+        <button type="button" class="toc-ch" data-goto="ch-351">Chương 27 — Karma thách đấu Sun Wukong</button>
+        <button type="button" class="toc-ch" data-goto="ch-352">Chương 28 — Bai Jiao rút lui</button>
         <h4>Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!</h4>
-        <button type="button" data-goto="ch-353">Chương 29 — Những người bị tẩy não</button>
-        <button type="button" data-goto="ch-354">Chương 30 — Karin thanh tẩy sức mạnh quỷ dữ</button>
-        <button type="button" data-goto="ch-355">Chương 31 — Trả thù cho dân làng</button>
-        <button type="button" data-goto="ch-356">Chương 32 — Những người được giải thoát</button>
-        <button type="button" data-goto="ch-357">Chương 33 — Những ác quỷ báo thù trong ngôi đền</button>
-        <button type="button" data-goto="ch-358">Chương 34 — Karma gặp các Thập tự quân</button>
-        <button type="button" data-goto="ch-359">Chương 35 — Ác quỷ trong ngôi đền</button>
-        <button type="button" data-goto="ch-360">Chương 36 — Evan gặp Karma</button>
-        <button type="button" data-goto="ch-361">Chương 37 — Bai Jiao nghiên cứu sức mạnh quỷ dữ</button>
-        <button type="button" data-goto="ch-362">Chương 38 — Thuốc của Bai Jiao</button>
-        <button type="button" data-goto="ch-363">Chương 39 — Bai Jiao thu hồi sức mạnh quỷ dữ</button>
-        <button type="button" data-goto="ch-364">Chương 40 — Holy Cross Crusaders ủng hộ Evan</button>
-        <button type="button" data-goto="ch-365">Chương 41 — Ta sẽ trở thành kẻ hèn nhát</button>
-        <button type="button" data-goto="ch-366">Chương 42 — Dù không phải Tứ Lãnh Chúa</button>
-        <button type="button" data-goto="ch-367">Chương 43 — Tứ Lãnh Chúa Lu Bu trở lại</button>
-        <button type="button" data-goto="ch-368">Chương 44 — Danh hiệu Tứ Lãnh Chúa</button>
-        <button type="button" data-goto="ch-369">Chương 45 — Tướng quân của Hoàng đế</button>
+        <button type="button" class="toc-ch" data-goto="ch-353">Chương 29 — Những người bị tẩy não</button>
+        <button type="button" class="toc-ch" data-goto="ch-354">Chương 30 — Karin thanh tẩy sức mạnh quỷ dữ</button>
+        <button type="button" class="toc-ch" data-goto="ch-355">Chương 31 — Trả thù cho dân làng</button>
+        <button type="button" class="toc-ch" data-goto="ch-356">Chương 32 — Những người được giải thoát</button>
+        <button type="button" class="toc-ch" data-goto="ch-357">Chương 33 — Những ác quỷ báo thù trong ngôi đền</button>
+        <button type="button" class="toc-ch" data-goto="ch-358">Chương 34 — Karma gặp các Thập tự quân</button>
+        <button type="button" class="toc-ch" data-goto="ch-359">Chương 35 — Ác quỷ trong ngôi đền</button>
+        <button type="button" class="toc-ch" data-goto="ch-360">Chương 36 — Evan gặp Karma</button>
+        <button type="button" class="toc-ch" data-goto="ch-361">Chương 37 — Bai Jiao nghiên cứu sức mạnh quỷ dữ</button>
+        <button type="button" class="toc-ch" data-goto="ch-362">Chương 38 — Thuốc của Bai Jiao</button>
+        <button type="button" class="toc-ch" data-goto="ch-363">Chương 39 — Bai Jiao thu hồi sức mạnh quỷ dữ</button>
+        <button type="button" class="toc-ch" data-goto="ch-364">Chương 40 — Holy Cross Crusaders ủng hộ Evan</button>
+        <button type="button" class="toc-ch" data-goto="ch-365">Chương 41 — Ta sẽ trở thành kẻ hèn nhát</button>
+        <button type="button" class="toc-ch" data-goto="ch-366">Chương 42 — Dù không phải Tứ Lãnh Chúa</button>
+        <button type="button" class="toc-ch" data-goto="ch-367">Chương 43 — Tứ Lãnh Chúa Lu Bu trở lại</button>
+        <button type="button" class="toc-ch" data-goto="ch-368">Chương 44 — Danh hiệu Tứ Lãnh Chúa</button>
+        <button type="button" class="toc-ch" data-goto="ch-369">Chương 45 — Tướng quân của Hoàng đế</button>
         <h4>Tập 25 — Rắc rối ở Aisha</h4>
-        <button type="button" data-goto="ch-390">Chương 46 — Eileene và Rachel tiến về Hẻm núi Đỏ Thẫm</button>
-        <button type="button" data-goto="ch-391">Chương 47 — Chiến thắng trong tầm tay của Eileene và Rachel</button>
-        <button type="button" data-goto="ch-392">Chương 48 — Lời thuyết phục của Karma</button>
-        <button type="button" data-goto="ch-393">Chương 49 — Seven Knights tập hợp</button>
-        <button type="button" data-goto="ch-394">Chương 50 — Chúa tể của quái vật băng</button>
-        <button type="button" data-goto="ch-395">Chương 51 — Vì đại cục</button>
-        <button type="button" data-goto="ch-396">Chương 52 — Con khỉ kỳ diệu</button>
-        <button type="button" data-goto="ch-397">Chương 53 — Evan và Seven Knights đoàn tụ</button>
+        <button type="button" class="toc-ch" data-goto="ch-390">Chương 46 — Eileene và Rachel tiến về Hẻm núi Đỏ Thẫm</button>
+        <button type="button" class="toc-ch" data-goto="ch-391">Chương 47 — Chiến thắng trong tầm tay của Eileene và Rachel</button>
+        <button type="button" class="toc-ch" data-goto="ch-392">Chương 48 — Lời thuyết phục của Karma</button>
+        <button type="button" class="toc-ch" data-goto="ch-393">Chương 49 — Seven Knights tập hợp</button>
+        <button type="button" class="toc-ch" data-goto="ch-394">Chương 50 — Chúa tể của quái vật băng</button>
+        <button type="button" class="toc-ch" data-goto="ch-395">Chương 51 — Vì đại cục</button>
+        <button type="button" class="toc-ch" data-goto="ch-396">Chương 52 — Con khỉ kỳ diệu</button>
+        <button type="button" class="toc-ch" data-goto="ch-397">Chương 53 — Evan và Seven Knights đoàn tụ</button>
         <h4>Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung</h4>
-        <button type="button" data-goto="ch-399">Chương 54 — Năng lượng bao quanh hoàng cung</button>
-        <button type="button" data-goto="ch-400">Chương 55 — Eileene chặn Sun Wukong</button>
-        <button type="button" data-goto="ch-401">Chương 56 — Jave ra trận!</button>
-        <button type="button" data-goto="ch-402">Chương 57 — Rudy và Rachel chặn Lu Bu</button>
-        <button type="button" data-goto="ch-403">Chương 58 — Kris và Ace cuối cùng cũng đến</button>
-        <button type="button" data-goto="ch-404">Chương 59 — Karma tham chiến</button>
-        <button type="button" data-goto="ch-405">Chương 60 — Một sát thủ xoay chuyển cục diện</button>
-        <button type="button" data-goto="ch-406">Chương 61 — Đoàn tụ với Kyle</button>
-        <button type="button" data-goto="ch-407">Chương 62 — Spike đối đầu Bai Jiao</button>
-        <button type="button" data-goto="ch-408">Chương 63 — Thiên nga trắng trên chiến trường</button>
-        <button type="button" data-goto="ch-409">Chương 64 — Bai Jiao bị đánh bại</button>
+        <button type="button" class="toc-ch" data-goto="ch-399">Chương 54 — Năng lượng bao quanh hoàng cung</button>
+        <button type="button" class="toc-ch" data-goto="ch-400">Chương 55 — Eileene chặn Sun Wukong</button>
+        <button type="button" class="toc-ch" data-goto="ch-401">Chương 56 — Jave ra trận!</button>
+        <button type="button" class="toc-ch" data-goto="ch-402">Chương 57 — Rudy và Rachel chặn Lu Bu</button>
+        <button type="button" class="toc-ch" data-goto="ch-403">Chương 58 — Kris và Ace cuối cùng cũng đến</button>
+        <button type="button" class="toc-ch" data-goto="ch-404">Chương 59 — Karma tham chiến</button>
+        <button type="button" class="toc-ch" data-goto="ch-405">Chương 60 — Một sát thủ xoay chuyển cục diện</button>
+        <button type="button" class="toc-ch" data-goto="ch-406">Chương 61 — Đoàn tụ với Kyle</button>
+        <button type="button" class="toc-ch" data-goto="ch-407">Chương 62 — Spike đối đầu Bai Jiao</button>
+        <button type="button" class="toc-ch" data-goto="ch-408">Chương 63 — Thiên nga trắng trên chiến trường</button>
+        <button type="button" class="toc-ch" data-goto="ch-409">Chương 64 — Bai Jiao bị đánh bại</button>
         <h4>Tập 27 — Anh hùng tụ hội tại Hoàng cung</h4>
-        <button type="button" data-goto="ch-444">Chương 65 — Sun Wukong và chiếc vòng vàng</button>
-        <button type="button" data-goto="ch-445">Chương 66 — Linh cảm chẳng lành của Karin</button>
-        <button type="button" data-goto="ch-446">Chương 67 — Đoàn thám hiểm Evan bị bao vây</button>
-        <button type="button" data-goto="ch-447">Chương 68 — Teo gặp Evan</button>
-        <button type="button" data-goto="ch-448">Chương 69 — Đúng như dự đoán, kẻ chủ mưu là...</button>
-        <button type="button" data-goto="ch-449">Chương 70 — Evan, hình ảnh phản chiếu của Silvesta</button>
-        <button type="button" data-goto="ch-450">Chương 71 — Khi không còn Silvesta hay Yeonhee...</button>
-        <button type="button" data-goto="ch-451">Chương 72 — Sun Wukong được giải thoát</button>
-        <button type="button" data-goto="ch-452">Chương 73 — Tai họa từ thiên đường</button>
-        <button type="button" data-goto="ch-453">Chương 74 — Cuộc vật lộn của Đoàn thám hiểm Evan</button>
-        <button type="button" data-goto="ch-454">Chương 75 — Đoàn thám hiểm Evan: Kết thúc cuộc vật lộn</button>
+        <button type="button" class="toc-ch" data-goto="ch-444">Chương 65 — Sun Wukong và chiếc vòng vàng</button>
+        <button type="button" class="toc-ch" data-goto="ch-445">Chương 66 — Linh cảm chẳng lành của Karin</button>
+        <button type="button" class="toc-ch" data-goto="ch-446">Chương 67 — Đoàn thám hiểm Evan bị bao vây</button>
+        <button type="button" class="toc-ch" data-goto="ch-447">Chương 68 — Teo gặp Evan</button>
+        <button type="button" class="toc-ch" data-goto="ch-448">Chương 69 — Đúng như dự đoán, kẻ chủ mưu là...</button>
+        <button type="button" class="toc-ch" data-goto="ch-449">Chương 70 — Evan, hình ảnh phản chiếu của Silvesta</button>
+        <button type="button" class="toc-ch" data-goto="ch-450">Chương 71 — Khi không còn Silvesta hay Yeonhee...</button>
+        <button type="button" class="toc-ch" data-goto="ch-451">Chương 72 — Sun Wukong được giải thoát</button>
+        <button type="button" class="toc-lead" data-goto="ch-453">Chương 73 — Tai họa từ thiên đường</button>
+        <button type="button" class="toc-ch" data-goto="ch-453">Chương 74 — Cuộc vật lộn của Đoàn thám hiểm Evan</button>
+        <button type="button" class="toc-ch" data-goto="ch-454">Chương 75 — Đoàn thám hiểm Evan: Kết thúc cuộc vật lộn</button>
         <h4>Tập 28 — Pháp sư Hủy Diệt</h4>
-        <button type="button" data-goto="ch-472">Chương 76 — Điều Bai Jiao mong muốn</button>
-        <button type="button" data-goto="ch-473">Chương 77 — Vu nữ của Dòng máu Cổ xưa</button>
-        <button type="button" data-goto="ch-474">Chương 78 — Rudy và Jave đến Thánh địa Bóng Tối</button>
-        <button type="button" data-goto="ch-475">Chương 79 — Giọng nói vang vọng</button>
-        <button type="button" data-goto="ch-476">Chương 80 — Không gian dệt bằng phép thuật</button>
-        <button type="button" data-goto="ch-477">Chương 81 — Karin, Vu nữ Hủy Diệt</button>
-        <button type="button" data-goto="ch-478">Chương 82 — Bai Jiao, kẻ từ bỏ nhân tính</button>
-        <button type="button" data-goto="ch-479">Chương 83 — Bai Jiao, hòa làm một với quỷ dữ</button>
-        <button type="button" data-goto="ch-480">Chương 84 — Người sẽ phán xét Bai Jiao</button>
-        <button type="button" data-goto="ch-481">Chương 85 — Quyết tâm của Hoàng đế</button>
-        <button type="button" data-goto="ch-482">Chương 86 — Pascal làm chủ Sức mạnh Hủy Diệt</button>
-        <button type="button" data-goto="ch-483">Chương 87 — Đứa con của Trời muốn trở thành Trời</button>
-        <button type="button" data-goto="ch-484">Chương 88 — Ý chí bị vấy bẩn</button>
-        <button type="button" data-goto="ch-485">Chương 89 — Chiếc vòng cổ vỡ tan</button>
-        <button type="button" data-goto="ch-486">Chương 90 — Dark Knights ra trận!</button>
-        <button type="button" data-goto="ch-487">Chương 91 — Để đưa Karin trở lại...</button>
+        <button type="button" class="toc-ch" data-goto="ch-472">Chương 76 — Điều Bai Jiao mong muốn</button>
+        <button type="button" class="toc-ch" data-goto="ch-473">Chương 77 — Vu nữ của Dòng máu Cổ xưa</button>
+        <button type="button" class="toc-ch" data-goto="ch-474">Chương 78 — Rudy và Jave đến Thánh địa Bóng Tối</button>
+        <button type="button" class="toc-ch" data-goto="ch-475">Chương 79 — Giọng nói vang vọng</button>
+        <button type="button" class="toc-ch" data-goto="ch-476">Chương 80 — Không gian dệt bằng phép thuật</button>
+        <button type="button" class="toc-ch" data-goto="ch-477">Chương 81 — Karin, Vu nữ Hủy Diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-478">Chương 82 — Bai Jiao, kẻ từ bỏ nhân tính</button>
+        <button type="button" class="toc-ch" data-goto="ch-479">Chương 83 — Bai Jiao, hòa làm một với quỷ dữ</button>
+        <button type="button" class="toc-ch" data-goto="ch-480">Chương 84 — Người sẽ phán xét Bai Jiao</button>
+        <button type="button" class="toc-ch" data-goto="ch-481">Chương 85 — Quyết tâm của Hoàng đế</button>
+        <button type="button" class="toc-ch" data-goto="ch-482">Chương 86 — Pascal làm chủ Sức mạnh Hủy Diệt</button>
+        <button type="button" class="toc-ch" data-goto="ch-483">Chương 87 — Đứa con của Trời muốn trở thành Trời</button>
+        <button type="button" class="toc-ch" data-goto="ch-484">Chương 88 — Ý chí bị vấy bẩn</button>
+        <button type="button" class="toc-ch" data-goto="ch-485">Chương 89 — Chiếc vòng cổ vỡ tan</button>
+        <button type="button" class="toc-ch" data-goto="ch-486">Chương 90 — Dark Knights ra trận!</button>
+        <button type="button" class="toc-ch" data-goto="ch-487">Chương 91 — Để đưa Karin trở lại...</button>
       </div>
       <div class="story-book">
-    <article class="story-ch story-page" id="ch-297" data-num="1" data-ep="Tập 22 — Trở lại con đường của chúng ta">
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_3.webp" alt="Bước vào cột sáng, một lần nữa" loading="lazy">
-      <div class="story-ch-body">
-        <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
-        <div class="story-ch-num">CHƯƠNG 1</div>
-        <h3>Bước vào cột sáng, một lần nữa</h3>
-        <p class="story-ch-en">Into the Pillar of Light, Again</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan, người đang dùng sức mạnh của chiếc vòng cổ để kìm hãm Sức mạnh Hủy Diệt, một lần nữa bị bao phủ bởi một luồng sáng bí ẩn.</p>
-      </div>
-    </article>
-    <article class="story-ch story-page" id="ch-298" data-num="2" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_3.webp" alt="Bị nhầm là gián điệp" loading="lazy">
+    <article class="story-ch story-page" id="ch-298" data-num="2" data-ep="Tập 22 — Trở lại con đường của chúng ta">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_3.webp" alt="Bị nhầm là gián điệp" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 2</div>
         <h3>Bị nhầm là gián điệp</h3>
         <p class="story-ch-en">Mistaken as Spies</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Nhờ sự giúp đỡ của Daisy, cả nhóm đã tránh được việc bị nhầm là gián điệp của Asgar.</p>
+        <div class="story-lead">
+          <div class="story-lead-tag">DẪN TRUYỆN · CHƯƠNG 1</div>
+          <h4>Bước vào cột sáng, một lần nữa</h4>
+          <p class="story-lead-en">Into the Pillar of Light, Again</p>
+          <p class="story-lead-text">Evan, người đang dùng sức mạnh của chiếc vòng cổ để kìm hãm Sức mạnh Hủy Diệt, một lần nữa bị bao phủ bởi một luồng sáng bí ẩn.</p>
+        </div>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Binh sĩ của Ace tấn công Evan dữ dội, nhưng không thể phá vỡ tấm khiên của cậu.</p>
@@ -217,14 +220,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-299" data-num="3" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_3.webp" alt="Kris, kẻ xâm lược Moonlit Isles" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_3.webp" alt="Kris, kẻ xâm lược Moonlit Isles" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 3</div>
         <h3>Kris, kẻ xâm lược Moonlit Isles</h3>
         <p class="story-ch-en">Kris, Invader of the Moonlit Isles</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Kris của Seven Knights đã xâm lược Moonlit Isles. Nhóm của Evan quyết định gặp Kris để đánh giá tình hình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi gặp Daisy, nhóm của Evan nhận ra đã rất nhiều thời gian trôi qua kể từ ngày Thần Hủy Diệt bị ngăn chặn.</p>
@@ -244,14 +245,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-300" data-num="4" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_2.webp" alt="Tái ngộ Heavenia" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_2.webp" alt="Tái ngộ Heavenia" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 4</div>
         <h3>Tái ngộ Heavenia</h3>
         <p class="story-ch-en">Reunion With Heavenia</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi gặp Heavenia, Evan đã có thể nghe những gì đã xảy ra. Heavenia rời đi, hứa sẽ quay lại cùng những người bạn từ Evan Expedition.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lúc nhóm của Evan đang chiến đấu xuyên qua đội quân quái vật, một nữ chiến binh valkyrie với đôi cánh xanh xuất hiện cùng một cơn lốc gió.</p>
@@ -284,14 +283,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-301" data-num="5" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Knox và Sarah" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Knox và Sarah" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 5</div>
         <h3>Knox và Sarah</h3>
         <p class="story-ch-en">Knox and Sarah</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi cuộc xâm lược Moonlit Isles diễn ra khó khăn hơn dự kiến, Knox và Sarah quyết định gặp Ace để chấm dứt mọi chuyện.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sarah" title="Sarah"><img src="assets/hero-sarah.webp" alt="Sarah" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="knox" title="Knox"><img src="assets/hero-knox.webp" alt="Knox" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi đó, Knox và Sarah xâm lược Moonlit Isles với một đội quân quái vật khổng lồ. Tuy nhiên, vì gặp phải sự kháng cự mạnh mẽ, cuộc xâm lược đang khó khăn hơn dự kiến.</p>
@@ -317,14 +314,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-302" data-num="6" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Tài đàm phán tệ hại" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_9.webp" alt="Tài đàm phán tệ hại" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 6</div>
         <h3>Tài đàm phán tệ hại</h3>
         <p class="story-ch-en">Terrible Negotiation Skills</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sarah đến đàm phán với Ace nhưng chỉ khiến hắn tức giận bằng kỹ năng đàm phán tệ hại của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sarah" title="Sarah"><img src="assets/hero-sarah.webp" alt="Sarah" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="knox" title="Knox"><img src="assets/hero-knox.webp" alt="Knox" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sarah và Knox đề nghị Ace đầu hàng.</p>
@@ -362,14 +357,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-303" data-num="7" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Hạm đội của Kris đổ bộ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Hạm đội của Kris đổ bộ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 7</div>
         <h3>Hạm đội của Kris đổ bộ</h3>
         <p class="story-ch-en">Kris&#x27;s Fleet Lands</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Hạm đội của Kris chở theo đội quân quái vật của hắn bắt đầu cập bến bờ biển phía tây của Thunder Basin.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Quân đội của Ace thiết lập tuyến phòng thủ quanh bến cảng để ngăn hạm đội của Kris đổ bộ.</p>
@@ -388,14 +381,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-304" data-num="8" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Evan gặp Kris và Ace" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Evan gặp Kris và Ace" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 8</div>
         <h3>Evan gặp Kris và Ace</h3>
         <p class="story-ch-en">Evan Meets Kris and Ace</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan gặp Kris và Ace và yêu cầu họ dừng cuộc chiến.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đến khi nhóm của Evan đến phía tây Thunder Basin để gặp Kris, quái vật thủy sinh đã đổ bộ và trận chiến đang diễn ra ác liệt.</p>
@@ -429,14 +420,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-305" data-num="9" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Kris đấu Ace" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Kris đấu Ace" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 9</div>
         <h3>Kris đấu Ace</h3>
         <p class="story-ch-en">Kris vs. Ace</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Ace và Kris quyết định giải quyết cuộc chiến bằng một trận đấu tay đôi.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Một lúc sau, Ace dẫn một nhóm nhỏ binh sĩ từ Moonlight Guards và tấn công doanh trại của Kris.</p>
@@ -462,14 +451,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-306" data-num="10" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Dellons và Pascal" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Dellons và Pascal" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 10</div>
         <h3>Dellons và Pascal</h3>
         <p class="story-ch-en">Dellons With Pascal</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Đúng lúc trận đấu tay đôi giữa Kris và Ace kết thúc, một người đàn ông bí ẩn xuất hiện.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Kiếm thuật của Tứ Lãnh Chúa Ace thật đáng kinh ngạc, nhưng vẫn hơi kém so với Seven Knight Kris.</p>
@@ -502,14 +489,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-307" data-num="11" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Bai Jiao đánh thức Orochi" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Bai Jiao đánh thức Orochi" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 11</div>
         <h3>Bai Jiao đánh thức Orochi</h3>
         <p class="story-ch-en">Bai Jiao Awakens Orochi</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bai Jiao gọi Orochi ra từ cơ thể của Kagura và tấn công Kris và Ace.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kagura" title="Kagura"><img src="assets/hero-kagura.webp" alt="Kagura" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi Evan thuyết phục Kris và Ace đồng ý dừng cuộc chiến, một người đàn ông mặc đồng phục quan chức đột nhiên xuất hiện.</p>
@@ -542,14 +527,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-308" data-num="12" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Quái vật bất tử" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Quái vật bất tử" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 12</div>
         <h3>Quái vật bất tử</h3>
         <p class="story-ch-en">Immortal Monster</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Orochi, giờ đã thức tỉnh, khiến toàn bộ Moonlit Isle gặp nguy hiểm khi triệu hồi các thuộc hạ của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Các đòn tấn công thông thường đều vô dụng trước Orochi.</p>
@@ -570,14 +553,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-309" data-num="13" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Kẻ phá rối bất ngờ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_10_1.webp" alt="Kẻ phá rối bất ngờ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 13</div>
         <h3>Kẻ phá rối bất ngờ</h3>
         <p class="story-ch-en">Unexpected Nuisance</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sun Wukong dùng các phân thân của mình để đánh lạc hướng Kris và Ace rồi trốn thoát cùng Bai Jiao.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Kagura xuất hiện, bất tỉnh, tại nơi Orochi ngã xuống.</p>
@@ -603,14 +584,12 @@
       </div>
     </article>
     <article class="story-ch story-page" id="ch-310" data-num="14" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_4.webp" alt="Đoàn Evan Expedition tái hợp" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_08_4.webp" alt="Đoàn Evan Expedition tái hợp" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 14</div>
         <h3>Đoàn Evan Expedition tái hợp</h3>
         <p class="story-ch-en">Evan Expedition Reunited</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan Expedition, đoàn tụ trở lại, lên đường đến Aisha để gặp tướng Karma đáng tin cậy.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="daisy" title="Daisy"><img src="assets/hero-daisy.webp" alt="Daisy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kagura" title="Kagura"><img src="assets/hero-kagura.webp" alt="Kagura" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jupy" title="Jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ariel" title="Ariel"><img src="assets/hero-ariel.webp" alt="Ariel" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Ace và Kris đánh bại vô số phân thân của Sun Wukong, nhưng bản gốc đã trốn thoát cùng Bai Jiao.</p>
@@ -664,14 +643,12 @@ Tuy nhiên, ta không chắc lãnh chúa Ace có chấp nhận không.</span></p
       </div>
     </article>
     <article class="story-ch story-page" id="ch-311" data-num="15" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Giữa xưa và nay" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Giữa xưa và nay" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 15</div>
         <h3>Giữa xưa và nay</h3>
         <p class="story-ch-en">Between Then and Now</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trên đường đi gặp Karma, Evan Expedition đã đoàn tụ bắt đầu chia sẻ những gì đã xảy ra trong thời gian họ xa nhau.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jupy" title="Jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trên đường đi gặp Karma, Evan Expedition bắt đầu trò chuyện.</p>
@@ -700,14 +677,12 @@ Tuy nhiên, ta không chắc lãnh chúa Ace có chấp nhận không.</span></p
       </div>
     </article>
     <article class="story-ch story-page" id="ch-312" data-num="16" data-ep="Tập 22 — Trở lại con đường của chúng ta" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Phối hợp vượt thời gian" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Phối hợp vượt thời gian" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 22 — TRỞ LẠI CON ĐƯỜNG CỦA CHÚNG TA</div>
         <div class="story-ch-num">CHƯƠNG 16</div>
         <h3>Phối hợp vượt thời gian</h3>
         <p class="story-ch-en">Timeless Teamwork</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan Expedition chiến đấu cùng nhau chống lại quái vật. Dù đã lâu không gặp, sự phối hợp của họ vẫn hoàn hảo.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ariel" title="Ariel"><img src="assets/hero-ariel.webp" alt="Ariel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Lần đầu tiên sau một thời gian dài, Evan Expedition lại đứng cùng nhau chiến đấu với quái vật.</p>
@@ -729,14 +704,12 @@ Tuy nhiên, ta không chắc lãnh chúa Ace có chấp nhận không.</span></p
       </div>
     </article>
     <article class="story-ch story-page" id="ch-341" data-num="17" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_5.webp" alt="Tấn công Aisha" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_5.webp" alt="Tấn công Aisha" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 17</div>
         <h3>Tấn công Aisha</h3>
         <p class="story-ch-en">Storming Aisha</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Cuộc xung đột giữa Asgar và Aisha giờ đã không thể tránh khỏi. Các chỉ huy của cả hai phe đều quyết tâm giành chiến thắng.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="zhao-yun" title="Zhao Yun"><img src="assets/hero-zhao-yun.webp" alt="Zhao Yun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="guan-yu" title="Guan Yu"><img src="assets/hero-guan-yu.webp" alt="Guan Yu" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Gương thần của Nữ hoàng Lania vận chuyển toàn bộ quân đội hùng hậu của Seven Knights Alliance đến Aisha trong chớp mắt.</p>
@@ -778,14 +751,12 @@ Thay vào đó, chúng ta sẽ hạ pháo đài mạnh nhất của hắn trư�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-342" data-num="18" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_7.webp" alt="Con gái của Rồng xuất hiện" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_7.webp" alt="Con gái của Rồng xuất hiện" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 18</div>
         <h3>Con gái của Rồng xuất hiện</h3>
         <p class="story-ch-en">Arrival of the Daughter of Dragons</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Để cứu lực lượng Aisha đang gặp khó khăn, Rin, Con gái của Rồng và một trong Tứ Lãnh Chúa, đã tham chiến.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="aragon" title="Aragon"><img src="assets/hero-aragon.webp" alt="Aragon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rook" title="Rook"><img src="assets/hero-rook.webp" alt="Rook" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="chancellor" title="Chancellor"><img src="assets/hero-chancellor.webp" alt="Chancellor" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="zhao-yun" title="Zhao Yun"><img src="assets/hero-zhao-yun.webp" alt="Zhao Yun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="guan-yu" title="Guan Yu"><img src="assets/hero-guan-yu.webp" alt="Guan Yu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Dù Guan Yu và Zhao Yun kháng cự quyết liệt, lực lượng Aisha vẫn không thể đẩy lùi sức mạnh áp đảo của Seven Knights.</p>
@@ -831,14 +802,12 @@ ngay khi Endless Rampart sụp đổ.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-343" data-num="19" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Lu Bu, người mạnh nhất Aisha" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Lu Bu, người mạnh nhất Aisha" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 19</div>
         <h3>Lu Bu, người mạnh nhất Aisha</h3>
         <p class="story-ch-en">Lu Bu, Aisha&#x27;s Strongest</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trên đường đi gặp Diaochan, Lu Bu gặp đội đặc nhiệm của Seven Knights và nghiền nát họ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rook" title="Rook"><img src="assets/hero-rook.webp" alt="Rook" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="aragon" title="Aragon"><img src="assets/hero-aragon.webp" alt="Aragon" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi Seven Knights phát động cuộc tấn công vào Aisha, Lu Bu của Tứ Lãnh Chúa lên đường về quê hương.</p>
@@ -885,14 +854,12 @@ Người dân địa phương ở đây đang sợ hãi.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-344" data-num="20" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Bức thư của Diaochan" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_1.webp" alt="Bức thư của Diaochan" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 20</div>
         <h3>Bức thư của Diaochan</h3>
         <p class="story-ch-en">A Message from Diaochan</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi Lu Bu đến nhà của Diaochan, hắn chỉ được chào đón bởi một bức thư duy nhất.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="aragon" title="Aragon"><img src="assets/hero-aragon.webp" alt="Aragon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rook" title="Rook"><img src="assets/hero-rook.webp" alt="Rook" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sức mạnh của Lu Bu thật đáng kinh ngạc. Aragon chiến đấu dữ dội, nhưng cuối cùng phải chịu một vết thương nghiêm trọng.</p>
@@ -927,14 +894,12 @@ Người dân địa phương ở đây đang sợ hãi.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-345" data-num="21" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_7.webp" alt="Lu Bu đơn độc xung phong" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_7.webp" alt="Lu Bu đơn độc xung phong" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 21</div>
         <h3>Lu Bu đơn độc xung phong</h3>
         <p class="story-ch-en">Lu Bu, Solo Charge</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Lu Bu xông qua vô số binh sĩ của Seven Knights Alliance để đến gặp Diaochan.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="chancellor" title="Chancellor"><img src="assets/hero-chancellor.webp" alt="Chancellor" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="aragon" title="Aragon"><img src="assets/hero-aragon.webp" alt="Aragon" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rook" title="Rook"><img src="assets/hero-rook.webp" alt="Rook" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đến khi Lu Bu đến gần Endless Rampart để tìm Diaochan, khu vực này đã bị Seven Knights bao vây.</p>
@@ -964,14 +929,12 @@ Người dân địa phương ở đây đang sợ hãi.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-346" data-num="22" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Lu Bu gia nhập quân đội của Rin" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Lu Bu gia nhập quân đội của Rin" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 22</div>
         <h3>Lu Bu gia nhập quân đội của Rin</h3>
         <p class="story-ch-en">Lu Bu Joins Rin&#x27;s Military</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Lu Bu xông qua doanh trại của Seven Knights Alliance và chạy về phía doanh trại của Aisha.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="diaochan" title="Diaochan"><img src="assets/hero-diaochan.webp" alt="Diaochan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="guan-yu" title="Guan Yu"><img src="assets/hero-guan-yu.webp" alt="Guan Yu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="zhao-yun" title="Zhao Yun"><img src="assets/hero-zhao-yun.webp" alt="Zhao Yun" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Lu Bu xông qua quân đội của Seven Knights và cuối cùng gặp Diaochan tại doanh trại Aisha.</p>
@@ -997,14 +960,12 @@ Người dân địa phương ở đây đang sợ hãi.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-347" data-num="23" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Karma điều tra Bai Jiao" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Karma điều tra Bai Jiao" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 23</div>
         <h3>Karma điều tra Bai Jiao</h3>
         <p class="story-ch-en">Karma Investigates Bai Jiao</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trong khi điều tra những hành động đáng ngờ của Bai Jiao, Karma chạm trán các ác linh cải trang thành con người.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Karma cảm thấy có điều gì đó đáng ngờ về hành động của Bai Jiao và bắt đầu điều tra hắn. Ông phát hiện ra rằng trong sâu thẳm tối tăm của Prosperous Market, Bai Jiao đã thực hiện một cuộc trao đổi bí mật để lấy các vật phẩm phép thuật bị cấm như nấm điều khiển tâm trí và bùa nguyền triệu hồi ác linh.</p>
@@ -1025,14 +986,12 @@ Người dân địa phương ở đây đang sợ hãi.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-348" data-num="24" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Karma Kẻ Xé Xác" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Karma Kẻ Xé Xác" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 24</div>
         <h3>Karma Kẻ Xé Xác</h3>
         <p class="story-ch-en">Karma the Ripper</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karma Kẻ Xé Xác đến địa điểm mà kẻ buôn chợ đen đã nhắc đến để tiếp tục điều tra về Bai Jiao.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Các ác linh bị Karma đánh bại co lại thành một lá bùa. Ngay trước khi Karma kịp lấy nó, nó bốc cháy và tan thành tro bụi.</p>
@@ -1049,14 +1008,12 @@ Người dân địa phương ở đây đang sợ hãi.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-349" data-num="25" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_9.webp" alt="Những người bảo vệ làng, Mao Song và Ling Ling" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_9.webp" alt="Những người bảo vệ làng, Mao Song và Ling Ling" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 25</div>
         <h3>Những người bảo vệ làng, Mao Song và Ling Ling</h3>
         <p class="story-ch-en">Village Protectors, Mao Song and Ling Ling</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Mao Song và Ling Ling nghi ngờ Karma và thách đấu hắn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi chia tay Lu Bu, Ling Ling đến quê hương của mình, nhưng đường phố trống rỗng và một cảm giác bất an kỳ lạ khiến da cô nổi gai ốc.</p>
@@ -1086,14 +1043,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-350" data-num="26" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_9.webp" alt="Tà khí trong làng" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_9.webp" alt="Tà khí trong làng" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 26</div>
         <h3>Tà khí trong làng</h3>
         <p class="story-ch-en">The Village&#x27;s Sinister Energy</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Những lá bùa tà ác, được bán bởi kẻ buôn chợ đen, đã được dán khắp làng mà Karma đến.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Karma kiềm chế, dùng trận đấu để đánh giá khả năng của Ling Ling và Mao Song.</p>
@@ -1121,14 +1076,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-351" data-num="27" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_10.webp" alt="Karma thách đấu Sun Wukong" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_10.webp" alt="Karma thách đấu Sun Wukong" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 27</div>
         <h3>Karma thách đấu Sun Wukong</h3>
         <p class="story-ch-en">Karma Challenges Sun Wukong</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bai Jiao tấn công Karma bằng Sun Wukong để ngăn cản cuộc điều tra của hắn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi đến ngôi đền, Karma bắt đầu điều tra. Nhưng, đúng lúc đó, Bai Jiao xuất hiện.</p>
@@ -1152,14 +1105,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-352" data-num="28" data-ep="Tập 23 — Tường thành chìm trong lửa" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_10.webp" alt="Bai Jiao rút lui" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_10.webp" alt="Bai Jiao rút lui" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 23 — TƯỜNG THÀNH CHÌM TRONG LỬA</div>
         <div class="story-ch-num">CHƯƠNG 28</div>
         <h3>Bai Jiao rút lui</h3>
         <p class="story-ch-en">Bai Jiao Retreats</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Ngay cả khi Sun Wukong và Bai Jiao cùng chiến đấu, họ cũng không thể đánh bại Karma. Cuối cùng, họ đã rút lui bằng cách dùng các phân thân của Sun Wukong làm mồi nhử.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jupy" title="Jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Karma bị cây gậy khổng lồ của Sun Wukong đánh trúng, nhưng lập tức phản công, đánh trúng Sun Wukong.</p>
@@ -1206,14 +1157,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-353" data-num="29" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_11.webp" alt="Những người bị tẩy não" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_11.webp" alt="Những người bị tẩy não" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 29</div>
         <h3>Những người bị tẩy não</h3>
         <p class="story-ch-en">Brainwashed People</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Prosperous Market đầy những người bị tẩy não, và họ bắt đầu tấn công Evan Expedition.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jupy" title="Jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Evan Expedition đến Prosperous Market để gặp Karma.</p>
@@ -1242,14 +1191,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-354" data-num="30" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_11.webp" alt="Karin thanh tẩy sức mạnh quỷ dữ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_11.webp" alt="Karin thanh tẩy sức mạnh quỷ dữ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 30</div>
         <h3>Karin thanh tẩy sức mạnh quỷ dữ</h3>
         <p class="story-ch-en">Karin Purifies Demonic Power</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karin đã thanh tẩy những người bị tẩy não bởi sức mạnh quỷ dữ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Karin thành công trong việc thanh tẩy dân làng trong khi Evan Expedition bảo vệ cô.</p>
@@ -1271,14 +1218,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-355" data-num="31" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_12.webp" alt="Trả thù cho dân làng" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_12.webp" alt="Trả thù cho dân làng" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 31</div>
         <h3>Trả thù cho dân làng</h3>
         <p class="story-ch-en">Avenging the Villagers</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Mao Song và các hộ vệ, tin rằng Evan Expedition đã giết dân làng, bắt đầu đánh nhau.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Mao Song gặp Tsing Tao, một trong những người bảo vệ làng, và thảo luận về những hoạt động bất thường đang diễn ra trong làng.</p>
@@ -1301,14 +1246,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-356" data-num="32" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_12.webp" alt="Những người được giải thoát" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_12.webp" alt="Những người được giải thoát" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 32</div>
         <h3>Những người được giải thoát</h3>
         <p class="story-ch-en">Freed People</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi những người được giải thoát khỏi sự điều khiển tâm trí tỉnh dậy, Evan Expedition đã có thể ngừng chiến đấu với các hộ vệ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ling-ling" title="Ling Ling"><img src="assets/hero-ling-ling.webp" alt="Ling Ling" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sức mạnh của Evan Expedition thật đáng gờm, và các hộ vệ, do Mao Song và Tsing Tao dẫn đầu, không thể hạ gục họ.</p>
@@ -1341,14 +1284,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-357" data-num="33" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_14.webp" alt="Những ác quỷ báo thù trong ngôi đền" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_14.webp" alt="Những ác quỷ báo thù trong ngôi đền" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 33</div>
         <h3>Những ác quỷ báo thù trong ngôi đền</h3>
         <p class="story-ch-en">Vengeful Demons of the Temple</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Những ác quỷ ở ngôi đền là đối tượng thí nghiệm của Bai Jiao.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi Karma đến bên trong ngôi đền, nơi đó đầy ác linh.</p>
@@ -1369,14 +1310,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-358" data-num="34" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_10.webp" alt="Karma gặp các Thập tự quân" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_10.webp" alt="Karma gặp các Thập tự quân" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 34</div>
         <h3>Karma gặp các Thập tự quân</h3>
         <p class="story-ch-en">Karma Meets the Crusaders</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Shane và Espada cảm thấy nhẹ nhõm khi biết cũng có những người săn quỷ ở Aisha.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="shane" title="Shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="espada" title="Espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi đó, Holy Cross Crusaders đang điều tra ngôi đền, sau khi lần theo dấu vết sức mạnh quỷ dữ với thông tin từ Bai Jiao.</p>
@@ -1405,14 +1344,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-359" data-num="35" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_13.webp" alt="Ác quỷ trong ngôi đền" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_13.webp" alt="Ác quỷ trong ngôi đền" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 35</div>
         <h3>Ác quỷ trong ngôi đền</h3>
         <p class="story-ch-en">Demons of the Temple</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi nhóm của Evan đến ngôi đền để tìm Tướng quân Karma, họ thấy một vụ thảm sát đang diễn ra. Hàng loạt ác quỷ đang tàn sát người dân.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Theo chỉ dẫn của Mao Song, Evan Expedition đến ngôi đền mà họ được bảo là điểm đến của Tướng quân Karma.</p>
@@ -1428,14 +1365,12 @@ Nếu ngươi đến đây để gây rắc rối, ngươi sẽ phải đối m�
       </div>
     </article>
     <article class="story-ch story-page" id="ch-360" data-num="36" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_13.webp" alt="Evan gặp Karma" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_13.webp" alt="Evan gặp Karma" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 36</div>
         <h3>Evan gặp Karma</h3>
         <p class="story-ch-en">Evan Meets Karma</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan Expedition gặp Karma tại ngôi đền bị ác quỷ tràn ngập.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ariel" title="Ariel"><img src="assets/hero-ariel.webp" alt="Ariel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Evan Expedition sơ tán người dân khỏi những con quỷ xung quanh ngôi đền.</p>
@@ -1470,14 +1405,12 @@ giống như cậu, ta sẽ làm mọi thứ có thể để ngăn chặn một 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-361" data-num="37" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Bai Jiao nghiên cứu sức mạnh quỷ dữ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Bai Jiao nghiên cứu sức mạnh quỷ dữ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 37</div>
         <h3>Bai Jiao nghiên cứu sức mạnh quỷ dữ</h3>
         <p class="story-ch-en">Bai Jiao Studies Demonic Power</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Các Crusaders đã có thể kiểm soát sức mạnh quỷ dữ của mình dễ dàng hơn nhờ thuốc do Bai Jiao cung cấp.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="shane" title="Shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="espada" title="Espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Vài giờ trước cuộc gặp gỡ của Evan và Karma... Bai Jiao khảo sát những con quỷ xung quanh ngôi đền dưới sự bảo vệ của các Crusaders.</p>
@@ -1503,14 +1436,12 @@ giống như cậu, ta sẽ làm mọi thứ có thể để ngăn chặn một 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-362" data-num="38" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Thuốc của Bai Jiao" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_4.webp" alt="Thuốc của Bai Jiao" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 38</div>
         <h3>Thuốc của Bai Jiao</h3>
         <p class="story-ch-en">Bai Jiao&#x27;s Medicine</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Các Crusaders nghi ngờ Bai Jiao, người có thể dự đoán chính xác các đợt bùng phát quỷ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="shane" title="Shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="espada" title="Espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Shane và Espada tuân theo mệnh lệnh của Bai Jiao và tiêu diệt những con quỷ xung quanh ngôi đền.</p>
@@ -1529,14 +1460,12 @@ giống như cậu, ta sẽ làm mọi thứ có thể để ngăn chặn một 
       </div>
     </article>
     <article class="story-ch story-page" id="ch-363" data-num="39" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_14.webp" alt="Bai Jiao thu hồi sức mạnh quỷ dữ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_14.webp" alt="Bai Jiao thu hồi sức mạnh quỷ dữ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 39</div>
         <h3>Bai Jiao thu hồi sức mạnh quỷ dữ</h3>
         <p class="story-ch-en">Bai Jiao Retrieves Demonic Power</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Trong khi các Crusaders chiến đấu với quỷ, Bai Jiao bí mật thu hồi sức mạnh quỷ dữ từ ngôi đền.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="espada" title="Espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="shane" title="Shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi các Crusaders đang chiến đấu với quỷ, Bai Jiao thu hồi sức mạnh quỷ dữ từ ngôi đền.</p>
@@ -1575,14 +1504,12 @@ Công chúa không ở trong Hoàng Cung, mà đang ở Crimson Canyon sao?</spa
       </div>
     </article>
     <article class="story-ch story-page" id="ch-364" data-num="40" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_14.webp" alt="Holy Cross Crusaders ủng hộ Evan" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_14.webp" alt="Holy Cross Crusaders ủng hộ Evan" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 40</div>
         <h3>Holy Cross Crusaders ủng hộ Evan</h3>
         <p class="story-ch-en">Holy Cross Crusaders Support Evan</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi Bai Jiao biến mất, Shane và Espada hạ vũ khí và ủng hộ Evan Expedition.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="espada" title="Espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="shane" title="Shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Shane và Espada miễn cưỡng tuân theo mệnh lệnh của Bai Jiao và ngăn Evan Expedition đuổi theo Bai Jiao. Tuy nhiên, khi Bai Jiao đã khuất khỏi tầm mắt, họ ngừng chiến đấu.</p>
@@ -1618,14 +1545,12 @@ Cảnh báo họ về tình hình và ngăn chặn việc đổ máu vô tội.<
       </div>
     </article>
     <article class="story-ch story-page" id="ch-365" data-num="41" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_15.webp" alt="Ta sẽ trở thành kẻ hèn nhát" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_15.webp" alt="Ta sẽ trở thành kẻ hèn nhát" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 41</div>
         <h3>Ta sẽ trở thành kẻ hèn nhát</h3>
         <p class="story-ch-en">I Shall Become a Coward</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Rudy quyết tâm giành chiến thắng trong cuộc chiến này, ngay cả khi phải mang tiếng xấu là kẻ hèn nhát.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi đó, lực lượng Aisha tiếp tục chịu thiệt hại từ các cuộc tấn công phối hợp của Seven Knights Alliance. Từ trên cao, Rudy quan sát chiến trường và chỉ đạo chiến dịch.</p>
@@ -1651,14 +1576,12 @@ Cảnh báo họ về tình hình và ngăn chặn việc đổ máu vô tội.<
       </div>
     </article>
     <article class="story-ch story-page" id="ch-366" data-num="42" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Dù không phải Tứ Lãnh Chúa" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Dù không phải Tứ Lãnh Chúa" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 42</div>
         <h3>Dù không phải Tứ Lãnh Chúa</h3>
         <p class="story-ch-en">Although Not a Four Lord</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dưới sự lãnh đạo của Lu Bu, quân đội của Zhao Yun đã có thể rút lui mà không chịu tổn thất đáng kể.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="zhao-yun" title="Zhao Yun"><img src="assets/hero-zhao-yun.webp" alt="Zhao Yun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Ngay cả với sự can thiệp của Rudy, Lu Bu vẫn đột phá vòng vây khổng lồ của Seven Knights và đến bên cạnh Zhao Yun.</p>
@@ -1680,14 +1603,12 @@ Một khi họ chết, mọi chuyện kết thúc. Họ không thể trở lại
       </div>
     </article>
     <article class="story-ch story-page" id="ch-367" data-num="43" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Tứ Lãnh Chúa Lu Bu trở lại" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Tứ Lãnh Chúa Lu Bu trở lại" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 43</div>
         <h3>Tứ Lãnh Chúa Lu Bu trở lại</h3>
         <p class="story-ch-en">Return of the Four Lord Lu Bu</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Lu Bu đột phá lực lượng của Seven Knights và tiến về Hoàng Cung để lấy lại danh hiệu Tứ Lãnh Chúa của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="zhao-yun" title="Zhao Yun"><img src="assets/hero-zhao-yun.webp" alt="Zhao Yun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="guan-yu" title="Guan Yu"><img src="assets/hero-guan-yu.webp" alt="Guan Yu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Với Rudy yểm trợ cuộc rút lui của họ, Seven Knights Alliance rút lui mà không bị tổn hại. Lực lượng Aisha, bị thiệt hại nặng nề, không thể truy đuổi.</p>
@@ -1724,14 +1645,12 @@ Một khi họ chết, mọi chuyện kết thúc. Họ không thể trở lại
       </div>
     </article>
     <article class="story-ch story-page" id="ch-368" data-num="44" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Danh hiệu Tứ Lãnh Chúa" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Danh hiệu Tứ Lãnh Chúa" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 44</div>
         <h3>Danh hiệu Tứ Lãnh Chúa</h3>
         <p class="story-ch-en">Four Lords Title</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau buổi yết kiến hoàng đế, Lu Bu được phục chức Tứ Lãnh Chúa.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="guan-yu" title="Guan Yu"><img src="assets/hero-guan-yu.webp" alt="Guan Yu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi đó, Pascal và Dellons tổ chức một cuộc họp riêng trong Hoàng Cung của Aisha.</p>
@@ -1764,14 +1683,12 @@ Một khi họ chết, mọi chuyện kết thúc. Họ không thể trở lại
       </div>
     </article>
     <article class="story-ch story-page" id="ch-369" data-num="45" data-ep="Tập 24 — Tứ Lãnh Chúa Lu Bu trở lại!" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Tướng quân của Hoàng đế" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Tướng quân của Hoàng đế" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 24 — TỨ LÃNH CHÚA LU BU TRỞ LẠI!</div>
         <div class="story-ch-num">CHƯƠNG 45</div>
         <h3>Tướng quân của Hoàng đế</h3>
         <p class="story-ch-en">Emperor&#x27;s General</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Lu Bu quyết định chiến đấu, không phải vì hoàng đế, mà vì người dân.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><button type="button" class="story-ava" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><span class="story-line-text"><b>Pascal:</b> Ta thích quyết tâm của ngươi. Ngươi có thể nhận danh hiệu Tứ Lãnh Chúa! Dù là vì người dân hay vì danh dự của chính ngươi...</span></p>
@@ -1787,14 +1704,12 @@ Một khi họ chết, mọi chuyện kết thúc. Họ không thể trở lại
       </div>
     </article>
     <article class="story-ch story-page" id="ch-390" data-num="46" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_5.webp" alt="Eileene và Rachel tiến về Hẻm núi Đỏ Thẫm" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_5.webp" alt="Eileene và Rachel tiến về Hẻm núi Đỏ Thẫm" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 46</div>
         <h3>Eileene và Rachel tiến về Hẻm núi Đỏ Thẫm</h3>
         <p class="story-ch-en">Eileene and Rachel Head for the Crimson Canyon</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Đội lính đánh thuê Bình Minh của Eileene và các Hiệp sĩ Sa mạc Rực Lửa của Rachel tiến về Hẻm núi Đỏ Thẫm.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Pháo đài Hẻm núi Đỏ Thẫm.
@@ -1819,14 +1734,12 @@ Một khi họ chết, mọi chuyện kết thúc. Họ không thể trở lại
       </div>
     </article>
     <article class="story-ch story-page" id="ch-391" data-num="47" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Chiến thắng trong tầm tay của Eileene và Rachel" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Chiến thắng trong tầm tay của Eileene và Rachel" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 47</div>
         <h3>Chiến thắng trong tầm tay của Eileene và Rachel</h3>
         <p class="story-ch-en">Victory Within Reach for Eileene and Rachel</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Quân đội của Eileene và Rachel mở cuộc tấn công vào Pháo đài Hẻm núi Đỏ Thẫm.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Liên quân của Eileene và Rachel đã hoàn toàn áp đảo Pháo đài Hẻm núi Đỏ Thẫm.</p>
@@ -1858,14 +1771,12 @@ Một khi họ chết, mọi chuyện kết thúc. Họ không thể trở lại
       </div>
     </article>
     <article class="story-ch story-page" id="ch-392" data-num="48" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Lời thuyết phục của Karma" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_12_8.webp" alt="Lời thuyết phục của Karma" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 48</div>
         <h3>Lời thuyết phục của Karma</h3>
         <p class="story-ch-en">Karma&#x27;s Persuasion</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karma đứng ra giữa liên quân của Seven Knights và Rin, cầu xin họ ngừng chiến đấu.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Dù Rin và Mir liều mình giữ pháo đài, họ cũng không thể ngăn được dòng quân của Eileene và Rachel.</p>
@@ -1929,14 +1840,12 @@ Ta sẽ rút về hoàng cung cho đến khi hồi phục.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-393" data-num="49" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_1.webp" alt="Seven Knights tập hợp" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_1.webp" alt="Seven Knights tập hợp" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 49</div>
         <h3>Seven Knights tập hợp</h3>
         <p class="story-ch-en">The Seven Knights Assemble</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Lực lượng của Seven Knights bắt đầu tập hợp.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lúc đó, trên Đồng bằng Đỏ, quân của Rudy và Spike tập hợp lại.</p>
@@ -1955,14 +1864,12 @@ Ta sẽ rút về hoàng cung cho đến khi hồi phục.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-394" data-num="50" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Chúa tể của quái vật băng" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Chúa tể của quái vật băng" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 50</div>
         <h3>Chúa tể của quái vật băng</h3>
         <p class="story-ch-en">Master of the Ice Monsters</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Spike dẫn quân tinh linh băng giày xéo đại quân của Aisha. Lu Bu đứng chắn đường hắn.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="zhao-yun" title="Zhao Yun"><img src="assets/hero-zhao-yun.webp" alt="Zhao Yun" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="guan-yu" title="Guan Yu"><img src="assets/hero-guan-yu.webp" alt="Guan Yu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trên đường hành quân về kinh thành, đội tiên phong tinh linh băng của Spike chạm trán với quân đội Aisha.</p>
@@ -1988,14 +1895,12 @@ Ta sẽ rút về hoàng cung cho đến khi hồi phục.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-395" data-num="51" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Vì đại cục" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Vì đại cục" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 51</div>
         <h3>Vì đại cục</h3>
         <p class="story-ch-en">For the Greater Good</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Rudy thuyết phục Spike vì đại cục.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Spike chiến đấu với Lu Bu bằng tất cả sức lực, nhưng sức mạnh áp đảo của Lu Bu quá lớn để chịu đựng.</p>
@@ -2032,14 +1937,12 @@ Gah!
       </div>
     </article>
     <article class="story-ch story-page" id="ch-396" data-num="52" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Con khỉ kỳ diệu" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Con khỉ kỳ diệu" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 52</div>
         <h3>Con khỉ kỳ diệu</h3>
         <p class="story-ch-en">Wondrous Monkey</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sun Wukong, người đã chán chường cho đến giờ, nhìn thấy Eileene và háo hức tham gia trận chiến.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Cao trên bầu trời, một bóng đen đơn độc quan sát trận chiến của liên quân Seven Knights.</p>
@@ -2051,14 +1954,12 @@ Gah!
       </div>
     </article>
     <article class="story-ch story-page" id="ch-397" data-num="53" data-ep="Tập 25 — Rắc rối ở Aisha" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_3.webp" alt="Evan và Seven Knights đoàn tụ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_3.webp" alt="Evan và Seven Knights đoàn tụ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 25 — RẮC RỐI Ở AISHA</div>
         <div class="story-ch-num">CHƯƠNG 53</div>
         <h3>Evan và Seven Knights đoàn tụ</h3>
         <p class="story-ch-en">Evan and the Seven Knights, Reunited</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Đoàn thám hiểm của Evan đoàn tụ với Eileene và Rachel.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trận chiến giữa Sun Wukong và Eileene gần như bất phân thắng bại.</p>
@@ -2126,14 +2027,12 @@ Hôm nay dừng ở đây thôi.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-399" data-num="54" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_3.webp" alt="Năng lượng bao quanh hoàng cung" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_3.webp" alt="Năng lượng bao quanh hoàng cung" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 54</div>
         <h3>Năng lượng bao quanh hoàng cung</h3>
         <p class="story-ch-en">The Energy Surrounding the Palace</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Năng lượng đáng ngại tương tự như khi Thần Hủy Diệt được hồi sinh ở Quần đảo Ánh Trăng giờ đây bao quanh Hoàng Cung.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi gặp Seven Knights, Evan giải thích rằng năng lượng bao quanh hoàng cung giống hệt những gì cậu đã chứng kiến trong lúc Thần Hủy Diệt hồi sinh.</p>
@@ -2168,14 +2067,12 @@ Tôi sẽ ngăn chặn nó.</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-400" data-num="55" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_1.webp" alt="Eileene chặn Sun Wukong" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_1.webp" alt="Eileene chặn Sun Wukong" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 55</div>
         <h3>Eileene chặn Sun Wukong</h3>
         <p class="story-ch-en">Eileene Stops Sun Wukong</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Eileene đối mặt với Sun Wukong của Tứ Lãnh Chúa để mở đường cho Đoàn thám hiểm Evan.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đoàn thám hiểm Evan lao về phía Hoàng Cung.
@@ -2195,14 +2092,12 @@ Sun Wukong là người đầu tiên chặn đường họ.</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-401" data-num="56" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_1.webp" alt="Jave ra trận!" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_1.webp" alt="Jave ra trận!" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 56</div>
         <h3>Jave ra trận!</h3>
         <p class="story-ch-en">Jave Takes the Field!</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Đúng lúc Eileene bị các phân thân của Sun Wukong dồn vào đường cùng, Jave đã đến.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jave" title="Jave"><img src="assets/hero-jave.webp" alt="Jave" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đoàn thám hiểm Evan thoát ra an toàn trong khi Eileene cầm chân Sun Wukong.</p>
@@ -2222,14 +2117,12 @@ Sun Wukong là người đầu tiên chặn đường họ.</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-402" data-num="57" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_1.webp" alt="Rudy và Rachel chặn Lu Bu" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_1.webp" alt="Rudy và Rachel chặn Lu Bu" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 57</div>
         <h3>Rudy và Rachel chặn Lu Bu</h3>
         <p class="story-ch-en">Rudy and Rachel Stop Lu Bu</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Rudy và Rachel đối mặt với Lu Bu của Tứ Lãnh Chúa để mở đường cho Đoàn thám hiểm Evan.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đoàn thám hiểm Evan đã vượt qua cuộc tấn công của Sun Wukong nhờ sự giúp đỡ của Eileene và Jave rồi tiến về Hoàng Cung.</p>
@@ -2246,14 +2139,12 @@ Ngươi vẫn còn định cản đường chúng ta sao?</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-403" data-num="58" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_3.webp" alt="Kris và Ace cuối cùng cũng đến" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_3.webp" alt="Kris và Ace cuối cùng cũng đến" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 58</div>
         <h3>Kris và Ace cuối cùng cũng đến</h3>
         <p class="story-ch-en">Kris and Ace Finally Arrive</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Kris và Ace đã đến với phe của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ace" title="Ace"><img src="assets/hero-ace.webp" alt="Ace" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Rudy và Rachel hợp sức chống lại Lu Bu, nhưng hắn là một đối thủ khó nhằn.</p>
@@ -2293,14 +2184,12 @@ Ta biết ngươi cũng cảm nhận được!</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-404" data-num="59" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_2.webp" alt="Karma tham chiến" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_2.webp" alt="Karma tham chiến" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 59</div>
         <h3>Karma tham chiến</h3>
         <p class="story-ch-en">Karma Enters the War</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi Rin bị bắt làm con tin, Karma không còn lựa chọn nào khác ngoài chiến đấu.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Bai Jiao nhìn với vẻ không hài lòng khi sự xuất hiện của Ace và Kris khiến trận chiến trên Đồng bằng Long Trảo rơi vào bế tắc. Đúng lúc đó Karma xuất hiện trước mặt hắn.</p>
@@ -2337,14 +2226,12 @@ Ta biết ngươi cũng cảm nhận được!</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-405" data-num="60" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_4.webp" alt="Một sát thủ xoay chuyển cục diện" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_4.webp" alt="Một sát thủ xoay chuyển cục diện" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 60</div>
         <h3>Một sát thủ xoay chuyển cục diện</h3>
         <p class="story-ch-en">An Assassin to Turn the Tide</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi được Bai Jiao thuê, Kyle xuất hiện trên chiến trường.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Karma tuân theo mệnh lệnh của Bai Jiao để bảo vệ Rin, nhưng anh không hề có ý định thực sự cản đường Evan. Spike có thể cảm nhận được tâm trí anh đang ở nơi khác.</p>
@@ -2359,14 +2246,12 @@ Ta biết ngươi cũng cảm nhận được!</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-406" data-num="61" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_4.webp" alt="Đoàn tụ với Kyle" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_4.webp" alt="Đoàn tụ với Kyle" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 61</div>
         <h3>Đoàn tụ với Kyle</h3>
         <p class="story-ch-en">Reunion with Kyle</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dù nguy hiểm lớn, Kyle đã quyết định từ bỏ nhiệm vụ của Bai Jiao và giúp đỡ Đoàn thám hiểm Evan.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Lực từ việc chặn đòn tấn công của Kyle khiến vết thương của Spike từ trận chiến với Lu Bu trở nên nặng hơn.</p>
@@ -2397,14 +2282,12 @@ Ta biết ngươi cũng cảm nhận được!</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-407" data-num="62" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_5.webp" alt="Spike đối đầu Bai Jiao" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_5.webp" alt="Spike đối đầu Bai Jiao" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 62</div>
         <h3>Spike đối đầu Bai Jiao</h3>
         <p class="story-ch-en">Spike vs. Bai Jiao</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Spike bị thương nặng, nhưng anh một mình đối mặt với Bai Jiao để Đoàn thám hiểm Evan có thể đi qua.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Kyle và Karma rời khỏi tuyến đầu và đưa trận chiến của họ đi xa.</p>
@@ -2428,14 +2311,12 @@ Ta biết ngươi cũng cảm nhận được!</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-408" data-num="63" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_6.webp" alt="Thiên nga trắng trên chiến trường" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_6.webp" alt="Thiên nga trắng trên chiến trường" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 63</div>
         <h3>Thiên nga trắng trên chiến trường</h3>
         <p class="story-ch-en">White Swan on the Battlefield</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Orly đã phân tích được bùa quỷ của Bai Jiao.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="shane" title="Shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="espada" title="Espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi bùa chú tà ác của Bai Jiao lan rộng khắp Đồng bằng Long Trảo, các binh sĩ trở thành những kẻ cuồng chiến điên loạn.</p>
@@ -2461,14 +2342,12 @@ Ta biết ngươi cũng cảm nhận được!</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-409" data-num="64" data-ep="Tập 26 — Đoàn thám hiểm của Evan tiến về Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_6.webp" alt="Bai Jiao bị đánh bại" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_14_6.webp" alt="Bai Jiao bị đánh bại" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 26 — ĐOÀN THÁM HIỂM CỦA EVAN TIẾN VỀ HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 64</div>
         <h3>Bai Jiao bị đánh bại</h3>
         <p class="story-ch-en">Bai Jiao Defeated</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bị trọng thương bởi Thánh Thập Tự Quân, Bai Jiao chạy trốn về Hoàng Cung.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="espada" title="Espada"><img src="assets/hero-espada.webp" alt="Espada" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="shane" title="Shane"><img src="assets/hero-shane.webp" alt="Shane" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jave" title="Jave"><img src="assets/hero-jave.webp" alt="Jave" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Bai Jiao bị trọng thương bởi các đòn tấn công của các Thập Tự Quân.</p>
@@ -2519,14 +2398,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-444" data-num="65" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Sun Wukong và chiếc vòng vàng" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_2.webp" alt="Sun Wukong và chiếc vòng vàng" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 65</div>
         <h3>Sun Wukong và chiếc vòng vàng</h3>
         <p class="story-ch-en">Sun Wukong and the Golden Circlet</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Một người phụ nữ có cánh bí ẩn đã giải thoát chiếc vòng vàng khỏi đầu Sun Wukong.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi đoàn của Evan đột nhập vào Hoàng Cung với sự trợ giúp của Seven Knights, Tứ Lãnh Chúa Sun Wukong vẫn chưa xuất hiện trên chiến trường.</p>
@@ -2551,14 +2428,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-445" data-num="66" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_1.webp" alt="Linh cảm chẳng lành của Karin" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_1.webp" alt="Linh cảm chẳng lành của Karin" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 66</div>
         <h3>Linh cảm chẳng lành của Karin</h3>
         <p class="story-ch-en">Karin&#x27;s Ominous Feeling</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Càng đến gần Hoàng Cung, Karin càng cảm nhận được một sức mạnh đáng ngại. Tuy nhiên, điều này giúp cô dẫn đường cho các đồng đội đi đúng hướng.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi Seven Knights cầm chân Tứ Lãnh Chúa và Bai Jiao, đoàn thám hiểm của Evan tiến về Hoàng Cung. Nhưng càng đến gần nguồn sức mạnh, tình trạng của Karin càng trở nên tồi tệ.</p>
@@ -2584,14 +2459,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-446" data-num="67" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_1.webp" alt="Đoàn thám hiểm Evan bị bao vây" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_1.webp" alt="Đoàn thám hiểm Evan bị bao vây" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 67</div>
         <h3>Đoàn thám hiểm Evan bị bao vây</h3>
         <p class="story-ch-en">Evan&#x27;s Expedition Surrounded</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bị dồn vào đường cùng, đoàn thám hiểm của Evan rơi vào tình thế hiểm nghèo đến mức không thể xuyên qua tuyến địch trừ khi họ sẵn sàng giết chóc để mở đường.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ariel" title="Ariel"><img src="assets/hero-ariel.webp" alt="Ariel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đoàn thám hiểm của Evan đã cố tránh giao chiến khi có thể, nhưng giờ một nhóm binh sĩ đã bao vây họ.</p>
@@ -2613,14 +2486,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-447" data-num="68" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Teo gặp Evan" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Teo gặp Evan" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 68</div>
         <h3>Teo gặp Evan</h3>
         <p class="story-ch-en">Teo Meets Evan</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi gặp lại Evan, Teo lập tức cảm nhận được cậu là con trai của Silvesta.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jupy" title="Jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ariel" title="Ariel"><img src="assets/hero-ariel.webp" alt="Ariel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong khi Teo lao về phía trung tâm tòa thành, anh nhận thấy một nhóm binh sĩ đã bao vây một nhóm nhỏ.</p>
@@ -2659,14 +2530,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-448" data-num="69" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_6.webp" alt="Đúng như dự đoán, kẻ chủ mưu là..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_6.webp" alt="Đúng như dự đoán, kẻ chủ mưu là..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 69</div>
         <h3>Đúng như dự đoán, kẻ chủ mưu là...</h3>
         <p class="story-ch-en">As Expected, The Mastermind Is...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Dellons đã hợp lực với Pascal để thu thập Mảnh vỡ Hủy Diệt.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi đã vào trong Hoàng Cung, Teo lao về phía nơi anh cảm nhận được năng lượng đáng ngại.</p>
@@ -2683,14 +2552,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-449" data-num="70" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_6.webp" alt="Evan, hình ảnh phản chiếu của Silvesta" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_6.webp" alt="Evan, hình ảnh phản chiếu của Silvesta" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 70</div>
         <h3>Evan, hình ảnh phản chiếu của Silvesta</h3>
         <p class="story-ch-en">Evan, A Mirror of Silvesta</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Giống như Silvesta trước đây, Evan quyết tâm ngăn chặn Dellons và Pascal bằng sức mạnh của chiếc vòng cổ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><button type="button" class="story-ava" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><span class="story-line-text"><b>Teo:</b> Evan... Vậy là cậu đã đi được đến tận đây. Cậu thực sự đã chuẩn bị tinh thần để dính líu vào cuộc chiến này sao?</span></p>
@@ -2717,14 +2584,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-450" data-num="71" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_3.webp" alt="Khi không còn Silvesta hay Yeonhee..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_3.webp" alt="Khi không còn Silvesta hay Yeonhee..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 71</div>
         <h3>Khi không còn Silvesta hay Yeonhee...</h3>
         <p class="story-ch-en">Without Silvesta or Yeonhee...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khi Silvesta và Yeonhee đã không còn, Dellons không thể tưởng tượng được kế hoạch của mình có thể thất bại.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Đã rút sâu vào Thần Điện, Dellons tiến hành giai đoạn tiếp theo của kế hoạch.</p>
@@ -2752,14 +2617,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-451" data-num="72" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_7.webp" alt="Sun Wukong được giải thoát" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_7.webp" alt="Sun Wukong được giải thoát" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 72</div>
         <h3>Sun Wukong được giải thoát</h3>
         <p class="story-ch-en">Sun Wukong Unleashed</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Để đối mặt với Kyle, Sun Wukong đã tháo chiếc vòng vàng của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kyle" title="Kyle"><img src="assets/hero-kyle.webp" alt="Kyle" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi Karma rời khỏi chiến trường, Kyle tiến về Hoàng Thành để gặp lại Evan. Trên đường đi, anh nhận thấy một vết chém kiếm khắc trên mặt đất.</p>
@@ -2783,26 +2646,19 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
         </div>
       </div>
     </article>
-    <article class="story-ch story-page" id="ch-452" data-num="73" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_7.webp" alt="Tai họa từ thiên đường" loading="lazy">
-      <div class="story-ch-body">
-        <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
-        <div class="story-ch-num">CHƯƠNG 73</div>
-        <h3>Tai họa từ thiên đường</h3>
-        <p class="story-ch-en">Calamity From the Heavens</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi đánh bại Sun Wukong, Kyle bước vào Thánh địa Bóng Tối, nhưng nữ thần chiến binh Trude xuất hiện, giáng xuống từ thiên đường để chặn đường anh.</p>
-      </div>
-    </article>
     <article class="story-ch story-page" id="ch-453" data-num="74" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Cuộc vật lộn của Đoàn thám hiểm Evan" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Cuộc vật lộn của Đoàn thám hiểm Evan" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 74</div>
         <h3>Cuộc vật lộn của Đoàn thám hiểm Evan</h3>
         <p class="story-ch-en">The Evan Expedition&#x27;s Struggle</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sau khi đưa Evan và Karin đi trước, đoàn thám hiểm của Evan hợp sức để cầm chân binh sĩ Aisha.</p>
+        <div class="story-lead">
+          <div class="story-lead-tag">DẪN TRUYỆN · CHƯƠNG 73</div>
+          <h4>Tai họa từ thiên đường</h4>
+          <p class="story-lead-en">Calamity From the Heavens</p>
+          <p class="story-lead-text">Sau khi đánh bại Sun Wukong, Kyle bước vào Thánh địa Bóng Tối, nhưng nữ thần chiến binh Trude xuất hiện, giáng xuống từ thiên đường để chặn đường anh.</p>
+        </div>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yuri" title="Yuri"><img src="assets/hero-yuri.webp" alt="Yuri" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jupy" title="Jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ariel" title="Ariel"><img src="assets/hero-ariel.webp" alt="Ariel" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi đưa Evan và Karin đi trước, các thành viên còn lại của đoàn thám hiểm Evan hợp sức cầm chân binh sĩ Aisha.</p>
@@ -2832,14 +2688,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-454" data-num="75" data-ep="Tập 27 — Anh hùng tụ hội tại Hoàng cung" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Đoàn thám hiểm Evan: Kết thúc cuộc vật lộn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Đoàn thám hiểm Evan: Kết thúc cuộc vật lộn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 27 — ANH HÙNG TỤ HỘI TẠI HOÀNG CUNG</div>
         <div class="story-ch-num">CHƯƠNG 75</div>
         <h3>Đoàn thám hiểm Evan: Kết thúc cuộc vật lộn</h3>
         <p class="story-ch-en">Evan Expedition: The End of the Struggle</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Rudy và Jave đã giải cứu đoàn thám hiểm của Evan khỏi khoảnh khắc nguy cấp.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="jupy" title="Jupy"><img src="assets/hero-jupy.webp" alt="Jupy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="snipper" title="Snipper"><img src="assets/hero-snipper.webp" alt="Snipper" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="ariel" title="Ariel"><img src="assets/hero-ariel.webp" alt="Ariel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="heavenia" title="Heavenia"><img src="assets/hero-heavenia.webp" alt="Heavenia" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jave" title="Jave"><img src="assets/hero-jave.webp" alt="Jave" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Binh sĩ Aisha tiến lại gần, bao vây Đoàn thám hiểm Evan.</p>
@@ -2869,14 +2723,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-472" data-num="76" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Điều Bai Jiao mong muốn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_15_5.webp" alt="Điều Bai Jiao mong muốn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 76</div>
         <h3>Điều Bai Jiao mong muốn</h3>
         <p class="story-ch-en">What Bai Jiao Wished For</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bị những lời của Dellons quyến rũ, Bai Jiao đã ôm lấy sức mạnh quỷ dữ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="asura" title="Asura"><img src="assets/hero-asura.webp" alt="Asura" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Dù cơ thể đã tan nát sau trận chiến với Thánh Thập Tự Quân, Bai Jiao vẫn từ chối chết. Bị thúc đẩy bởi một nỗi ám ảnh duy nhất, hắn bám víu vào sự sống, tuyệt vọng muốn chứng kiến Thần Hủy Diệt giáng xuống cơ thể của Hoàng đế.</p>
@@ -2917,14 +2769,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-473" data-num="77" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Vu nữ của Dòng máu Cổ xưa" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Vu nữ của Dòng máu Cổ xưa" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 77</div>
         <h3>Vu nữ của Dòng máu Cổ xưa</h3>
         <p class="story-ch-en">Shaman of the Ancient Blood</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Asura nói Karin là một vu nữ mang dòng máu của người cổ xưa.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="asura" title="Asura"><img src="assets/hero-asura.webp" alt="Asura" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Jake cố gắng vận dụng sức mạnh của thánh địa để chống lại Teo, nhưng ngay cả vậy hắn vẫn hoàn toàn bị áp đảo.</p>
@@ -2953,14 +2803,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-474" data-num="78" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_1.webp" alt="Rudy và Jave đến Thánh địa Bóng Tối" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_1.webp" alt="Rudy và Jave đến Thánh địa Bóng Tối" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 78</div>
         <h3>Rudy và Jave đến Thánh địa Bóng Tối</h3>
         <p class="story-ch-en">Rudy and Jave Arrive at the Sanctuary of Darkness</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Lần theo dấu vết của Evan, Rudy và Jave bước vào Thánh địa Bóng Tối. Cả hai gặp phải các binh sĩ xác sống của Dellons.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jave" title="Jave"><img src="assets/hero-jave.webp" alt="Jave" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Lần theo dấu vết của Evan, Rudy và Jave đến được lối vào của Thánh địa Bóng Tối.</p>
@@ -2984,14 +2832,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-475" data-num="79" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Giọng nói vang vọng" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Giọng nói vang vọng" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 79</div>
         <h3>Giọng nói vang vọng</h3>
         <p class="story-ch-en">The Voice That Echoes</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sức mạnh Hủy Diệt cộng hưởng khiến Rudy và Jave càng mạnh hơn. Nhờ sức mạnh đó, Jave đã có thể lần ra vị trí của Evan.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jave" title="Jave"><img src="assets/hero-jave.webp" alt="Jave" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Rudy và Jave, những Seven Knights đầu tiên lên đường, giờ đã lạc trong Thánh địa Bóng Tối.</p>
@@ -3015,14 +2861,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-476" data-num="80" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Không gian dệt bằng phép thuật" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Không gian dệt bằng phép thuật" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 80</div>
         <h3>Không gian dệt bằng phép thuật</h3>
         <p class="story-ch-en">Magic-Woven Space</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Asura và Jake tấn công Seven Knights để ngăn họ lại.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="asura" title="Asura"><img src="assets/hero-asura.webp" alt="Asura" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Trong lúc đó, Orly, Kris, Rachel, Eileene và Spike cũng bước vào Thánh địa Bóng Tối.</p>
@@ -3038,14 +2882,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-477" data-num="81" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Karin, Vu nữ Hủy Diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Karin, Vu nữ Hủy Diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 81</div>
         <h3>Karin, Vu nữ Hủy Diệt</h3>
         <p class="story-ch-en">Karin, Shaman of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Teo cảnh báo Evan và Karin rằng vô số chiến binh hùng mạnh sẽ đến tìm kiếm sức mạnh của vu nữ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="spike" title="Spike"><img src="assets/hero-spike.webp" alt="Spike" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="asura" title="Asura"><img src="assets/hero-asura.webp" alt="Asura" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Kris, Rachel, Eileene, Spike và Orly khuất phục Jake.</p>
@@ -3102,14 +2944,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-478" data-num="82" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Bai Jiao, kẻ từ bỏ nhân tính" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Bai Jiao, kẻ từ bỏ nhân tính" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 82</div>
         <h3>Bai Jiao, kẻ từ bỏ nhân tính</h3>
         <p class="story-ch-en">Bai Jiao, Who Abandoned His Humanity</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Khao khát Sức mạnh Hủy Diệt và lòng ghen tị với Seven Knights đã khiến Bai Jiao ôm lấy sức mạnh quỷ dữ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Một vết rách trong không gian mở ra trước mặt Kris và các đồng đội, và Bai Jiao xuất hiện. Nhưng hắn không còn vẻ ngoài chỉnh tề như bình thường nữa. Có điều gì đó không ổn ở hắn.</p>
@@ -3129,14 +2969,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-479" data-num="83" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Bai Jiao, hòa làm một với quỷ dữ" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Bai Jiao, hòa làm một với quỷ dữ" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 83</div>
         <h3>Bai Jiao, hòa làm một với quỷ dữ</h3>
         <p class="story-ch-en">Bai Jiao, One With the Demon</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Bị sức mạnh quỷ dữ nuốt chửng, Bai Jiao trở thành một con quái vật mất hết lý trí.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rachel" title="Rachel"><img src="assets/hero-rachel.webp" alt="Rachel" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="eileene" title="Eileene"><img src="assets/hero-eileene.webp" alt="Eileene" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Sau khi hấp thụ sức mạnh quỷ dữ vượt quá giới hạn của mình, Bai Jiao áp đảo Seven Knights, những người vốn đã kiệt sức vì Sức mạnh Hủy Diệt.</p>
@@ -3156,14 +2994,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-480" data-num="84" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Người sẽ phán xét Bai Jiao" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_2.webp" alt="Người sẽ phán xét Bai Jiao" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 84</div>
         <h3>Người sẽ phán xét Bai Jiao</h3>
         <p class="story-ch-en">One Who Will Judge Bai Jiao</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Karma và Rin cuối cùng cũng tìm thấy Bai Jiao. Họ quyết tâm khiến hắn phải trả giá cho tất cả những gì hắn đã làm.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="orly" title="Orly"><img src="assets/hero-orly.webp" alt="Orly" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="bai-jiao" title="Bai Jiao"><img src="assets/hero-bai-jiao.webp" alt="Bai Jiao" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Nhưng vũ khí của Rin và Karma không chĩa vào Seven Knights, mà chĩa vào Bai Jiao.</p>
@@ -3184,14 +3020,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-481" data-num="85" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_3.webp" alt="Quyết tâm của Hoàng đế" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_3.webp" alt="Quyết tâm của Hoàng đế" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 85</div>
         <h3>Quyết tâm của Hoàng đế</h3>
         <p class="story-ch-en">The Emperor&#x27;s Resolve</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Pascal ra lệnh cho Lu Bu kết liễu mình nếu Sức mạnh Hủy Diệt nuốt chửng ông.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Lu Bu tham dự một buổi yết kiến riêng với Hoàng đế, tìm kiếm nguyên nhân thực sự của cuộc chiến và ý định của vị quân vương.</p>
@@ -3225,14 +3059,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-482" data-num="86" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_3.webp" alt="Pascal làm chủ Sức mạnh Hủy Diệt" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_3.webp" alt="Pascal làm chủ Sức mạnh Hủy Diệt" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 86</div>
         <h3>Pascal làm chủ Sức mạnh Hủy Diệt</h3>
         <p class="story-ch-en">Pascal Harnesses the Power of Destruction</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Giấc mơ của Pascal là xây dựng thế giới mà Silvesta đã hình dung. Dù có phải trở thành Thần Hủy Diệt để làm điều đó...</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Dellons đã hoàn tất chuẩn bị để kích hoạt Mảnh vỡ Hủy Diệt đã được chuyển vào Pascal.</p>
@@ -3273,14 +3105,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-483" data-num="87" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_5.webp" alt="Đứa con của Trời muốn trở thành Trời" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_5.webp" alt="Đứa con của Trời muốn trở thành Trời" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 87</div>
         <h3>Đứa con của Trời muốn trở thành Trời</h3>
         <p class="story-ch-en">A Child of Heaven Who Wishes to Become Heaven</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Pascal khao khát siêu việt nhân loại và áp đặt công lý lên thế giới phàm tục bằng chính sức mạnh của mình.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jave" title="Jave"><img src="assets/hero-jave.webp" alt="Jave" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Pascal, sau khi hấp thụ Sức mạnh Hủy Diệt, kìm chân Teo trong khi Lu Bu giữ đoàn của Evan lại phía sau. Trong khoảnh khắc nguy cấp đó...</p>
@@ -3302,14 +3132,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-484" data-num="88" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_5.webp" alt="Ý chí bị vấy bẩn" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_5.webp" alt="Ý chí bị vấy bẩn" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 88</div>
         <h3>Ý chí bị vấy bẩn</h3>
         <p class="story-ch-en">Tainted Will</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Sức mạnh của các Mảnh vỡ, giờ đã tập hợp tại một nơi, bắt đầu cộng hưởng và khiến Pascal nổi cơn thịnh nộ.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="karma" title="Karma"><img src="assets/hero-karma.webp" alt="Karma" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rin" title="Rin"><img src="assets/hero-rin.webp" alt="Rin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="jave" title="Jave"><img src="assets/hero-jave.webp" alt="Jave" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="kris" title="Kris"><img src="assets/hero-kris.webp" alt="Kris" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="lu-bu" title="Lu Bu"><img src="assets/hero-lu-bu.webp" alt="Lu Bu" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Khi cơn giận của Pascal ngày càng tăng, Sức mạnh Hủy Diệt bắt đầu nuốt chửng ông. Vị Hoàng đế nổi giận tung ra một đòn tấn công tàn nhẫn vào Rin, và Karma đứng ra che chắn bảo vệ cô.</p>
@@ -3357,14 +3185,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-485" data-num="89" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_4.webp" alt="Chiếc vòng cổ vỡ tan" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_4.webp" alt="Chiếc vòng cổ vỡ tan" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 89</div>
         <h3>Chiếc vòng cổ vỡ tan</h3>
         <p class="story-ch-en">Shattered Necklace</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Evan dùng sức mạnh của chiếc vòng cổ để cố ngăn chặn cơn thịnh nộ của Pascal, nhưng sức mạnh đó quá lớn. Chiếc vòng cổ cuối cùng đã vỡ tan.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pascal" title="Pascal"><img src="assets/hero-pascal.webp" alt="Pascal" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="karin" title="Karin"><img src="assets/hero-karin.webp" alt="Karin" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Hình hài khổng lồ của Pascal cuối cùng cũng sụp đổ dưới đòn tấn công phối hợp của Seven Knights, Tứ Lãnh Chúa và Teo. Sức mạnh Hủy Diệt được giải phóng cộng hưởng dữ dội với các mảnh vỡ mà Seven Knights đang giữ.</p>
@@ -3395,14 +3221,12 @@ Trong lúc đó, Seven Knights đang ở bên ngoài hoàng cung...</p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-486" data-num="90" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_4.webp" alt="Dark Knights ra trận!" loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_16_4.webp" alt="Dark Knights ra trận!" loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 90</div>
         <h3>Dark Knights ra trận!</h3>
         <p class="story-ch-en">Dark Knights Take the Field!</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Được Yeonhee dẫn đường, các Dark Knights đã lộ diện.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="yeonhee" title="Yeonhee"><img src="assets/hero-yeonhee.webp" alt="Yeonhee" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="platin" title="Platin"><img src="assets/hero-platin.webp" alt="Platin" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="dellons" title="Dellons"><img src="assets/hero-dellons.webp" alt="Dellons" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="colt" title="Colt"><img src="assets/hero-colt.webp" alt="Colt" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="pallanus" title="Pallanus"><img src="assets/hero-pallanus.webp" alt="Pallanus" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="mercure" title="Mercure"><img src="assets/hero-mercure.webp" alt="Mercure" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="sun-wukong" title="Sun Wukong"><img src="assets/hero-sun-wukong.webp" alt="Sun Wukong" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line"><img class="story-ava" src="assets/avatar-npc.svg" alt="" loading="lazy"><span class="story-line-text"><b>Bransel:</b> Whoa! Hắn thực sự rất nhanh. Ừm... Cậu nói đó là ai vậy?</span></p>
@@ -3455,14 +3279,12 @@ Tôi chắc rằng, một ngày nào đó, cậu sẽ hiểu...</span></p>
       </div>
     </article>
     <article class="story-ch story-page" id="ch-487" data-num="91" data-ep="Tập 28 — Pháp sư Hủy Diệt" hidden>
-      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_3.webp" alt="Để đưa Karin trở lại..." loading="lazy">
+      <img class="story-thumb" src="assets/story/Tex_StoryThumbnail_13_3.webp" alt="Để đưa Karin trở lại..." loading="lazy" width="510" height="112">
       <div class="story-ch-body">
         <div class="story-ch-ep">TẬP 28 — PHÁP SƯ HỦY DIỆT</div>
         <div class="story-ch-num">CHƯƠNG 91</div>
         <h3>Để đưa Karin trở lại...</h3>
         <p class="story-ch-en">To Get Karin Back...</p>
-        <div class="story-sum-label">TÓM TẮT</div>
-        <p class="story-summary">Để đưa Karin trở lại, Evan quyết định trở thành đệ tử của Teo.</p>
         <div class="story-chars"><span>NHÂN VẬT</span><button type="button" class="story-char" data-hero-popup="evan" title="Evan"><img src="assets/hero-evan.webp" alt="Evan" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="teo" title="Teo"><img src="assets/hero-teo.webp" alt="Teo" loading="lazy"></button><button type="button" class="story-char" data-hero-popup="rudy" title="Rudy"><img src="assets/hero-rudy.webp" alt="Rudy" loading="lazy"></button></div>
         <div class="story-lines">
             <p class="story-line nar">Vài ngày sau. Teo đến thăm Evan, người chỉ vừa hồi phục đủ để đứng dậy được.</p>
@@ -3514,12 +3336,14 @@ Tôi chắc rằng, một ngày nào đó, cậu sẽ hiểu...</span></p>
       </div>
     </article>
       </div>
-      <div class="story-controls"><button type="button" class="story-prev" disabled>← Chương trước</button><span class="story-progress">Chương 1 / 91 · Tập 22 — Trở lại con đường của chúng ta</span><button type="button" class="story-next">Chương sau →</button></div>
+      <div class="story-controls"><button type="button" class="story-prev" disabled><span class="lbl-full">← Chương trước</span><span class="lbl-short">← Trước</span></button><span class="story-progress"><span class="story-progress-num">Chương 2 / 91</span> <span class="story-progress-ep">· Tập 22 — Trở lại con đường của chúng ta</span></span><button type="button" class="story-next"><span class="lbl-full">Chương sau →</span><span class="lbl-short">Sau →</span></button></div>
     </div>
     <noscript><style>.story-page[hidden]{display:block!important}.story-controls,.story-toc-toggle{display:none!important}</style></noscript>
     <script>
-// Story reader: one chapter = one page, flip-book navigation.
-// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<id> deep link.
+// Story reader: one dialogue chapter = one page, flip-book navigation.
+// Controls: prev/next buttons, ArrowLeft/ArrowRight, touch swipe, TOC jump, #ch-<chapter id> deep link.
+// After every turn the reader scrolls back to the top of the book (the TOC
+// position) so the reading position is identical on every page.
 (function () {
   var reader = document.querySelector('.story-reader');
   if (!reader) return;
@@ -3528,14 +3352,11 @@ Tôi chắc rằng, một ngày nào đó, cậu sẽ hiểu...</span></p>
   if (!pages.length) return;
   var prevBtn = reader.querySelector('.story-prev');
   var nextBtn = reader.querySelector('.story-next');
-  var prog = reader.querySelector('.story-progress');
+  var progNum = reader.querySelector('.story-progress-num');
+  var progEp = reader.querySelector('.story-progress-ep');
   var toc = reader.querySelector('.story-toc-panel');
   var tocBtn = reader.querySelector('.story-toc-toggle');
   var current = 0;
-
-  function label(i) {
-    return 'Chương ' + pages[i].dataset.num + ' / ' + pages.length + ' · ' + pages[i].dataset.ep;
-  }
 
   function show(i, dir, scroll) {
     if (i < 0) i = 0;
@@ -3543,19 +3364,21 @@ Tôi chắc rằng, một ngày nào đó, cậu sẽ hiểu...</span></p>
     pages.forEach(function (p, idx) { p.hidden = idx !== i; });
     if (dir) {
       book.classList.remove('turn-next', 'turn-prev');
-      void book.offsetWidth; // restart the flip animation
+      void book.offsetWidth; // restart the page-turn animation
       book.classList.add(dir > 0 ? 'turn-next' : 'turn-prev');
     }
     current = i;
-    prog.textContent = label(i);
+    progNum.textContent = 'Chương ' + pages[i].dataset.num + ' / ' + reader.dataset.total;
+    progEp.textContent = '· ' + pages[i].dataset.ep;
     prevBtn.disabled = i === 0;
     nextBtn.disabled = i === pages.length - 1;
     var cur = toc.querySelector('.toc-current');
     if (cur) cur.classList.remove('toc-current');
-    var btn = toc.querySelector('[data-goto="' + pages[i].id + '"]');
+    // highlight the host chapter button (lead-in buttons share its data-goto)
+    var btn = toc.querySelector('.toc-ch[data-goto="' + pages[i].id + '"]');
     if (btn) btn.classList.add('toc-current');
     try { history.replaceState(null, '', '#' + pages[i].id); } catch (e) { /* old browser */ }
-    if (scroll) book.scrollIntoView();
+    if (scroll) reader.scrollIntoView();
   }
 
   function go(d) { show(current + d, d, true); }
