@@ -88,7 +88,7 @@ test('home articles show their tag labels', () => {
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
-  assert.equal(latestCards.length, 6, 'home must list 6 latest articles');
+  assert.equal(latestCards.length, 7, 'home must list 7 latest articles');
   for (const [, href, body] of latestCards) {
     assert.ok(body.includes('<span class="article-tag">'), `${href} card must show its tag label`);
   }
