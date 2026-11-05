@@ -20,7 +20,7 @@ const ACT_TITLES = {
   4: 'Pháp sư Hủy Diệt', 5: 'Người canh giữ Vết Nứt',
 };
 
-test('story hub: 5 act cards with chapter counts and overviews', () => {
+test('story hub: 5 act cards with chapter counts, overviews and illustrations', () => {
   const hub = page('cot-truyen.html');
   assert.ok(hub.includes('<span class="article-tag">CỐT TRUYỆN</span>'), 'hub must carry the CỐT TRUYỆN tag');
   assert.ok(hub.includes('270 chương'), 'hub must state the 270-chapter total');
@@ -31,6 +31,11 @@ test('story hub: 5 act cards with chapter counts and overviews', () => {
     assert.equal(href, `cot-truyen-act-${n}.html`, `card ${n} must link to Act ${n}`);
     assert.ok(body.includes(`<h3>${ACT_TITLES[n]}</h3>`), `card ${n} must be titled ${ACT_TITLES[n]}`);
     assert.ok(body.includes(`${ACTS[n].chapters} chương`), `card ${n} must state ${ACTS[n].chapters} chapters`);
+    const thumb = body.match(/<img class="act-thumb" src="assets\/story\/([A-Za-z0-9_.-]+)"/);
+    assert.ok(thumb, `card ${n} must carry an illustration`);
+    const p = path.join(root, 'assets', 'story', thumb[1]);
+    assert.ok(fs.existsSync(p) && fs.statSync(p).size > 1000,
+      `card ${n} illustration ${thumb[1]} must be a real image`);
   }
   assert.ok(hub.includes('id="doc-nhu-the-nao"'), 'hub must explain how to read the story');
   assert.ok(hub.includes('href="cot-truyen-act-1.html"'), 'hub must link onward to Act 1');
@@ -49,28 +54,67 @@ test('story nav: hub and act pages highlight CỐT TRUYỆN in the menu', () => 
   assert.ok(act1.includes('<a href="cot-truyen.html">Cốt truyện</a>'), 'act pages must breadcrumb back to the hub');
 });
 
-test('story act pages: episodes, chapters, summaries, dialogue and thumbnails', () => {
+test('story act pages: flip-book reader, chapters, summaries, dialogue avatars and thumbnails', () => {
   for (const n of [1, 2, 3, 4, 5]) {
     const html = page(`cot-truyen-act-${n}.html`);
     const exp = ACTS[n];
     assert.ok(html.includes('<span class="article-tag">CỐT TRUYỆN</span>'), `act ${n} must carry the CỐT TRUYỆN tag`);
     assert.ok(html.includes(`<h1>Act ${n} — ${ACT_TITLES[n]}</h1>`), `act ${n} must be titled ${ACT_TITLES[n]}`);
-    assert.equal((html.match(/class="article-section"/g) || []).length, exp.episodes,
-      `act ${n} must have ${exp.episodes} episode sections`);
-    assert.equal((html.match(/<article class="story-ch"/g) || []).length, exp.chapters,
-      `act ${n} must have ${exp.chapters} chapters`);
+    // reader chrome: table of contents, book, sticky controls, flip script, no-JS fallback
+    assert.ok(html.includes('class="story-reader"'), `act ${n} must have the reader`);
+    assert.ok(html.includes('class="story-toc-toggle"'), `act ${n} must have a TOC toggle`);
+    assert.ok(html.includes('class="story-toc-panel"'), `act ${n} must have a TOC panel`);
+    assert.ok(html.includes('class="story-prev"'), `act ${n} must have a previous-chapter button`);
+    assert.ok(html.includes('class="story-next"'), `act ${n} must have a next-chapter button`);
+    assert.ok(html.includes('class="story-progress"'), `act ${n} must show the reading progress`);
+    assert.ok(html.includes("querySelector('.story-reader')"), `act ${n} must inline the reader script`);
+    assert.ok(html.includes('turn-next') && html.includes('turn-prev'),
+      `act ${n} must carry the page-flip animation`);
+    assert.ok(html.includes('.story-page[hidden]{display:block'), `act ${n} must show every chapter without JS`);
+    // TOC: one episode group + one jump button per chapter
+    assert.equal((html.match(/<h4>Tập \d+ — /g) || []).length, exp.episodes,
+      `act ${n} TOC must list ${exp.episodes} episode groups`);
+    assert.equal((html.match(/<button type="button" data-goto="ch-\d+">/g) || []).length, exp.chapters,
+      `act ${n} TOC must list ${exp.chapters} chapter jumps`);
+    // one page per chapter, only the first visible
+    assert.equal((html.match(/<article class="story-ch story-page"/g) || []).length, exp.chapters,
+      `act ${n} must have ${exp.chapters} reader pages`);
+    const hiddenPages = (html.match(/<article class="story-ch story-page"[^>]* hidden>/g) || []).length;
+    assert.equal(hiddenPages, exp.chapters - 1,
+      `act ${n} must hide every page except the first`);
     assert.equal((html.match(/<p class="story-summary">/g) || []).length,
       exp.chapters - exp.special,
       `act ${n} must show a summary on every chapter except the one without summary text`);
     assert.equal((html.match(/<p class="story-line/g) || []).length, exp.lines,
       `act ${n} must show ${exp.lines} dialogue lines`);
-    assert.equal((html.match(/CHƯƠNG ĐIỆN ẢNH/g) || []).length, exp.cine,
-      `act ${n} must mark ${exp.cine} cinematic chapters`);
-    assert.equal((html.match(/CHƯƠNG ĐẶC BIỆT/g) || []).length, exp.special,
-      `act ${n} must mark ${exp.special} special chapter`);
-    assert.equal((html.match(/<details class="story-dlg">/g) || []).length,
+    // cinematic chapters: title + summary only — no badge, no note, no dialogue block
+    assert.ok(!html.includes('CHƯƠNG ĐIỆN ẢNH'), `act ${n} must not label cinematic chapters`);
+    assert.ok(!html.includes('story-cine'), `act ${n} must not carry a cinematic badge`);
+    assert.ok(!html.includes('story-dlg'), `act ${n} must not use the old expandable dialogue`);
+    assert.equal((html.match(/<div class="story-lines">/g) || []).length,
       exp.chapters - exp.cine - exp.special,
-      `act ${n} must offer full dialogue on every dialogue chapter`);
+      `act ${n} must show dialogue only on its ${exp.chapters - exp.cine - exp.special} non-cinematic chapters`);
+    // every named dialogue line carries a speaker portrait; narration carries none
+    const named = (html.match(/<p class="story-line">/g) || []).length;
+    const avatars = (html.match(/class="story-ava"/g) || []).length;
+    assert.equal(avatars, named,
+      `act ${n} must show one speaker portrait per named line (${named})`);
+    for (const src of [...new Set([...html.matchAll(/class="story-ava"[^>]*>\s*<img src="(assets\/[^"]+)"/g)].map(m => m[1]))]) {
+      assert.ok(fs.existsSync(path.join(root, src)), `act ${n} avatar ${src} must exist`);
+    }
+    assert.ok(fs.existsSync(path.join(root, 'assets', 'avatar-npc.svg')),
+      `act ${n} needs the NPC silhouette avatar`);
+    const nar = [...html.matchAll(/<p class="story-line nar">([\s\S]*?)<\/p>/g)];
+    assert.ok(nar.every(m => !m[1].includes('story-ava')),
+      `act ${n} narration lines must not carry a portrait`);
+    // chapter 129 (no summary, no dialogue) renders as a title-only page
+    if (n === 3) {
+      const ch129 = html.match(/<article class="story-ch story-page" id="ch-129"[\s\S]*?<\/article>/);
+      assert.ok(ch129, 'act 3 must include chapter 129');
+      assert.ok(!ch129[0].includes('story-summary'), 'chapter 129 must have no summary');
+      assert.ok(!ch129[0].includes('story-lines'), 'chapter 129 must have no dialogue');
+      assert.ok(ch129[0].includes('Lời hứa của Kyle'), 'chapter 129 must still show its title');
+    }
     // every chapter thumbnail is a real local image
     const thumbs = [...new Set([...html.matchAll(/src="assets\/story\/([A-Za-z0-9_.-]+)"/g)].map(m => m[1]))];
     assert.ok(thumbs.length >= 10, `act ${n} must show chapter thumbnails, got ${thumbs.length}`);

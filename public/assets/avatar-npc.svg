@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"><!--
+  Generic speaker silhouette for the Cốt Truyện reader (7krb.io.vn).
+
+  Used as the dialogue-line avatar wherever the speaker has no hero
+  portrait on the site: NPCs named by their role (e.g. "Binh sĩ của
+  Kris", "Kẻ buôn chợ đen") and the player character ("Bạn", the
+  \x01 placeholder in the Atlas story data — the player has no
+  canonical face in the game, so no hero portrait is invented for
+  them). Hero speakers get their real portrait instead
+  (assets/hero-<slug>.webp), and narration lines get no avatar at all.
+
+  Design: plain grey person silhouette on the same warm off-white as
+  the chapter cards (#f0ede6), so it reads as a neutral placeholder
+  rather than a character. The file is referenced as
+  assets/avatar-npc.svg from the story pages built by
+  ~/workspace/build_story.py (chapter_html) and asserted by
+  tests/story.test.cjs. Keep it a simple vector: it renders at 40px
+  (36px on mobile) and must stay recognisable at that size.
+--><rect width="24" height="24" fill="#f0ede6"/><circle cx="12" cy="8" r="4" fill="#959aa4"/><path d="M4 20c0-4.5 3.6-7 8-7s8 2.5 8 7z" fill="#959aa4"/></svg>
