@@ -58,13 +58,20 @@ test('home hero slider: auto-advances every 3s, swipeable, pauses on interaction
   assert.ok(css.includes('.hero-track{min-height:196px'), 'mobile slides must stay compact (~196px)');
 });
 
-test('home structure: banner, pinned posts, latest posts, category cards — in that order', () => {
+test('home structure: banner, most-visited categories, pinned posts, latest posts, quick-access categories — in that order', () => {
   const home = page('index.html');
-  const order = ['home-hero', 'Bài viết đã ghim', 'Bài viết mới nhất', 'Danh mục']
+  const order = ['home-hero', 'Danh mục truy cập nhiều', 'Bài viết đã ghim', 'Bài viết mới nhất', 'Danh mục truy cập nhanh']
     .map(t => home.indexOf(t));
-  assert.ok(order.every(i => i >= 0), 'home must have all four sections');
-  assert.deepEqual([...order].sort((a, b) => a - b), order, 'sections must run banner, pinned, latest, categories');
-  assert.ok(home.includes('<p>12 chuyên mục</p>'), 'category count must say 12 (there are 12 cards)');
+  assert.ok(order.every(i => i >= 0), 'home must have all five sections');
+  assert.deepEqual([...order].sort((a, b) => a - b), order, 'sections must run banner, most-visited, pinned, latest, quick-access');
+  assert.ok(home.includes('<p>3 chuyên mục</p>'), 'most-visited section must say 3 categories');
+  assert.ok(home.includes('<p>9 chuyên mục</p>'), 'quick-access section must say 9 categories');
+  const popular = home.slice(home.indexOf('Danh mục truy cập nhiều'),
+    home.indexOf('</section>', home.indexOf('Danh mục truy cập nhiều')));
+  assert.deepEqual([...popular.matchAll(/<a class="cat-card" href="([^"]+)">/g)].map(m => m[1]),
+    ['newbie.html', 'heroes.html', 'guild-war-team.html'],
+    'most-visited must list Newbie, Heroes, Guild War Team in that order');
+  assert.ok(!home.includes('<a class="cat-card" href="cot-truyen.html">'), 'the story menu must not appear as a home category card yet');
 });
 
 test('pinned posts: Ruby Farming is pinned with a pin icon, no redundant labels', () => {
@@ -230,10 +237,15 @@ test('ring guide article: first in Latest and Newbie, 9 sections, every portrait
 
 test('category cards: no descriptions, 3 compact cards per row on mobile', () => {
   const home = page('index.html');
-  const grid = home.slice(home.indexOf('cat-grid'), home.indexOf('</section>', home.indexOf('cat-grid')));
-  assert.equal((grid.match(/<a class="cat-card"/g) || []).length, 12, 'home must still list 12 category cards');
-  assert.ok(!grid.includes('<p>'), 'category cards must not carry description text');
-  assert.ok(grid.includes('<span class="cat-count">'), 'category cards keep their count line');
+  const grids = [...home.matchAll(/<div class="cat-grid">([\s\S]*?)<\/div>/g)].map(m => m[1]);
+  assert.equal(grids.length, 2, 'home must have two category grids (most-visited + quick-access)');
+  assert.equal((grids[0].match(/<a class="cat-card"/g) || []).length, 3, 'most-visited grid must list 3 category cards');
+  assert.equal((grids[1].match(/<a class="cat-card"/g) || []).length, 9, 'quick-access grid must list 9 category cards');
+  assert.equal((home.match(/<a class="cat-card"/g) || []).length, 12, 'home must still list 12 category cards in total');
+  for (const grid of grids) {
+    assert.ok(!grid.includes('<p>'), 'category cards must not carry description text');
+    assert.ok(grid.includes('<span class="cat-count">'), 'category cards keep their count line');
+  }
   const css = page('site-nav.css');
   assert.ok(css.includes('.cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))'),
     'category grid must show 3 cards per row on mobile');

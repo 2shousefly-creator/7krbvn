@@ -4,8 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.join(__dirname, '..', 'public');
 
-// Hierarchical navigation: 6 top-level links + PVE (5 children) + PVP (3 children).
-const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'heroes.html', 'tinh-ruby.html', 'doi-coupon.html'];
+// Hierarchical navigation: 7 top-level links + PVE (5 children) + PVP (3 children).
+const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'cot-truyen.html', 'heroes.html', 'tinh-ruby.html', 'doi-coupon.html'];
 const NAV_PVE = ['castle-rush.html', 'raid.html', 'dungeon.html', 'celestial-tower.html', 'tower-of-trials.html'];
 const NAV_PVP = ['arena.html', 'total-war.html', 'guild-war-team.html'];
 const NAV = [...NAV_TOP, ...NAV_PVE, ...NAV_PVP];
