@@ -3422,13 +3422,19 @@ Tôi chắc rằng, một ngày nào đó, cậu sẽ hiểu...</span></p>
     if (Math.abs(dx) > 60 && Math.abs(dy) < 80) go(dx < 0 ? 1 : -1);
   }, { passive: true });
 
-  // Deep link: #ch-<chapter id> opens that chapter on load.
+  // Deep link: #ch-<chapter id> opens that chapter on load. The browser's
+  // own fragment jump would land mid-chapter on the article itself, so
+  // re-assert the reader-top position once the page has finished loading.
   var start = 0;
   if (location.hash) {
     var h = pages.findIndex(function (p) { return '#' + p.id === location.hash; });
     if (h >= 0) start = h;
   }
   show(start, 0, start > 0);
+  if (start > 0) {
+    window.addEventListener('load', function () { reader.scrollIntoView(); });
+    setTimeout(function () { reader.scrollIntoView(); }, 60);
+  }
 })();
     </script>
     <div class="story-act-nav"><a href="cot-truyen-act-3.html">← Act 3 — Sức mạnh Hủy Diệt</a> <a href="cot-truyen.html">Mục Cốt truyện ↑</a> <a href="cot-truyen-act-5.html">Act 5 — Người canh giữ Vết Nứt →</a></div>
