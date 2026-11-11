@@ -88,7 +88,7 @@ test('home articles show their tag labels', () => {
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
-  assert.equal(latestCards.length, 7, 'home must list 7 latest articles');
+  assert.equal(latestCards.length, 8, 'home must list 8 latest articles');
   for (const [, href, body] of latestCards) {
     assert.ok(body.includes('<span class="article-tag">'), `${href} card must show its tag label`);
   }
@@ -171,6 +171,7 @@ test('article tags: every article page carries a chip naming its menu', () => {
     'nang-cap-hero.html': 'NEWBIE',
     'doi-hinh-hang-truoc-sau.html': 'NEWBIE',
     'cap-nhat-28-10.html': 'CẬP NHẬT',
+    'cap-nhat-11-11.html': 'CẬP NHẬT',
     'arena.html': 'ARENA',
     'total-war.html': 'TOTAL WAR',
     'tinh-ruby.html': 'TÍNH RUBY',
