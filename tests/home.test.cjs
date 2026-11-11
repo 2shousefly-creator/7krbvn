@@ -7,7 +7,7 @@ const page = name => fs.readFileSync(path.join(root, name), 'utf8');
 const pages = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 
 const SLIDES = [
-  ['Chi tiết cập nhật 11/11/2026', 'cap-nhat-11-11.html'],
+  ['Chi tiết cập nhật 12/11/2026', 'cap-nhat-12-11.html'],
   ['Hướng dẫn Newbie', 'newbie.html'],
   ['Cách build trang bị từng Hero', 'heroes.html'],
   ['Cách vượt Celestial Tower tầng 450', 'celestial-tower-tang-450.html'],
@@ -142,7 +142,7 @@ test('raid guide article: fourth in Latest, 8 sections, every portrait hero exis
     'the gear guide must be the third card in Latest, ahead of the raid guide');
   assert.ok(latest.indexOf('raid-farm-trang-bi.html') < latest.indexOf('cap-nhat-28-10.html'),
     'the raid guide must be the fourth card in Latest');
-  assert.ok(home.includes('Cập nhật 11/11/2026'), 'home stamp must read 05/11/2026');
+  assert.ok(home.includes('Cập nhật 12/11/2026'), 'home stamp must read 05/11/2026');
   const raidCard = latest.match(/<a class="post-card" href="raid-farm-trang-bi\.html">([\s\S]*?)<\/a>/);
   assert.ok(raidCard && raidCard[1].includes('<span class="article-tag">NEWBIE</span>'),
     'the raid guide card in Latest must carry the NEWBIE tag');
@@ -179,7 +179,7 @@ test('gear guide article: third in Latest, second in Newbie, 9 sections, every p
     'the ring guide must be the second card in Latest, ahead of the gear guide');
   assert.ok(latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html') < latest.indexOf('raid-farm-trang-bi.html'),
     'the gear guide must be the third card in Latest');
-  assert.ok(home.includes('Cập nhật 11/11/2026'), 'home stamp must read 05/11/2026');
+  assert.ok(home.includes('Cập nhật 12/11/2026'), 'home stamp must read 05/11/2026');
   const gearCard = latest.match(/<a class="post-card" href="trang-bi-set-dong-chinh-dong-phu\.html">([\s\S]*?)<\/a>/);
   assert.ok(gearCard && gearCard[1].includes('<span class="article-tag">NEWBIE</span>'),
     'the gear guide card in Latest must carry the NEWBIE tag');
@@ -210,7 +210,7 @@ test('ring guide article: second in Latest, first in Newbie, 9 sections, every p
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
     'the ring guide must be the second card in Latest');
-  assert.ok(home.includes('Cập nhật 11/11/2026'), 'home stamp must read 05/11/2026');
+  assert.ok(home.includes('Cập nhật 12/11/2026'), 'home stamp must read 05/11/2026');
   const ringCard = latest.match(/<a class="post-card" href="nhan-va-trang-bi-rieng\.html">([\s\S]*?)<\/a>/);
   assert.ok(ringCard && ringCard[1].includes('<span class="article-tag">NEWBIE</span>'),
     'the ring guide card in Latest must carry the NEWBIE tag');
