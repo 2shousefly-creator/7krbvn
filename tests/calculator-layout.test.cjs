@@ -25,6 +25,17 @@ test('calculator starts on the quick tab and places advanced fields in settings'
   assert.match(quick, /id="include-recurring"[^>]*checked/);
 });
 
+test('the profit is the hero result and the gross ruby is a breakdown row', () => {
+  for (const file of ['ruby-farming.html', 'tinh-ruby.html']) {
+    const page = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.match(page, /RUBY LÃI SAU CHI PHÍ<\/small><b id="metric-net"/, `${file}: the hero result must be the net profit`);
+    assert.match(page, /Ruby nhận từ Fodder<\/span><b id="metric-gross"/, `${file}: the gross ruby must sit in the breakdown`);
+    assert.doesNotMatch(page, /RUBY NHẬN TỪ FODDER/, `${file}: the gross ruby must not be the hero`);
+    assert.match(page, /RUBY LÃI \/ NGÀY SAU CHI PHÍ<\/small><b id="income-net"/, `${file}: the daily forecast hero must be the daily net`);
+    assert.match(page, /Ruby bình quân \/ ngày trước chi phí<\/span><b id="income-daily"/, `${file}: the daily gross must sit in the breakdown`);
+  }
+});
+
 test('the guide uses the new game screenshots and hero portraits as local image assets', () => {
   for (const name of ['ruby-mission.webp', 'keys-reserve.webp', 'auto-replace-heroes.webp', 'hero-freyja.webp', 'hero-teo.webp', 'hero-yoongun.webp', 'hero-omok.webp']) {
     assert.ok(html.includes(`assets/${name}`), `${name} must be displayed in the guide`);
