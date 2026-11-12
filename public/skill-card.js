@@ -265,6 +265,7 @@ var FX_VI = {
  "Damage Resistance (Self)": "Giảm sát thương nhận vào (bản thân)",
  "Damage Resistance (Allies)": "Giảm sát thương nhận vào (đồng minh)",
  "Awakening Gauge Reduction": "Giảm thanh thức tỉnh",
+ "Awakening Gauge Steal": "Đánh cắp thanh thức tỉnh",
  "Sleep Immunity": "Miễn nhiễm ngủ",
  "Magic Attack Boost (Stacks)": "Tăng Magic Attack (cộng dồn)",
  "Hunter's Expertise (Stacks)": "Chuyên môn thợ săn (cộng dồn)",
