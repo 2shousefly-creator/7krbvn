@@ -96,7 +96,7 @@ test('hero.html detail page: two tabs and detail script', () => {
 });
 
 test('heroes index covers every playable hero and every hero has a JSON file', () => {
-  assert.equal(index.length, 124, `heroes-index.json must list 124 heroes, got ${index.length}`);
+  assert.equal(index.length, 125, `heroes-index.json must list 125 heroes, got ${index.length}`);
   const ids = index.map(h => h.id);
   assert.equal(new Set(ids).size, ids.length, 'heroes index has duplicate ids');
   for (const h of index) {

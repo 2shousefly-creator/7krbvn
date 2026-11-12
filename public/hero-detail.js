@@ -67,7 +67,7 @@
    * exists yet, so the page works before/after the merge. */
   function vi() { return (hero && hero.vi) || {}; }
   /* Dịch phạm vi mục tiêu của kỹ năng sang tiếng Việt (dữ liệu Atlas,
-   * 66 chuỗi duy nhất trong toàn bộ 124 hero). Chuỗi nào không có trong
+   * 68 chuỗi duy nhất trong toàn bộ 125 hero). Chuỗi nào không có trong
    * bảng sẽ giữ nguyên tiếng Anh để không hiển thị sai. */
   var TARGET_VI = {
     '1 Enemy (Front Row First)': '1 kẻ địch (ưu tiên hàng trước)',
@@ -82,6 +82,7 @@
     '2 Enemies': '2 kẻ địch',
     '2 Enemies (By Highest No. of Buffs)': '2 kẻ địch (ưu tiên nhiều buff nhất)',
     '2 Enemies with the Highest Attack': '2 kẻ địch có Attack cao nhất',
+    '2 Fallen Allies': '2 đồng minh đã ngã xuống',
     '3 Allies': '3 đồng minh',
     '3 Allies with the Lowest Current HP': '3 đồng minh có HP hiện tại thấp nhất',
     '3 Enemies': '3 kẻ địch',
@@ -135,6 +136,7 @@
     'Single Enemy (Prioritize Targets with Mark of Darkness)': '1 kẻ địch (ưu tiên mục tiêu có Mark of Darkness)',
     'Single Enemy (Prioritizes Targets w/ Thunderbolt Mark)': '1 kẻ địch (ưu tiên mục tiêu có Thunderbolt Mark)',
     'Single Enemy (Prioritizes Targets with Poison)': '1 kẻ địch (ưu tiên mục tiêu đang trúng độc)',
+    'Single Fallen Ally': '1 đồng minh đã ngã xuống',
     'Single Enemy When Counterattacking': '1 kẻ địch (khi phản đòn)'
   };
   function targetVi(t) { return TARGET_VI[t] || t; }
