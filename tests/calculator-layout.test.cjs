@@ -33,7 +33,18 @@ test('the profit is the hero result and the gross ruby is a breakdown row', () =
     assert.doesNotMatch(page, /RUBY NHẬN TỪ FODDER/, `${file}: the gross ruby must not be the hero`);
     assert.match(page, /RUBY LÃI \/ NGÀY SAU CHI PHÍ<\/small><b id="income-net"/, `${file}: the daily forecast hero must be the daily net`);
     assert.match(page, /Ruby bình quân \/ ngày trước chi phí<\/span><b id="income-daily"/, `${file}: the daily gross must sit in the breakdown`);
+    for (const days of [7, 14, 28]) {
+      assert.match(page, new RegExp(`<small>LÃI ${days} NGÀY<\\/small><b id="income-${days}"`), `${file}: the ${days}-day box must be labelled as profit`);
+    }
+    assert.doesNotMatch(page, /income-net-28/, `${file}: the 28-day net must live in the 28-day box, not in a duplicate breakdown row`);
   }
+});
+
+test('the 7/14/28-day boxes are filled with total net profit', () => {
+  const app = fs.readFileSync(path.join(root, 'app-v4.js'), 'utf8');
+  assert.ok(app.includes('for (const days of [7, 14, 28])'), 'the period boxes must be filled in one loop');
+  assert.ok(app.includes('$(`income-${days}`).textContent = `${signed(net * days)} Ruby`'), 'each period box must show the signed net total, not the gross');
+  assert.ok(!app.includes('income-net-28'), 'no write may target the removed 28-day breakdown row');
 });
 
 test('the guide uses the new game screenshots and hero portraits as local image assets', () => {

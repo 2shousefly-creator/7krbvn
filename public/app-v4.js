@@ -171,9 +171,8 @@
     const net = all - number($('daily-spend'));
     $('income-daily').textContent = `${format(all)} Ruby`;
     $('income-split').textContent = `Free Ruby ${format(free)} · Paid Ruby ${format(paid)}`;
-    for (const days of [7, 14, 28]) $(`income-${days}`).textContent = `${format(all * days)} Ruby`;
+    for (const days of [7, 14, 28]) $(`income-${days}`).textContent = `${signed(net * days)} Ruby`;
     $('income-net').textContent = `${signed(net)} Ruby`;
-    $('income-net-28').textContent = `${signed(net * 28)} Ruby`;
   }
   function render() { renderFarming(); renderIncome(); }
 
