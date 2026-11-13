@@ -103,7 +103,7 @@ test('Celestial Tower and Tower of Trials listings link every video article', ()
 
 test('the coupon page loads the coupon list and redeems through the Worker API', () => {
   const coupons = JSON.parse(fs.readFileSync(path.join(root, 'coupons.json'), 'utf8'));
-  assert.ok(Array.isArray(coupons.coupons) && coupons.coupons.length >= 1, 'coupons.json must list active codes');
+  assert.ok(Array.isArray(coupons.coupons), 'coupons.json must be an array of active codes (may be empty when no code is active)');
   for (const code of coupons.coupons) {
     assert.match(code, /^[A-Z0-9]+$/, `coupon code ${code} must be uppercase alphanumeric`);
   }
@@ -115,6 +115,9 @@ test('the coupon page loads the coupon list and redeems through the Worker API',
   assert.match(coupon, /id="manual-codes"/, 'coupon page must have a manual code input');
   assert.match(coupon, /id="history-list"/, 'coupon page must show redemption history');
   assert.match(coupon, /7k_uid/, 'UID must persist in localStorage');
+  if (coupons.coupons.length === 0) {
+    assert.match(coupon, /Hiện chưa có mã đổi nào đang hoạt động/, 'empty coupon list must show the no-active-codes message');
+  }
   const worker = fs.readFileSync(path.join(__dirname, '..', 'worker.js'), 'utf8');
   assert.match(worker, /\/api\/redeem/, 'worker.js must serve the redeem route');
   assert.match(worker, /coupon\.netmarble\.com\/api\/coupon/, 'worker must forward to the official Netmarble coupon API');

@@ -87,7 +87,7 @@
         }).join('');
       }
       function renderList(){
-        if(!coupons.length){listEl.innerHTML='<p class="coupon-hint">Chưa tải được danh sách mã. Vui lòng tải lại trang.</p>';return;}
+        if(!coupons.length){listEl.innerHTML='<p class="coupon-hint">Hiện chưa có mã đổi nào đang hoạt động. Mã mới sẽ được cập nhật tại đây khi có thông báo chính thức.</p>';return;}
         var h=historyFor(uid());
         var done={};h.forEach(function(e){if(e.ok)done[e.code]=true;});
         listEl.innerHTML=coupons.map(function(c){
