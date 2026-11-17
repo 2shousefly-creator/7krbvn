@@ -14,7 +14,7 @@ const ACTS = {
   2: { chapters: 25, pages: 24, episodes: 4, lines: 547, cine: 1, first: 2 },
   3: { chapters: 61, pages: 58, episodes: 7, lines: 1470, cine: 3, first: 2 },
   4: { chapters: 91, pages: 89, episodes: 7, lines: 2018, cine: 2, first: 2 },
-  5: { chapters: 27, pages: 27, episodes: 2, lines: 954, cine: 0, first: 1 },
+  5: { chapters: 41, pages: 40, episodes: 3, lines: 1344, cine: 1, first: 1 },
 };
 const ACT_TITLES = {
   1: 'Khởi đầu hành trình', 2: 'Hành trình tiếp nối', 3: 'Sức mạnh Hủy Diệt',
@@ -24,7 +24,7 @@ const ACT_TITLES = {
 test('story hub: 5 act cards with chapter counts, overviews and illustrations', () => {
   const hub = page('cot-truyen.html');
   assert.ok(hub.includes('<span class="article-tag">CỐT TRUYỆN</span>'), 'hub must carry the CỐT TRUYỆN tag');
-  assert.ok(hub.includes('270 chương'), 'hub must state the 270-chapter total');
+  assert.ok(hub.includes('284 chương'), 'hub must state the 284-chapter total');
   const cards = [...hub.matchAll(/<a class="act-card" href="(cot-truyen-act-\d\.html)">([\s\S]*?)<\/a>/g)];
   assert.equal(cards.length, 5, 'hub must list 5 act cards');
   for (const n of [1, 2, 3, 4, 5]) {
