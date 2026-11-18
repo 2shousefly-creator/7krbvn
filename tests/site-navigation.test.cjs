@@ -134,8 +134,8 @@ test('no auto dark mode: no page may flip to dark from the system theme', () => 
 test('Atlas layout (light): Arena and Total War use the Atlas structure with real portraits', () => {
   // team counts come from the Atlas compilations themselves:
   // Arena 16 teams (Attack 4, Magic 4, Tank 6, Hybrid 2) with 3 Meta Prime;
-  // Total War 15 teams (Physical 4, Magic 4, Tank 4, Death 3) with 4 Meta Prime.
-  const expected = { 'arena.html': { teams: 16, primes: 3 }, 'total-war.html': { teams: 15, primes: 4 } };
+  // Total War 16 teams (Physical 3, Magic 4, Tank 5, Universal 1, Death 3) with 4 Meta Prime.
+  const expected = { 'arena.html': { teams: 16, primes: 3 }, 'total-war.html': { teams: 16, primes: 4 } };
   for (const [file, exp] of Object.entries(expected)) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     assert.ok(html.includes('href="atlas.css"'), `${file} must load the Atlas-layout stylesheet`);
