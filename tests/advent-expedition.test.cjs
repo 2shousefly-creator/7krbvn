@@ -16,11 +16,11 @@ const VIDEOS = {
   'advent-god-5.html': 'ot6iuAcekfQ', 'advent-god-6.html': 'TF0WUlNf4y8',
   'advent-god-7.html': 'Z0J1VxKih1s', 'advent-god-8.html': 'Ggj-Ynjv4F0',
   'advent-teo-1.html': 'X19bysk48Wk', 'advent-teo-2.html': 'Psfc3wp92MM',
-  'advent-teo-3.html': 'cRbfEk1zZKU', 'advent-teo-4.html': '9vM6WEdbB3k',
+  'advent-teo-3.html': 'cRbfEk1zZKU', 'advent-teo-4.html': 'Gi-y6JNXkos',
   'advent-kyle-1.html': 'BN6qBPfNLHs', 'advent-kyle-2.html': 'rfBROn5tdYQ',
   'advent-kyle-3.html': 'ZBXcPwQMZyY', 'advent-kyle-4.html': 'CjM2RLH9GHM',
   'advent-yeonhee-1.html': 'JBdIdF-W_U8', 'advent-yeonhee-2.html': 'CRCHLoBGoAM',
-  'advent-yeonhee-3.html': 'drzwk9Ed29k', 'advent-yeonhee-4.html': 'QkTj2jTQ3XQ',
+  'advent-yeonhee-3.html': 'drzwk9Ed29k', 'advent-yeonhee-4.html': 'uMbgtx1co-M',
   'advent-karma-1.html': 'bsWtoQXjXp8', 'advent-karma-2.html': '9UlES1iutGA',
   'advent-karma-3.html': 'kRAqlwK8Z5s', 'advent-karma-4.html': 'gS0szsFqtxw',
 };
@@ -55,6 +55,20 @@ test('article pages: one embedded video each, back link to the hub', () => {
     }
     assert.ok(!html.includes(`href="${f}"`), `${f}: must not link to itself`);
   }
+});
+
+test('thumbnails: every card uses a local in-combat frame, never a YouTube URL', () => {
+  for (const f of FILES) {
+    const zone = f.split('-')[1];
+    const n = f.split('-')[2].replace('.html', '');
+    const thumb = `assets/advent-${zone}-${n}.webp`;
+    assert.ok(fs.existsSync(path.join(root, thumb)), `thumbnail file must exist: ${thumb}`);
+    const hub = fs.readFileSync(path.join(root, 'advent-expedition.html'), 'utf8');
+    assert.ok(hub.includes(`src="${thumb}"`), `hub card ${f} must use ${thumb}`);
+  }
+  const all = ['advent-expedition.html', ...FILES]
+    .map(f => fs.readFileSync(path.join(root, f), 'utf8')).join('\n');
+  assert.ok(!all.includes('i.ytimg.com'), 'no Advent page may hotlink a YouTube thumbnail');
 });
 
 test('no % in any asset URL referenced by the Advent pages', () => {
