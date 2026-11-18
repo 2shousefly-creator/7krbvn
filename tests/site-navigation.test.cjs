@@ -183,6 +183,30 @@ test('Total War card (Atlas-style, 18/11): Vietnamese labels, one portrait row, 
   assert.ok(!html.includes('class="at-board"'), 'total-war.html must not keep the old two-row formation board');
   assert.ok(!html.includes('at-tier t-'), 'total-war.html must not put tier badges on portraits');
   assert.ok(!html.includes('class="at-flow"'), 'total-war.html must not keep the old numbered skill flow');
+  // Bare portraits (18/11): no AWK/rarity tags, no visible name under the portrait;
+  // the name stays in alt/title, the click popup still shows it.
+  assert.ok(!html.includes('class="at-awk"'), 'total-war.html must not show AWK tags on team portraits');
+  assert.ok(!html.includes('class="at-rarity"'), 'total-war.html must not show rarity tags on team portraits');
+  const teamRows = html.match(/<div class="at-team-row">[\s\S]*?<div class="at-row-legend">/g) || [];
+  assert.equal(teamRows.length, 16, 'every team must have one portrait row to check for names');
+  assert.ok(teamRows.every(r => !r.includes('<b>')), 'team rows must not show hero names under portraits');
+  assert.equal((html.match(/hero-[a-z0-9-]+\.webp" alt="[^"]+" title="[^"]+"/g) || []).length, 80,
+    'every team portrait must keep the hero name in alt/title');
+  // Back row raised double (32px desktop / 20px mobile) vs the front row.
+  const css = fs.readFileSync(path.join(root, 'atlas.css'), 'utf8');
+  assert.ok(css.includes('width:auto;padding-top:32px'),
+    'atlas.css must raise back-row heroes 32px above the front row on desktop');
+  assert.ok(css.includes('.at-team-row .at-hero-cell{padding-top:20px}'),
+    'atlas.css must raise back-row heroes 20px above the front row on mobile');
+  // Vietnamese headings: translated, old English labels gone.
+  assert.ok(html.includes('Đội hình Meta Prime'), 'prime section heading must be Vietnamese');
+  assert.ok(html.includes('Đội hình đề xuất'), 'lineups heading must be Vietnamese');
+  assert.ok(html.includes('Hero thay thế'), 'alternatives heading must be Vietnamese');
+  assert.ok(html.includes('Thú cưng'), 'pet label must be Vietnamese');
+  assert.ok(html.includes('Xem đội'), 'prime card link must be Vietnamese');
+  assert.ok(!html.includes('Recommended Lineups'), 'total-war.html must not keep the English lineups heading');
+  assert.ok(!html.includes('Alternatives —'), 'total-war.html must not keep the English alternatives heading');
+  assert.ok(!html.includes('XEM ĐỘI'), 'total-war.html must not keep the English prime card link');
   // No inline per-hero build sections (clicking a portrait opens the hero popup with builds).
   assert.ok(!html.includes('class="at-builds"'), 'total-war.html must not keep the per-hero build details');
   assert.ok(!html.includes('Xem build từng hero'), 'total-war.html must not keep the build details heading');
@@ -194,7 +218,6 @@ test('Total War card (Atlas-style, 18/11): Vietnamese labels, one portrait row, 
   }
   // CSS regression guards: the role icon must be sized by a rule that beats
   // the portrait img rules, and the row must top-align so front/back baselines hold.
-  const css = fs.readFileSync(path.join(root, 'atlas.css'), 'utf8');
   assert.ok(css.includes('.at-team-row .at-portrait img.at-role-icon'),
     'atlas.css must size the role icon with a selector beating .at-portrait img');
   assert.ok(!css.includes('.at-hero-cell.is-back{transform:translateY'),
