@@ -139,7 +139,7 @@ test('Atlas layout (light): Arena and Total War use the Atlas structure with rea
   for (const [file, exp] of Object.entries(expected)) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     assert.ok(html.includes('href="atlas.css"'), `${file} must load the Atlas-layout stylesheet`);
-    assert.ok(html.includes('class="at-hero"'), `${file} must have the Atlas hero banner`);
+    assert.ok(html.includes('class="at-hero'), `${file} must have the Atlas hero banner`);
     assert.ok(html.includes('class="at-prime"'), `${file} must have META PRIME summary cards`);
     assert.ok(html.includes('class="at-tabs"'), `${file} must have the sticky archetype tab bar`);
     assert.ok(html.includes('id="at-search"'), `${file} must have the hero search box`);
@@ -148,8 +148,8 @@ test('Atlas layout (light): Arena and Total War use the Atlas structure with rea
     assert.equal(teams.length, exp.teams, `${file} must show the ${exp.teams} Atlas teams`);
     const panels = html.match(/class="at-askill-panel"/g) || [];
     assert.equal(panels.length, exp.teams, `${file} must show one Auto Skill Priority panel per team`);
-    const badges = html.match(/Priority [123]/g) || [];
-    assert.equal(badges.length, exp.teams * 3, `${file} must mark Priority 1/2/3 in every panel`);
+    const badges = html.match(/(?:Priority|Ưu tiên) [123]/g) || [];
+    assert.equal(badges.length, exp.teams * 3, `${file} must mark Priority/Ưu tiên 1/2/3 in every panel`);
     const primes = html.match(/at-prime-card/g) || [];
     assert.equal(primes.length, exp.primes, `${file} must show the ${exp.primes} Meta Prime cards`);
     const cells = html.match(/at-hero-cell/g) || [];
@@ -162,6 +162,39 @@ test('Atlas layout (light): Arena and Total War use the Atlas structure with rea
       assert.ok(fs.existsSync(path.join(root, 'assets', 'skills', src)), `${file} references missing skill icon ${src}`);
     }
   }
+});
+
+test('Total War card (Atlas-style, 18/11): Vietnamese labels, one portrait row, bottom-up skill columns', () => {
+  const html = fs.readFileSync(path.join(root, 'total-war.html'), 'utf8');
+  // Banner: dark friendly variant, still the at-hero block with the tag.
+  assert.ok(html.includes('class="at-hero at-hero--tw"'), 'total-war.html must use the dark friendly banner');
+  assert.ok(html.includes('<span class="article-tag">TOTAL WAR</span>'), 'total-war.html must keep the TOTAL WAR tag');
+  // Header: formation dot-icon chip + details toggle on every team.
+  assert.equal((html.match(/class="at-form-chip"/g) || []).length, 16, 'every team must show the formation dot-icon');
+  assert.equal((html.match(/class="at-details-btn"/g) || []).length, 16, 'every team must have a Xem chi tiết toggle');
+  // Info row in Vietnamese: Tốc độ + Hạng phù hợp grade shields.
+  assert.ok(html.includes('Không quan trọng'), 'speed must read Không quan trọng, not Negligible');
+  assert.ok(!html.includes('Negligible'), 'total-war.html must not show the English speed label');
+  assert.ok(html.includes('Hạng phù hợp'), 'total-war.html must label the tier-suitability shields');
+  assert.ok((html.match(/totalwar-grade-(normal|elite|superb|legendary)\.webp/g) || []).length >= 16,
+    'total-war.html must show grade shield icons');
+  // One portrait row per team, back-row heroes raised, no tier letters.
+  assert.equal((html.match(/class="at-team-row"/g) || []).length, 16, 'every team must have one portrait row');
+  assert.ok(!html.includes('class="at-board"'), 'total-war.html must not keep the old two-row formation board');
+  assert.ok(!html.includes('at-tier t-'), 'total-war.html must not put tier badges on portraits');
+  assert.ok(!html.includes('class="at-flow"'), 'total-war.html must not keep the old numbered skill flow');
+  assert.ok(html.includes('Hàng sau'), 'total-war.html must explain the red back-row dots');
+  assert.ok(html.includes('Hàng trước'), 'total-war.html must explain the blue front-row dots');
+  // Skill panel: exactly one per team, Vietnamese title, 48 Vietnamese pills.
+  assert.ok(html.includes('Thứ tự dùng skill tự động'), 'skill panel title must be Vietnamese');
+  assert.ok(!html.includes('Auto Skill Priority'), 'total-war.html must not show the English skill title');
+  const vi = html.match(/Ưu tiên [123]/g) || [];
+  assert.equal(vi.length, 48, 'total-war.html must mark Ưu tiên 1/2/3 in every panel');
+  assert.ok(!html.includes('Priority 1') && !html.includes('Priority 2') && !html.includes('Priority 3'),
+    'total-war.html must not keep English Priority badges');
+  // No source attribution anywhere visible.
+  assert.ok(!/atlas/i.test(html.replace(/href="atlas\.css"/g, '').replace(/href="atlas\.css"/g, '')),
+    'total-war.html must not mention Atlas in visible text');
 });
 
 test('article tags: every article page carries a chip naming its menu', () => {
