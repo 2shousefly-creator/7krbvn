@@ -183,6 +183,25 @@ test('Total War card (Atlas-style, 18/11): Vietnamese labels, one portrait row, 
   assert.ok(!html.includes('class="at-board"'), 'total-war.html must not keep the old two-row formation board');
   assert.ok(!html.includes('at-tier t-'), 'total-war.html must not put tier badges on portraits');
   assert.ok(!html.includes('class="at-flow"'), 'total-war.html must not keep the old numbered skill flow');
+  // No inline per-hero build sections (clicking a portrait opens the hero popup with builds).
+  assert.ok(!html.includes('class="at-builds"'), 'total-war.html must not keep the per-hero build details');
+  assert.ok(!html.includes('Xem build từng hero'), 'total-war.html must not keep the build details heading');
+  // Pet portrait next to every pet name in the info row.
+  assert.ok((html.match(/class="at-pet-icon"/g) || []).length >= 16,
+    'every team must show a pet portrait next to the pet name');
+  for (const src of new Set([...html.matchAll(/assets\/(pet-[a-z]+\.webp)/g)].map(m => m[1]))) {
+    assert.ok(fs.existsSync(path.join(root, 'assets', src)), `total-war.html references missing pet portrait ${src}`);
+  }
+  // CSS regression guards: the role icon must be sized by a rule that beats
+  // the portrait img rules, and the row must top-align so front/back baselines hold.
+  const css = fs.readFileSync(path.join(root, 'atlas.css'), 'utf8');
+  assert.ok(css.includes('.at-team-row .at-portrait img.at-role-icon'),
+    'atlas.css must size the role icon with a selector beating .at-portrait img');
+  assert.ok(!css.includes('.at-hero-cell.is-back{transform:translateY'),
+    'atlas.css must not raise back-row heroes with translateY on uneven cells');
+  assert.ok(css.includes('.at-team-row .at-heroes{flex-wrap:nowrap;align-items:flex-start'),
+    'atlas.css must top-align the portrait row');
+  assert.ok(!css.includes('.at-builds{'), 'atlas.css must not keep the removed build-details styles');
   assert.ok(html.includes('Hàng sau'), 'total-war.html must explain the red back-row dots');
   assert.ok(html.includes('Hàng trước'), 'total-war.html must explain the blue front-row dots');
   // Skill panel: exactly one per team, Vietnamese title, 48 Vietnamese pills.
