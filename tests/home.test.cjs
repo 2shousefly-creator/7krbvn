@@ -132,17 +132,19 @@ test('menu-page banners: blog-intro is half its old height on every page', () =>
   assert.ok(css.includes('.blog-intro-art{height:75px'), 'mobile banner art must shrink too');
 });
 
-test('raid guide article: fourth in Latest, 8 sections, every portrait hero exists', () => {
+test('raid guide article: fifth in Latest, 8 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
+  assert.ok(latest.indexOf('hieu-trung-hieu-khang.html') < latest.indexOf('cap-nhat-12-11.html'),
+    'the Hit/Res guide must be the first card in Latest, ahead of the 12/11 update');
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the second card in Latest, ahead of the gear guide');
+    'the ring guide must be the third card in Latest, ahead of the gear guide');
   assert.ok(latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html') < latest.indexOf('raid-farm-trang-bi.html'),
-    'the gear guide must be the third card in Latest, ahead of the raid guide');
+    'the gear guide must be the fourth card in Latest, ahead of the raid guide');
   assert.ok(latest.indexOf('raid-farm-trang-bi.html') < latest.indexOf('cap-nhat-28-10.html'),
-    'the raid guide must be the fourth card in Latest');
-  assert.ok(home.includes('Cập nhật 12/11/2026'), 'home stamp must read 05/11/2026');
+    'the raid guide must be the fifth card in Latest');
+  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
   const raidCard = latest.match(/<a class="post-card" href="raid-farm-trang-bi\.html">([\s\S]*?)<\/a>/);
   assert.ok(raidCard && raidCard[1].includes('<span class="article-tag">NEWBIE</span>'),
     'the raid guide card in Latest must carry the NEWBIE tag');
@@ -152,8 +154,8 @@ test('raid guide article: fourth in Latest, 8 sections, every portrait hero exis
     'the raid guide card in the Raid listing must carry the NEWBIE tag');
   const newbieListing = page('newbie.html');
   const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
-  assert.equal(newbieCards[2], 'raid-farm-trang-bi.html',
-    'the raid guide must be the third card in the Newbie listing');
+  assert.equal(newbieCards[3], 'raid-farm-trang-bi.html',
+    'the raid guide must be the fourth card in the Newbie listing');
   assert.ok(newbieListing.includes('<p>8 bài viết</p>'),
     'the Newbie listing count must read 8 articles');
   const article = page('raid-farm-trang-bi.html');
@@ -171,22 +173,22 @@ test('raid guide article: fourth in Latest, 8 sections, every portrait hero exis
   assert.ok(article.includes('href="raid.html"'), 'raid guide must link back to the raid listing');
 });
 
-test('gear guide article: third in Latest, second in Newbie, 9 sections, every portrait hero exists', () => {
+test('gear guide article: fourth in Latest, third in Newbie, 9 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the second card in Latest, ahead of the gear guide');
+    'the ring guide must be the third card in Latest, ahead of the gear guide');
   assert.ok(latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html') < latest.indexOf('raid-farm-trang-bi.html'),
-    'the gear guide must be the third card in Latest');
-  assert.ok(home.includes('Cập nhật 12/11/2026'), 'home stamp must read 05/11/2026');
+    'the gear guide must be the fourth card in Latest');
+  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
   const gearCard = latest.match(/<a class="post-card" href="trang-bi-set-dong-chinh-dong-phu\.html">([\s\S]*?)<\/a>/);
   assert.ok(gearCard && gearCard[1].includes('<span class="article-tag">NEWBIE</span>'),
     'the gear guide card in Latest must carry the NEWBIE tag');
   const newbieListing = page('newbie.html');
   const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
-  assert.equal(newbieCards[1], 'trang-bi-set-dong-chinh-dong-phu.html',
-    'the gear guide must be the second card in the Newbie listing');
+  assert.equal(newbieCards[2], 'trang-bi-set-dong-chinh-dong-phu.html',
+    'the gear guide must be the third card in the Newbie listing');
   assert.ok(newbieListing.includes('<p>8 bài viết</p>'),
     'the Newbie listing count must read 8 articles');
   const article = page('trang-bi-set-dong-chinh-dong-phu.html');
@@ -204,20 +206,20 @@ test('gear guide article: third in Latest, second in Newbie, 9 sections, every p
   assert.ok(article.includes('href="newbie.html"'), 'gear guide must link back to the newbie listing');
 });
 
-test('ring guide article: second in Latest, first in Newbie, 9 sections, every portrait hero exists', () => {
+test('ring guide article: third in Latest, second in Newbie, 9 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the second card in Latest');
-  assert.ok(home.includes('Cập nhật 12/11/2026'), 'home stamp must read 05/11/2026');
+    'the ring guide must be the third card in Latest');
+  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
   const ringCard = latest.match(/<a class="post-card" href="nhan-va-trang-bi-rieng\.html">([\s\S]*?)<\/a>/);
   assert.ok(ringCard && ringCard[1].includes('<span class="article-tag">NEWBIE</span>'),
     'the ring guide card in Latest must carry the NEWBIE tag');
   const newbieListing = page('newbie.html');
   const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
-  assert.equal(newbieCards[0], 'nhan-va-trang-bi-rieng.html',
-    'the ring guide must be the first card in the Newbie listing');
+  assert.equal(newbieCards[1], 'nhan-va-trang-bi-rieng.html',
+    'the ring guide must be the second card in the Newbie listing');
   assert.ok(newbieListing.includes('<p>8 bài viết</p>'),
     'the Newbie listing count must read 8 articles');
   const article = page('nhan-va-trang-bi-rieng.html');
@@ -270,4 +272,28 @@ test('mobile menu button: MENU text sits inside the toggle on every page', () =>
         `${file} toggle must show MENU`);
     }
   }
+});
+
+test('hit/res guide article: first in Latest, first in Newbie, 5 sections', () => {
+  const home = page('index.html');
+  const latest = home.slice(home.indexOf('Bài viết mới nhất'),
+    home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
+  const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
+  assert.equal(latestCards[0], 'hieu-trung-hieu-khang.html',
+    'the Hit/Res guide must be the first card in Latest');
+  assert.equal(latestCards.length, 8, 'latest must still list 8 articles');
+  const hitCard = latest.match(/<a class="post-card" href="hieu-trung-hieu-khang\.html">([\s\S]*?)<\/a>/);
+  assert.ok(hitCard && hitCard[1].includes('<span class="article-tag">NEWBIE</span>'),
+    'the Hit/Res guide card in Latest must carry the NEWBIE tag');
+  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
+  const newbieListing = page('newbie.html');
+  const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
+  assert.equal(newbieCards[0], 'hieu-trung-hieu-khang.html',
+    'the Hit/Res guide must be the first card in the Newbie listing');
+  const article = page('hieu-trung-hieu-khang.html');
+  assert.ok(article.includes('<span class="article-tag">NEWBIE</span>'),
+    'the Hit/Res guide must carry the NEWBIE tag');
+  assert.equal((article.match(/class="article-section"/g) || []).length, 5, 'Hit/Res guide must have 5 sections');
+  assert.ok(!article.includes('GameWith') && !article.includes('Atlas'), 'Hit/Res guide must not attribute sources in the article');
+  assert.ok(article.includes('href="newbie.html"'), 'Hit/Res guide must link back to the newbie listing');
 });
