@@ -154,8 +154,8 @@ test('raid guide article: fourth in Latest, 8 sections, every portrait hero exis
   const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
   assert.equal(newbieCards[2], 'raid-farm-trang-bi.html',
     'the raid guide must be the third card in the Newbie listing');
-  assert.ok(newbieListing.includes('<p>7 bài viết</p>'),
-    'the Newbie listing count must read 7 articles');
+  assert.ok(newbieListing.includes('<p>8 bài viết</p>'),
+    'the Newbie listing count must read 8 articles');
   const article = page('raid-farm-trang-bi.html');
   assert.ok(article.includes('<span class="article-tag">NEWBIE</span>'),
     'the raid guide is a Newbie article, not a Raid-tagged one');
@@ -187,8 +187,8 @@ test('gear guide article: third in Latest, second in Newbie, 9 sections, every p
   const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
   assert.equal(newbieCards[1], 'trang-bi-set-dong-chinh-dong-phu.html',
     'the gear guide must be the second card in the Newbie listing');
-  assert.ok(newbieListing.includes('<p>7 bài viết</p>'),
-    'the Newbie listing count must read 7 articles');
+  assert.ok(newbieListing.includes('<p>8 bài viết</p>'),
+    'the Newbie listing count must read 8 articles');
   const article = page('trang-bi-set-dong-chinh-dong-phu.html');
   assert.ok(article.includes('<span class="article-tag">NEWBIE</span>'),
     'the gear guide must carry the NEWBIE tag');
@@ -218,8 +218,8 @@ test('ring guide article: second in Latest, first in Newbie, 9 sections, every p
   const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
   assert.equal(newbieCards[0], 'nhan-va-trang-bi-rieng.html',
     'the ring guide must be the first card in the Newbie listing');
-  assert.ok(newbieListing.includes('<p>7 bài viết</p>'),
-    'the Newbie listing count must read 7 articles');
+  assert.ok(newbieListing.includes('<p>8 bài viết</p>'),
+    'the Newbie listing count must read 8 articles');
   const article = page('nhan-va-trang-bi-rieng.html');
   assert.ok(article.includes('<span class="article-tag">NEWBIE</span>'),
     'the ring guide must carry the NEWBIE tag');
