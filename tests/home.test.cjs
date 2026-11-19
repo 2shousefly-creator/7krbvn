@@ -244,9 +244,10 @@ test('category cards: no descriptions, 3 compact cards per row on mobile', () =>
   assert.equal((grids[0].match(/<a class="cat-card"/g) || []).length, 3, 'most-visited grid must list 3 category cards');
   assert.equal((grids[1].match(/<a class="cat-card"/g) || []).length, 10, 'quick-access grid must list 10 category cards');
   assert.equal((home.match(/<a class="cat-card"/g) || []).length, 13, 'home must still list 13 category cards in total');
+  assert.ok(grids[0].includes('<span class="cat-count">'), 'most-visited cards keep their count line');
+  assert.ok(!grids[1].includes('<span class="cat-count">'), 'quick-access cards must not carry a sub-description line');
   for (const grid of grids) {
     assert.ok(!grid.includes('<p>'), 'category cards must not carry description text');
-    assert.ok(grid.includes('<span class="cat-count">'), 'category cards keep their count line');
   }
   const css = page('site-nav.css');
   assert.ok(css.includes('.cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))'),
