@@ -132,18 +132,18 @@ test('menu-page banners: blog-intro is half its old height on every page', () =>
   assert.ok(css.includes('.blog-intro-art{height:75px'), 'mobile banner art must shrink too');
 });
 
-test('raid guide article: fifth in Latest, 8 sections, every portrait hero exists', () => {
+test('raid guide article: sixth in Latest, 8 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('hieu-trung-hieu-khang.html') < latest.indexOf('cap-nhat-12-11.html'),
-    'the Hit/Res guide must be the first card in Latest, ahead of the 12/11 update');
+    'the Hit/Res guide must be the second card in Latest, ahead of the 12/11 update');
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the third card in Latest, ahead of the gear guide');
+    'the ring guide must be the fourth card in Latest, ahead of the gear guide');
   assert.ok(latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html') < latest.indexOf('raid-farm-trang-bi.html'),
-    'the gear guide must be the fourth card in Latest, ahead of the raid guide');
+    'the gear guide must be the fifth card in Latest, ahead of the raid guide');
   assert.ok(latest.indexOf('raid-farm-trang-bi.html') < latest.indexOf('cap-nhat-28-10.html'),
-    'the raid guide must be the fifth card in Latest');
+    'the raid guide must be the sixth card in Latest');
   assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
   const raidCard = latest.match(/<a class="post-card" href="raid-farm-trang-bi\.html">([\s\S]*?)<\/a>/);
   assert.ok(raidCard && raidCard[1].includes('<span class="article-tag">NEWBIE</span>'),
@@ -173,14 +173,14 @@ test('raid guide article: fifth in Latest, 8 sections, every portrait hero exist
   assert.ok(article.includes('href="raid.html"'), 'raid guide must link back to the raid listing');
 });
 
-test('gear guide article: fourth in Latest, third in Newbie, 9 sections, every portrait hero exists', () => {
+test('gear guide article: fifth in Latest, third in Newbie, 9 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the third card in Latest, ahead of the gear guide');
+    'the ring guide must be the fourth card in Latest, ahead of the gear guide');
   assert.ok(latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html') < latest.indexOf('raid-farm-trang-bi.html'),
-    'the gear guide must be the fourth card in Latest');
+    'the gear guide must be the fifth card in Latest');
   assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
   const gearCard = latest.match(/<a class="post-card" href="trang-bi-set-dong-chinh-dong-phu\.html">([\s\S]*?)<\/a>/);
   assert.ok(gearCard && gearCard[1].includes('<span class="article-tag">NEWBIE</span>'),
@@ -206,12 +206,12 @@ test('gear guide article: fourth in Latest, third in Newbie, 9 sections, every p
   assert.ok(article.includes('href="newbie.html"'), 'gear guide must link back to the newbie listing');
 });
 
-test('ring guide article: third in Latest, second in Newbie, 9 sections, every portrait hero exists', () => {
+test('ring guide article: fourth in Latest, second in Newbie, 9 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the third card in Latest');
+    'the ring guide must be the fourth card in Latest');
   assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
   const ringCard = latest.match(/<a class="post-card" href="nhan-va-trang-bi-rieng\.html">([\s\S]*?)<\/a>/);
   assert.ok(ringCard && ringCard[1].includes('<span class="article-tag">NEWBIE</span>'),
@@ -274,13 +274,15 @@ test('mobile menu button: MENU text sits inside the toggle on every page', () =>
   }
 });
 
-test('hit/res guide article: first in Latest, first in Newbie, 5 sections', () => {
+test('hit/res guide article: second in Latest, first in Newbie, 5 sections', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
-  assert.equal(latestCards[0], 'hieu-trung-hieu-khang.html',
-    'the Hit/Res guide must be the first card in Latest');
+  assert.equal(latestCards[0], 'corridor.html',
+    'the Corridor article must be the first card in Latest, ahead of the Hit/Res guide');
+  assert.equal(latestCards[1], 'hieu-trung-hieu-khang.html',
+    'the Hit/Res guide must be the second card in Latest');
   assert.equal(latestCards.length, 8, 'latest must still list 8 articles');
   const hitCard = latest.match(/<a class="post-card" href="hieu-trung-hieu-khang\.html">([\s\S]*?)<\/a>/);
   assert.ok(hitCard && hitCard[1].includes('<span class="article-tag">NEWBIE</span>'),
@@ -296,4 +298,36 @@ test('hit/res guide article: first in Latest, first in Newbie, 5 sections', () =
   assert.equal((article.match(/class="article-section"/g) || []).length, 5, 'Hit/Res guide must have 5 sections');
   assert.ok(!article.includes('GameWith') && !article.includes('Atlas'), 'Hit/Res guide must not attribute sources in the article');
   assert.ok(article.includes('href="newbie.html"'), 'Hit/Res guide must link back to the newbie listing');
+});
+
+test('corridor article: first in Latest, first in cap-nhat listing, 6 sections, every figure image exists', () => {
+  const home = page('index.html');
+  const latest = home.slice(home.indexOf('Bài viết mới nhất'),
+    home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
+  const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
+  assert.equal(latestCards[0], 'corridor.html',
+    'the Corridor article must be the first card in Latest');
+  assert.equal(latestCards.length, 8, 'latest must still list 8 articles');
+  const corridorCard = latest.match(/<a class="post-card" href="corridor\.html">([\s\S]*?)<\/a>/);
+  assert.ok(corridorCard && corridorCard[1].includes('<span class="article-tag">CẬP NHẬT</span>'),
+    'the Corridor card in Latest must carry the CẬP NHẬT tag');
+  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
+  const listing = page('cap-nhat.html');
+  const listingCards = [...listing.matchAll(/<a class="post-card" href="([^"]+)">/g)].map(m => m[1]);
+  assert.equal(listingCards[0], 'corridor.html',
+    'the Corridor article must be the first card in the cap-nhat listing');
+  assert.ok(listing.includes('<p>3 bài viết</p>'),
+    'the cap-nhat listing count must read 3 articles');
+  const article = page('corridor.html');
+  assert.ok(article.includes('<span class="article-tag">CẬP NHẬT</span>'),
+    'the Corridor article must carry the CẬP NHẬT tag');
+  assert.equal((article.match(/class="article-section"/g) || []).length, 6, 'Corridor article must have 6 sections');
+  assert.ok(!article.includes('GameWith') && !article.includes('Atlas'), 'Corridor article must not attribute sources in the article');
+  assert.ok(article.includes('href="cap-nhat.html"'), 'Corridor article must link back to the cap-nhat listing');
+  assert.ok(article.includes('26/11/2026'), 'Corridor article must be dated by its go-live date 26/11');
+  const imgs = [...new Set([...article.matchAll(/assets\/(corridor-[a-z-]+\.webp)/g)].map(m => m[1]))];
+  assert.ok(imgs.length >= 14, `Corridor article must show at least 14 figures, got ${imgs.length}`);
+  for (const img of imgs) {
+    assert.ok(fs.statSync(path.join(root, 'assets', img)).size > 1000, `${img} must be a real image`);
+  }
 });
