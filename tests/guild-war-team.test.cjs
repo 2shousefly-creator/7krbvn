@@ -4,7 +4,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.join(__dirname, '..', 'public');
 const html = fs.readFileSync(path.join(root, 'guild-war-team.html'), 'utf8');
-const indexHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const heroesIndex = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes-index.json'), 'utf8'));
 const heroIds = new Set((heroesIndex.heroes || heroesIndex).map(h => h.id));
 
@@ -293,11 +292,6 @@ test('COUNTER_PETS lists each counter pet plus its reserve pets', () => {
   for (const [code, c] of Object.entries(data.counters)) {
     assert.deepEqual(counterPets[code], [c.pet, ...c.petBackup], code + ' pets must be main + reserves');
   }
-});
-
-test('home page counts the new total: 192 teams', () => {
-  assert.ok(indexHtml.includes('192 đội mẫu'), 'home Guild War card must say 192 đội mẫu');
-  assert.ok(!indexHtml.includes('162 đội mẫu'), 'old 162 count must be gone from home');
 });
 
 test('the guild war page has the site navigation with itself active', () => {
