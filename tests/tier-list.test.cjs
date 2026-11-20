@@ -155,7 +155,7 @@ test('tier-list.html carries the standard navigation with exactly one active ite
   }
   assert.ok(html.includes('data-parent="PVE"'), 'tier-list.html is missing the PVE dropdown');
   assert.ok(html.includes('data-parent="PVP"'), 'tier-list.html is missing the PVP dropdown');
-  assert.ok(html.includes('data-parent="TRA CỨU"'), 'tier-list.html is missing the TRA CỨU dropdown');
+  assert.ok(html.includes('data-parent="CÔNG CỤ"'), 'tier-list.html is missing the CÔNG CỤ dropdown');
   assert.ok(html.includes('class="nav-active" href="tier-list.html"'),
     'tier-list.html must highlight itself in the nav');
   assert.equal((html.match(/class="(?:snav-active|nav-active)" href="/g) || []).length, 1,

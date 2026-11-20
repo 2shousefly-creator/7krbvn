@@ -59,8 +59,9 @@ test('compare page keeps the standard nav links', () => {
     assert.ok(html.includes('href="' + link + '"'), 'so-sanh.html must link to ' + link);
   }
   assert.ok(html.includes('class="nav-active" href="so-sanh.html"'),
-    'so-sanh.html must highlight itself in the nav (TRA CỨU submenu)');
-  assert.ok(html.includes('data-parent="TRA CỨU"'), 'so-sanh.html nav must have the TRA CỨU dropdown');
+    'so-sanh.html must highlight itself as a top-level nav link');
+  assert.ok(!html.includes('data-parent="TRA CỨU"'), 'the retired TRA CỨU dropdown must be gone');
+  assert.ok(html.includes('data-parent="CÔNG CỤ"'), 'so-sanh.html nav must have the CÔNG CỤ dropdown');
 });
 
 test('compare script loads its data from the hero JSONs', () => {

@@ -4,18 +4,20 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.join(__dirname, '..', 'public');
 
-// Hierarchical navigation: 8 top-level links + PVE (6 children) + PVP (3 children) + TRA CỨU (2 children).
-const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'cot-truyen.html', 'heroes.html', 'tier-list.html', 'tinh-ruby.html', 'doi-coupon.html'];
-const NAV_PVE = ['castle-rush.html', 'advent-expedition.html', 'raid.html', 'dungeon.html', 'celestial-tower.html', 'tower-of-trials.html'];
-const NAV_PVP = ['arena.html', 'total-war.html', 'guild-war-team.html'];
-const NAV_TRA_CUU = ['tu-dien-hieu-ung.html', 'so-sanh.html'];
-const NAV = [...NAV_TOP, ...NAV_PVE, ...NAV_PVP, ...NAV_TRA_CUU];
+// Hierarchical navigation: 8 top-level links + PVE (6 children) + PVP (3 children) + CÔNG CỤ (2 children).
+// Top-level order: TRANG CHỦ, NEWBIE, CẬP NHẬT, CỐT TRUYỆN, PVE, PVP, HEROES, TIER LIST,
+// SO SÁNH HERO, TỪ ĐIỂN HIỆU ỨNG, CÔNG CỤ — 11 rows, same count as before the 2026-11-20 regrouping.
+const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'cot-truyen.html', 'heroes.html', 'tier-list.html', 'so-sanh.html', 'tu-dien-hieu-ung.html'];
+const NAV_PVE = ['castle-rush.html', 'advent-expedition.html', 'raid.html', 'celestial-tower.html', 'tower-of-trials.html', 'dungeon.html'];
+const NAV_PVP = ['guild-war-team.html', 'arena.html', 'total-war.html'];
+const NAV_CONG_CU = ['tinh-ruby.html', 'doi-coupon.html'];
+const NAV = [...NAV_TOP, ...NAV_PVE, ...NAV_PVP, ...NAV_CONG_CU];
 
 // Pages whose active item is a submenu child, and the parent that must be highlighted.
 const CHILD_PARENT = {};
 for (const h of NAV_PVE) CHILD_PARENT[h] = 'PVE';
 for (const h of NAV_PVP) CHILD_PARENT[h] = 'PVP';
-for (const h of NAV_TRA_CUU) CHILD_PARENT[h] = 'TRA CỨU';
+for (const h of NAV_CONG_CU) CHILD_PARENT[h] = 'CÔNG CỤ';
 
 // Home category cards (13) — unaffected by the menu regrouping.
 const CAT_CARDS = ['newbie.html', 'cap-nhat.html', 'guild-war-team.html', 'castle-rush.html',
@@ -43,7 +45,8 @@ test('every page carries the hierarchical navigation with exactly one active ite
     }
     assert.ok(html.includes('data-parent="PVE"'), `${file} is missing the PVE dropdown`);
     assert.ok(html.includes('data-parent="PVP"'), `${file} is missing the PVP dropdown`);
-    assert.ok(html.includes('data-parent="TRA CỨU"'), `${file} is missing the TRA CỨU dropdown`);
+    assert.ok(html.includes('data-parent="CÔNG CỤ"'), `${file} is missing the CÔNG CỤ dropdown`);
+    assert.ok(!html.includes('data-parent="TRA CỨU"'), `${file} still has the retired TRA CỨU dropdown`);
     const nav = navBlock(html);
     assert.ok(nav.includes('>CẬP NHẬT</a>'), `${file} nav must label the update section CẬP NHẬT`);
     assert.ok(!nav.includes('CHI TIẾT CẬP NHẬT'), `${file} nav still uses the old label`);
@@ -54,6 +57,34 @@ test('every page carries the hierarchical navigation with exactly one active ite
     assert.equal(parentActiveCount(html), parent ? 1 : 0,
       `${file}: active ${active} must ${parent ? '' : 'not '}highlight a parent`);
   }
+});
+
+test('nav order: top-level groups and submenu orders follow the 2026-11-20 regrouping', () => {
+  // The order itself is the feature: hero-reference pages sit together at
+  // top level (HEROES, TIER LIST, SO SÁNH HERO, TỪ ĐIỂN HIỆU ỨNG), tools
+  // group at the end (CÔNG CỤ), PVE follows the home-card order (Dungeon
+  // last), PVP leads with Guild War (a most-visited page).
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const nav = navBlock(html);
+  const order = ['>TRANG CHỦ</a>', '>NEWBIE</a>', '>CẬP NHẬT</a>', '>CỐT TRUYỆN</a>',
+    'data-parent="PVE"', '>CASTLE RUSH</a>', '>ADVENT EXPEDITION</a>', '>RAID</a>',
+    '>CELESTIAL TOWER</a>', '>TOWER OF TRIALS</a>', '>DUNGEON</a>',
+    'data-parent="PVP"', '>GUILD WAR</a>', '>ARENA</a>', '>TOTAL WAR</a>',
+    '>HEROES</a>', '>TIER LIST</a>', '>SO SÁNH HERO</a>', '>TỪ ĐIỂN HIỆU ỨNG</a>',
+    'data-parent="CÔNG CỤ"', '>TÍNH RUBY</a>', '>ĐỔI COUPON</a>'];
+  const positions = order.map(t => nav.indexOf(t));
+  assert.ok(positions.every(i => i >= 0), 'every nav label must be present in order');
+  assert.deepEqual([...positions].sort((a, b) => a - b), positions, 'nav labels must run in the regrouped order');
+  // Guild War's own snav mirrors the same order and grouping. Its links
+  // container holds nested dropdown divs, so the end boundary is the
+  // fanpage link (same boundary rebuild_snav.py uses) — not the first
+  // closing div, which would cut the block off inside the PVE submenu.
+  const gw = fs.readFileSync(path.join(root, 'guild-war-team.html'), 'utf8');
+  const gwStart = gw.indexOf('snav-links">');
+  const gwNav = gw.slice(gwStart, gw.indexOf('</div><a class="snav-fp"', gwStart));
+  const gwPositions = order.map(t => gwNav.indexOf(t));
+  assert.ok(gwPositions.every(i => i >= 0), 'guild-war snav must carry the same nav labels');
+  assert.deepEqual([...gwPositions].sort((a, b) => a - b), gwPositions, 'guild-war snav must run in the same order');
 });
 
 test('every internal page link resolves to an existing file', () => {

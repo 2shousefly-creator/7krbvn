@@ -90,11 +90,11 @@ test('glossary page uses the standard nav links', () => {
   assert.ok(html.includes('id="image-dialog"'), 'glossary page needs the image dialog');
   assert.ok(html.includes('class="back-to-top"'), 'glossary page needs the back-to-top button');
   assert.ok(html.includes('src="guide.js"'), 'glossary page must load guide.js');
-  /* This page IS a menu item (TRA CỨU submenu child), so it highlights itself
-   * and its TRA CỨU parent — exactly one active nav item. */
+  /* This page is a top-level nav link now (TRA CỨU group retired 2026-11-20),
+   * so it highlights itself with no parent — exactly one active nav item. */
   assert.ok(html.includes('class="nav-active" href="tu-dien-hieu-ung.html"'),
     'glossary page must highlight itself in the nav (one active item)');
-  assert.ok(html.includes('data-parent="TRA CỨU"'), 'glossary page nav must have the TRA CỨU dropdown');
+  assert.ok(!html.includes('data-parent="TRA CỨU"'), 'the retired TRA CỨU dropdown must be gone');
   assert.equal((html.match(/class="nav-active" href="/g) || []).length, 1,
     'glossary page must have exactly one active nav item');
 });
