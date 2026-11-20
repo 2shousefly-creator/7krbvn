@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20T01:58:21.328513+00:00",
+ "generated": "2026-11-20T02:31:59.174106+00:00",
  "counts": {
   "pages": 245,
   "heroes": 125,
@@ -289,7 +289,7 @@
    "title": "Arena | 7K RBVN",
    "url": "arena.html",
    "group": "mode",
-   "desc": "Đội hình Arena PvP theo tổng hợp của: 16 đội Attack, Magic, Tank và Hybrid, kèm thứ tự auto skill, pet và hero thay thế.",
+   "desc": "Đội hình Arena PvP: 16 đội Attack, Magic, Tank và Hybrid, kèm thứ tự auto skill, pet và hero thay thế.",
    "headings": [
     "Meta Prime",
     "Meta Lineups",
