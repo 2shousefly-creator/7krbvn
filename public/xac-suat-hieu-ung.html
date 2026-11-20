@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f6f1">
+  <meta name="description" content="Tính xác suất gây hiệu ứng debuff lên đối thủ trong Seven Knights Re:Birth — chọn hero, pet, chỉnh Effect Hit Rate, Effect Probability và Effect Resistance của đối thủ, xem tỉ lệ % theo từng skill.">
+  <meta property="og:title" content="Tính Xác Suất Hiệu Ứng | 7K RBVN"><meta property="og:description" content="Tính xác suất gây debuff lên đối thủ: chọn hero và skill, chỉnh Effect Hit Rate / Effect Probability / Effect Resistance, xem tỉ lệ % theo công thức chuẩn cộng đồng."><meta property="og:type" content="website">
+  <title>Tính Xác Suất Hiệu Ứng | 7K RBVN</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect rx='23' width='100' height='100' fill='%23192033'/%3E%3Ctext x='50' y='69' font-size='55' text-anchor='middle' fill='%23e8c16c' font-family='Arial' font-weight='bold'%3E7K%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles-v3.css"><link rel="stylesheet" href="blog.css"><link rel="stylesheet" href="site-nav.css"><link rel="stylesheet" href="heroes.css"><link rel="stylesheet" href="effect-calc.css"><script src="guide.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#noi-dung">Đi đến nội dung</a>
+<header class="site-header"><div class="header-inner wrap"><a class="brand" href="index.html" aria-label="7K RBVN - Trang đầu"><span class="brand-mark">7K<span>✦</span></span><span><span class="brand-name">SEVEN KNIGHTS</span><span class="brand-sub">RE:BIRTH VN SUPPORTER</span></span></a><a class="fanpage-link" href="https://www.facebook.com/7krbvn" target="_blank" rel="noopener noreferrer" aria-label="Mở fanpage Seven Knights Re:Birth VN Supporter">f <span>Fanpage</span> <span aria-hidden="true">↗</span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Mở menu"><span class="nav-toggle-label">MENU</span><span class="nav-toggle-icon"><span></span><span></span><span></span></span></button></div><nav class="main-nav" id="site-nav" aria-label="Menu chính"><div class="wrap nav-scroll"><a href="index.html">TRANG CHỦ</a><a href="newbie.html">NEWBIE</a><a href="cap-nhat.html">CẬP NHẬT</a><a href="cot-truyen.html">CỐT TRUYỆN</a><div class="nav-item has-sub"><button class="nav-parent" type="button" aria-expanded="false" aria-haspopup="true" data-parent="PVE">PVE <span class="nav-caret">▾</span></button><div class="nav-sub"><a href="castle-rush.html">CASTLE RUSH</a><a href="advent-expedition.html">ADVENT EXPEDITION</a><a href="raid.html">RAID</a><a href="celestial-tower.html">CELESTIAL TOWER</a><a href="tower-of-trials.html">TOWER OF TRIALS</a><a href="dungeon.html">DUNGEON</a></div></div><div class="nav-item has-sub"><button class="nav-parent" type="button" aria-expanded="false" aria-haspopup="true" data-parent="PVP">PVP <span class="nav-caret">▾</span></button><div class="nav-sub"><a href="guild-war-team.html">GUILD WAR</a><a href="arena.html">ARENA</a><a href="total-war.html">TOTAL WAR</a></div></div><a href="heroes.html">HEROES</a><a href="tier-list.html">TIER LIST</a><a href="so-sanh.html">SO SÁNH HERO</a><a href="tu-dien-hieu-ung.html">TỪ ĐIỂN HIỆU ỨNG</a><div class="nav-item has-sub"><button class="nav-parent nav-parent-active" type="button" aria-expanded="false" aria-haspopup="true" data-parent="CÔNG CỤ">CÔNG CỤ <span class="nav-caret">▾</span></button><div class="nav-sub"><a href="tinh-ruby.html">TÍNH RUBY</a><a href="doi-coupon.html">ĐỔI COUPON</a><a class="nav-active" href="xac-suat-hieu-ung.html" aria-current="page">TÍNH XÁC SUẤT HIỆU ỨNG</a></div></div></div></nav><script>(function(){var b=document.querySelector('.nav-toggle'),n=document.getElementById('site-nav');if(!b||!n)return;b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.classList.toggle('is-open',o)});n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.classList.remove('is-open')}});function closeSubs(){n.querySelectorAll('.nav-item.open').forEach(function(x){x.classList.remove('open');x.querySelector('.nav-parent').setAttribute('aria-expanded','false')})}n.querySelectorAll('.nav-parent').forEach(function(p){p.addEventListener('click',function(e){e.stopPropagation();var it=p.closest('.nav-item'),was=it.classList.contains('open');closeSubs();if(!was){it.classList.add('open');p.setAttribute('aria-expanded','true')}})});document.addEventListener('click',function(e){if(!e.target.closest('.nav-item'))closeSubs()});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSubs()})})();</script></header>
+  <main id="dau-trang"><div class="wrap page-shell" id="noi-dung">
+
+    <div class="breadcrumbs"><a href="index.html">Trang chủ</a><span>›</span><a href="tinh-ruby.html">Công cụ</a><span>›</span><span>Tính Xác Suất Hiệu Ứng</span></div>
+    <section class="hero" aria-labelledby="hero-title"><div class="hero-copy" data-tag="TÍNH XÁC SUẤT HIỆU ỨNG"><div class="eyebrow"><span class="eyebrow-dot"></span> CÔNG CỤ</div><h1 id="hero-title" class="guide-title">Tính Xác Suất Hiệu Ứng</h1><div class="hero-meta"><span>Debuff trúng hay trượt — tính trước khi ra trận</span></div></div></section>
+
+    <div class="ec-wrap">
+      <p class="ec-intro">Chọn hero và skill gây debuff, chỉnh chỉ số của hero và của đối thủ — công cụ tính xem skill đó có <b>bao nhiêu % gây được debuff lên đối thủ</b>. Tỉ lệ gốc của skill lấy ở mức cường hóa tối đa, nội tại tăng Hit / Probability của hero được tự động cộng vào.</p>
+
+      <!-- 1. Hero -->
+      <section class="ec-section" aria-labelledby="ec-h1">
+        <h2 id="ec-h1"><span class="ec-step">1</span>Hero của bạn</h2>
+        <p class="ec-sec-desc">Bấm vào ô để chọn hero. Chỉ hero có skill gây debuff (tính cả đánh thường) mới chọn được — hero không có debuff vẫn hiện trong danh sách tìm kiếm nhưng bị khóa ở cuối và có lớp phủ xám.</p>
+        <div class="ec-slots">
+          <div class="ec-slot-col"><span>Hero chính</span><div class="ec-slot ec-slot-hero" id="ec-hero-slot" role="button" tabindex="0" aria-label="Chọn hero"></div></div>
+          <div class="ec-slot-col"><span>Pet</span><div class="ec-slot ec-slot-pet" id="ec-pet-slot" role="button" tabindex="0" aria-label="Chọn pet"></div></div>
+        </div>
+        <div class="ec-box" id="ec-hero-bonus" hidden></div>
+        <p class="ec-empty" id="ec-hero-settings-hint">Chọn hero ở trên để mở các lựa chọn bổ trợ và thanh trượt chỉ số.</p>
+        <div id="ec-hero-settings" hidden>
+          <div class="ec-box-title" style="margin-top:14px">Hiệu ứng bổ trợ — tích vào nếu hero đang có hiệu ứng này trong trận</div>
+          <div class="ec-checks">
+            <label class="ec-check"><input type="checkbox" data-check="hitBoost"><span><b>Effect Hit Rate Boost +64%</b><small>Cao nhất game: nội tại Ace (T6). Nếu nội tại hero đã cho hiệu ứng này thì chỉ tính giá trị cao nhất.</small></span></label>
+            <label class="ec-check"><input type="checkbox" data-check="resRed"><span><b>Effect Resist Reduction +34%</b><small>Cao nhất game: nội tại Shinobu / Zenitsu / Skuld. Giảm Effect Resistance của đối thủ.</small></span></label>
+            <label class="ec-check"><input type="checkbox" data-check="probBoost"><span><b>Effect Probability Boost +32%</b><small>Cao nhất game: nội tại Cha Hae-in.</small></span></label>
+            <label class="ec-check" id="ec-check-deathBoost-wrap"><input type="checkbox" data-check="deathBoost" id="ec-check-deathBoost"><span><b>Death Effect Probability Boost +25%</b><small>Cao nhất game: nội tại Aquila / Knox. Chỉ áp dụng khi skill gây Death.</small></span></label>
+          </div>
+          <div class="ec-slider-row"><label for="ec-slider-hit">Effect Hit Rate của hero</label><input type="range" id="ec-slider-hit" min="0" max="200" step="1" value="0"><input type="number" id="ec-num-hit" min="0" max="200" value="0" aria-label="Effect Hit Rate %"></div>
+          <div class="ec-slider-row"><label for="ec-slider-prob">Effect Probability của hero</label><input type="range" id="ec-slider-prob" min="0" max="50" step="1" value="0"><input type="number" id="ec-num-prob" min="0" max="50" value="0" aria-label="Effect Probability %"></div>
+          <p class="ec-slider-hint">Effect Hit Rate: 0–200% · Effect Probability: 0–50%. Chỉ số này là tổng hero của bạn đang có (đồ, set, phụ kiện…).</p>
+          <div class="ec-summary">
+            <h3>CHỈ SỐ CUỐI CÙNG CỦA HERO</h3>
+            <div class="ec-sum-line" id="ec-sum-hit"></div>
+            <div class="ec-sum-line" id="ec-sum-prob"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Opponent -->
+      <section class="ec-section" aria-labelledby="ec-h2">
+        <h2 id="ec-h2"><span class="ec-step">2</span>Đối thủ</h2>
+        <p class="ec-sec-desc">Chỉnh Effect Resistance của đối thủ và các hiệu ứng giúp đối thủ né debuff.</p>
+        <div class="ec-checks">
+          <label class="ec-check"><input type="checkbox" data-check="resBoost"><span><b>Effect Resist Boost +49%</b><small>Cao nhất game: Orkah (T2) / Sung Jinwoo. Tăng Effect Resistance của đối thủ.</small></span></label>
+          <label class="ec-check"><input type="checkbox" data-check="probRed"><span><b>Effect Probability Reduction +26%</b><small>Cao nhất game: nội tại Gelidus. Trừ thẳng vào Effect Probability của hero.</small></span></label>
+        </div>
+        <div class="ec-slider-row"><label for="ec-slider-res">Effect Resistance của đối thủ</label><input type="range" id="ec-slider-res" min="0" max="200" step="1" value="0"><input type="number" id="ec-num-res" min="0" max="200" value="0" aria-label="Effect Resistance %"></div>
+        <div class="ec-summary">
+          <h3>CHỈ SỐ CUỐI CÙNG CỦA ĐỐI THỦ</h3>
+          <div class="ec-sum-line" id="ec-sum-res"></div>
+          <div class="ec-sum-line" id="ec-sum-probred"></div>
+        </div>
+      </section>
+
+      <!-- 3. Skill + result -->
+      <section class="ec-section" aria-labelledby="ec-h3">
+        <h2 id="ec-h3"><span class="ec-step">3</span>Chọn skill để kiểm tra</h2>
+        <p class="ec-sec-desc">Chỉ skill gây debuff lên đối thủ mới chọn được. Chọn xong, tỉ lệ % hiện ngay bên dưới — cứ thoải mái chỉnh lại các thông số phía trên để xem tỉ lệ thay đổi.</p>
+        <div class="ec-slot ec-skill-slot" id="ec-skill-slot" role="button" tabindex="0" aria-label="Chọn skill"></div>
+        <div id="ec-skill-detail"></div>
+        <div class="ec-result" id="ec-result"><p class="ec-empty">Chọn hero rồi chọn 1 skill gây debuff để xem tỉ lệ %.</p></div>
+      </section>
+
+      <!-- Notes -->
+      <section class="ec-section ec-notes" aria-labelledby="ec-h4">
+        <h3 id="ec-h4">Công thức &amp; lưu ý</h3>
+        <p class="ec-formula">Tỉ lệ cuối = Base chance × (1 + Effect Probability ròng) × (1 − Effective Resistance)<br>Effective Resistance = max(0, Effect Resistance đối thủ − Effect Hit Rate hero), tối đa 100%</p>
+        <ul>
+          <li>Công thức này là <b>đồng thuận cộng đồng</b> (Namu Wiki, DCInside, YouTube 욱캐리) — <b>chưa được Netmarble xác nhận chính thức</b>, và chưa có kiểm chứng thực nghiệm nào đếm mẫu đủ lớn. Xem bài <a href="hieu-trung-hieu-khang.html">Effect Hit Rate vs Effect Resistance</a> để biết chi tiết.</li>
+          <li>Pet, nội tại và hiệu ứng trong trận cộng vào từng tổng <b>trước</b> khi trừ: Effect Hit Rate và Effect Resistance trừ cho nhau trước; Effect Probability là hệ số nhân, cộng dồn rồi mới nhân. Effect Probability Reduction trừ thẳng vào tổng Effect Probability của hero.</li>
+          <li>Hiệu ứng cùng tên <b>không cộng dồn</b> — chỉ lấy giá trị cao nhất. VD: nội tại Spike cho +34% Effect Hit Rate Boost, ô tick cho +64% thì chỉ tính 64%.</li>
+          <li>Mọi tỉ lệ gốc và nội tại đều tính ở <b>mức cường hóa tối đa</b> (kể cả hiệu ứng T6 thêm vào). Skill có 2 dòng debuff cùng tên ở 2 mục tiêu khác nhau (VD: Spike S1 Freeze 100% mục tiêu chính, 70% cả hàng) sẽ hiện 2 kết quả riêng.</li>
+          <li>Skill gây debuff nhưng <b>không có tỉ lệ %</b> trong mô tả (VD: kỹ năng Thức Tỉnh của Aris luôn gây Incoming Healing Reduction) không tính được nên không chọn được.</li>
+          <li>Pet R-RL (+16% Hit) không có trong dữ liệu Atlas nên chưa đưa vào danh sách pet.</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="community-card"><div><span>ĐỒNG HÀNH CÙNG BẠN</span><h2>Cùng khám phá Seven Knights Re:Birth</h2><p>Theo dõi fanpage để cập nhật thêm các hướng dẫn dành cho cộng đồng.</p></div><a href="https://www.facebook.com/7krbvn" target="_blank" rel="noopener noreferrer">Theo dõi fanpage ↗</a></div>
+  </div></main>
+  <footer class="site-footer"><div class="wrap footer-inner"><div><b>7K RBVN <span>✦</span></b><small>Seven Knights Re:Birth VN Supporter</small></div><p>Một góc nhỏ dành cho cộng đồng người chơi Việt Nam.</p><a href="#dau-trang">Về đầu trang ↑</a></div></footer>
+  <dialog id="image-dialog" aria-label="Ảnh minh họa phóng to"><button id="dialog-close" aria-label="Đóng ảnh">✕</button><img id="dialog-image" alt=""></dialog>
+  <button class="back-to-top" type="button" aria-label="Về đầu trang">↑</button>
+  <script>(function(){var b=document.querySelector('.back-to-top');if(!b)return;function t(){b.classList.toggle('show',window.scrollY>600)}window.addEventListener('scroll',t,{passive:true});t();b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})})})();</script>
+
+  <!-- picker modal -->
+  <div class="ec-modal" id="ec-modal" role="dialog" aria-modal="true" aria-labelledby="ec-modal-title">
+    <div class="ec-modal-panel">
+      <div class="ec-modal-head"><h3 id="ec-modal-title">Chọn hero</h3><button class="ec-modal-close" id="ec-modal-close" type="button" aria-label="Đóng">✕</button></div>
+      <div id="ec-modal-list"></div>
+      <input class="ec-modal-search" id="ec-modal-search" type="search" placeholder="Tìm hero theo tên… (gõ không dấu vẫn ra)" aria-label="Tìm kiếm">
+      <p class="ec-modal-count" id="ec-modal-count"></p>
+    </div>
+  </div>
+
+  <script src="effect-calc-data.js" defer></script>
+  <script src="effect-calc.js" defer></script>
+</body></html>

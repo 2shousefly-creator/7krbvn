@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-20T07:55:45.454193+00:00",
+ "generated": "2026-11-20T08:58:46.454728+00:00",
  "counts": {
-  "pages": 245,
+  "pages": 246,
   "heroes": 125,
   "chapters": 284,
-  "total": 654
+  "total": 655
  },
  "entries": [
   {
@@ -2860,6 +2860,19 @@
     "Cùng khám phá Seven Knights Re:Birth"
    ],
    "keys": "Từ điển hiệu ứng"
+  },
+  {
+   "title": "Tính Xác Suất Hiệu Ứng | 7K RBVN",
+   "url": "xac-suat-hieu-ung.html",
+   "group": "article",
+   "desc": "Tính xác suất gây hiệu ứng debuff lên đối thủ trong Seven Knights Re:Birth — chọn hero, pet, chỉnh Effect Hit Rate, Effect Probability và Effect Resistance của đối thủ, xem tỉ lệ % theo từng skill.",
+   "headings": [
+    "1 Hero của bạn",
+    "2 Đối thủ",
+    "3 Chọn skill để kiểm tra",
+    "Cùng khám phá Seven Knights Re:Birth"
+   ],
+   "keys": "Tính Xác Suất Hiệu Ứng"
   },
   {
    "title": "Ariel",

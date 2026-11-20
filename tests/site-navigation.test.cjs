@@ -4,13 +4,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.join(__dirname, '..', 'public');
 
-// Hierarchical navigation: 8 top-level links + PVE (6 children) + PVP (3 children) + CÔNG CỤ (2 children).
+// Hierarchical navigation: 8 top-level links + PVE (6 children) + PVP (3 children) + CÔNG CỤ (3 children).
 // Top-level order: TRANG CHỦ, NEWBIE, CẬP NHẬT, CỐT TRUYỆN, PVE, PVP, HEROES, TIER LIST,
 // SO SÁNH HERO, TỪ ĐIỂN HIỆU ỨNG, CÔNG CỤ — 11 rows, same count as before the 2026-11-20 regrouping.
 const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'cot-truyen.html', 'heroes.html', 'tier-list.html', 'so-sanh.html', 'tu-dien-hieu-ung.html'];
 const NAV_PVE = ['castle-rush.html', 'advent-expedition.html', 'raid.html', 'celestial-tower.html', 'tower-of-trials.html', 'dungeon.html'];
 const NAV_PVP = ['guild-war-team.html', 'arena.html', 'total-war.html'];
-const NAV_CONG_CU = ['tinh-ruby.html', 'doi-coupon.html'];
+const NAV_CONG_CU = ['tinh-ruby.html', 'doi-coupon.html', 'xac-suat-hieu-ung.html'];
 const NAV = [...NAV_TOP, ...NAV_PVE, ...NAV_PVP, ...NAV_CONG_CU];
 
 // Pages whose active item is a submenu child, and the parent that must be highlighted.
@@ -71,7 +71,7 @@ test('nav order: top-level groups and submenu orders follow the 2026-11-20 regro
     '>CELESTIAL TOWER</a>', '>TOWER OF TRIALS</a>', '>DUNGEON</a>',
     'data-parent="PVP"', '>GUILD WAR</a>', '>ARENA</a>', '>TOTAL WAR</a>',
     '>HEROES</a>', '>TIER LIST</a>', '>SO SÁNH HERO</a>', '>TỪ ĐIỂN HIỆU ỨNG</a>',
-    'data-parent="CÔNG CỤ"', '>TÍNH RUBY</a>', '>ĐỔI COUPON</a>'];
+    'data-parent="CÔNG CỤ"', '>TÍNH RUBY</a>', '>ĐỔI COUPON</a>', '>TÍNH XÁC SUẤT HIỆU ỨNG</a>'];
   const positions = order.map(t => nav.indexOf(t));
   assert.ok(positions.every(i => i >= 0), 'every nav label must be present in order');
   assert.deepEqual([...positions].sort((a, b) => a - b), positions, 'nav labels must run in the regrouped order');
@@ -288,6 +288,7 @@ test('article tags: every article page keeps its tag implicit (data-tag, no chip
     'total-war.html': 'TOTAL WAR',
     'tinh-ruby.html': 'TÍNH RUBY',
     'doi-coupon.html': 'ĐỔI COUPON',
+    'xac-suat-hieu-ung.html': 'TÍNH XÁC SUẤT HIỆU ỨNG',
   };
   for (const [file, label] of Object.entries(tags)) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
