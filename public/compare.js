@@ -330,17 +330,15 @@
   }
 
   /* Ghi chú so sánh cho một khối chỉ số. Trả về { text, winner }.
-   * opts.atkA/atkB: loại tấn công của 2 bên (PATK/MATK) — khác loại thì
-   * không so % vì không cùng đơn vị. opts.suffix: cụm bổ sung khi chỉ
-   * một bên có số (vd: "chỉ số Thức tỉnh"). */
+   * Tấn công cũng so % như mọi chỉ số khác — PATK với MATK khác loại
+   * nhưng vẫn cùng là chỉ số tấn công, nên không có ngoại lệ (quyết định
+   * của user 2026-11-20). opts.suffix: cụm bổ sung khi chỉ một bên có
+   * số (vd: "chỉ số Thức tỉnh"). */
   function statNote(va, vb, nameA, nameB, opts) {
     opts = opts || {};
     if (va == null && vb == null) return { text: null, winner: null };
     if (va == null) return { text: 'chỉ ' + nameB + ' có' + (opts.suffix ? ' ' + opts.suffix : ''), winner: null };
     if (vb == null) return { text: 'chỉ ' + nameA + ' có' + (opts.suffix ? ' ' + opts.suffix : ''), winner: null };
-    if (opts.atkA && opts.atkB && opts.atkA !== opts.atkB) {
-      return { text: nameA + ' dùng ' + opts.atkA + ', ' + nameB + ' dùng ' + opts.atkB, winner: null };
-    }
     if (va === vb) return { text: 'bằng nhau', winner: 'tie' };
     var w = va > vb ? 'a' : 'b';
     var hi = Math.max(va, vb), lo = Math.min(va, vb);
@@ -527,9 +525,9 @@
   function statBlockHtml(def, heroA, heroB, version) {
     var va = heroA ? statValue(heroA, version, def.key) : null;
     var vb = heroB ? statValue(heroB, version, def.key) : null;
-    /* Loại tấn công (PATK/MATK) chỉ liên quan tới khối Tấn công. Các khối
-     * HP/DEF/SPD phải so % bình thường — truyền atkA/atkB cho mọi khối
-     * làm ghi chú "X dùng PATK, Y dùng MATK" lọt xuống cả HP lẫn DEF. */
+    /* Loại tấn công (PATK/MATK) chỉ để ghi vào tiêu đề khối ("Tấn công
+     * (PATK/MATK)" khi 2 bên khác loại) — ghi chú so sánh luôn là % như
+     * mọi chỉ số khác, không còn ngoại lệ "X dùng PATK, Y dùng MATK". */
     var ka = def.key === 'atk' ? (heroA ? attackStat(heroA.stats && heroA.stats[version]) : null) : null;
     var kb = def.key === 'atk' ? (heroB ? attackStat(heroB.stats && heroB.stats[version]) : null) : null;
     var label = def.label;
@@ -538,7 +536,7 @@
       else if (ka || kb) label += ' (PATK/MATK)';
     }
     var note = (heroA && heroB) ? statNote(va, vb, heroA.name, heroB.name,
-      { atkA: ka && ka.key, atkB: kb && kb.key, suffix: version === 'awk' ? 'chỉ số Thức tỉnh' : '' })
+      { suffix: version === 'awk' ? 'chỉ số Thức tỉnh' : '' })
       : { text: null, winner: null };
     var max = Math.max(va || 0, vb || 0);
     var html = '<div class="cp-block"><div class="cp-block-title">' + escHtml(label) + '</div>';

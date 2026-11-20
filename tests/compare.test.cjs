@@ -156,9 +156,9 @@ test('number formatting, bar widths and comparison notes', () => {
   assert.deepEqual(compare.statNote(null, 3836, 'Ariel', 'Eve', { suffix: 'chỉ số Thức tỉnh' }),
     { text: 'chỉ Eve có chỉ số Thức tỉnh', winner: null });
   assert.deepEqual(compare.statNote(null, null, 'Ariel', 'Eve', {}), { text: null, winner: null });
-  // PATK vs MATK: different attack kinds, no % claim, no winner.
-  assert.deepEqual(compare.statNote(1500, 1389, 'Eve', 'Ariel', { atkA: 'PATK', atkB: 'MATK' }),
-    { text: 'Eve dùng PATK, Ariel dùng MATK', winner: null });
+  // PATK vs MATK: attack is attack — compare % like any other stat (user decision 2026-11-20).
+  assert.deepEqual(compare.statNote(1500, 1389, 'Eve', 'Ariel', {}),
+    { text: 'Eve cao hơn 8% so với Ariel', winner: 'a' });
 });
 
 test('skills list names only, by type, awakened kit when the hero has one', () => {
@@ -375,18 +375,20 @@ test('BUILD_VI map in compare.js stays in sync with hero-detail.js', () => {
     'compare.js must mirror hero-detail.js BUILD_VI exactly — edit both files together');
 });
 
-test('PATK/MATK note appears only in the Attack block, never under HP/DEF/SPD', () => {
-  /* Hồi quy cho lỗi user báo 2026-11-20 (Fai vs Melia): ghi chú "Fai dùng
-   * PATK, Melia dùng MATK" lọt xuống cả HP lẫn DEF vì statBlockHtml truyền
-   * atkA/atkB cho mọi khối chỉ số. Fai: PATK 1500 / HP 3326 / DEF 571 /
-   * SPD 29; Melia: MATK 1500 / HP 7255 / DEF 1580 / SPD 29. */
+test('different attack types compare % like any other stat (no PATK/MATK note)', () => {
+  /* Nối tiếp lỗi user báo 2026-11-20 (Fai vs Melia): ghi chú "Fai dùng
+   * PATK, Melia dùng MATK" từng lọt xuống cả HP lẫn DEF. User quyết định
+   * 2026-11-20: tấn công cũng so % như bình thường. Fai: PATK 1500 / HP
+   * 3326 / DEF 571 / SPD 29; Melia: MATK 1500 / HP 7255 / DEF 1580 /
+   * SPD 29. */
   const html = compare.renderCompareHtml(fai, melia, SkillCard);
-  const atkNotes = (html.match(/dùng PATK/g) || []).length;
-  assert.equal(atkNotes, 1, 'the PATK/MATK note must appear exactly once (Attack block only)');
-  assert.ok(html.includes('Fai dùng PATK, Melia dùng MATK'), 'Attack block keeps the attack-type note');
+  assert.ok(!html.includes('dùng PATK') && !html.includes('dùng MATK'),
+    'no stat block may show the attack-type note any more');
+  assert.equal((html.match(/bằng nhau/g) || []).length, 2,
+    'Attack (1500 vs 1500) and SPD (29 vs 29) must both say equal');
   assert.ok(html.includes('Melia cao hơn 118% so với Fai'), 'HP block must compare % (7255 vs 3326)');
   assert.ok(html.includes('Melia cao hơn 177% so với Fai'), 'DEF block must compare % (1580 vs 571)');
-  assert.ok(html.includes('bằng nhau'), 'SPD block must say equal (29 vs 29)');
+  assert.ok(html.includes('Tấn công (PATK/MATK)'), 'the Attack title still shows both attack types');
   assert.ok(html.includes('cp-num cp-win'), 'Melia HP/DEF values must carry the winner class');
 });
 
