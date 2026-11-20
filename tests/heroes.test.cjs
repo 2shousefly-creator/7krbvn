@@ -197,7 +197,11 @@ test('quick-build popup: build tabs shrink to fit (no overflow with many builds)
 
 test('quick-build popup: build tabs, gear images, accessories, bold dedicated lines', () => {
   const js = read('hero-popup.js');
+  const css = read('heroes.css');
   assert.ok(js.includes('hx-modal-tags'), 'popup must show the hero classification tags');
+  assert.ok(js.includes('hx-modal-overview'), 'popup must show the hero overview below the portrait');
+  assert.ok(js.includes('overview_desc'), 'popup overview must prefer the Vietnamese description');
+  assert.ok(css.includes('.hx-modal-overview'), 'popup overview paragraph must be styled');
   assert.ok(js.includes('assets/seticons/'), 'popup Gears must show the gear-set badge icon');
   assert.ok(js.includes('assets/gearpieces/'), 'popup Gears must show the real weapon/armor piece art, not the generic icons');
   assert.ok(js.includes('hx-build-tabs'), 'popup must group all builds under Build 1 / Build 2 tabs (Atlas style)');

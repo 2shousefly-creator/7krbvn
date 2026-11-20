@@ -1,10 +1,16 @@
 /* Tier List (tier-list.html): mode tabs via ?mode= (default Arena),
  * rarity + role filters (ALL modes), diacritic-insensitive name search,
- * "Hiển thị X / Y hero" counter, Compact/Columns layout toggle, per-mode
- * last update + collapsible changelog. Hero cards show PORTRAIT + NAME
- * only (no rarity badge, no role icon, no Transcendence badge, no
- * most-used marker). Clicking a card opens the hero popup (hero-popup.js);
- * the popup's "Chi tiết" button goes to hero.html?id=<id>.
+ * "Hiển thị X / Y hero" counter, always-Compact layout (no toggle),
+ * per-mode last update + collapsible changelog. Hero cards show
+ * PORTRAIT + NAME only (no rarity badge, no role icon, no
+ * Transcendence badge, no most-used marker). Clicking a card opens the
+ * hero popup (hero-popup.js); the popup's "Chi tiết" button goes to
+ * hero.html?id=<id>.
+ *
+ * PvP modes (arena, total-war, guild-war) merge all heroes of a tier
+ * into ONE group, sorted by rarity (L++ > L+ > L > R) then by name.
+ * PvE modes keep their per-category groups. The role filter narrows
+ * the merged PvP list the same way it narrows PvE groups.
  *
  * Data: tier-list-data.js (built by ~/workspace/build_tierlist.py).
  * Hero meta (name/rarity/type/portrait): data/heroes-index.json.
@@ -33,7 +39,7 @@
   };
   var PUD_MODES = ['power-up-dungeon', 'power-up-dungeon-roles'];
 
-  var state = { mode: 'arena', rarity: {}, role: {}, q: '', layout: 'columns' };
+  var state = { mode: 'arena', rarity: {}, role: {}, q: '' };
   var INDEX = {}; /* hero_id -> {name, rarity, type, portrait} */
   var rowsEl = document.getElementById('tl-rows');
   var countEl = document.getElementById('tl-count');
@@ -79,7 +85,7 @@
     /* Role filter applies in EVERY mode (regression fix 20/11: it was
      * PvE-gated while the buttons stayed visible in PvP, so clicking a
      * role in Arena/Total War/Guild War did nothing). In PvP the rows
-     * are already grouped by role, so filtering narrows to that group. */
+     * are merged across roles, so filtering narrows the merged list. */
     if (Object.keys(state.role).length
       && !state.role[hero.type.toUpperCase()]) return false;
     return true;
@@ -91,6 +97,19 @@
       + '<b>' + esc(hero.name) + '</b></article>';
   }
 
+  /* PvP merge order: rarity first (L++ > L+ > L > R), then hero name
+   * A-Z. All hero names are ASCII, so a plain lowercase compare is
+   * deterministic. Unknown rarities sort last. */
+  var RARITY_RANK = { 'L++': 0, 'L+': 1, 'L': 2, 'R': 3 };
+  function byRarityThenName(a, b) {
+    var ra = RARITY_RANK[a.rarity], rb = RARITY_RANK[b.rarity];
+    if (ra == null) ra = 99;
+    if (rb == null) rb = 99;
+    if (ra !== rb) return ra - rb;
+    var na = a.name.toLowerCase(), nb = b.name.toLowerCase();
+    return na < nb ? -1 : na > nb ? 1 : 0;
+  }
+
   function renderRows() {
     var mode = currentMode();
     var tierColor = {};
@@ -98,19 +117,33 @@
     var total = mode.entries.length;
     var shown = 0;
     var html = '';
+    var isPvp = mode.group === 'pvp';
     TIER_ORDER.forEach(function (tier) {
       var inTier = mode.entries.filter(function (e) { return e.tier === tier; });
       if (!inTier.length) return;
       var groupsHtml = '';
-      mode.categories.forEach(function (cat) {
-        var cards = inTier.filter(function (e) { return e.category === cat.key; })
-          .map(function (e) { return INDEX[e.hero_id]; })
+      if (isPvp) {
+        /* PvP: one merged group per tier — no per-role sub-groups — sorted
+         * rarity-then-name. The role/rarity/search filters still narrow
+         * the merged list via matches(). */
+        var cards = inTier.map(function (e) { return INDEX[e.hero_id]; })
           .filter(function (h) { return h && matches(h); });
+        cards.sort(byRarityThenName);
         if (!cards.length) return;
         shown += cards.length;
-        groupsHtml += '<div class="tl-group"><h3>' + esc(catLabel(cat.key)) + '</h3>'
-          + '<div class="tl-grid">' + cards.map(cardHtml).join('') + '</div></div>';
-      });
+        groupsHtml = '<div class="tl-group"><div class="tl-grid">'
+          + cards.map(cardHtml).join('') + '</div></div>';
+      } else {
+        mode.categories.forEach(function (cat) {
+          var cards = inTier.filter(function (e) { return e.category === cat.key; })
+            .map(function (e) { return INDEX[e.hero_id]; })
+            .filter(function (h) { return h && matches(h); });
+          if (!cards.length) return;
+          shown += cards.length;
+          groupsHtml += '<div class="tl-group"><h3>' + esc(catLabel(cat.key)) + '</h3>'
+            + '<div class="tl-grid">' + cards.map(cardHtml).join('') + '</div></div>';
+        });
+      }
       if (!groupsHtml) return;
       html += '<section class="tl-row"><div class="tl-tier-label" style="background:' + esc(tierColor[tier] || '#e9e8e3') + '">'
         + esc(tierLabel(tier)) + '</div><div class="tl-groups">' + groupsHtml + '</div></section>';
@@ -211,19 +244,6 @@
   searchInput.addEventListener('input', function () {
     state.q = searchInput.value;
     renderRows();
-  });
-
-  document.getElementById('tl-layout-columns').addEventListener('click', function () {
-    state.layout = 'columns';
-    rowsEl.classList.remove('tl-compact');
-    this.setAttribute('aria-pressed', 'true');
-    document.getElementById('tl-layout-compact').setAttribute('aria-pressed', 'false');
-  });
-  document.getElementById('tl-layout-compact').addEventListener('click', function () {
-    state.layout = 'compact';
-    rowsEl.classList.add('tl-compact');
-    this.setAttribute('aria-pressed', 'true');
-    document.getElementById('tl-layout-columns').setAttribute('aria-pressed', 'false');
   });
 
   /* Keyboard: hero-popup.js only handles clicks, so Enter/Space on a card

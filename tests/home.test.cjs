@@ -65,7 +65,7 @@ test('home structure: banner, most-visited categories, pinned posts, latest post
   assert.ok(order.every(i => i >= 0), 'home must have all five sections');
   assert.deepEqual([...order].sort((a, b) => a - b), order, 'sections must run banner, most-visited, pinned, latest, quick-access');
   assert.ok(home.includes('<p>3 chuyên mục</p>'), 'most-visited section must say 3 categories');
-  assert.ok(home.includes('<p>10 chuyên mục</p>'), 'quick-access section must say 10 categories');
+  assert.ok(home.includes('<p>13 chuyên mục</p>'), 'quick-access section must say 13 categories');
   const popular = home.slice(home.indexOf('Danh mục truy cập nhiều'),
     home.indexOf('</section>', home.indexOf('Danh mục truy cập nhiều')));
   assert.deepEqual([...popular.matchAll(/<a class="cat-card" href="([^"]+)">/g)].map(m => m[1]),
@@ -242,8 +242,11 @@ test('category cards: no descriptions, 3 compact cards per row on mobile', () =>
   const grids = [...home.matchAll(/<div class="cat-grid">([\s\S]*?)<\/div>/g)].map(m => m[1]);
   assert.equal(grids.length, 2, 'home must have two category grids (most-visited + quick-access)');
   assert.equal((grids[0].match(/<a class="cat-card"/g) || []).length, 3, 'most-visited grid must list 3 category cards');
-  assert.equal((grids[1].match(/<a class="cat-card"/g) || []).length, 10, 'quick-access grid must list 10 category cards');
-  assert.equal((home.match(/<a class="cat-card"/g) || []).length, 13, 'home must still list 13 category cards in total');
+  assert.equal((grids[1].match(/<a class="cat-card"/g) || []).length, 13, 'quick-access grid must list 13 category cards');
+  assert.equal((home.match(/<a class="cat-card"/g) || []).length, 16, 'home must still list 16 category cards in total');
+  assert.deepEqual([...grids[1].matchAll(/<a class="cat-card" href="([^"]+)">/g)].map(m => m[1]).slice(-3),
+    ['so-sanh.html', 'tier-list.html', 'tu-dien-hieu-ung.html'],
+    'quick-access must end with So Sánh Hero, Tier List, Từ Điển Hiệu Ứng');
   assert.ok(!home.includes('<span class="cat-count">'), 'category cards must not carry a sub-description line');
   for (const grid of grids) {
     assert.ok(!grid.includes('<p>'), 'category cards must not carry description text');

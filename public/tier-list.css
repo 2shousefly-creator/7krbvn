@@ -5,7 +5,6 @@
 
 /* Hero without a cover visual: single column, no empty right half. */
 .hero{grid-template-columns:1fr;min-height:0}
-.hero p{max-width:720px}
 
 .tl-wrap{margin-top:22px}
 
@@ -34,9 +33,6 @@
 .tl-filter-label{font-size:12px;font-weight:700;color:#68707d}
 .tl-filter-btn{border:1px solid #dedbd4;background:#fff;border-radius:8px;color:#454c5a;font-size:12px;font-weight:700;padding:7px 11px;cursor:pointer}
 .tl-filter-btn[aria-pressed="true"]{background:#293247;border-color:#293247;color:#fff}
-.tl-layout{display:flex;gap:0;border:1px solid #dedbd4;border-radius:8px;overflow:hidden}
-.tl-layout button{border:0;background:#fff;color:#454c5a;font-size:12px;font-weight:700;padding:7px 12px;cursor:pointer}
-.tl-layout button[aria-pressed="true"]{background:#293247;color:#fff}
 .tl-clear{border:1px solid #dedbd4;background:#fff;border-radius:8px;color:#6b6d72;font-size:12px;font-weight:700;padding:7px 12px;cursor:pointer}
 .tl-count{margin-left:auto;font-size:13px;font-weight:700;color:#68707d;white-space:nowrap}
 

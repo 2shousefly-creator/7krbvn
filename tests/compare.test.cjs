@@ -13,6 +13,7 @@ const amelia = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'ame
 const dellons = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'dellons.json'), 'utf8'));
 const jupy = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'jupy.json'), 'utf8'));
 const wukong = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'sun-wukong.json'), 'utf8'));
+const bane = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'bane.json'), 'utf8'));
 
 function read(file) { return fs.readFileSync(path.join(root, file), 'utf8'); }
 function strip(html) { return html.replace(/<[^>]+>/g, ''); }
@@ -141,11 +142,14 @@ test('number formatting, bar widths and comparison notes', () => {
   assert.equal(compare.barWidth(25, 29), 86.2);
   assert.equal(compare.barWidth(null, 1500), 0);
   assert.equal(compare.barWidth(0, 0), 0);
-  // Eve ATK 1500 vs Judas 1306 = 14.85% -> "cao hơn 15%".
+  // Eve ATK 1500 vs Judas 1306 = 14.85% -> "Eve cao hơn 15% so với Judas".
+  // Ghi chú luôn nêu tên người thắng trước, rồi % , rồi tên người thua.
   assert.deepEqual(compare.statNote(1500, 1306, 'Eve', 'Judas', {}),
-    { text: 'cao hơn 15% so với Judas', winner: 'a' });
+    { text: 'Eve cao hơn 15% so với Judas', winner: 'a' });
   assert.deepEqual(compare.statNote(1306, 1500, 'Judas', 'Eve', {}),
-    { text: 'cao hơn 15% so với Judas', winner: 'b' });
+    { text: 'Eve cao hơn 15% so với Judas', winner: 'b' });
+  assert.deepEqual(compare.statNote(1001, 1000, 'Eve', 'Judas', {}),
+    { text: 'Eve cao hơn không đáng kể so với Judas', winner: 'a' });
   assert.deepEqual(compare.statNote(29, 29, 'Eve', 'Judas', {}), { text: 'bằng nhau', winner: 'tie' });
   assert.deepEqual(compare.statNote(null, 3836, 'Ariel', 'Eve', { suffix: 'chỉ số Thức tỉnh' }),
     { text: 'chỉ Eve có chỉ số Thức tỉnh', winner: null });
@@ -244,6 +248,30 @@ test('dedicated equipment lines group identical slots', () => {
   assert.deepEqual(compare.dedicatedLines(judas.dedicated), ['Crush +12% ×4', 'DMGAmp +4% ×4']);
 });
 
+test('dedicated equipment follows the active build ded_stat column', () => {
+  // Eve build chính chọn Crush -> chỉ hiện cột Crush, không hiện cột DMGAmp.
+  assert.deepEqual(compare.dedicatedLines(eve.dedicated, 'Crush'), ['Crush +12% ×4']);
+  assert.deepEqual(compare.dedicatedLines(eve.dedicated, 'DMGAmp'), ['DMGAmp +4% ×4']);
+  // ded_stat không khớp cột nào -> hiện cả 2 cột như khi không có ded_stat.
+  assert.deepEqual(compare.dedicatedLines(eve.dedicated, 'Resilience'), ['Crush +12% ×4', 'DMGAmp +4% ×4']);
+  assert.deepEqual(compare.dedicatedLines(eve.dedicated, ''), ['Crush +12% ×4', 'DMGAmp +4% ×4']);
+  // Cột đã chọn mang đúng icon của chỉ số đó (Crush).
+  assert.deepEqual(compare.dedicatedGroups(eve.dedicated, 'Crush'),
+    [{ name: 'Crush', value: '+12%', count: 4, icon: 'Crush.webp' }]);
+  // Khối Trang bị riêng trong trang so sánh: icon trang bị + cột ded_stat.
+  const eveDedi = compare.dedicatedColHtml(eve);
+  assert.ok(eveDedi.includes("assets/dedicated/Eve.webp"), 'dedicated column must show the dedicated art');
+  assert.ok(eveDedi.includes("Eve's Not-Eve Eve"), 'dedicated column must name the dedicated equipment');
+  assert.ok(eveDedi.includes('PATK +247'), 'dedicated column must show the main stat');
+  assert.ok(eveDedi.includes('Crush +12% ×4'), 'dedicated column must show the picked column lines');
+  assert.ok(!eveDedi.includes('DMGAmp'), 'dedicated column must not show the unpicked column');
+  assert.ok(eveDedi.includes('assets/substats/Crush.webp'), 'dedicated lines must carry the stat icon');
+  // Hero không có trang bị riêng (Bane) thì báo rõ, không bịa.
+  assert.ok(!bane.dedicated || !bane.dedicated.name, 'Bane has no dedicated equipment in the source data');
+  assert.ok(compare.dedicatedColHtml(bane).includes('Chưa có trang bị riêng.'),
+    'heroes without dedicated equipment must say so');
+});
+
 test('tiers merge across both heroes; NOT USED displays as PHẾ', () => {
   assert.equal(compare.tierLabel('NOT USED'), 'PHẾ');
   assert.equal(compare.tierLabel('SS'), 'SS');
@@ -268,6 +296,61 @@ test('main build and dedicated equipment come from the hero JSON', () => {
   assert.equal(compare.mainBuild(judas).name, 'Crit-Focused');
 });
 
+test('main build detail mirrors the hero page build (set, gear pieces, main stats, substats, accessories, note)', () => {
+  const eveBuild = compare.buildColHtml(eve);
+  // Build Best (active) + tên build.
+  assert.ok(eveBuild.includes('BEST'), 'the build column must tag the active build as BEST');
+  assert.ok(eveBuild.includes('Crit-Focused'), 'the build column must name the active build');
+  // Set: icon + tên + hiệu ứng Set 4.
+  assert.ok(eveBuild.includes('assets/seticons/Assassin.webp'), 'the build column must show the set icon');
+  assert.ok(eveBuild.includes('Assassin'), 'the build column must name the set');
+  assert.ok(eveBuild.includes('Set 4'), 'the set effect must read "Set 4", not "4pc"');
+  assert.ok(eveBuild.includes('Crit Rate +30%'), 'the set effect text must be present');
+  // Ảnh món đồ thật: Eve là Attack nên vũ khí variant 1, giáp variant 3.
+  assert.ok(eveBuild.includes('assets/gearpieces/NMW-Assassin1.webp'), 'weapon piece art must be the set weapon (variant 1 for Attack)');
+  assert.ok(eveBuild.includes('assets/gearpieces/NMW-Assassin3.webp'), 'armor piece art must be the set armor (variant 3)');
+  // Chỉ số chính: Chính (tốt nhất × 2, in đậm) + Phụ.
+  assert.ok(eveBuild.includes('Chỉ số chính Vũ khí'), 'the weapon main stat must be labelled');
+  assert.ok(eveBuild.includes('Weakness Hit Chance × 2'), 'the best weapon main stat must render × 2');
+  assert.ok(eveBuild.includes('Crit Rate × 2'), 'the alt weapon main stat (Phụ) must render × 2');
+  assert.ok(eveBuild.includes('Chỉ số chính Giáp'), 'the armor main stat must be labelled');
+  assert.ok(eveBuild.includes('Effect Resistance × 2'), 'the best armor main stat must render × 2');
+  assert.ok(eveBuild.includes('All Attack % × 2'), 'the alt armor main stat (Phụ) must render × 2');
+  // 4 dòng phụ ưu tiên đầu tiên, kèm icon, theo đúng thứ tự.
+  assert.ok(eveBuild.includes('ƯU TIÊN DÒNG PHỤ'), 'the substat priority list must be labelled');
+  for (const icon of ['assets/substats/Speed.webp', 'assets/substats/Crit.webp', 'assets/substats/WeaknessHit.webp', 'assets/substats/EffectRes.webp']) {
+    assert.ok(eveBuild.includes(icon), 'the first 4 substats must carry their icons (' + icon + ')');
+  }
+  assert.ok(eveBuild.indexOf('assets/substats/Speed.webp') < eveBuild.indexOf('assets/substats/Crit.webp'),
+    'substats must stay in priority order (Speed before Crit)');
+  assert.ok(!eveBuild.includes('assets/substats/CritDMG.webp'),
+    'only the first 4 substats render — the 5th (CritDMG) must not appear');
+  // Cặp phụ kiện Best: nhẫn chính + nhẫn tinh luyện, icon + tên + giá trị.
+  assert.ok(eveBuild.includes('PHỤ KIỆN'), 'the accessories must be labelled');
+  assert.ok(eveBuild.includes('NHẪN CHÍNH'), 'the main ring must be labelled');
+  assert.ok(eveBuild.includes('NHẪN TINH LUYỆN'), 'the sub ring must be labelled');
+  assert.ok(eveBuild.includes('assets/acc/L-Revive.webp'), 'the main ring icon must render');
+  assert.ok(eveBuild.includes('Revive') && eveBuild.includes('100% HP'), 'the main ring name and value must render');
+  assert.ok(eveBuild.includes('assets/acc/L-Immortal.webp'), 'the sub ring icon must render');
+  assert.ok(eveBuild.includes('Immortal') && eveBuild.includes('3 turns'), 'the sub ring name and value must render');
+  // Ghi chú build bằng tiếng Việt (từ hero.vi.builds), không phải bản tiếng Anh.
+  assert.ok(eveBuild.includes('Với 50% Crit Rate'), 'the build note must be the Vietnamese gear note');
+  // Hero Phép thuật dùng ảnh vũ khí variant 2.
+  const arielBuild = compare.buildColHtml(ariel);
+  assert.ok(arielBuild.includes('assets/gearpieces/ID-Avenger2.webp'), 'Magic heroes use weapon variant 2');
+  assert.ok(arielBuild.includes('assets/gearpieces/ID-Avenger3.webp'), 'armor is always variant 3');
+  assert.ok(arielBuild.includes('assets/seticons/Avenger.webp'), 'Ariel set icon must render');
+  // Hero không có build nào thì báo rõ, không bịa đồ.
+  assert.equal(compare.mainBuild({ builds: [] }), null);
+  assert.ok(compare.buildColHtml({ id: 'x', name: 'X', builds: [] }).includes('Chưa có hướng dẫn build cho hero này.'),
+    'heroes without builds must say so');
+  // Ghi chú build lấy đúng bản tiếng Việt của build đang active.
+  assert.ok(compare.gearNoteFor(eve, compare.mainBuild(eve)).includes('Với 50% Crit Rate'),
+    'gearNoteFor must prefer the Vietnamese note of the active build');
+  assert.equal(compare.gearNoteFor({ builds: [{ gear_notes: 'English note' }] }, { gear_notes: 'English note' }), 'English note',
+    'gearNoteFor falls back to the English note when no Vietnamese note exists');
+});
+
 test('rendered comparison: glance blocks, proportional bars, winner note', () => {
   const html = compare.renderCompareHtml(eve, judas, SkillCard);
   assert.ok(!html.includes('<table'), 'the new layout must not use a table');
@@ -279,7 +362,8 @@ test('rendered comparison: glance blocks, proportional bars, winner note', () =>
   // Eve ATK bar is full width, Judas ATK bar is proportional (1306/1500 = 87.1%).
   assert.ok(html.includes('width:100%'), 'the winning value bar must be full width');
   assert.ok(html.includes('width:87.1%'), 'the losing ATK bar must be proportional (87.1%)');
-  assert.ok(html.includes('cao hơn 15% so với Judas'), 'the ATK block must note the 15% lead');
+  assert.ok(html.includes('Eve cao hơn 15% so với Judas'), 'the ATK block note must name the winner first');
+  assert.ok(html.includes('Judas cao hơn 11% so với Eve'), 'the HP block note must name Judas as the winner');
   assert.ok(html.includes('1.500'), 'values must use Vietnamese thousand separators');
   // Winner value is green and bold.
   assert.ok(html.includes('cp-num cp-win'), 'the winning value must carry the winner class');
@@ -325,6 +409,14 @@ test('compare CSS: glance blocks, bars, legend, mobile stacking', () => {
   assert.ok(css.includes('.cp-vals{grid-template-columns:1fr'), 'mobile must stack the two value columns');
   assert.ok(css.includes('.cp-skill-cols{grid-template-columns:1fr'), 'mobile must stack the skill columns');
   assert.ok(!css.includes('.cp-table'), 'the old table layout must be gone from compare.css');
+  // Full build detail: build column sizing for the shared hx-* classes.
+  assert.ok(css.includes('.cp-build'), 'compare.css must style the build detail columns');
+  assert.ok(css.includes('.cp-mini-label'), 'compare.css must style the build sub-labels');
+  assert.ok(css.includes('.cp-build .hx-mainstats{grid-template-columns:1fr'),
+    'the build main stats must stack in one column (half-width compare column)');
+  assert.ok(css.includes('.cp-build .hx-mainstat .hx-piece{width:64px;height:64px}'),
+    'the gear piece art must use the compact popup size in the compare columns');
+  assert.ok(css.includes('.cp-build .hx-substats img'), 'compare.css must size the substat icons');
 });
 
 test('new compare files never name the data source and stay light-only', () => {

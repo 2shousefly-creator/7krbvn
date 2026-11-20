@@ -14,7 +14,7 @@
   <main id="dau-trang"><div class="wrap page-shell" id="noi-dung">
 
     <div class="breadcrumbs"><a href="index.html">Trang chủ</a><span>›</span><span>Tier List</span></div>
-    <section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> TRA CỨU <span class="eyebrow-separator">/</span> TIER LIST</div><span class="article-tag">TIER LIST</span><h1 id="hero-title" class="guide-title">Tier List</h1><p>Tướng nào mạnh nhất ở từng chế độ? Tra nhanh bảng xếp hạng hero theo từng chế độ PvE và PvP. Nhấn vào một hero để xem nhanh build, hoặc mở trang chi tiết của hero đó. Chưa rõ một hiệu ứng có nghĩa gì? Tra cứu trong <a href="tu-dien-hieu-ung.html">Từ điển hiệu ứng</a>.</p><div class="hero-meta"><span>11 chế độ</span><span>•</span><span>PvE &amp; PvP</span></div></div></section>
+    <section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> TRA CỨU <span class="eyebrow-separator">/</span> TIER LIST</div><span class="article-tag">TIER LIST</span><h1 id="hero-title" class="guide-title">Tier List</h1><div class="hero-meta"><span>11 chế độ</span><span>•</span><span>PvE &amp; PvP</span></div></div></section>
     <div class="tl-wrap">
       <div class="tl-mode-group"><span class="tl-mode-group-label">PvE</span><div class="tl-mode-btns" id="tl-mode-pve"><a class="tl-mode-btn" href="tier-list.html?mode=power-up-dungeon" data-mode="power-up-dungeon">Power Up Dungeon</a><a class="tl-mode-btn" href="tier-list.html?mode=raid" data-mode="raid">Raid</a><a class="tl-mode-btn" href="tier-list.html?mode=sudden-raid" data-mode="sudden-raid">Sudden Raid</a><a class="tl-mode-btn" href="tier-list.html?mode=castle-rush" data-mode="castle-rush">Castle Rush</a><a class="tl-mode-btn" href="tier-list.html?mode=advent-expedition" data-mode="advent-expedition">Advent Expedition</a><a class="tl-mode-btn" href="tier-list.html?mode=adventure-infinite-tower" data-mode="adventure-infinite-tower">Adventure &amp; Infinite Tower</a><a class="tl-mode-btn" href="tier-list.html?mode=farming" data-mode="farming">Farming</a></div></div>
       <div class="tl-mode-group"><span class="tl-mode-group-label">PvP</span><div class="tl-mode-btns" id="tl-mode-pvp"><a class="tl-mode-btn" href="tier-list.html?mode=arena" data-mode="arena">Arena</a><a class="tl-mode-btn" href="tier-list.html?mode=total-war" data-mode="total-war">Total War</a><a class="tl-mode-btn" href="tier-list.html?mode=guild-war" data-mode="guild-war">Guild War</a></div></div>
@@ -23,13 +23,12 @@
         <div class="tl-search"><input id="tl-search" type="search" placeholder="Tìm hero theo tên… (gõ không dấu vẫn ra)" aria-label="Tìm hero theo tên"></div>
         <div class="tl-filter" id="tl-rarity" role="group" aria-label="Lọc theo độ hiếm"><span class="tl-filter-label">Độ hiếm</span><button class="tl-filter-btn" type="button" data-rarity="L++" aria-pressed="false">L++</button><button class="tl-filter-btn" type="button" data-rarity="L+" aria-pressed="false">L+</button><button class="tl-filter-btn" type="button" data-rarity="L" aria-pressed="false">L</button><button class="tl-filter-btn" type="button" data-rarity="R" aria-pressed="false">R</button></div>
         <div class="tl-filter" id="tl-role-wrap" role="group" aria-label="Lọc theo vai trò"><span class="tl-filter-label">Vai trò</span><span id="tl-role"><button class="tl-filter-btn" type="button" data-role="ATTACK" aria-pressed="false">Tấn công</button><button class="tl-filter-btn" type="button" data-role="MAGIC" aria-pressed="false">Phép thuật</button><button class="tl-filter-btn" type="button" data-role="DEFENSE" aria-pressed="false">Phòng thủ</button><button class="tl-filter-btn" type="button" data-role="SUPPORT" aria-pressed="false">Hỗ trợ</button><button class="tl-filter-btn" type="button" data-role="UNIVERSAL" aria-pressed="false">Đa năng</button></span></div>
-        <div class="tl-layout" role="group" aria-label="Bố cục"><button id="tl-layout-columns" type="button" aria-pressed="true">Cột</button><button id="tl-layout-compact" type="button" aria-pressed="false">Gọn</button></div>
         <button id="tl-clear" class="tl-clear" type="button">Xóa bộ lọc</button>
         <span id="tl-count" class="tl-count">Đang tải…</span>
       </div>
       <h2 id="tl-mode-title" class="tl-mode-title">Arena</h2>
       <p id="tl-updated" class="tl-updated"></p>
-      <div id="tl-rows" class="tl-rows" aria-live="polite"></div>
+      <div id="tl-rows" class="tl-rows tl-compact" aria-live="polite"></div>
       <details class="guide-details" id="tl-changelog"><summary>Thay đổi gần đây <span>+</span></summary><div id="tl-changelog-body" class="tl-changelog-body"></div></details>
     </div>
 

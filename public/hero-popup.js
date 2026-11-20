@@ -68,6 +68,12 @@
       + '<div><h3>' + esc(h.name) + '</h3>'
       + '<div class="hx-badges"><span class="hx-badge rarity ' + rarityCls(h.rarity) + '">' + esc(h.rarity) + '</span>'
       + '<span class="hx-badge type">' + esc(h.type) + '</span></div></div></div>'
+      /* Tổng quan hero ngay dưới ảnh đại diện: mô tả tiếng Việt nếu có,
+       * không thì mô tả gốc tiếng Anh; hero nào cũng có overview.desc. */
+      + (function () {
+        var ov = ((h.vi || {}).overview_desc || (h.overview || {}).desc || '').trim();
+        return ov ? '<p class="hx-modal-overview">' + esc(ov) + '</p>' : '';
+      })()
       + ((tags || effects) ? '<div class="hx-modal-tags">' + tags + effects + '</div>' : '');
     if (!build) {
       out += '<div class="hx-modal-build"><h4>Build</h4><p>Chưa có hướng dẫn build cho hero này.</p></div>';

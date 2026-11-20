@@ -87,6 +87,20 @@
 .cp-fx{margin-top:12px;padding-top:10px;border-top:1px dashed #e0ddd4}
 .cp-fx-title{font-size:12.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#606a7e;margin-bottom:6px}
 .cp-fx-item{font-size:13.5px;line-height:1.6;color:#2a3247;margin:4px 0}
+/* Chi tiết build chính: dùng chung class hx-* của trang hero/popup,
+ * thu nhỏ ảnh món đồ cho vừa nửa cột so sánh (popup dùng cỡ này). */
+.cp-build-name{font-size:16px;margin:2px 0 4px}
+.cp-build-name b{color:#192033}
+.cp-mini-label{font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:14px 0 6px}
+.cp-build .hx-gear-set{margin-top:10px}
+.cp-build .hx-gear-set>img{width:44px;height:44px}
+.cp-build .hx-mainstats{grid-template-columns:1fr;margin-top:10px}
+.cp-build .hx-mainstat .hx-piece{width:64px;height:64px}
+.cp-build .hx-substats{margin-top:0}
+.cp-build .hx-substats img{width:20px;height:20px;object-fit:contain;flex:none}
+.cp-build .hx-modal-note{margin-top:12px}
+.cp-build .hx-modal-dedi{margin-top:6px}
+
 .cp-detail-links{margin:20px 0 6px;font-size:15px}
 .cp-detail-links a{color:#1a6fd4;text-decoration:none;font-weight:700;margin-right:18px}
 .cp-detail-links a:hover{text-decoration:underline}

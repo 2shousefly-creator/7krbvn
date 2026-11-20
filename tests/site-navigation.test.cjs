@@ -20,7 +20,7 @@ for (const h of NAV_TRA_CUU) CHILD_PARENT[h] = 'TRA CỨU';
 // Home category cards (13) — unaffected by the menu regrouping.
 const CAT_CARDS = ['newbie.html', 'cap-nhat.html', 'guild-war-team.html', 'castle-rush.html',
   'advent-expedition.html', 'raid.html', 'celestial-tower.html', 'tower-of-trials.html', 'arena.html', 'heroes.html', 'dungeon.html',
-  'tinh-ruby.html', 'doi-coupon.html'];
+  'tinh-ruby.html', 'doi-coupon.html', 'so-sanh.html', 'tier-list.html', 'tu-dien-hieu-ung.html'];
 
 const pages = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 
@@ -78,12 +78,12 @@ test('every local image referenced by a page exists on disk', () => {
   }
 });
 
-test('the home page lists all thirteen category cards (including the new Heroes card)', () => {
+test('the home page lists all sixteen category cards (including So Sánh Hero, Tier List, Từ Điển Hiệu Ứng)', () => {
   const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   for (const target of CAT_CARDS) {
     assert.ok(home.includes(`href="${target}"`), `home is missing category card ${target}`);
   }
-  assert.equal((home.match(/class="cat-card"/g) || []).length, 13, 'home must have 13 category cards');
+  assert.equal((home.match(/class="cat-card"/g) || []).length, 16, 'home must have 16 category cards');
 });
 
 test('home articles show their tag labels', () => {

@@ -1,12 +1,17 @@
 /* So sánh Hero (so-sanh.html): chọn 2 hero, đặt cạnh nhau theo từng khối
  * kiểu "At a glance" — mỗi phần so sánh là một khối riêng trong thẻ trắng:
- * tiêu đề, ghi chú so sánh ("cao hơn 15% so với Judas", "bằng nhau",
+ * tiêu đề, ghi chú so sánh ("Eve cao hơn 15% so với Judas", "bằng nhau",
  * "chỉ Eve có"), 2 giá trị đặt cạnh nhau với thanh tỉ lệ bên dưới
  * (rộng theo giá trị / giá trị lớn nhất). Bên thắng tô đậm màu xanh.
- * Kỹ năng hiển thị ĐẦY ĐỦ nội dung tiếng Việt ngay trong trang (tên,
- * hồi chiêu/thanh thức tỉnh, toàn văn hiệu ứng, giải thích hiệu ứng),
- * không cần mở trang hero. Kỹ năng chuyển đổi (Dellons, Jupy, Sun Wukong)
- * hiển thị cả 2 dạng TRƯỚC/SAU như trên trang hero.
+ * Ghi chú so sánh luôn nêu rõ tên người thắng trước rồi mới tới % và
+ * tên người thua. Kỹ năng hiển thị ĐẦY ĐỦ nội dung tiếng Việt ngay trong
+ * trang (tên, hồi chiêu/thanh thức tỉnh, toàn văn hiệu ứng, giải thích
+ * hiệu ứng), không cần mở trang hero. Kỹ năng chuyển đổi (Dellons, Jupy,
+ * Sun Wukong) hiển thị cả 2 dạng TRƯỚC/SAU như trên trang hero.
+ * Build chính hiển thị ĐẦY ĐỦ chi tiết của build Best (đang active) như
+ * phần Build đồ của trang hero / popup: set + ảnh món đồ, chỉ số chính
+ * (Chính/Phụ), 4 dòng phụ ưu tiên kèm icon, cặp phụ kiện Best, ghi chú
+ * (tiếng Việt khi có), trang bị riêng theo cột ded_stat của build.
  * Dữ liệu local: data/heroes-index.json + data/heroes/<id>.json, tải bằng fetch.
  * Link chia sẻ: so-sanh.html?a=<id>&b=<id>.
  * Định dạng hiệu ứng/mục tiêu dùng window.SkillCard (skill-card.js) khi có,
@@ -27,6 +32,25 @@
     { key: 'def', label: 'DEF' },
     { key: 'spd', label: 'SPD' }
   ];
+
+  /* Nhãn / icon chỉ số và ảnh set đồ — sao y hero-popup.js để phần build
+   * trong trang so sánh dùng đúng asset như popup và trang hero. */
+  var STAT_LABELS = { 'AllATK%': 'All Attack %', 'AllATK': 'All Attack', 'Block': 'Block Rate', 'Crit': 'Crit Rate', 'CritDMG': 'Crit Damage', 'Crush': 'Crush', 'DEF%': 'DEF%', 'DEF': 'DEF', 'DMGAmp': 'Damage Amplification', 'DmgTakenReduce': 'Damage Taken Reduction', 'EffectHit': 'Effect Hit Rate', 'EffectRes': 'Effect Resistance', 'HP%': 'HP%', 'HP': 'HP', 'MATK%': 'Magic Attack %', 'MATK': 'Magic Attack', 'PATK%': 'Physical Attack %', 'PATK': 'Physical Attack', 'Rejuvenate': 'Rejuvenate', 'Resilience': 'Resilience', 'SkillAccel': 'Skill Acceleration', 'Speed': 'Speed', 'WeaknessHit': 'Weakness Hit Chance' };
+  var STAT_ICONS = { 'AllATK%': 'AllATKpct.webp', 'AllATK': 'AllATK.webp', 'Block': 'Block.webp', 'Crit': 'Crit.webp', 'CritDMG': 'CritDMG.webp', 'Crush': 'Crush.webp', 'DEF%': 'DEFpct.webp', 'DEF': 'DEF.webp', 'DMGAmp': 'DMGAmp.webp', 'DmgTakenReduce': 'DmgTakenReduce.webp', 'EffectHit': 'EffectHit.webp', 'EffectRes': 'EffectRes.webp', 'HP%': 'HPpct.webp', 'HP': 'HP.webp', 'MATK%': 'MATKpct.webp', 'MATK': 'MATK.webp', 'PATK%': 'PATKpct.webp', 'PATK': 'PATK.webp', 'Rejuvenate': 'Rejuvenate.webp', 'Resilience': 'Resilience.webp', 'SkillAccel': 'SkillAccel.webp', 'Speed': 'Speed.webp', 'WeaknessHit': 'WeaknessHit.webp' };
+  var SET_ICONS = { 'Bounty Tracker': 'Bounty.webp', 'Spellweaver': 'Spellweaver.webp', 'Avenger': 'Avenger.webp', 'Gatekeeper': 'Gatekeeper.webp', 'Guardian': 'Guardian.webp', 'Orchestrator': 'Orchestrator.webp', 'Paladin': 'Paladin.webp', 'Assassin': 'Assassin.webp', 'Vanguard': 'Vanguard.webp' };
+  /* Gear piece art: [boss abbr, set stem]. Weapon uses variant 2 for
+   * Magic heroes, 1 otherwise; armor always variant 3. */
+  var SET_PIECE = { 'Bounty Tracker': ['DG', 'Bounty'], 'Paladin': ['DG', 'Paladin'], 'Vanguard': ['DG', 'Vanguard'], 'Assassin': ['NMW', 'Assassin'], 'Gatekeeper': ['NMW', 'Gatekeeper'], 'Guardian': ['NMW', 'Guardian'], 'Avenger': ['ID', 'Avenger'], 'Orchestrator': ['ID', 'Orchestrator'], 'Spellweaver': ['ID', 'Spell'] };
+  function pieceImg(setName, slot, heroType) {
+    var p = SET_PIECE[setName];
+    if (!p) return null;
+    var variant = slot === 'armor' ? 3 : (heroType === 'Magic' ? 2 : 1);
+    return p[0] + '-' + p[1] + variant + '.webp';
+  }
+  function statLabel(code) { return STAT_LABELS[code] || code; }
+  function setIcon(setName) {
+    return SET_ICONS[setName] || (setName ? setName.replace(/\s+/g, '') + '.webp' : null);
+  }
 
   function escHtml(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
@@ -114,9 +138,10 @@
     var w = va > vb ? 'a' : 'b';
     var hi = Math.max(va, vb), lo = Math.min(va, vb);
     var pct = Math.round((hi - lo) / lo * 100);
+    var winnerName = w === 'a' ? nameA : nameB;
     var loser = w === 'a' ? nameB : nameA;
-    if (pct === 0) return { text: 'cao hơn không đáng kể so với ' + loser, winner: w };
-    return { text: 'cao hơn ' + pct + '% so với ' + loser, winner: w };
+    if (pct === 0) return { text: winnerName + ' cao hơn không đáng kể so với ' + loser, winner: w };
+    return { text: winnerName + ' cao hơn ' + pct + '% so với ' + loser, winner: w };
   }
 
   /* Chỉ liệt kê TÊN kỹ năng theo loại, không bê toàn văn skill.
@@ -213,21 +238,49 @@
     return rows;
   }
 
-  /* Gộp các dòng trang bị riêng giống nhau liên tiếp: 4 ô Crush +12% -> "Crush +12% ×4". */
-  function dedicatedLines(ded) {
+  /* Dòng trang bị riêng theo cột build chọn (ded_stat): chỉ hiện cột khớp
+   * với ded_stat của build chính; không khớp / không có ded_stat thì hiện
+   * cả 2 cột (như trước). Gộp các ô giống nhau liên tiếp: 4 ô Crush +12%
+   * -> một dòng "Crush +12% ×4" kèm icon của chỉ số đó. */
+  function dedicatedGroups(ded, dedStat) {
+    var cols = ['a', 'b'];
+    if (dedStat) {
+      var firstOf = function (side) {
+        var arr = ded[side] || [];
+        if (!arr.length) return '';
+        return typeof arr[0] === 'string' ? arr[0] : (arr[0].name || '');
+      };
+      if (firstOf('a') === dedStat) cols = ['a'];
+      else if (firstOf('b') === dedStat) cols = ['b'];
+    }
     var out = [];
-    ['a', 'b'].forEach(function (side) {
+    cols.forEach(function (side) {
       var arr = ded[side] || [];
       var i = 0;
       while (i < arr.length) {
+        var x = arr[i];
+        var name = typeof x === 'string' ? x : (x.name || '');
+        var value = (typeof x === 'object' && x.value) || '';
+        var icon = (typeof x === 'object' && x.icon) || STAT_ICONS[name] || '';
         var j = i;
-        while (j < arr.length && arr[j].name === arr[i].name && arr[j].value === arr[i].value) j++;
-        var n = j - i;
-        out.push(arr[i].name + ' ' + arr[i].value + (n > 1 ? ' ×' + n : ''));
+        while (j < arr.length) {
+          var y = arr[j];
+          var yn = typeof y === 'string' ? y : (y.name || '');
+          var yv = (typeof y === 'object' && y.value) || '';
+          if (yn !== name || yv !== value) break;
+          j++;
+        }
+        out.push({ name: name, value: value, count: j - i, icon: icon });
         i = j;
       }
     });
     return out;
+  }
+
+  function dedicatedLines(ded, dedStat) {
+    return dedicatedGroups(ded, dedStat).map(function (g) {
+      return g.name + ' ' + g.value + (g.count > 1 ? ' ×' + g.count : '');
+    });
   }
 
   /* ---- Định dạng hiệu ứng: dùng SkillCard khi có, bản dự phòng khi không ---- */
@@ -353,16 +406,93 @@
     }).join('');
   }
 
+  /* Vị trí của build đang active trong mảng builds (để tra ghi chú tiếng
+   * Việt trong hero.vi.builds, vốn song song theo chỉ số với builds). */
+  function activeBuildIndex(hero) {
+    var builds = (hero && hero.builds) || [];
+    for (var i = 0; i < builds.length; i++) if (builds[i].active) return i;
+    return 0;
+  }
+
+  /* Ghi chú build: bản tiếng Việt trong hero.vi.builds nếu có, không thì
+   * bản tiếng Anh trong build.gear_notes — không tự dịch, không bịa. */
+  function gearNoteFor(hero, build) {
+    var idx = activeBuildIndex(hero);
+    var viNote = hero.vi && hero.vi.builds && hero.vi.builds[idx] && hero.vi.builds[idx].gear_notes;
+    return viNote || build.gear_notes || '';
+  }
+
+  /* Chỉ số chính của 1 món đồ: ảnh thật của món đồ trong set + dòng Chính
+   * (chỉ số tốt nhất × 2, in đậm) và dòng Phụ (các chỉ số còn lại × 2).
+   * Dòng trống thì ẩn hẳn. Y hệt phần Build đồ của trang hero. */
+  function mainStatHtml(label, pieceFile, arr) {
+    if (!arr || !arr.length) return '';
+    var best = arr[0], alt = arr.slice(1);
+    var row = '<div class="hx-mainstat hx-with-piece">'
+      + (pieceFile ? '<img class="hx-piece" src="assets/gearpieces/' + escHtml(pieceFile) + '" alt="" loading="lazy">' : '')
+      + '<div class="hx-ms-body"><small>' + escHtml(label) + '</small>'
+      + '<div class="hx-ms-row"><span class="hx-ms-tag">Chính</span><span><b>' + escHtml(statLabel(best || '—')) + ' × 2</b></span></div>';
+    if (alt.length) {
+      row += '<div class="hx-ms-row alt"><span class="hx-ms-tag">Phụ</span><span>' + escHtml(alt.map(function (s) { return statLabel(s) + ' × 2'; }).join(' / ')) + '</span></div>';
+    }
+    return row + '</div></div>';
+  }
+
+  /* Phụ kiện: cặp nhẫn Best — nhẫn chính + nhẫn tinh luyện, kèm icon,
+   * tên và giá trị từng nhẫn. Nhẫn tinh luyện là "Any CC" thì ghi rõ
+   * "Bất kỳ nhẫn CC nào" như trong popup. */
+  function accHtml(acc) {
+    function side(info, label) {
+      if (!info) return '<div class="hx-acc-side"><small>' + escHtml(label) + '</small><br><b>—</b></div>';
+      return '<div class="hx-acc-side"><small>' + escHtml(label) + '</small><br>'
+        + (info.icon ? '<img src="assets/acc/' + escHtml(info.icon) + '" alt="" loading="lazy">' : '')
+        + '<b>' + escHtml(info.label || '') + '</b><br><small>' + escHtml(info.value || '') + '</small></div>';
+    }
+    var sub = acc.sub_info ? side(acc.sub_info, 'NHẪN TINH LUYỆN')
+      : (acc.sub === 'Any CC' || acc.sub === 'CC'
+        ? '<div class="hx-acc-side"><small>NHẪN TINH LUYỆN</small><br><b>Bất kỳ nhẫn CC nào</b></div>'
+        : side(null, 'NHẪN TINH LUYỆN'));
+    return '<div class="hx-acc-pair">' + side(acc.main_info, 'NHẪN CHÍNH')
+      + '<span class="hx-acc-plus">+</span>' + sub + '</div>';
+  }
+
+  /* Toàn bộ chi tiết build Best (đang active) của một hero, trình bày
+   * như phần Build đồ của trang hero: set + ảnh món đồ, chỉ số chính,
+   * 4 dòng phụ ưu tiên kèm icon, cặp phụ kiện Best, ghi chú. Build rỗng
+   * hoàn toàn thì chỉ hiện tên build (như popup); hero không có build
+   * nào thì báo rõ, không tự bịa đồ. */
   function buildColHtml(hero) {
     if (!hero) return '<div class="cp-col cp-missing">—</div>';
     var b = mainBuild(hero);
-    if (!b) return '<div class="cp-col">Chưa có build.</div>';
-    var sets = ((b.gear && b.gear.sets) || []).map(function (s) { return s.name; }).filter(Boolean);
-    var subs = (b.substats || []).join(', ');
-    var html = '<div class="cp-col-name">' + escHtml(hero.name) + '</div><b>' + escHtml(b.name) + '</b>';
-    if (sets.length) html += '<div class="cp-sub">Set: ' + escHtml(sets.join(', ')) + '</div>';
-    if (subs) html += '<div class="cp-sub">Chỉ số phụ: ' + escHtml(subs) + '</div>';
-    if (b.ded_stat) html += '<div class="cp-sub">Trang bị riêng: ' + escHtml(b.ded_stat) + '</div>';
+    if (!b) return '<div class="cp-col">Chưa có hướng dẫn build cho hero này.</div>';
+    var html = '<div class="cp-col-name">' + escHtml(hero.name) + '</div>'
+      + '<div class="cp-build-name"><span class="hx-best-tag">BEST</span><b>' + escHtml(b.name) + '</b></div>';
+    var gearEmpty = !(b.gear && b.gear.sets || []).length && !(b.gear && b.gear.weapon || []).length
+      && !(b.gear && b.gear.armor || []).length && !(b.substats || []).length && !(b.acc || []).length;
+    if (!gearEmpty) {
+      var set = (b.gear.sets || [])[0] || {};
+      var setImg = setIcon(set.name || '');
+      html += '<div class="hx-gear-set">'
+        + (setImg ? '<img src="assets/seticons/' + escHtml(setImg) + '" alt="" loading="lazy">' : '')
+        + '<div><b>' + escHtml(set.name || '') + '</b>'
+        + (set.effect ? '<p>' + escHtml(set.effect.replace('4pc', 'Set 4')) + '</p>' : '') + '</div></div>';
+      html += '<div class="hx-mainstats">'
+        + mainStatHtml('Chỉ số chính Vũ khí', pieceImg(set.name || '', 'weapon', hero.type), b.gear.weapon || [])
+        + mainStatHtml('Chỉ số chính Giáp', pieceImg(set.name || '', 'armor', hero.type), b.gear.armor || [])
+        + '</div>';
+      var subs = (b.substats || []).slice(0, 4);
+      if (subs.length) {
+        html += '<div class="cp-mini-label">ƯU TIÊN DÒNG PHỤ</div><ol class="hx-substats">'
+          + subs.map(function (s) {
+            var icon = STAT_ICONS[s];
+            return '<li>' + (icon ? '<img src="assets/substats/' + escHtml(icon) + '" alt="" loading="lazy">' : '') + escHtml(statLabel(s)) + '</li>';
+          }).join('') + '</ol>';
+      }
+      var acc0 = (b.acc || [])[0];
+      if (acc0) html += '<div class="cp-mini-label">PHỤ KIỆN · TỐT NHẤT</div>' + accHtml(acc0);
+      var note = gearNoteFor(hero, b);
+      if (note) html += '<div class="hx-modal-note">' + escHtml(note) + '</div>';
+    }
     return html;
   }
 
@@ -377,18 +507,28 @@
     }
     var html = '<div class="cp-block"><div class="cp-block-title">Build chính</div>';
     if (note) html += '<div class="cp-block-note">' + escHtml(note) + '</div>';
-    html += '<div class="cp-cols"><div class="cp-col cp-a">' + buildColHtml(heroA) + '</div>'
-      + '<div class="cp-col cp-b">' + buildColHtml(heroB) + '</div></div></div>';
+    html += '<div class="cp-cols"><div class="cp-col cp-a cp-build">' + buildColHtml(heroA) + '</div>'
+      + '<div class="cp-col cp-b cp-build">' + buildColHtml(heroB) + '</div></div></div>';
     return html;
   }
 
   function dedicatedColHtml(hero) {
     if (!hero) return '<div class="cp-col cp-missing">—</div>';
     if (!hero.dedicated || !hero.dedicated.name) return '<div class="cp-col">Chưa có trang bị riêng.</div>';
-    var lines = dedicatedLines(hero.dedicated);
-    var html = '<div class="cp-col-name">' + escHtml(hero.name) + '</div><b>' + escHtml(hero.dedicated.name) + '</b>';
-    if (hero.dedicated.main_stat) html += '<div class="cp-sub">' + escHtml(hero.dedicated.main_stat) + '</div>';
-    if (lines.length) html += '<div class="cp-sub">' + escHtml(lines.join(' · ')) + '</div>';
+    /* Chỉ hiện cột dòng phụ mà build chính chọn (ded_stat), như popup. */
+    var b = mainBuild(hero);
+    var groups = dedicatedGroups(hero.dedicated, b && b.ded_stat);
+    var lines = groups.map(function (g) {
+      var label = statLabel(g.name) + (g.value ? ' ' + g.value : '') + (g.count > 1 ? ' ×' + g.count : '');
+      return (g.icon ? '<img src="assets/substats/' + escHtml(g.icon) + '" alt="" class="hx-dedi-icon">' : '') + '<b>' + escHtml(label) + '</b>';
+    }).join(' · ');
+    var html = '<div class="cp-col-name">' + escHtml(hero.name) + '</div>'
+      + '<div class="hx-modal-dedi">'
+      + (hero.dedicated.icon ? '<img src="assets/dedicated/' + escHtml(hero.dedicated.icon) + '" alt="" loading="lazy">' : '')
+      + '<div><b>' + escHtml(hero.dedicated.name) + '</b>'
+      + (hero.dedicated.main_stat ? ' — ' + escHtml(hero.dedicated.main_stat) : '')
+      + (lines ? '<span class="hx-dedi-lines">' + lines + '</span>' : '')
+      + '</div></div>';
     return html;
   }
 
@@ -614,6 +754,9 @@
       tierRows: tierRows, MODE_ORDER: MODE_ORDER, SKILL_TYPE_VI: SKILL_TYPE_VI,
       fmtNum: fmtNum, barWidth: barWidth, statNote: statNote,
       skillDetail: skillDetail, dedicatedLines: dedicatedLines,
+      dedicatedGroups: dedicatedGroups, statLabel: statLabel,
+      pieceImg: pieceImg, setIcon: setIcon, gearNoteFor: gearNoteFor,
+      buildColHtml: buildColHtml, dedicatedColHtml: dedicatedColHtml,
       legendHtml: legendHtml, statBlockHtml: statBlockHtml,
       skillBlockHtml: skillBlockHtml, renderCompareHtml: renderCompareHtml
     };

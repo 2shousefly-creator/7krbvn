@@ -186,6 +186,7 @@
 .hx-modal-hero h3{margin:0;font-size:20px}
 .hx-modal-hero .hx-badges{justify-content:flex-start;margin-top:6px}
 .hx-modal-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}
+.hx-modal-overview{margin:12px 0 0;font-size:13.5px;line-height:1.65;color:#4a5160}
 .hx-modal-build{margin-top:14px}
 .hx-modal-build h4{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:0 0 8px}
 .hx-modal-build .hx-gear-set{font-size:13.5px}
