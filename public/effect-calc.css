@@ -104,6 +104,10 @@
 .ec-bar-chip { font-size: 14px; color: #b9c0d4; white-space: nowrap; }
 .ec-bar-chip b { color: #e8c16c; font-size: 18px; font-weight: 700; }
 .ec-bar-chip .ec-bar-always { color: #8fd6a0; font-size: 12px; font-weight: 700; }
+/* while the floating result bar is up, the back-to-top button hides —
+   it sits at the same bottom-right corner (effect-calc.css loads after
+   site-nav.css, so this wins over .back-to-top.show at equal specificity) */
+.back-to-top.ec-bar-open { opacity: 0; pointer-events: none; transform: translateY(8px); }
 
 /* modal / picker — height tracks the dynamic viewport (100dvh shrinks
    with the virtual keyboard, no JS pinning needed; the old

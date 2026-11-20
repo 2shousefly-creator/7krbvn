@@ -463,7 +463,7 @@
     $('#ec-sum-hit').innerHTML =
       '<span>Thanh trượt +' + state.sliders.hit + '%</span>' +
       (t.petHit ? '<span>Pet +' + t.petHit + '%</span>' : '') +
-      (t.hitBoost ? '<span>Effect Hit Rate Boost +' + t.hitBoost + '% <small>(lấy cao nhất: nội tại ' + t.heroHit + '% / ô tick ' + data.maxValues.hitBoost + '%)</small></span>' : '') +
+      (t.hitBoost ? '<span>Effect Hit Rate Boost +' + t.hitBoost + '%</span>' : '') +
       '<b>Tổng: ' + t.atkHit + '%</b>';
     $('#ec-sum-prob').innerHTML =
       '<span>Thanh trượt +' + state.sliders.prob + '%</span>' +
@@ -475,7 +475,7 @@
     $('#ec-sum-res').innerHTML =
       '<span>Thanh trượt +' + state.sliders.res + '%</span>' +
       (t.resBoost ? '<span>Effect Resist Boost +' + t.resBoost + '%</span>' : '') +
-      (t.resRed ? '<span>Effect Resist Reduction −' + t.resRed + '% <small>(lấy cao nhất: nội tại ' + t.heroResRed + '% / ô tick ' + data.maxValues.resRed + '%)</small></span>' : '') +
+      (t.resRed ? '<span>Effect Resist Reduction −' + t.resRed + '%</span>' : '') +
       '<b>Tổng: ' + t.oppRes + '%</b>';
     $('#ec-sum-probred').innerHTML =
       (t.probRed ? '<span>Effect Probability Reduction ' + t.probRed + '%</span>' : '<span>Không có</span>') +
@@ -533,6 +533,10 @@
     bar.hidden = !show;
     // keep page content from hiding under the bar
     document.body.style.paddingBottom = show ? (bar.offsetHeight + 24) + 'px' : '';
+    // the back-to-top button sits at the same bottom-right corner — hide
+    // it while the bar is up; its own scroll script restores .show after
+    var toTop = document.querySelector('.back-to-top');
+    if (toTop) toTop.classList.toggle('ec-bar-open', show);
   }
 
   /* ---------- init ---------- */
