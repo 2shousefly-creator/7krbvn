@@ -533,10 +533,6 @@
     bar.hidden = !show;
     // keep page content from hiding under the bar
     document.body.style.paddingBottom = show ? (bar.offsetHeight + 24) + 'px' : '';
-    // the back-to-top button sits at the same bottom-right corner — hide
-    // it while the bar is up; its own scroll script restores .show after
-    var toTop = document.querySelector('.back-to-top');
-    if (toTop) toTop.classList.toggle('ec-bar-open', show);
   }
 
   /* ---------- init ---------- */

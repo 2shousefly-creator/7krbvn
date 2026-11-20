@@ -388,13 +388,12 @@ test('page + css: round 3 — search above grid, opp summary dark red, floating 
   assert.ok(css.includes('height: 100dvh'), 'modal must track the dynamic viewport height');
 });
 
-test('script: no "lấy cao nhất" sub-note; back-to-top hides while the bar is up', () => {
+test('script: no "lấy cao nhất" sub-note; back-to-top hidden entirely on this page', () => {
   const js = fs.readFileSync(path.join(root, 'effect-calc.js'), 'utf8');
   const css = fs.readFileSync(path.join(root, 'effect-calc.css'), 'utf8');
   assert.ok(!js.includes('lấy cao nhất'), 'the duplicate-stat max sub-note must be gone');
-  assert.ok(js.includes("document.querySelector('.back-to-top')"), 'bar must find the back-to-top button');
-  assert.ok(js.includes("classList.toggle('ec-bar-open', show)"), 'bar must hide the button while shown');
-  assert.ok(css.includes('.back-to-top.ec-bar-open'), 'CSS must hide the button while the bar is up');
+  assert.ok(!js.includes('ec-bar-open'), 'the bar no longer toggles the button (it is hidden outright)');
+  assert.ok(css.includes('.back-to-top { display: none; }'), 'back-to-top must be hidden on this page');
 });
 
 test('css: modal is 30% smaller and clears the sticky header', () => {
