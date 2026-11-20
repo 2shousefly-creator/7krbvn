@@ -117,22 +117,24 @@ test('the home page lists all sixteen category cards (including So Sánh Hero, T
   assert.equal((home.match(/class="cat-card"/g) || []).length, 16, 'home must have 16 category cards');
 });
 
-test('home articles show their tag labels', () => {
+test('home articles keep their tag implicit (no visible chip)', () => {
   const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
-  const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
+  const latestCards = [...latest.matchAll(/<a class="post-card"([^>]*)>([\s\S]*?)<\/a>/g)];
   assert.equal(latestCards.length, 8, 'home must list 8 latest articles');
-  for (const [, href, body] of latestCards) {
-    assert.ok(body.includes('<span class="article-tag">'), `${href} card must show its tag label`);
+  for (const [, attrs, body] of latestCards) {
+    assert.ok(/data-tag="[^"]+"/.test(attrs), 'latest card must carry an implicit data-tag');
+    assert.ok(!body.includes('article-tag'), 'latest card must not show a tag chip');
   }
   const pinned = home.slice(home.indexOf('Bài viết đã ghim'),
     home.indexOf('</section>', home.indexOf('Bài viết đã ghim')));
-  const pinnedCards = [...pinned.matchAll(/<a class="post-card" href="([^"]+)">([\s\S]*?)<\/a>/g)];
+  const pinnedCards = [...pinned.matchAll(/<a class="post-card"([^>]*)>([\s\S]*?)<\/a>/g)];
   assert.equal(pinnedCards.length, 1, 'home must pin 1 article for now');
-  assert.ok(pinnedCards[0][2].includes('<span class="article-tag">'), 'pinned card must show its tag label');
-  assert.ok(home.includes('<span class="article-tag">CẬP NHẬT</span>'),
-    'update article card must carry the CẬP NHẬT tag');
+  assert.ok(/data-tag="[^"]+"/.test(pinnedCards[0][1]), 'pinned card must carry an implicit data-tag');
+  assert.ok(!pinnedCards[0][2].includes('article-tag'), 'pinned card must not show a tag chip');
+  assert.ok(home.includes('data-tag="CẬP NHẬT"'),
+    'update article card must carry the implicit CẬP NHẬT tag');
 });
 
 test('sticky header: the header stays fixed at the top on every page', () => {
@@ -200,9 +202,10 @@ test('Atlas layout (light): Arena and Total War use the Atlas structure with rea
 
 test('Total War card (Atlas-style, 18/11): Vietnamese labels, one portrait row, bottom-up skill columns', () => {
   const html = fs.readFileSync(path.join(root, 'total-war.html'), 'utf8');
-  // Banner: dark friendly variant, still the at-hero block with the tag.
+  // Banner: dark friendly variant, still the at-hero block with the implicit tag.
   assert.ok(html.includes('class="at-hero at-hero--tw"'), 'total-war.html must use the dark friendly banner');
-  assert.ok(html.includes('<span class="article-tag">TOTAL WAR</span>'), 'total-war.html must keep the TOTAL WAR tag');
+  assert.ok(html.includes('<div class="at-hero-copy" data-tag="TOTAL WAR">'), 'total-war.html must keep the implicit TOTAL WAR tag');
+  assert.ok(!html.includes('<span class="article-tag">'), 'total-war.html must not show a tag chip');
   // Header: formation dot-icon chip + details toggle on every team.
   assert.equal((html.match(/class="at-form-chip"/g) || []).length, 16, 'every team must show the formation dot-icon');
   assert.equal((html.match(/class="at-details-btn"/g) || []).length, 16, 'every team must have a Xem chi tiết toggle');
@@ -273,7 +276,7 @@ test('Total War card (Atlas-style, 18/11): Vietnamese labels, one portrait row, 
     'total-war.html must not mention Atlas in visible text');
 });
 
-test('article tags: every article page carries a chip naming its menu', () => {
+test('article tags: every article page keeps its tag implicit (data-tag, no chip)', () => {
   const tags = {
     'ruby-farming.html': 'NEWBIE',
     'chon-hero-banner.html': 'NEWBIE',
@@ -288,16 +291,20 @@ test('article tags: every article page carries a chip naming its menu', () => {
   };
   for (const [file, label] of Object.entries(tags)) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    assert.ok(html.includes(`<span class="article-tag">${label}</span>`), `${file} must carry the ${label} tag`);
+    assert.ok(html.includes(`data-tag="${label}"`), `${file} must carry the implicit ${label} tag`);
+    assert.ok(!html.includes('<span class="article-tag">'), `${file} must not show a tag chip`);
   }
 });
 
-test('article tags sit at the top-right corner of the article header', () => {
+test('no visible tag chip: no stylesheet may style the retired article-tag', () => {
+  for (const file of ['site-nav.css', 'blog.css', 'atlas.css']) {
+    const css = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.ok(!css.includes('.article-tag'), `${file} must not style the retired tag chip`);
+  }
+  // the header copy blocks keep their column layout (unchanged by the tag removal)
   const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
   assert.ok(css.includes('.blog-intro-copy,.hero-copy{display:flex;flex-direction:column}'),
-    'article headers must lay out as a column so the tag can sit on top');
-  assert.ok(css.includes('.blog-intro-copy>.article-tag,.hero-copy>.article-tag{align-self:flex-end;order:-1'),
-    'the tag must be the first item, pushed to the right');
+    'article headers must still lay out as a column');
 });
 
 test('dropdown menus: PVE/PVP open on hover, focus and click on desktop, tap on mobile', () => {
@@ -360,7 +367,7 @@ test('content text is 20% larger for readability; UI chrome keeps its sizes', ()
   // UI chrome must NOT have grown (nav would overflow, inputs must stay >= 16px)
   assert.ok(nav.includes('.main-nav a{font-size:12.5px'), 'main nav must stay 12.5px');
   assert.ok(base.includes('input,textarea,select{font-size:16px!important'), 'inputs must stay 16px (iOS no-zoom floor)');
-  assert.ok(nav.includes('.article-tag{display:inline-flex'), 'article tag chip must keep its size');
+  assert.ok(!nav.includes('.article-tag'), 'nav CSS must not style the retired tag chip');
 });
 
 test('floor guides sort highest floor first', () => {

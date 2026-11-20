@@ -23,7 +23,8 @@ const ACT_TITLES = {
 
 test('story hub: 5 act cards with chapter counts, overviews and illustrations', () => {
   const hub = page('cot-truyen.html');
-  assert.ok(hub.includes('<span class="article-tag">CỐT TRUYỆN</span>'), 'hub must carry the CỐT TRUYỆN tag');
+  assert.ok(hub.includes('data-tag="CỐT TRUYỆN"'), 'hub must carry the implicit CỐT TRUYỆN tag');
+  assert.ok(!hub.includes('<span class="article-tag">'), 'hub must not show a tag chip');
   assert.ok(hub.includes('284 chương'), 'hub must state the 284-chapter total');
   const cards = [...hub.matchAll(/<a class="act-card" href="(cot-truyen-act-\d\.html)">([\s\S]*?)<\/a>/g)];
   assert.equal(cards.length, 5, 'hub must list 5 act cards');
@@ -59,7 +60,8 @@ test('story act pages: flip-book reader, merged lead-ins, dialogue avatars and t
   for (const n of [1, 2, 3, 4, 5]) {
     const html = page(`cot-truyen-act-${n}.html`);
     const exp = ACTS[n];
-    assert.ok(html.includes('<span class="article-tag">CỐT TRUYỆN</span>'), `act ${n} must carry the CỐT TRUYỆN tag`);
+    assert.ok(html.includes('data-tag="CỐT TRUYỆN"'), `act ${n} must carry the implicit CỐT TRUYỆN tag`);
+    assert.ok(!html.includes('<span class="article-tag">'), `act ${n} must not show a tag chip`);
     assert.ok(html.includes(`<h1>Act ${n} — ${ACT_TITLES[n]}</h1>`), `act ${n} must be titled ${ACT_TITLES[n]}`);
     // reader chrome: table of contents, book, sticky controls, flip script, no-JS fallback
     assert.ok(html.includes('class="story-reader"'), `act ${n} must have the reader`);

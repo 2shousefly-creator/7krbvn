@@ -63,7 +63,8 @@ test('Castle Rush listing links 7 boss articles; each article links back and emb
     const article = page(file);
     assert.match(article, /href="castle-rush\.html"/, `${file} must link back to the listing`);
     assert.match(article, /youtube\.com\/embed\//, `${file} must embed its video`);
-    assert.match(article, /<span class="article-tag">CASTLE RUSH<\/span>/);
+    assert.match(article, /data-tag="CASTLE RUSH"/);
+    assert.ok(!article.includes('<span class="article-tag">'), `${file} must not show a tag chip`);
   }
 });
 
