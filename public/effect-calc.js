@@ -94,8 +94,7 @@
       });
     } else {
       hs.classList.remove('filled');
-      hs.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn hero</span>' +
-        '<span class="ec-slot-hint">Chỉ hero có skill gây debuff</span>';
+      hs.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn hero</span>';
     }
     var ps = $('#ec-pet-slot');
     if (state.pet) {
@@ -111,8 +110,7 @@
       });
     } else {
       ps.classList.remove('filled');
-      ps.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn pet</span>' +
-        '<span class="ec-slot-hint">Không bắt buộc</span>';
+      ps.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn pet</span>';
     }
   }
 
@@ -120,16 +118,37 @@
   var modal = null, modalList = null, modalSearch = null, modalTitle = null, modalCount = null;
   var pickerMode = null; // 'hero' | 'pet'
 
+  /* Scroll lock (item 4): opening the picker must not jump the page.
+     Freeze the body at the current scroll offset, restore it on close. */
+  var savedScrollY = 0;
+  function lockScroll() {
+    savedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = (-savedScrollY) + 'px';
+    document.body.style.width = '100%';
+  }
+  function unlockScroll() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedScrollY);
+  }
+
   function openPicker(mode) {
     pickerMode = mode;
+    lockScroll();
     modal.classList.add('open');
     modalTitle.textContent = mode === 'hero' ? 'Chọn hero' : 'Chọn pet';
     modalSearch.value = '';
     modalSearch.placeholder = mode === 'hero' ? 'Tìm hero theo tên… (gõ không dấu vẫn ra)' : 'Tìm pet theo tên… (gõ không dấu vẫn ra)';
     renderPickerList('');
-    modalSearch.focus();
+    modalSearch.focus({ preventScroll: true });
   }
-  function closePicker() { modal.classList.remove('open'); }
+  function closePicker() {
+    if (!modal.classList.contains('open')) return;
+    modal.classList.remove('open');
+    unlockScroll();
+  }
 
   function heroTile(h) {
     var dis = !h.hasDebuff;
@@ -203,9 +222,8 @@
     state.skillKey = null;
     state.skillData = null;
     state.condOn = {};
-    var hs = $('#ec-hero-settings'), hint = $('#ec-hero-settings-hint');
+    var hs = $('#ec-hero-settings');
     if (hs) hs.hidden = !h;
-    if (hint) hint.hidden = !!h;
     renderSlots();
     renderHeroBonus();
     renderSkillSlot();
@@ -231,8 +249,8 @@
   function currentSkills() {
     var d = heroJsonCache[state.hero.id];
     if (!d) return null;
-    var list = d.skills.awk || d.skills.s6;
-    return list.filter(function (s) { return s.key !== 'passive'; });
+    // passive included: passives that carry a debuff are pickable too
+    return d.skills.awk || d.skills.s6;
   }
 
   /* ---------- hero auto-bonus box ---------- */
@@ -253,12 +271,16 @@
       var src = 'Nội tại ' + h.auto.passive + (g.tier ? ' (chỉ có ở ' + g.tier + ')' : '') + (g.duration ? ' (' + g.duration + ' lượt)' : '');
       if (g.cond) {
         rows.push('<label class="ec-auto-row ec-cond"><input type="checkbox" data-cond="' + kind + '"' + (state.condOn[kind] ? ' checked' : '') + '> ' +
-          '<span><b>' + label + '</b> — ' + esc(src) + '<br><small>' + AUTO_NOTE[g.cond] + ' Tích vào nếu điều kiện đã thỏa.</small></span></label>');
+          '<span><b>' + label + '</b> — ' + esc(src) + '<br><small>' + AUTO_NOTE[g.cond] + '</small></span></label>');
       } else {
-        rows.push('<div class="ec-auto-row"><span class="ec-auto-dot">✓</span><span><b>' + label + '</b> — ' + esc(src) + ' <small>(tự động cộng)</small></span></div>');
+        // item 7: the hero's own effect is auto-applied and LOCKED — the
+        // checkbox is checked and disabled, the manual checkboxes below
+        // stay separate and toggleable.
+        rows.push('<div class="ec-auto-row ec-locked"><input type="checkbox" checked disabled> ' +
+          '<span><b>' + label + '</b> — ' + esc(src) + '</span></div>');
       }
     });
-    box.innerHTML = '<div class="ec-box-title">Nội tại của ' + esc(h.name) + ' — tự động cộng vào công thức</div>' + rows.join('');
+    box.innerHTML = '<div class="ec-box-title">Nội tại của ' + esc(h.name) + '</div>' + rows.join('');
     $$('input[data-cond]', box).forEach(function (cb) {
       cb.addEventListener('change', function () {
         state.condOn[cb.dataset.cond] = cb.checked;
@@ -270,13 +292,14 @@
   /* ---------- skill slot + picker ---------- */
   function skillLabel(s) {
     if (s.key === 'basic') return 'Đánh thường';
+    if (s.key === 'passive') return 'Nội tại — ' + (s.name || 'Nội tại');
     return (s.name || s.type || 'Skill');
   }
   function renderSkillSlot() {
     var slot = $('#ec-skill-slot');
     var detail = $('#ec-skill-detail');
     if (!state.hero) {
-      slot.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn skill</span><span class="ec-slot-hint">Chọn hero trước</span>';
+      slot.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn skill</span>';
       slot.classList.add('ec-disabled-slot');
       detail.innerHTML = '';
       $('#ec-result').innerHTML = '<p class="ec-empty">Chọn hero rồi chọn 1 skill gây debuff để xem tỉ lệ %.</p>';
@@ -284,7 +307,7 @@
     }
     slot.classList.remove('ec-disabled-slot');
     if (!state.skillKey) {
-      slot.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn skill</span><span class="ec-slot-hint">' + esc(state.hero.name) + ' — chỉ skill gây debuff</span>';
+      slot.innerHTML = '<span class="ec-slot-plus">+</span><span class="ec-slot-label">Chọn skill</span>';
       detail.innerHTML = '';
       $('#ec-result').innerHTML = '<p class="ec-empty">Chọn 1 skill của ' + esc(state.hero.name) + ' để xem tỉ lệ gây debuff.</p>';
       return;
@@ -304,12 +327,13 @@
   function openSkillPicker() {
     if (!state.hero) return;
     pickerMode = 'skill';
+    lockScroll();
     modal.classList.add('open');
     modalTitle.textContent = 'Chọn skill — ' + state.hero.name;
     modalSearch.value = '';
     modalSearch.placeholder = 'Tìm skill theo tên…';
     renderSkillList('');
-    modalSearch.focus();
+    modalSearch.focus({ preventScroll: true });
   }
   function renderSkillList(q) {
     var nq = norm(q);
@@ -331,7 +355,8 @@
         '<span class="ec-skill-note">' + esc(note) + '</span></button>';
     }).join('') + '</div>';
     modalList.innerHTML = html || '<p class="ec-empty">Không tìm thấy skill.</p>';
-    modalCount.textContent = 'Skill có debuff mới chọn được — skill gây debuff tính theo tỉ lệ cường hóa tối đa.';
+    var okCount = rows.filter(function (s) { return state.hero.skills[s.key]; }).length;
+    modalCount.textContent = nq ? ('Tìm thấy ' + rows.length + ' skill') : ('Có ' + okCount + ' skill gây debuff');
     $$('.ec-skill-row', modalList).forEach(function (b) {
       b.addEventListener('click', function () {
         state.skillKey = b.dataset.key;
@@ -352,23 +377,36 @@
       var ls = Array.isArray(grp) ? grp : (grp.lines || []);
       ls.forEach(function (line) {
         var txt = line;
-        // highlight max-enhanced chances: replace the base % with the max
+        // highlight max-enhanced chances: replace the base % with the max.
+        // Tolerant: an optional "N cộng dồn " may sit between "gây" and the
+        // effect name, and the name may carry a trailing " (Stacks)".
         sd.debuffs.forEach(function (d) {
           if (!d.enhanced) return;
-          var re = new RegExp('(\\d+)% tỉ lệ gây ' + d.effect.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-          txt = txt.replace(re, d.max + '% tỉ lệ gây ' + d.effect);
+          var baseName = d.effect.replace(/ \(Stacks\)$/, '');
+          var re = new RegExp('(\\d+)% tỉ lệ gây (\\d+ cộng dồn )?' + baseName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '( \\(Stacks\\))?');
+          txt = txt.replace(re, function (m, pct, stack) { return d.max + '% tỉ lệ gây ' + (stack || '') + d.effect; });
         });
         lines += '<li>' + esc(txt.replace(/^- /, '')) + '</li>';
       });
     });
-    var enhBadge = sd.debuffs.some(function (d) { return d.enhanced || d.t6; }) ?
+    // Debuffs added by enhancement / Transcendence don't appear in the
+    // base description — show their "Thêm hiệu ứng…" lines too.
+    var added = [];
+    [['enhancement_vi', ''], ['tx_vi', '']].forEach(function (pair) {
+      (s[pair[0]] || []).forEach(function (e) {
+        var txt = e.effect || '';
+        if (txt.indexOf('Thêm hiệu ứng') !== 0) return;
+        if (!sd.debuffs.some(function (d) { return txt.indexOf(d.effect) !== -1; })) return;
+        txt = txt.replace(/\[Duration: (\d+) Turn\(s\)\]/, 'trong $1 lượt');
+        added.push('<li>' + esc(txt) + '</li>');
+      });
+    });
+    var enhBadge = sd.debuffs.some(function (d) { return d.enhanced || d.t6 || d.tier; }) ?
       '<span class="ec-badge">Đã tính cường hóa tối đa</span>' : '';
     detail.innerHTML = '<div class="ec-detail-head">' +
       '<img src="assets/skills-raw/' + esc(s.icon || '') + '" alt="" onerror="this.style.display=\'none\'">' +
       '<div><h3>' + esc(skillLabel(s)) + '</h3><p>' + esc(s.type || '') + (s.cd ? ' · Hồi chiêu ' + s.cd + 's' : '') + (s.gauge ? ' · Gauge ' + s.gauge : '') + '</p></div>' + enhBadge + '</div>' +
-      '<ul class="ec-detail-lines">' + lines + '</ul>' +
-      '<p class="ec-detail-note">Tỉ lệ gốc (base chance) dùng để tính là tỉ lệ sau cường hóa tối đa' +
-      (sd.debuffs.some(function (d) { return d.base !== d.max; }) ? ' — VD: ' + sd.debuffs.filter(function (d) { return d.base !== d.max; }).map(function (d) { return d.effect + ' ' + d.base + '% → ' + d.max + '%'; }).join(', ') : '') + '.</p>';
+      '<ul class="ec-detail-lines">' + lines + added.join('') + '</ul>';
   }
 
   /* ---------- sliders ---------- */
@@ -425,25 +463,59 @@
     var res = $('#ec-result');
     if (!state.hero || !state.skillKey || !state.skillData) {
       if (state.hero && !state.skillKey) res.innerHTML = '<p class="ec-empty">Chọn 1 skill của ' + esc(state.hero.name) + ' để xem tỉ lệ gây debuff.</p>';
+      renderBar();
       return;
     }
     var sd = state.hero.skills[state.skillKey];
     var rows = sd.debuffs.map(function (d) {
-      var r = calcChance(d.max, t.atkHit, atkProbTotal, t.oppRes, t.probRed);
-      var formula = d.max + '% × (1 + ' + r.netProb + '%) × (1 − ' + r.effRes + '%) = ' + (Math.round(r.pct * 10) / 10).toString().replace('.', ',') + '%';
+      // [Always Active] auras cannot be resisted — always 100%.
+      var r = d.always ? { pct: 100 } : calcChance(d.max, t.atkHit, atkProbTotal, t.oppRes, t.probRed);
+      var targetLabel = /-added$/.test(d.target) ? 'Thêm ở ' + (d.tier || '') : d.target;
       return '<div class="ec-result-row"><div class="ec-result-effect">' + esc(d.effect) +
-        (d.t6 ? ' <span class="ec-badge">T6</span>' : '') +
-        '<small>' + esc(d.target) + '</small></div>' +
-        '<div class="ec-result-pct">' + Math.round(r.pct) + '<span>%</span></div>' +
-        '<div class="ec-result-formula">' + formula + '</div></div>';
+        (d.tier ? ' <span class="ec-badge">' + esc(d.tier) + '</span>' : '') +
+        (d.always ? '<span class="ec-always-tag">Luôn áp dụng</span>' : '') +
+        '<small>' + esc(targetLabel) + '</small></div>' +
+        '<div class="ec-result-pct">' + Math.round(r.pct) + '<span>%</span></div></div>';
     }).join('');
     res.innerHTML = '<div class="ec-result-head">' + esc(skillLabel(state.skillData)) + ' — ' + esc(state.hero.name) + '</div>' + rows;
+    renderBar();
+  }
+
+  /* ---------- sticky result bar (item 5) ---------- */
+  var bar = null, barInner = null, barHasContent = false, resultVisible = true;
+  function renderBar() {
+    if (!state.hero || !state.skillKey || !state.skillData) { barHasContent = false; updateBarVisibility(); return; }
+    var t = totals(state, data);
+    var sd = state.hero.skills[state.skillKey];
+    var hasDeath = sd.debuffs.some(function (d) { return d.effect === 'Death'; });
+    var atkProbTotal = t.atkProb + (hasDeath ? t.deathBoost : 0);
+    var chips = sd.debuffs.map(function (d) {
+      if (d.always) return '<span class="ec-bar-chip">' + esc(d.effect) + ' <b>100%</b> <span class="ec-bar-always">Luôn áp dụng</span></span>';
+      var r = calcChance(d.max, t.atkHit, atkProbTotal, t.oppRes, t.probRed);
+      return '<span class="ec-bar-chip">' + esc(d.effect) + ' <b>' + Math.round(r.pct) + '%</b></span>';
+    }).join('');
+    barInner.innerHTML = '<span class="ec-bar-skill">' + esc(skillLabel(state.skillData)) + '</span>' + chips;
+    barHasContent = true;
+    updateBarVisibility();
+  }
+  function updateBarVisibility() {
+    var show = barHasContent && !resultVisible;
+    bar.hidden = !show;
+    // keep page content from hiding under the bar
+    document.body.style.paddingBottom = show ? bar.offsetHeight + 'px' : '';
   }
 
   /* ---------- init ---------- */
   function init() {
     modal = $('#ec-modal'); modalList = $('#ec-modal-list'); modalSearch = $('#ec-modal-search');
     modalTitle = $('#ec-modal-title'); modalCount = $('#ec-modal-count');
+    bar = $('#ec-result-bar'); barInner = $('#ec-result-bar-inner');
+    if (bar && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        resultVisible = entries[0].isIntersecting;
+        updateBarVisibility();
+      }, { threshold: 0 }).observe($('#ec-result'));
+    }
     $('#ec-hero-slot').addEventListener('click', function () { openPicker('hero'); });
     $('#ec-pet-slot').addEventListener('click', function () { openPicker('pet'); });
     $('#ec-skill-slot').addEventListener('click', openSkillPicker);

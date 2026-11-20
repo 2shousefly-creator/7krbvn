@@ -74,10 +74,10 @@ test('formula: totals() — hero passive, pet and checkbox take the max, not the
     sliders: { hit: 50, prob: 0, res: 0 }, skillKey: null, skillData: null,
   };
   const t = calc.totals(state, data);
-  // Hit Boost: max(hero 34, checkbox 64) = 64 — NOT 98
-  assert.equal(t.hitBoost, 64);
-  // atkHit = slider 50 + pet 31 + boost 64 = 145
-  assert.equal(t.atkHit, 145);
+  // Hit Boost: max(hero 34, checkbox 37 — team-wide max, Ace 64 is Self-only) = 37
+  assert.equal(t.hitBoost, 37);
+  // atkHit = slider 50 + pet 31 + boost 37 = 118
+  assert.equal(t.atkHit, 118);
 });
 
 test('formula: totals() — Death boost only counts for Death skills (via caller)', () => {
@@ -94,29 +94,34 @@ test('formula: totals() — Death boost only counts for Death skills (via caller
 });
 
 /* ---------- data integrity ---------- */
-test('data: 125 heroes, 93 selectable, 32 greyed (no debuff skill)', () => {
+test('data: 125 heroes, 111 selectable, 14 greyed (no debuff skill)', () => {
   const data = loadData();
   assert.equal(data.heroes.length, 125);
-  assert.equal(data.heroes.filter(h => h.hasDebuff).length, 93);
-  assert.equal(data.heroes.filter(h => !h.hasDebuff).length, 32);
+  assert.equal(data.heroes.filter(h => h.hasDebuff).length, 111);
+  assert.equal(data.heroes.filter(h => !h.hasDebuff).length, 14);
   for (const h of data.heroes.filter(x => !x.hasDebuff)) {
     assert.deepEqual(h.skills, {}, `${h.id} must have no debuff skills`);
   }
 });
 
-test('data: max bonus values match the researched in-game maxima (enhanced)', () => {
+test('data: max bonus values are the TEAM-WIDE maxima (item 8 — self-only excluded)', () => {
   const data = loadData();
+  // hitBoost 37 (Freyja/Tanjiro — Ace 64 is Self-only), resRed 37 (Knox
+  // ultimate active — passive auras are 34), resBoost 37 (Clemyth S1 /
+  // Eve awakened — Orkah 49 / Sung Jinwoo 49 are Self-only).
   assert.deepEqual(data.maxValues, {
-    hitBoost: 64, resRed: 34, probBoost: 32,
-    deathBoost: 25, resBoost: 49, probRed: 26,
+    hitBoost: 37, resRed: 37, probBoost: 32,
+    deathBoost: 25, resBoost: 37, probRed: 26,
   });
 });
 
-test('data: every debuff chance is max-enhanced (max >= base) and 1..100', () => {
+test('data: every debuff chance is max-enhanced (max >= base) and 1..100; passive entries flagged', () => {
   const data = loadData();
   for (const h of data.heroes) {
     for (const [key, s] of Object.entries(h.skills)) {
-      assert.notEqual(key, 'passive', `${h.id} must not list the passive as a usable skill`);
+      // passive skills are pickable when they carry a debuff (item 6) —
+      // they must be flagged so the UI can label them.
+      if (key === 'passive') assert.equal(s.passive, true, `${h.id} passive entry must carry passive: true`);
       assert.ok(s.debuffs.length >= 1, `${h.id}/${key} must have a debuff`);
       for (const d of s.debuffs) {
         assert.ok(d.max >= d.base, `${h.id}/${key} ${d.effect}: max ${d.max} < base ${d.base}`);
@@ -135,6 +140,29 @@ test('data: known spot values — Rudy Stun 65, Kris Death 60, Spike Freeze spli
   assert.deepEqual(krisDeath.map(d => d.max).sort((a, b) => b - a), [60, 30]);
   const spikeFreeze = byId.spike.skills.s1.debuffs.filter(d => d.effect === 'Freeze');
   assert.deepEqual(spikeFreeze.map(d => d.max).sort((a, b) => b - a), [100, 70]);
+});
+
+test('data: item 6 rescues — heroes previously greyed now selectable', () => {
+  const data = loadData();
+  const byId = Object.fromEntries(data.heroes.map(h => [h.id, h]));
+  // Biscuit: ultimate Buff Removal 100 (guaranteed infliction)
+  assert.equal(byId.biscuit.skills.ultimate.debuffs.find(d => d.effect === 'Buff Removal').max, 100);
+  // Gelidus: basic Extreme Chill 45 -> 50 (enhanced)
+  assert.equal(byId.gelidus.skills.basic.debuffs.find(d => d.effect === 'Extreme Chill').max, 50);
+  // Omok passive: two always-on-ish debuffs, both 100
+  assert.equal(byId.omok.skills.passive.debuffs.length, 2);
+  // Randgrid passive: [Always Active] auras — cannot be resisted
+  assert.ok(byId.randgrid.skills.passive.debuffs.every(d => d.always === true));
+  // Dellons S1 merged across conversion forms: Silence 60 + Buff Removal 100
+  const dellons = byId.dellons.skills.s1.debuffs.map(d => `${d.effect}:${d.max}`).sort();
+  assert.deepEqual(dellons, ['Buff Removal:100', 'Silence:60']);
+  // Feng Yan S1: Defense Reduction added at T2
+  const fy = byId['feng-yan'].skills.s1.debuffs.find(d => d.effect === 'Defense Reduction');
+  assert.equal(fy.tier, 'T2');
+  // all 18 rescued heroes are selectable
+  for (const id of ['biscuit', 'black-rose', 'clemyth', 'daisy', 'feng-yan', 'freyja', 'gelidus', 'guan-yu', 'karma', 'kyle', 'noho', 'orly', 'randgrid', 'reginleif', 'sieg', 'sunran', 'taka', 'omok']) {
+    assert.ok(byId[id].hasDebuff, `${id} must be selectable after the item 6 audit`);
+  }
 });
 
 test('data: hero auto-bonuses — 26 heroes, Ace 64 (T6), Freyja conditional, scaled 45', () => {
@@ -176,16 +204,26 @@ test('data: 12 suggested heroes are all selectable', () => {
 });
 
 /* ---------- page ---------- */
-test('page: calculator page has slots, sliders, checkboxes and result panel', () => {
+test('page: calculator page has slots, sliders, checkboxes, result panel and sticky bar', () => {
   const html = fs.readFileSync(path.join(root, 'xac-suat-hieu-ung.html'), 'utf8');
   assert.ok(html.includes('data-tag="TÍNH XÁC SUẤT HIỆU ỨNG"'), 'page must carry its implicit tag');
   for (const id of ['ec-hero-slot', 'ec-pet-slot', 'ec-skill-slot', 'ec-hero-bonus',
     'ec-hero-settings', 'ec-slider-hit', 'ec-slider-prob', 'ec-slider-res',
     'ec-num-hit', 'ec-num-prob', 'ec-num-res',
     'ec-sum-hit', 'ec-sum-prob', 'ec-sum-res', 'ec-sum-probred',
-    'ec-skill-detail', 'ec-result', 'ec-modal']) {
+    'ec-skill-detail', 'ec-result', 'ec-result-bar', 'ec-result-bar-inner', 'ec-modal']) {
     assert.ok(html.includes(`id="${id}"`), `page must have #${id}`);
   }
+  // items 1-3: intro, section descriptions, notes section and formula are gone
+  assert.ok(!html.includes('ec-intro'), 'intro paragraph must be removed');
+  assert.ok(!html.includes('ec-sec-desc'), 'section descriptions must be removed');
+  assert.ok(!html.includes('ec-notes'), 'notes/formula section must be removed');
+  assert.ok(!html.includes('ec-slider-hint'), 'slider hint must be removed');
+  assert.ok(!html.includes('ec-hero-settings-hint'), 'hero settings hint must be removed');
+  // item 8: checkbox labels carry the team-wide maxima
+  assert.ok(html.includes('Effect Hit Rate Boost +37%'));
+  assert.ok(html.includes('Effect Resist Reduction +37%'));
+  assert.ok(html.includes('Effect Resist Boost +37%'));
   for (const k of ['hitBoost', 'resRed', 'probBoost', 'deathBoost', 'resBoost', 'probRed']) {
     assert.ok(html.includes(`data-check="${k}"`), `page must have the ${k} checkbox`);
   }
@@ -206,4 +244,24 @@ test('page: hero portraits referenced by the picker exist for every hero', () =>
   for (const h of data.heroes) {
     assert.ok(fs.existsSync(path.join(root, 'assets', `hero-${h.id}.webp`)), `missing portrait hero-${h.id}.webp`);
   }
+});
+
+test('script: no formula line in results; sticky bar + locked auto rows present', () => {
+  const js = fs.readFileSync(path.join(root, 'effect-calc.js'), 'utf8');
+  assert.ok(!js.includes('ec-result-formula'), 'formula line must be removed from results (item 3)');
+  assert.ok(js.includes('ec-result-bar'), 'sticky result bar must be wired (item 5)');
+  assert.ok(js.includes('IntersectionObserver'), 'bar visibility must track the result panel');
+  assert.ok(js.includes('ec-locked'), 'hero auto-bonus rows must be locked (item 7)');
+  assert.ok(js.includes('Luôn áp dụng'), 'always-active debuffs must show the tag');
+  assert.ok(js.includes('lockScroll'), 'picker must lock page scroll (item 4)');
+  assert.ok(!js.includes('ec-hero-settings-hint'), 'dead hint reference must be removed');
+});
+
+test('css: modal is 30% smaller and clears the sticky header', () => {
+  const css = fs.readFileSync(path.join(root, 'effect-calc.css'), 'utf8');
+  assert.ok(css.includes('max-width: 448px'), 'modal panel must be 448px (640 x 0.7)');
+  assert.ok(css.includes('padding: 132px 12px 24px'), 'modal top padding must clear the header');
+  assert.ok(css.includes('.ec-result-bar'), 'sticky bar styles must exist');
+  assert.ok(!css.includes('.ec-intro'), 'dead intro rule must be removed');
+  assert.ok(!css.includes('.ec-sec-desc'), 'dead section-desc rule must be removed');
 });
