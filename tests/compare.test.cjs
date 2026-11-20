@@ -14,6 +14,8 @@ const dellons = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'de
 const jupy = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'jupy.json'), 'utf8'));
 const wukong = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'sun-wukong.json'), 'utf8'));
 const bane = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'bane.json'), 'utf8'));
+const fai = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'fai.json'), 'utf8'));
+const melia = JSON.parse(fs.readFileSync(path.join(root, 'data', 'heroes', 'melia.json'), 'utf8'));
 
 function read(file) { return fs.readFileSync(path.join(root, file), 'utf8'); }
 function strip(html) { return html.replace(/<[^>]+>/g, ''); }
@@ -371,6 +373,21 @@ test('BUILD_VI map in compare.js stays in sync with hero-detail.js', () => {
   const inDetail = extractMap(read('hero-detail.js'));
   assert.equal(inCompare, inDetail,
     'compare.js must mirror hero-detail.js BUILD_VI exactly — edit both files together');
+});
+
+test('PATK/MATK note appears only in the Attack block, never under HP/DEF/SPD', () => {
+  /* Hồi quy cho lỗi user báo 2026-11-20 (Fai vs Melia): ghi chú "Fai dùng
+   * PATK, Melia dùng MATK" lọt xuống cả HP lẫn DEF vì statBlockHtml truyền
+   * atkA/atkB cho mọi khối chỉ số. Fai: PATK 1500 / HP 3326 / DEF 571 /
+   * SPD 29; Melia: MATK 1500 / HP 7255 / DEF 1580 / SPD 29. */
+  const html = compare.renderCompareHtml(fai, melia, SkillCard);
+  const atkNotes = (html.match(/dùng PATK/g) || []).length;
+  assert.equal(atkNotes, 1, 'the PATK/MATK note must appear exactly once (Attack block only)');
+  assert.ok(html.includes('Fai dùng PATK, Melia dùng MATK'), 'Attack block keeps the attack-type note');
+  assert.ok(html.includes('Melia cao hơn 118% so với Fai'), 'HP block must compare % (7255 vs 3326)');
+  assert.ok(html.includes('Melia cao hơn 177% so với Fai'), 'DEF block must compare % (1580 vs 571)');
+  assert.ok(html.includes('bằng nhau'), 'SPD block must say equal (29 vs 29)');
+  assert.ok(html.includes('cp-num cp-win'), 'Melia HP/DEF values must carry the winner class');
 });
 
 test('rendered comparison: glance blocks, proportional bars, winner note', () => {

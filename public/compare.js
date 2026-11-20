@@ -527,8 +527,11 @@
   function statBlockHtml(def, heroA, heroB, version) {
     var va = heroA ? statValue(heroA, version, def.key) : null;
     var vb = heroB ? statValue(heroB, version, def.key) : null;
-    var ka = heroA ? attackStat(heroA.stats && heroA.stats[version]) : null;
-    var kb = heroB ? attackStat(heroB.stats && heroB.stats[version]) : null;
+    /* Loại tấn công (PATK/MATK) chỉ liên quan tới khối Tấn công. Các khối
+     * HP/DEF/SPD phải so % bình thường — truyền atkA/atkB cho mọi khối
+     * làm ghi chú "X dùng PATK, Y dùng MATK" lọt xuống cả HP lẫn DEF. */
+    var ka = def.key === 'atk' ? (heroA ? attackStat(heroA.stats && heroA.stats[version]) : null) : null;
+    var kb = def.key === 'atk' ? (heroB ? attackStat(heroB.stats && heroB.stats[version]) : null) : null;
     var label = def.label;
     if (def.key === 'atk') {
       if (ka && kb && ka.key === kb.key) label += ' (' + ka.key + ')';
