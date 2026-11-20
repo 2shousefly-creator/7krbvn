@@ -474,6 +474,9 @@
   }
 
   /* Tên build dịch sang tiếng Việt, Title Case (200 tên Atlas). */
+  /* Tên build tiếng Việt — BẢN GỐC. public/compare.js sao y bản này
+   * (BUILD_VI + buildNameVi); sửa map thì sửa cả hai chỗ, test đồng bộ
+   * trong tests/compare.test.cjs sẽ nhắc nếu hai bản lệch nhau. */
   var BUILD_VI = {
     "2nd Highest Attack": "Attack Cao Thứ 2",
     "3-Target DPS": "DPS 3 Mục Tiêu",

@@ -298,9 +298,10 @@ test('main build and dedicated equipment come from the hero JSON', () => {
 
 test('main build detail mirrors the hero page build (set, gear pieces, main stats, substats, accessories, note)', () => {
   const eveBuild = compare.buildColHtml(eve);
-  // Build Best (active) + tên build.
+  // Build Best (active) + tên build TIẾNG VIỆT.
   assert.ok(eveBuild.includes('BEST'), 'the build column must tag the active build as BEST');
-  assert.ok(eveBuild.includes('Crit-Focused'), 'the build column must name the active build');
+  assert.ok(eveBuild.includes('Tập Trung Crit'), 'the build column must show the Vietnamese build name');
+  assert.ok(!eveBuild.includes('Crit-Focused'), 'the build column must not show the English build name');
   // Set: icon + tên + hiệu ứng Set 4.
   assert.ok(eveBuild.includes('assets/seticons/Assassin.webp'), 'the build column must show the set icon');
   assert.ok(eveBuild.includes('Assassin'), 'the build column must name the set');
@@ -349,6 +350,27 @@ test('main build detail mirrors the hero page build (set, gear pieces, main stat
     'gearNoteFor must prefer the Vietnamese note of the active build');
   assert.equal(compare.gearNoteFor({ builds: [{ gear_notes: 'English note' }] }, { gear_notes: 'English note' }), 'English note',
     'gearNoteFor falls back to the English note when no Vietnamese note exists');
+});
+
+test('build names are Vietnamese (BUILD_VI), falling back to English when unmapped', () => {
+  assert.equal(compare.buildNameVi('Crit-Focused'), 'Tập Trung Crit');
+  assert.equal(compare.buildNameVi('Some Future Build'), 'Some Future Build',
+    'a build name missing from the map must keep its English name');
+  assert.ok(compare.buildColHtml(judas).includes('Tập Trung Crit'),
+    'both heroes render the Vietnamese build name');
+});
+
+test('BUILD_VI map in compare.js stays in sync with hero-detail.js', () => {
+  function extractMap(src) {
+    const start = src.indexOf('var BUILD_VI = {');
+    assert.ok(start >= 0, 'BUILD_VI must exist');
+    const end = src.indexOf('\n  };', start);
+    return src.slice(start, end + '\n  };'.length);
+  }
+  const inCompare = extractMap(read('compare.js'));
+  const inDetail = extractMap(read('hero-detail.js'));
+  assert.equal(inCompare, inDetail,
+    'compare.js must mirror hero-detail.js BUILD_VI exactly — edit both files together');
 });
 
 test('rendered comparison: glance blocks, proportional bars, winner note', () => {
