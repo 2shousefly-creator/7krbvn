@@ -1,8 +1,10 @@
 /* Tim kiem toan trang — 7krb.io.vn.
- * Matching logic is kept pure (normalize / scoreEntry / searchEntries)
- * so it can be unit-tested from node: require('./search.js').
- * In the browser the same file wires the live search box on
- * tim-kiem.html (fetch search-index.json, render grouped results).
+ * Matching logic is kept pure (normalize / scoreEntry / searchEntries /
+ * dropdownResults) so it can be unit-tested from node:
+ * require('./search.js'). In the browser the same file wires the live
+ * search box on tim-kiem.html (fetch search-index.json, render grouped
+ * results) and the live dropdown under the home search bar on index.html
+ * (same ranking and rows, at most ~5 visible, scroll for more).
  */
 (function (root, factory) {
   var lib = factory();
@@ -123,6 +125,19 @@
     return groups;
   }
 
+  /* Home dropdown rows: the same ranked hits, flattened in group order
+   * (hero, article, mode, tool), capped so the box never grows without
+   * bound — CSS shows ~5 rows and scrolls for the rest. */
+  var HOME_DROPDOWN_MAX = 10;
+
+  function dropdownResults(results, max) {
+    var flat = [];
+    groupResults(results).forEach(function (g) {
+      g.items.forEach(function (e) { flat.push(e); });
+    });
+    return flat.slice(0, max == null ? HOME_DROPDOWN_MAX : max);
+  }
+
   /* ---- browser glue (tim-kiem.html only) ---- */
 
   function esc(s) {
@@ -132,6 +147,11 @@
   }
 
   function initPage(doc) {
+    initResultsPage(doc);
+    initHomeDropdown(doc);
+  }
+
+  function initResultsPage(doc) {
     var input = doc.getElementById('search-input');
     if (!input) return;
     var resultsEl = doc.getElementById('search-results');
@@ -218,12 +238,80 @@
     });
   }
 
+  /* ---- home dropdown (index.html) ----
+   * Same searchEntries ranking and thumbHtml rows as the results page,
+   * flattened in group order. Shows on typing (debounced ~150ms), hides
+   * on empty query, Escape, or a click outside the search bar. Clicking
+   * a row follows its URL; Enter still submits the form to tim-kiem.html
+   * (native form behaviour, no JS needed). */
+  function initHomeDropdown(doc) {
+    var input = doc.getElementById('home-search-input');
+    var box = doc.getElementById('home-search-results');
+    if (!input || !box) return;
+    var entries = [];
+    var timer = null;
+
+    function hide() {
+      box.hidden = true;
+      box.innerHTML = '';
+      input.setAttribute('aria-expanded', 'false');
+    }
+
+    function render() {
+      var q = (input.value || '').trim();
+      if (!q) { hide(); return; }
+      var hits = dropdownResults(searchEntries(entries, q));
+      if (!hits.length) {
+        box.innerHTML = '<p class="home-search-empty">Không tìm thấy kết quả cho “' + esc(q) +
+          '” — bấm Enter để xem trang tìm kiếm.</p>';
+      } else {
+        var html = '<ul class="search-list">';
+        hits.forEach(function (e) {
+          html += '<li><a class="search-item" href="' + esc(e.url) + '">' +
+            thumbHtml(e) +
+            '<span class="search-item-text"><span class="search-item-title">' + esc(e.title) + '</span>' +
+            (e.desc ? '<span class="search-item-desc">' + esc(e.desc) + '</span>' : '') +
+            '</span></a></li>';
+        });
+        html += '</ul>';
+        box.innerHTML = html;
+      }
+      box.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    function schedule() {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(render, 150);
+    }
+
+    input.addEventListener('input', schedule);
+    input.addEventListener('focus', function () {
+      if ((input.value || '').trim()) render();
+    });
+    input.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') hide();
+    });
+    doc.addEventListener('click', function (ev) {
+      if (!box.hidden && !(ev.target && ev.target.closest && ev.target.closest('.home-search'))) hide();
+    });
+
+    fetch('search-index.json').then(function (r) { return r.json(); }).then(function (data) {
+      entries = data.entries || [];
+      if ((input.value || '').trim()) render();
+    }).catch(function () {
+      /* Index failed to load: typing shows nothing, but Enter still
+       * submits to tim-kiem.html, which reports the same failure. */
+    });
+  }
+
   return {
     normalize: normalize,
     tokensOf: tokensOf,
     scoreEntry: scoreEntry,
     searchEntries: searchEntries,
     groupResults: groupResults,
+    dropdownResults: dropdownResults,
     thumbFor: thumbFor,
     thumbHtml: thumbHtml,
     GROUP_ORDER: GROUP_ORDER,

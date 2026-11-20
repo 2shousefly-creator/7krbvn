@@ -58,7 +58,7 @@ test('home hero slider: auto-advances every 3s, swipeable, pauses on interaction
   assert.ok(css.includes('.hero-track{min-height:196px'), 'mobile slides must stay compact (~196px)');
 });
 
-test('home search bar: right below the banner, submits to tim-kiem.html', () => {
+test('home search bar: full-width input, no button, live dropdown, Enter still goes to tim-kiem.html', () => {
   const home = page('index.html');
   const form = home.match(/<form class="home-search"[^>]*>([\s\S]*?)<\/form>/);
   assert.ok(form, 'home must have a search bar below the banner');
@@ -66,13 +66,22 @@ test('home search bar: right below the banner, submits to tim-kiem.html', () => 
   assert.ok(form[0].includes('name="q"'), 'home search input must be named q (tim-kiem.html reads ?q=)');
   assert.ok(form[0].includes('type="search"'), 'home search must use a search input');
   assert.ok(form[0].includes('Tìm hero, hướng dẫn, chế độ'), 'home search must hint at heroes, guides and modes');
+  assert.ok(!form[0].includes('<button'), 'home search must not have a search button any more');
+  assert.ok(form[0].includes('id="home-search-input"'), 'home search input must be wired to the live dropdown');
+  assert.ok(form[0].includes('id="home-search-results"'), 'home search must carry a live results dropdown');
+  assert.ok(form[0].includes('hidden'), 'dropdown must start hidden');
+  assert.ok(home.includes('href="search.css"'), 'home must load search.css for the dropdown rows');
+  assert.ok(home.includes('src="search.js"'), 'home must load search.js for the live dropdown');
   assert.ok(home.indexOf('home-search') > home.indexOf('home-hero'),
     'search bar must sit below the banner');
   assert.ok(home.indexOf('home-search') < home.indexOf('Danh mục truy cập nhiều'),
     'search bar must sit above the most-visited categories');
   const css = page('blog.css');
-  assert.ok(css.includes('.home-search{display:flex'), 'blog.css must style the home search bar');
-  assert.ok(css.includes('.home-search button{'), 'home search bar must have a submit button style');
+  assert.ok(css.includes('.home-search{position:relative'), 'home search form must anchor the dropdown');
+  assert.ok(!css.includes('.home-search button{'), 'blog.css must not style a home search button any more');
+  assert.ok(css.includes('.home-search-results{position:absolute'), 'dropdown must sit directly below the input');
+  assert.ok(css.includes('max-height:464px'), 'dropdown must show at most ~5 rows (464px)');
+  assert.ok(css.includes('overflow-y:auto'), 'dropdown must scroll when more results exist');
 });
 
 test('home structure: banner, most-visited categories, pinned posts, latest posts, quick-access categories — in that order', () => {

@@ -227,3 +227,37 @@ test('new search files carry no forbidden source name and no dark-mode rule', ()
   assert.ok(!read('search.css').includes('prefers-color-scheme: dark'),
     'search.css must not contain a dark-mode rule');
 });
+
+test('home dropdown: live results reuse the same ranking and rows, capped and grouped', () => {
+  const js = read('search.js');
+  assert.ok(js.includes('home-search-input'), 'search.js must wire the home input');
+  assert.ok(js.includes('home-search-results'), 'search.js must wire the home dropdown');
+  assert.ok(js.includes('setTimeout(render, 150)'), 'home dropdown must debounce typing by ~150ms');
+  assert.ok(js.includes("'Escape'"), 'home dropdown must hide on Escape');
+  assert.ok(js.includes("closest('.home-search')"), 'home dropdown must hide when clicking outside the search bar');
+  assert.ok(js.includes('dropdownResults(searchEntries(entries, q))'),
+    'dropdown must reuse the searchEntries ranking');
+  assert.ok(js.includes('thumbHtml(e)'), 'dropdown rows must reuse the 56px thumbnail helper');
+  assert.ok(js.includes('aria-expanded'), 'dropdown must expose its open state');
+  assert.ok(js.includes('HOME_DROPDOWN_MAX = 10'), 'dropdown must cap its rendered rows at 10');
+  // Pure helper: 'eve' returns 241 hits, so the dropdown must cap at 10
+  // rows while CSS shows ~5 — the rest scroll into view.
+  const eve = search.searchEntries(index.entries, 'eve');
+  assert.ok(eve.length > 10, '"eve" must return more than 10 hits');
+  const shown = search.dropdownResults(eve);
+  assert.equal(shown.length, 10, `dropdown must render exactly 10 rows for "eve", got ${shown.length}`);
+  assert.equal(shown[0].url, 'hero.html?id=eve', 'dropdown must keep the top-ranked hit first');
+  const order = ['hero', 'article', 'mode', 'tool'];
+  const groups = shown.map(e => e.group);
+  assert.deepEqual([...groups].sort((a, b) => order.indexOf(a) - order.indexOf(b)), groups,
+    'dropdown rows must stay in group order (hero, article, mode, tool)');
+  assert.equal(search.dropdownResults(eve, 5).length, 5, 'dropdownResults must honour an explicit cap');
+  assert.deepEqual(search.dropdownResults([], 10), [], 'dropdownResults must handle no hits');
+  // 'ruby' has 7 hits: all fit in the box, more than the 5 visible rows,
+  // so scrolling matters even for short result lists.
+  const ruby = search.searchEntries(index.entries, 'ruby');
+  assert.ok(ruby.length > 5 && ruby.length <= 10, `"ruby" must return 6-10 hits, got ${ruby.length}`);
+  assert.equal(search.dropdownResults(ruby).length, ruby.length, 'short lists must render in full');
+  assert.equal(search.dropdownResults(ruby)[0].url, 'ruby-farming.html',
+    'dropdown must keep the Ruby Farming guide first for "ruby"');
+});
