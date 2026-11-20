@@ -20,6 +20,9 @@
     var effRes = Math.min(100, Math.max(0, oppRes - atkHit));
     var netProb = Math.max(-100, atkProb - (probRed || 0));
     var v = base * (1 + netProb / 100) * (1 - effRes / 100);
+    // Snap to 6 decimals: (1 - 0.9) is 0.09999999999999998 in binary, so
+    // 65% x 0.1 came out 6.4999... and Math.round() showed 6 instead of 7.
+    v = Math.round(v * 1e6) / 1e6;
     return { pct: Math.min(100, Math.max(0, v)), effRes: effRes, netProb: netProb };
   }
 

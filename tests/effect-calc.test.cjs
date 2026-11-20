@@ -29,6 +29,14 @@ test('formula: article example — base 70, Hit 10, Res 100 -> 7%', () => {
   assert.equal(r.effRes, 90);
 });
 
+test('formula: no float dust — Rudy 65% x (1 - 90%) is exactly 6.5, displayed 7', () => {
+  // Regression: (1 - 0.9) is 0.09999999999999998 in binary, so the raw
+  // product was 6.4999... and Math.round() showed 6 on the live page.
+  const r = calc.calcChance(65, 10, 0, 100, 0);
+  assert.equal(r.pct, 6.5);
+  assert.equal(Math.round(r.pct), 7);
+});
+
 test('formula: article example + Spellweaver — base 70, Hit 45, Prob 10, Res 100 -> 34.65%', () => {
   const r = calc.calcChance(70, 45, 10, 100, 0);
   assert.ok(Math.abs(r.pct - 34.65) < 1e-9, `expected 34.65, got ${r.pct}`);
