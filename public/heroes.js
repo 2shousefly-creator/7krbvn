@@ -137,6 +137,7 @@
       + '<img src="' + esc(h.portrait) + '" alt="' + esc(h.name) + '" loading="lazy">'
       + '<div class="hx-card-meta"><b>' + esc(h.name.toUpperCase()) + '</b>'
       + '<span class="hx-badge rarity ' + rarityCls(h.rarity) + '">' + esc(h.rarity) + '</span></div>'
+      + '<a class="hx-compare-btn" href="so-sanh.html?a=' + esc(h.id) + '" style="display:block;margin-top:8px;text-align:center;font-size:13px;font-weight:700;color:#1a6fd4;text-decoration:none">So sánh</a>'
       + '</article>';
   }
 
@@ -188,6 +189,12 @@
       e.preventDefault();
       window.HeroPopup.open(e.target.getAttribute('data-hero-popup'));
     }
+  });
+  /* The "So sánh" link lives inside the card, and the popup opens on any
+   * document click inside [data-hero-popup] — stop the click here so it
+   * navigates to the compare page instead of opening the popup. */
+  grid.addEventListener('click', function (e) {
+    if (e.target.closest('.hx-compare-btn')) e.stopPropagation();
   });
 
   fetch('data/heroes-index.json').then(function (r) { return r.json(); }).then(function (data) {

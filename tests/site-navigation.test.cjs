@@ -4,16 +4,18 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.join(__dirname, '..', 'public');
 
-// Hierarchical navigation: 7 top-level links + PVE (6 children) + PVP (3 children).
-const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'cot-truyen.html', 'heroes.html', 'tinh-ruby.html', 'doi-coupon.html'];
+// Hierarchical navigation: 8 top-level links + PVE (6 children) + PVP (3 children) + TRA CỨU (2 children).
+const NAV_TOP = ['index.html', 'newbie.html', 'cap-nhat.html', 'cot-truyen.html', 'heroes.html', 'tier-list.html', 'tinh-ruby.html', 'doi-coupon.html'];
 const NAV_PVE = ['castle-rush.html', 'advent-expedition.html', 'raid.html', 'dungeon.html', 'celestial-tower.html', 'tower-of-trials.html'];
 const NAV_PVP = ['arena.html', 'total-war.html', 'guild-war-team.html'];
-const NAV = [...NAV_TOP, ...NAV_PVE, ...NAV_PVP];
+const NAV_TRA_CUU = ['tu-dien-hieu-ung.html', 'so-sanh.html'];
+const NAV = [...NAV_TOP, ...NAV_PVE, ...NAV_PVP, ...NAV_TRA_CUU];
 
 // Pages whose active item is a submenu child, and the parent that must be highlighted.
 const CHILD_PARENT = {};
 for (const h of NAV_PVE) CHILD_PARENT[h] = 'PVE';
 for (const h of NAV_PVP) CHILD_PARENT[h] = 'PVP';
+for (const h of NAV_TRA_CUU) CHILD_PARENT[h] = 'TRA CỨU';
 
 // Home category cards (13) — unaffected by the menu regrouping.
 const CAT_CARDS = ['newbie.html', 'cap-nhat.html', 'guild-war-team.html', 'castle-rush.html',
@@ -41,6 +43,7 @@ test('every page carries the hierarchical navigation with exactly one active ite
     }
     assert.ok(html.includes('data-parent="PVE"'), `${file} is missing the PVE dropdown`);
     assert.ok(html.includes('data-parent="PVP"'), `${file} is missing the PVP dropdown`);
+    assert.ok(html.includes('data-parent="TRA CỨU"'), `${file} is missing the TRA CỨU dropdown`);
     const nav = navBlock(html);
     assert.ok(nav.includes('>CẬP NHẬT</a>'), `${file} nav must label the update section CẬP NHẬT`);
     assert.ok(!nav.includes('CHI TIẾT CẬP NHẬT'), `${file} nav still uses the old label`);
