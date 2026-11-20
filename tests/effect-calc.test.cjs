@@ -130,11 +130,12 @@ test('formula: all six ally bonuses at once — Spike Freeze (item 7)', () => {
   assert.equal(t.resBoost, 37);
   assert.equal(t.probRed, 26);
   assert.equal(t.oppRes, 100); // max(0, 100 + 37 - 37)
-  // Freeze base 60: 60 x (1 + 54% - 26%) x (1 - 0%) = 76.8 -> 77
-  const r = calc.calcChance(60, t.atkHit, t.atkProb, t.oppRes, t.probRed);
+  // Freeze max base 70 (displayed value — the data's 60 is the unenhanced
+  // base): 70 x (1 + 54% - 26%) x (1 - 0%) = 89.6 -> 90
+  const r = calc.calcChance(70, t.atkHit, t.atkProb, t.oppRes, t.probRed);
   assert.equal(r.effRes, 0);
   assert.equal(r.netProb, 28);
-  assert.equal(Math.round(r.pct), 77);
+  assert.equal(Math.round(r.pct), 90);
 });
 
 test('formula: all six ally bonuses at once — Kris Death S1 (item 7)', () => {
@@ -167,10 +168,10 @@ test('formula: high Resistance still bites with all bonuses on (item 7)', () => 
   };
   const t = calc.totals(state, data);
   assert.equal(t.oppRes, 200); // max(0, 200 + 37 - 37)
-  // effRes = 200 - 112 = 88; Freeze base 60: 60 x 1.28 x 0.12 = 9.216 -> 9
-  const r = calc.calcChance(60, t.atkHit, t.atkProb, t.oppRes, t.probRed);
+  // effRes = 200 - 112 = 88; Freeze max base 70: 70 x 1.28 x 0.12 = 10.752 -> 11
+  const r = calc.calcChance(70, t.atkHit, t.atkProb, t.oppRes, t.probRed);
   assert.equal(r.effRes, 88);
-  assert.equal(Math.round(r.pct), 9);
+  assert.equal(Math.round(r.pct), 11);
 });
 
 /* ---------- data integrity ---------- */
