@@ -1,0 +1,31 @@
+/* Tim kiem toan trang — search.css (light-only, own file). */
+.search-box{display:flex;gap:10px;margin:18px 0 10px}
+.search-box input{flex:1;min-width:0;padding:14px 16px;font-family:Quicksand,sans-serif;font-size:17px;font-weight:600;color:#192033;background:#fff;border:2px solid #d8d5cc;border-radius:12px;outline:none}
+.search-box input:focus{border-color:#946b25}
+.search-box input::placeholder{color:#8a8f9c;font-weight:500}
+.search-clear{flex:none;padding:0 18px;font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#606a7e;background:#fff;border:2px solid #d8d5cc;border-radius:12px;cursor:pointer}
+.search-clear:hover{border-color:#946b25;color:#946b25}
+.search-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}
+.search-chips span{font-size:14px;font-weight:600;color:#606a7e;align-self:center}
+.search-chip{padding:7px 14px;font-family:Quicksand,sans-serif;font-size:14px;font-weight:600;color:#192033;background:#fff;border:1px solid #d8d5cc;border-radius:999px;cursor:pointer}
+.search-chip:hover{border-color:#946b25;color:#946b25}
+.search-count{margin:14px 0 4px;font-size:15px;font-weight:600;color:#606a7e}
+.search-hint{margin:16px 0;padding:16px 18px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;color:#606a7e;font-size:15.5px;line-height:1.7}
+.search-hint p{margin:0}
+.search-group{margin-top:22px}
+.search-group-title{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#946b25}
+.search-group-title span{color:#8a8f9c}
+.search-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.search-item{display:block;padding:13px 16px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;text-decoration:none}
+.search-item:hover{border-color:#946b25}
+.search-item-title{display:block;font-size:16.5px;font-weight:700;color:#192033;line-height:1.45}
+.search-item-desc{display:block;margin-top:3px;font-size:14.5px;color:#606a7e;line-height:1.55}
+.search-empty{margin:18px 0;padding:20px;background:#fff;border:1px solid #e9e8e3;border-radius:12px}
+.search-empty h2{margin:0 0 8px;font-size:18px;color:#192033}
+.search-empty p{margin:0 0 10px;color:#606a7e;font-size:15.5px;line-height:1.7}
+.search-empty ul{margin:6px 0 0;padding-left:20px;color:#606a7e;font-size:15.5px;line-height:1.8}
+.search-empty a{color:#946b25;font-weight:700}
+@media(max-width:640px){
+  .search-box input{font-size:16px;padding:12px 14px}
+  .search-clear{padding:0 14px}
+}
