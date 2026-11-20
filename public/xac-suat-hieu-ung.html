@@ -27,7 +27,7 @@
         </div>
         <div class="ec-box" id="ec-hero-bonus" hidden></div>
         <div id="ec-hero-settings" hidden>
-          <div class="ec-box-title" style="margin-top:14px">Hiệu ứng bổ trợ — tích vào nếu hero đang có hiệu ứng này trong trận</div>
+          <div class="ec-box-title" style="margin-top:14px">Hiệu ứng bổ trợ từ đồng minh</div>
           <div class="ec-checks">
             <label class="ec-check"><input type="checkbox" data-check="hitBoost"><span><b>Effect Hit Rate Boost +37%</b></span></label>
             <label class="ec-check"><input type="checkbox" data-check="resRed"><span><b>Effect Resist Reduction +37%</b></span></label>
@@ -52,7 +52,7 @@
           <label class="ec-check"><input type="checkbox" data-check="probRed"><span><b>Effect Probability Reduction +26%</b></span></label>
         </div>
         <div class="ec-slider-row"><label for="ec-slider-res">Effect Resistance của đối thủ</label><input type="range" id="ec-slider-res" min="0" max="200" step="1" value="0"><input type="number" id="ec-num-res" min="0" max="200" value="0" aria-label="Effect Resistance %"></div>
-        <div class="ec-summary">
+        <div class="ec-summary ec-summary-opp">
           <h3>CHỈ SỐ CUỐI CÙNG CỦA ĐỐI THỦ</h3>
           <div class="ec-sum-line" id="ec-sum-res"></div>
           <div class="ec-sum-line" id="ec-sum-probred"></div>
@@ -82,9 +82,9 @@
   <div class="ec-modal" id="ec-modal" role="dialog" aria-modal="true" aria-labelledby="ec-modal-title">
     <div class="ec-modal-panel">
       <div class="ec-modal-head"><h3 id="ec-modal-title">Chọn hero</h3><button class="ec-modal-close" id="ec-modal-close" type="button" aria-label="Đóng">✕</button></div>
-      <div id="ec-modal-list"></div>
       <input class="ec-modal-search" id="ec-modal-search" type="search" placeholder="Tìm hero theo tên… (gõ không dấu vẫn ra)" aria-label="Tìm kiếm">
       <p class="ec-modal-count" id="ec-modal-count"></p>
+      <div id="ec-modal-list"></div>
     </div>
   </div>
 

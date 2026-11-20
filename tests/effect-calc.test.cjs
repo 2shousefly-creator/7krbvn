@@ -93,6 +93,86 @@ test('formula: totals() — Death boost only counts for Death skills (via caller
   assert.equal(calc.totals(state, data).deathBoost, 25);
 });
 
+test('formula: totals() — Prob Boost takes the max, never the sum (item 6)', () => {
+  const data = loadData();
+  const mk = (heroId, prob) => ({
+    hero: data.heroes.find(h => h.id === heroId), pet: null, condOn: {},
+    checks: { hitBoost: false, resRed: false, probBoost: prob, deathBoost: false, resBoost: false, probRed: false },
+    sliders: { hit: 0, prob: 0, res: 0 }, skillKey: null, skillData: null,
+  });
+  // Cha Hae-in passive already gives 32 — ticking the 32 checkbox must NOT make 64
+  assert.equal(calc.totals(mk('cha-hae-in', true), data).probBoost, 32);
+  assert.equal(calc.totals(mk('cha-hae-in', false), data).probBoost, 32);
+  // Rosie passive 26 — ticking the 32 checkbox lifts it to 32, not 58
+  assert.equal(calc.totals(mk('rosie', true), data).probBoost, 32);
+  assert.equal(calc.totals(mk('rosie', false), data).probBoost, 26);
+  // a hero with no Prob passive gets exactly the checkbox max
+  assert.equal(calc.totals(mk('spike', true), data).probBoost, 32);
+  assert.equal(calc.totals(mk('spike', false), data).probBoost, 0);
+});
+
+test('formula: all six ally bonuses at once — Spike Freeze (item 7)', () => {
+  const data = loadData();
+  const hero = data.heroes.find(h => h.id === 'spike'); // passive Hit Boost 34
+  const state = {
+    hero, pet: data.pets.find(p => p.id === 'merparrow'), // +25 Hit, +12 Prob
+    condOn: {},
+    checks: { hitBoost: true, resRed: true, probBoost: true, deathBoost: true, resBoost: true, probRed: true },
+    sliders: { hit: 50, prob: 10, res: 100 }, skillKey: 's1', skillData: hero.skills.s1,
+  };
+  const t = calc.totals(state, data);
+  assert.equal(t.hitBoost, 37); // max(34 passive, 37 checkbox)
+  assert.equal(t.atkHit, 112); // 50 + 25 + 37
+  assert.equal(t.probBoost, 32);
+  assert.equal(t.atkProb, 54); // 10 + 12 + 32 — Death Boost 25 NOT added (Freeze, not Death)
+  assert.equal(t.deathBoost, 25); // exposed but unused for non-Death skills
+  assert.equal(t.resRed, 37);
+  assert.equal(t.resBoost, 37);
+  assert.equal(t.probRed, 26);
+  assert.equal(t.oppRes, 100); // max(0, 100 + 37 - 37)
+  // Freeze base 60: 60 x (1 + 54% - 26%) x (1 - 0%) = 76.8 -> 77
+  const r = calc.calcChance(60, t.atkHit, t.atkProb, t.oppRes, t.probRed);
+  assert.equal(r.effRes, 0);
+  assert.equal(r.netProb, 28);
+  assert.equal(Math.round(r.pct), 77);
+});
+
+test('formula: all six ally bonuses at once — Kris Death S1 (item 7)', () => {
+  const data = loadData();
+  const hero = data.heroes.find(h => h.id === 'kris');
+  const state = {
+    hero, pet: data.pets.find(p => p.id === 'merparrow'),
+    condOn: {},
+    checks: { hitBoost: true, resRed: true, probBoost: true, deathBoost: true, resBoost: true, probRed: true },
+    sliders: { hit: 50, prob: 10, res: 100 }, skillKey: 's1', skillData: hero.skills.s1,
+  };
+  const t = calc.totals(state, data);
+  // Death skill: the caller adds deathBoost to atkProb
+  const atkProbTotal = t.atkProb + (calc.skillHasDeath(hero, 's1') ? t.deathBoost : 0);
+  assert.equal(t.atkHit, 112);
+  assert.equal(atkProbTotal, 79); // 10 + 12 + 32 + 25
+  assert.equal(t.oppRes, 100);
+  // Death base 60: 60 x (1 + 79% - 26%) x 1 = 91.8 -> 92; base 30 -> 45.9 -> 46
+  assert.equal(Math.round(calc.calcChance(60, t.atkHit, atkProbTotal, t.oppRes, t.probRed).pct), 92);
+  assert.equal(Math.round(calc.calcChance(30, t.atkHit, atkProbTotal, t.oppRes, t.probRed).pct), 46);
+});
+
+test('formula: high Resistance still bites with all bonuses on (item 7)', () => {
+  const data = loadData();
+  const hero = data.heroes.find(h => h.id === 'spike');
+  const state = {
+    hero, pet: data.pets.find(p => p.id === 'merparrow'), condOn: {},
+    checks: { hitBoost: true, resRed: true, probBoost: true, deathBoost: true, resBoost: true, probRed: true },
+    sliders: { hit: 50, prob: 10, res: 200 }, skillKey: 's1', skillData: hero.skills.s1,
+  };
+  const t = calc.totals(state, data);
+  assert.equal(t.oppRes, 200); // max(0, 200 + 37 - 37)
+  // effRes = 200 - 112 = 88; Freeze base 60: 60 x 1.28 x 0.12 = 9.216 -> 9
+  const r = calc.calcChance(60, t.atkHit, t.atkProb, t.oppRes, t.probRed);
+  assert.equal(r.effRes, 88);
+  assert.equal(Math.round(r.pct), 9);
+});
+
 /* ---------- data integrity ---------- */
 test('data: 125 heroes, 111 selectable, 14 greyed (no debuff skill)', () => {
   const data = loadData();
@@ -274,13 +354,37 @@ test('script: no formula line in results; sticky bar + locked auto rows present'
   assert.ok(js.includes('Luôn áp dụng'), 'always-active debuffs must show the tag');
   assert.ok(js.includes('lockScroll'), 'picker must lock page scroll (item 4)');
   assert.ok(!js.includes('ec-hero-settings-hint'), 'dead hint reference must be removed');
-  // 2026-11-20 round 2: Death enables at hero level; no autofocus;
-  // visualViewport pinning keeps the popup out of the header/keyboard;
-  // hero grid capped at 2 rows.
+  // 2026-11-20 round 3: visualViewport pinning REMOVED (it fought Safari
+  // and slid the page behind the modal); the search input now sits above
+  // the grid so the keyboard never has to scroll it into view, and the
+  // modal tracks the dynamic viewport with 100dvh. Skill name above the
+  // result table is gone (item 5).
   assert.ok(js.includes('heroHasDeath'), 'Death enablement must be hero-level');
   assert.ok(!js.includes('modalSearch.focus'), 'search must never autofocus (no auto keyboard)');
-  assert.ok(js.includes('visualViewport'), 'modal must pin to the visual viewport');
+  assert.ok(!js.includes('visualViewport'), 'no JS viewport pinning — 100dvh handles the keyboard');
   assert.ok(js.includes('capGridRows'), 'hero grid must be capped at 2 rows');
+  assert.ok(!js.includes('ec-result-head'), 'skill name above the result table must be gone');
+});
+
+test('page + css: round 3 — search above grid, opp summary dark red, floating bar', () => {
+  const html = fs.readFileSync(path.join(root, 'xac-suat-hieu-ung.html'), 'utf8');
+  const css = fs.readFileSync(path.join(root, 'effect-calc.css'), 'utf8');
+  // item 1: search input sits above the grid so the keyboard never has to
+  // scroll it into view (it was below the grid — the iOS bug in the screenshot)
+  assert.ok(html.indexOf('ec-modal-search') < html.indexOf('ec-modal-list'), 'search must come before the hero grid');
+  // item 2: ally bonus title
+  assert.ok(html.includes('Hiệu ứng bổ trợ từ đồng minh'), 'bonus box title must name allies');
+  assert.ok(!html.includes('tích vào nếu hero đang có hiệu ứng này trong trận'), 'old title must be gone');
+  // item 3: opponent summary dark red
+  assert.ok(html.includes('ec-summary ec-summary-opp'), 'opponent summary must carry the red class');
+  assert.ok(css.includes('.ec-summary.ec-summary-opp { background: #5b1e24; }'), 'opponent summary must be dark red');
+  // item 4: floating bar, gold %
+  assert.ok(css.includes('left: 50%; transform: translateX(-50%)'), 'bar must be a centered floating card');
+  assert.ok(css.includes('width: min(860px, calc(100% - 24px))'), 'bar must not span the full width');
+  assert.ok(css.includes('.ec-bar-chip b { color: #e8c16c;'), 'bar % must be gold like the result table');
+  assert.ok(css.includes('.ec-result-bar-inner { flex-direction: column;'), 'mobile bar must show one debuff per row');
+  // item 1 (continued): modal tracks the dynamic viewport in CSS
+  assert.ok(css.includes('height: 100dvh'), 'modal must track the dynamic viewport height');
 });
 
 test('css: modal is 30% smaller and clears the sticky header', () => {

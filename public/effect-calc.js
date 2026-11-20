@@ -149,41 +149,10 @@
     window.scrollTo(0, savedScrollY);
   }
 
-  /* Keep the modal pinned to the visual viewport (fix 2026-11-20): on
-     mobile the virtual keyboard shrinks the visual viewport, and the
-     browser's scroll-into-view would otherwise shove the panel over the
-     site header or behind the keyboard. Pinning the overlay to the
-     visible area keeps the panel top at its 132px padding — always
-     below the header — with the input visible above the keyboard. */
-  var viewportSynced = false;
-  function syncModalViewport() {
-    if (!modal || !modal.classList.contains('open')) return;
-    var vv = window.visualViewport;
-    if (!vv) return;
-    modal.style.top = vv.offsetTop + 'px';
-    modal.style.height = vv.height + 'px';
-    modal.style.bottom = 'auto';
-  }
-  function attachViewportSync() {
-    if (viewportSynced || !window.visualViewport) return;
-    viewportSynced = true;
-    window.visualViewport.addEventListener('resize', syncModalViewport);
-    window.visualViewport.addEventListener('scroll', syncModalViewport);
-    syncModalViewport();
-  }
-  function detachViewportSync() {
-    if (!viewportSynced || !window.visualViewport) return;
-    viewportSynced = false;
-    window.visualViewport.removeEventListener('resize', syncModalViewport);
-    window.visualViewport.removeEventListener('scroll', syncModalViewport);
-    if (modal) { modal.style.top = ''; modal.style.height = ''; modal.style.bottom = ''; }
-  }
-
   function openPicker(mode) {
     pickerMode = mode;
     lockScroll();
     modal.classList.add('open');
-    attachViewportSync();
     modalTitle.textContent = mode === 'hero' ? 'Chọn hero' : 'Chọn pet';
     modalSearch.value = '';
     modalSearch.placeholder = mode === 'hero' ? 'Tìm hero theo tên… (gõ không dấu vẫn ra)' : 'Tìm pet theo tên… (gõ không dấu vẫn ra)';
@@ -194,7 +163,6 @@
   function closePicker() {
     if (!modal.classList.contains('open')) return;
     modal.classList.remove('open');
-    detachViewportSync();
     unlockScroll();
   }
 
@@ -390,7 +358,6 @@
     pickerMode = 'skill';
     lockScroll();
     modal.classList.add('open');
-    attachViewportSync();
     modalTitle.textContent = 'Chọn skill — ' + state.hero.name;
     modalSearch.value = '';
     modalSearch.placeholder = 'Tìm skill theo tên…';
@@ -540,7 +507,7 @@
         '<small>' + esc(targetLabel) + '</small></div>' +
         '<div class="ec-result-pct">' + Math.round(r.pct) + '<span>%</span></div></div>';
     }).join('');
-    res.innerHTML = '<div class="ec-result-head">' + esc(skillLabel(state.skillData)) + ' — ' + esc(state.hero.name) + '</div>' + rows;
+    res.innerHTML = rows;
     renderBar();
   }
 
@@ -565,7 +532,7 @@
     var show = barHasContent && !resultVisible;
     bar.hidden = !show;
     // keep page content from hiding under the bar
-    document.body.style.paddingBottom = show ? bar.offsetHeight + 'px' : '';
+    document.body.style.paddingBottom = show ? (bar.offsetHeight + 24) + 'px' : '';
   }
 
   /* ---------- init ---------- */

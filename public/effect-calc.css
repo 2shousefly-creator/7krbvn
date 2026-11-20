@@ -63,6 +63,9 @@
 
 /* summary */
 .ec-summary { background: #192033; color: #fff; border-radius: 12px; padding: 14px 16px; margin-top: 14px; }
+/* opponent summary: dark red so the two sides are unmistakable (2026-11-20) */
+.ec-summary.ec-summary-opp { background: #5b1e24; }
+.ec-summary-opp .ec-sum-line small { color: #d9b0b5; }
 .ec-summary h3 { color: #e8c16c; font-size: 14px; margin: 0 0 10px; letter-spacing: .4px; }
 .ec-sum-line { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14px; line-height: 1.7; }
 .ec-sum-line span { color: #cfd3e0; }
@@ -84,7 +87,6 @@
 
 /* result */
 .ec-result { margin-top: 16px; }
-.ec-result-head { font-weight: 700; color: #192033; margin-bottom: 10px; font-size: 15px; }
 .ec-result-row { display: grid; grid-template-columns: 1fr auto; gap: 2px 16px; align-items: center; background: linear-gradient(135deg, #192033, #2a3550); border-radius: 14px; padding: 16px 20px; margin-bottom: 10px; color: #fff; }
 .ec-result-effect { font-size: 17px; font-weight: 700; }
 .ec-result-effect small { display: block; font-weight: 400; font-size: 12px; color: #b9c0d4; margin-top: 2px; }
@@ -93,17 +95,22 @@
 .ec-empty { color: #8a8a96; font-size: 14px; margin: 8px 0; }
 .ec-always-tag { display: inline-block; background: #1e8e3e; color: #fff; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 2px 8px; margin-left: 8px; vertical-align: 2px; }
 
-/* Sticky result bar (item 5): pinned to the viewport bottom once the
-   result panel scrolls out of view. */
-.ec-result-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 250; background: #192033; color: #fff; box-shadow: 0 -8px 24px rgba(0,0,0,.28); padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); }
-.ec-result-bar-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 4px 16px; flex-wrap: wrap; }
+/* Sticky result bar (item 5): a floating card pinned to the viewport
+   bottom once the result panel scrolls out of view — not a full-width
+   strip (2026-11-20). The % is gold, same as the result table. */
+.ec-result-bar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 16px; z-index: 250; width: min(860px, calc(100% - 24px)); background: #192033; color: #fff; border-radius: 16px; box-shadow: 0 12px 32px rgba(0,0,0,.35); padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); }
+.ec-result-bar-inner { display: flex; align-items: center; gap: 4px 16px; flex-wrap: wrap; }
 .ec-bar-skill { font-weight: 700; font-size: 14px; color: #e8c16c; margin-right: 4px; }
 .ec-bar-chip { font-size: 14px; color: #b9c0d4; white-space: nowrap; }
-.ec-bar-chip b { color: #fff; font-size: 18px; font-weight: 700; }
+.ec-bar-chip b { color: #e8c16c; font-size: 18px; font-weight: 700; }
 .ec-bar-chip .ec-bar-always { color: #8fd6a0; font-size: 12px; font-weight: 700; }
 
-/* modal / picker */
-.ec-modal { position: fixed; inset: 0; z-index: 400; background: rgba(15,18,30,.6); display: none; align-items: flex-start; justify-content: center; padding: 132px 12px 24px; overflow-y: auto; overscroll-behavior: contain; }
+/* modal / picker — height tracks the dynamic viewport (100dvh shrinks
+   with the virtual keyboard, no JS pinning needed; the old
+   visualViewport pinning fought Safari and slid the page behind the
+   modal — removed 2026-11-20). The search input sits ABOVE the grid
+   so it is always visible when the keyboard opens. */
+.ec-modal { position: fixed; inset: 0; height: 100dvh; z-index: 400; background: rgba(15,18,30,.6); display: none; align-items: flex-start; justify-content: center; padding: 132px 12px 24px; overflow-y: auto; overscroll-behavior: contain; }
 .ec-modal.open { display: flex; }
 .ec-modal-panel { background: #f8f6f1; width: 100%; max-width: 448px; border-radius: 16px; padding: 12px 14px 10px; box-shadow: 0 18px 50px rgba(0,0,0,.35); max-height: 100%; overflow-y: auto; overscroll-behavior: contain; }
 .ec-modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
@@ -143,4 +150,9 @@
   .ec-slot-pet { width: 92px; height: 92px; }
   .ec-hero .hero-copy { padding: 16px 18px 14px; }
   .ec-modal { padding-top: 118px; }
+  /* floating bar on mobile: one debuff per row, name left, gold % right */
+  .ec-result-bar { bottom: 12px; }
+  .ec-result-bar-inner { flex-direction: column; align-items: stretch; gap: 6px; }
+  .ec-bar-skill { margin-right: 0; }
+  .ec-bar-chip { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; white-space: normal; }
 }
