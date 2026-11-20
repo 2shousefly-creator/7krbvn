@@ -1,0 +1,43 @@
+/* Tu dien hieu ung — glossary.css (rieng cho tu-dien-hieu-ung.html).
+ * Quy uoc mau cua web: hieu ung tot cho ban than/dong minh = xanh duong dam,
+ * hieu ung xau len dich = do dam, hieu ung trung tinh/co che = chi in dam.
+ * Light-only (khong co dark-mode rule). */
+.gl-controls{margin-top:22px}
+#gl-search{width:100%;padding:13px 16px;border:1px solid #e8e6e0;border-radius:12px;background:#fff;font-size:16px}
+#gl-search:focus{outline:2px solid #b18a42;outline-offset:1px;border-color:#b18a42}
+.gl-filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.gl-filter{padding:9px 16px;border:1px solid #e8e6e0;border-radius:999px;background:#f7f6f3;font-weight:700;font-size:14px;cursor:pointer;color:#202638}
+.gl-filter:hover{border-color:#b18a42}
+.gl-filter.is-active{background:#202638;color:#fff;border-color:#202638}
+.gl-filter .gl-count{opacity:.65;font-weight:600}
+.gl-az{display:flex;flex-wrap:wrap;gap:4px;margin-top:14px}
+.gl-az button{min-width:30px;height:30px;padding:0 6px;border:1px solid #e8e6e0;border-radius:8px;background:#fff;font-weight:700;font-size:13px;cursor:pointer;color:#202638}
+.gl-az button:hover{border-color:#b18a42}
+.gl-az button.is-active{background:#202638;color:#fff;border-color:#202638}
+.gl-az button:disabled{opacity:.3;cursor:default}
+.gl-result-count{margin:16px 0 0;color:#687080;font-size:14px}
+.gl-list{margin-top:8px}
+.gl-entry{padding:18px 2px;border-bottom:1px solid #eceae4}
+.gl-entry:last-child{border-bottom:0}
+.gl-names{font-size:17px;line-height:1.5}
+.gl-names .gl-en{font-weight:800}
+.gl-names .gl-en.gl-buff{color:#1a6fd4}
+.gl-names .gl-en.gl-debuff{color:#c0392b}
+.gl-names .gl-en.gl-khac{color:#202638}
+.gl-names .gl-vi{color:#687080;font-weight:600}
+.gl-names .gl-sep{color:#b9bcc4;font-weight:400}
+.gl-tag{display:inline-block;vertical-align:2px;margin-left:8px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.04em}
+.gl-tag-buff{background:#dbeafe;color:#1a6fd4}
+.gl-tag-debuff{background:#fee2e2;color:#c0392b}
+.gl-tag-khac{background:#f0ede6;color:#687080}
+.gl-unverified{display:inline-block;vertical-align:2px;margin-left:6px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;background:#fef3c7;color:#92400e}
+.gl-desc{margin:8px 0 0;color:#3d4454;font-size:15.5px;line-height:1.7}
+.gl-desc.gl-missing{color:#9a9da3;font-style:italic}
+.gl-examples{margin:8px 0 0;color:#687080;font-size:14px}
+.gl-examples a{color:#1a6fd4;font-weight:700}
+.gl-examples a:hover{text-decoration:underline}
+.gl-empty{margin:26px 0;color:#687080;font-size:15.5px}
+@media (max-width:640px){
+  .gl-names{font-size:16px}
+  .gl-desc{font-size:15px}
+}
