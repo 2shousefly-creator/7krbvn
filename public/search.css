@@ -16,8 +16,12 @@
 .search-group-title{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#946b25}
 .search-group-title span{color:#8a8f9c}
 .search-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.search-item{display:block;padding:13px 16px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;text-decoration:none}
+.search-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;text-decoration:none}
 .search-item:hover{border-color:#946b25}
+/* Equal-size thumbnails: a real image or a group icon, both in one 56px box. */
+.search-thumb{flex:none;width:56px;height:56px;border-radius:12px;object-fit:cover;background:#efe9d8}
+.search-thumb-icon{display:flex;align-items:center;justify-content:center;font-size:28px}
+.search-item-text{min-width:0;flex:1}
 .search-item-title{display:block;font-size:16.5px;font-weight:700;color:#192033;line-height:1.45}
 .search-item-desc{display:block;margin-top:3px;font-size:14.5px;color:#606a7e;line-height:1.55}
 .search-empty{margin:18px 0;padding:20px;background:#fff;border:1px solid #e9e8e3;border-radius:12px}

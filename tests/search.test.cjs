@@ -157,11 +157,64 @@ test('search page: template, live search box, groups, empty state and dialog', (
   assert.ok(!html.includes('CHI TIẾT CẬP NHẬT'), 'tim-kiem.html nav must not keep the template label');
 });
 
-test('heroes page links to the full-site search', () => {
+test('heroes page no longer links to the full-site search (moved to the home bar)', () => {
   const html = read('heroes.html');
-  assert.ok(html.includes('href="tim-kiem.html"'), 'heroes.html must link to tim-kiem.html');
-  assert.ok(html.includes('Tìm kiếm toàn trang'), 'heroes.html link must be labelled in Vietnamese');
+  assert.ok(!html.includes('href="tim-kiem.html"'), 'heroes.html must not link to tim-kiem.html any more');
+  assert.ok(!html.includes('Tìm kiếm toàn trang'), 'heroes.html must not carry the full-site search button');
   assert.ok(html.includes('id="hx-search-input"'), 'heroes.html must keep its own hero search box');
+  assert.ok(html.includes('id="hx-search-btn"'), 'heroes.html must keep its own Tìm button');
+});
+
+test('search index: every entry carries a thumbnail image, or falls back to a group icon', () => {
+  // Heroes: their portrait from heroes-index.json, and the file exists.
+  const heroes = index.entries.filter(e => e.group === 'hero');
+  assert.equal(heroes.length, 125, 'hero group must hold the 125 heroes');
+  for (const e of heroes) {
+    assert.ok(e.img && e.img.startsWith('assets/hero-'),
+      `${e.url} hero entry must carry its portrait, got ${e.img}`);
+    assert.ok(fs.existsSync(path.join(root, e.img)), `${e.url} portrait ${e.img} is missing`);
+  }
+  // Pages + chapters: every local image in the index must exist on disk.
+  let withImg = 0;
+  const noImg = [];
+  for (const e of index.entries) {
+    if (e.img) {
+      withImg++;
+      if (!e.img.startsWith('http')) {
+        assert.ok(fs.existsSync(path.join(root, e.img)), `${e.url} image ${e.img} is missing`);
+      }
+    } else noImg.push(e.url);
+  }
+  assert.equal(withImg, 649, `649 of 655 entries must carry an image, got ${withImg}`);
+  // Only the JS-rendered pages with no static image fall back to an icon.
+  assert.deepEqual(noImg.sort(), ['guild-war-team.html', 'hero.html', 'heroes.html',
+    'tier-list.html', 'tim-kiem.html', 'xac-suat-hieu-ung.html'],
+    'only the six image-less pages may fall back to a group icon');
+  // Story chapters inherit their Act page image.
+  const chapters = index.entries.filter(e => e.desc.startsWith('Cốt truyện · Act'));
+  assert.equal(chapters.length, 284, '284 story chapters must be indexed');
+  assert.ok(chapters.every(e => e.img && e.img.startsWith('assets/')),
+    'story chapters must carry their Act page image');
+  // thumbFor: image when present, group icon otherwise.
+  assert.deepEqual(search.thumbFor({ group: 'hero', img: 'assets/hero-eve.webp' }),
+    { img: 'assets/hero-eve.webp' }, 'thumbFor must use the entry image when present');
+  assert.deepEqual(search.thumbFor({ group: 'hero' }), { icon: '🦸' }, 'hero without image falls back to 🦸');
+  assert.deepEqual(search.thumbFor({ group: 'article' }), { icon: '📖' }, 'article without image falls back to 📖');
+  assert.deepEqual(search.thumbFor({ group: 'mode' }), { icon: '⚔️' }, 'mode without image falls back to ⚔️');
+  assert.deepEqual(search.thumbFor({ group: 'tool' }), { icon: '🧮' }, 'tool without image falls back to 🧮');
+  assert.deepEqual(search.thumbFor({}), { icon: '📖' }, 'unknown group falls back to the article icon');
+  assert.ok(search.thumbHtml({ group: 'hero', img: 'assets/hero-eve.webp' })
+    .includes('<img class="search-thumb" src="assets/hero-eve.webp"'),
+    'thumbHtml must render an img for entries with an image');
+  assert.ok(search.thumbHtml({ group: 'tool' })
+    .includes('<span class="search-thumb search-thumb-icon"'),
+    'thumbHtml must render an icon span for entries without an image');
+  // CSS: image thumbs and icon fallbacks share one fixed 56px box.
+  const css = read('search.css');
+  assert.ok(css.includes('.search-thumb{flex:none;width:56px;height:56px'),
+    'thumbs must be a fixed 56px box so every row lines up');
+  assert.ok(css.includes('.search-item{display:flex'),
+    'result rows must lay out thumb + text side by side');
 });
 
 test('new search files carry no forbidden source name and no dark-mode rule', () => {

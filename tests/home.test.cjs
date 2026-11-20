@@ -58,6 +58,23 @@ test('home hero slider: auto-advances every 3s, swipeable, pauses on interaction
   assert.ok(css.includes('.hero-track{min-height:196px'), 'mobile slides must stay compact (~196px)');
 });
 
+test('home search bar: right below the banner, submits to tim-kiem.html', () => {
+  const home = page('index.html');
+  const form = home.match(/<form class="home-search"[^>]*>([\s\S]*?)<\/form>/);
+  assert.ok(form, 'home must have a search bar below the banner');
+  assert.ok(form[0].includes('action="tim-kiem.html"'), 'home search must submit to tim-kiem.html');
+  assert.ok(form[0].includes('name="q"'), 'home search input must be named q (tim-kiem.html reads ?q=)');
+  assert.ok(form[0].includes('type="search"'), 'home search must use a search input');
+  assert.ok(form[0].includes('Tìm hero, hướng dẫn, chế độ'), 'home search must hint at heroes, guides and modes');
+  assert.ok(home.indexOf('home-search') > home.indexOf('home-hero'),
+    'search bar must sit below the banner');
+  assert.ok(home.indexOf('home-search') < home.indexOf('Danh mục truy cập nhiều'),
+    'search bar must sit above the most-visited categories');
+  const css = page('blog.css');
+  assert.ok(css.includes('.home-search{display:flex'), 'blog.css must style the home search bar');
+  assert.ok(css.includes('.home-search button{'), 'home search bar must have a submit button style');
+});
+
 test('home structure: banner, most-visited categories, pinned posts, latest posts, quick-access categories — in that order', () => {
   const home = page('index.html');
   const order = ['home-hero', 'Danh mục truy cập nhiều', 'Bài viết đã ghim', 'Bài viết mới nhất', 'Danh mục truy cập nhanh']

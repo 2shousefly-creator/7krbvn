@@ -20,6 +20,13 @@
 .hero-dots{position:absolute;right:14px;top:12px;z-index:3;display:flex;gap:6px}
 .hero-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#ffffff55;cursor:pointer}
 .hero-dots button.is-active{background:#e8c16c;width:22px;border-radius:99px}
+/* Home search bar, right below the banner — submits to tim-kiem.html?q=. */
+.home-search{display:flex;gap:10px;margin:0 0 22px}
+.home-search input{flex:1;min-width:0;padding:13px 16px;font-family:Quicksand,sans-serif;font-size:16px;font-weight:600;color:#192033;background:#fff;border:2px solid #d8d5cc;border-radius:12px;outline:none}
+.home-search input:focus{border-color:#946b25}
+.home-search input::placeholder{color:#8a8f9c;font-weight:500}
+.home-search button{flex:none;padding:0 20px;font-family:Quicksand,sans-serif;font-size:15px;font-weight:700;color:#fff;background:#946b25;border:2px solid #946b25;border-radius:12px;cursor:pointer}
+.home-search button:hover{background:#7d5a1e}
 /* Pinned posts: gold pin badge on every pinned card. */
 .pin-badge{position:absolute;right:10px;top:10px;z-index:2;width:30px;height:30px;display:grid;place-items:center;background:#f7f1e4;border:1px solid #e5d9b8;border-radius:50%;font-size:14px;box-shadow:0 4px 12px #20263822}
 @media(max-width:680px){

@@ -22,6 +22,29 @@
     mode: 'Chế độ',
     tool: 'Công cụ'
   };
+  var GROUP_ICONS = {
+    hero: '🦸',
+    article: '📖',
+    mode: '⚔️',
+    tool: '🧮'
+  };
+
+  /* One thumbnail per result: the entry's own image when the index
+   * carries one, else a group icon — both render in the same 56px box
+   * (see .search-thumb in search.css), so every row lines up. */
+  function thumbFor(entry) {
+    if (entry && entry.img) return { img: entry.img };
+    var g = (entry && entry.group) || 'article';
+    return { icon: GROUP_ICONS[g] || GROUP_ICONS.article };
+  }
+
+  function thumbHtml(entry) {
+    var t = thumbFor(entry);
+    if (t.img) {
+      return '<img class="search-thumb" src="' + esc(t.img) + '" alt="" loading="lazy">';
+    }
+    return '<span class="search-thumb search-thumb-icon" aria-hidden="true">' + t.icon + '</span>';
+  }
 
   /* Diacritic-insensitive Vietnamese: "tuong" matches "tướng",
    * "ruby" matches "Ruby Farming". NFD splits base letters from
@@ -146,9 +169,10 @@
           esc(g.label) + ' <span>(' + g.items.length + ')</span></h2><ul class="search-list">';
         g.items.forEach(function (e) {
           html += '<li><a class="search-item" href="' + esc(e.url) + '">' +
-            '<span class="search-item-title">' + esc(e.title) + '</span>' +
+            thumbHtml(e) +
+            '<span class="search-item-text"><span class="search-item-title">' + esc(e.title) + '</span>' +
             (e.desc ? '<span class="search-item-desc">' + esc(e.desc) + '</span>' : '') +
-            '</a></li>';
+            '</span></a></li>';
         });
         html += '</ul></section>';
       });
@@ -200,8 +224,11 @@
     scoreEntry: scoreEntry,
     searchEntries: searchEntries,
     groupResults: groupResults,
+    thumbFor: thumbFor,
+    thumbHtml: thumbHtml,
     GROUP_ORDER: GROUP_ORDER,
     GROUP_LABELS: GROUP_LABELS,
+    GROUP_ICONS: GROUP_ICONS,
     initPage: initPage
   };
 });
