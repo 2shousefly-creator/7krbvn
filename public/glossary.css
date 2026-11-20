@@ -20,6 +20,7 @@
 .gl-entry{padding:18px 2px;border-bottom:1px solid #eceae4}
 .gl-entry:last-child{border-bottom:0}
 .gl-names{font-size:17px;line-height:1.5}
+.gl-icon{display:inline-block;vertical-align:-10px;width:36px;height:36px;margin-right:9px;border-radius:9px}
 .gl-names .gl-en{font-weight:800}
 .gl-names .gl-en.gl-buff{color:#1a6fd4}
 .gl-names .gl-en.gl-debuff{color:#c0392b}
@@ -39,5 +40,6 @@
 .gl-empty{margin:26px 0;color:#687080;font-size:15.5px}
 @media (max-width:640px){
   .gl-names{font-size:16px}
+  .gl-icon{width:32px;height:32px;vertical-align:-9px;margin-right:8px}
   .gl-desc{font-size:15px}
 }

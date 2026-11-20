@@ -115,6 +115,63 @@ test('glossary colors follow the site convention (good blue, bad red, neutral bo
   assert.ok(!css.includes('prefers-color-scheme: dark'), 'glossary.css must not contain a dark-mode rule');
 });
 
+test('glossary icons: every entry has an icon field; mapped icons are real webp files', () => {
+  const data = loadData();
+  let nReal = 0;
+  for (const e of data) {
+    assert.ok('icon' in e, `"${e.en}" needs an icon field (path or null)`);
+    if (e.icon === null) continue;
+    nReal++;
+    assert.equal(typeof e.icon, 'string', `"${e.en}" icon must be a path string`);
+    assert.ok(e.icon.startsWith('assets/effects/') && e.icon.endsWith('.webp'),
+      `"${e.en}" icon must be an assets/effects/*.webp path, got ${e.icon}`);
+    const buf = fs.readFileSync(path.join(root, e.icon));
+    assert.ok(buf.length > 0, `"${e.en}" icon file ${e.icon} is empty`);
+    assert.ok(buf.slice(0, 4).toString('latin1') === 'RIFF'
+      && buf.slice(8, 12).toString('latin1') === 'WEBP',
+      `"${e.en}" icon file ${e.icon} is not a valid WebP image`);
+  }
+  assert.ok(nReal > 0, 'at least one effect must have a real icon');
+  /* The "?" placeholder must exist and be a valid SVG. */
+  const ph = fs.readFileSync(path.join(root, 'assets/effects/unknown.svg'), 'utf8');
+  assert.ok(ph.trimStart().startsWith('<svg'), 'unknown.svg placeholder must be an SVG');
+  assert.ok(ph.includes('?'), 'unknown.svg placeholder must show a "?"');
+  assert.ok(!ph.includes('Atlas'), 'unknown.svg must not mention Atlas');
+});
+
+test('glossary icons: renderer shows the icon (lazy, alt = effect name) or the placeholder', () => {
+  const js = read('glossary.js');
+  assert.ok(js.includes('class="gl-icon"'), 'glossary.js must render an <img class="gl-icon">');
+  assert.ok(js.includes('loading="lazy"'), 'glossary icons must load lazily');
+  assert.ok(js.includes("assets/effects/unknown.svg"),
+    'glossary.js must fall back to the unknown.svg placeholder when icon is null');
+  assert.ok(js.includes("e.icon ? e.icon : 'assets/effects/unknown.svg'"),
+    'glossary.js must use the mapped icon when present, placeholder otherwise');
+  const css = read('glossary.css');
+  assert.ok(css.includes('.gl-icon'), 'glossary.css must style .gl-icon');
+});
+
+test('glossary icon map (glossary-icons.json) only names FX_VI effects and matches the data', () => {
+  const mapPath = path.join(__dirname, '..', '..', 'glossary-icons.json');
+  if (!fs.existsSync(mapPath)) return; /* map lives next to build_glossary.py, outside the repo */
+  const map = JSON.parse(fs.readFileSync(mapPath, 'utf8'));
+  const data = loadData();
+  const byEn = new Map(data.map(e => [e.en, e]));
+  for (const [en, file] of Object.entries(map)) {
+    assert.ok(byEn.has(en), `glossary-icons.json names "${en}", which is not an FX_VI effect`);
+    assert.ok(fs.existsSync(path.join(root, file)),
+      `glossary-icons.json maps "${en}" to missing file ${file}`);
+    assert.equal(byEn.get(en).icon, file,
+      `glossary-data.js icon for "${en}" must match glossary-icons.json`);
+  }
+  for (const e of data) {
+    if (e.icon !== null) {
+      assert.equal(map[e.en], e.icon,
+        `"${e.en}" has an icon in the data but no matching glossary-icons.json entry`);
+    }
+  }
+});
+
 test('glossary files never mention the upstream data source', () => {
   for (const file of ['tu-dien-hieu-ung.html', 'glossary.css', 'glossary.js', 'glossary-data.js']) {
     assert.ok(!read(file).includes('Atlas'), `${file} must not mention Atlas`);

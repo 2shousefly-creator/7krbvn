@@ -2,7 +2,9 @@
  * va mo ta thu hoach tu skill cua tung hero (public/data/heroes/*.json).
  * Build lai bang: python3 ~/workspace/build_glossary.py
  * desc_verified=false nghia la mo ta chua co nguon xac nhan (hien 'chua xac minh').
- * desc=null nghia la chua co mo ta (hien 'dang bo sung mo ta'). */
+ * desc=null nghia la chua co mo ta (hien 'dang bo sung mo ta').
+ * icon=null nghia la chua tim duoc icon that trong game (hien icon '?' mac dinh).
+ * Icon that nam trong assets/effects/, map o glossary-icons.json. */
 var GLOSSARY_DATA = [
  {
   "en": "7-Dish Meal Set (Stacks)",
@@ -10,6 +12,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương vật lý nhận vào đi một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "deo",
@@ -23,6 +26,7 @@ var GLOSSARY_DATA = [
   "desc": "Để lại một dấu ấn trên mục tiêu; khi dấu ấn đạt 2 cộng dồn, kích hoạt hiệu ứng: mục tiêu chịu giảm thời gian buff, bản thân nhận cộng dồn tăng sát thương vật lý.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "pallanus",
@@ -36,6 +40,7 @@ var GLOSSARY_DATA = [
   "desc": "Để lại dấu ấn trên mục tiêu; khi dấu ấn đạt 2 cộng dồn, kích hoạt hiệu ứng: gây thêm sát thương theo Max HP của mục tiêu, bản thân tăng sát thương điểm yếu.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "lu-bu",
@@ -49,6 +54,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng All Attack thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "black-rose",
@@ -74,6 +80,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm All Attack đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "aragon",
@@ -103,6 +110,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm mọi sát thương.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/damage-immunity.webp",
   "examples": [
    {
     "id": "bai-jiao",
@@ -132,6 +140,7 @@ var GLOSSARY_DATA = [
   "desc": "Vô hiệu hóa mọi sát thương trong một số đòn nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/damage-nullification.webp",
   "examples": [
    {
     "id": "ballista",
@@ -161,6 +170,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi bắt đầu trận đấu, nếu trong đội có đủ số đồng minh cùng vai trò, vai trò đó được tính là có thêm 1 thành viên (trận 4/5 tướng: từ 3 tướng cùng vai trò trở lên; trận 3 tướng: từ 2 tướng cùng vai trò trở lên).",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "clemyth",
@@ -178,6 +188,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Defense theo Attack của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "jave",
@@ -195,6 +206,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Defense theo Attack của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "jave",
@@ -212,6 +224,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Effect Hit Rate theo Attack của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "dongyoung",
@@ -229,6 +242,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng khả năng giảm sát thương nhận vào theo Attack của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "pallanus",
@@ -242,6 +256,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng tỉ lệ đánh điểm yếu theo Attack của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "mist",
@@ -255,6 +270,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng thanh thức tỉnh thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "aris",
@@ -284,6 +300,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm thanh thức tỉnh của mục tiêu đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "eve",
@@ -301,6 +318,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Awakening Gauge theo lượng đã đánh cắp.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "eve",
@@ -314,6 +332,7 @@ var GLOSSARY_DATA = [
   "desc": "Sau khi nhận một số lần trúng đòn nhất định, gây cộng dồn giảm Defense và tăng sát thương vật lý nhận vào lên kẻ tấn công. Không ảnh hưởng đến boss.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "orkah",
@@ -327,6 +346,7 @@ var GLOSSARY_DATA = [
   "desc": "Hấp thụ sát thương bằng giá trị của Barrier.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/barrier.webp",
   "examples": [
    {
     "id": "ace",
@@ -356,6 +376,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng, và khi bị trúng đòn tấn công của địch, mục tiêu bị ảnh hưởng sẽ nhận thêm sát thương cố định bằng một tỉ lệ nhất định của Attack của người dùng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "yoongun",
@@ -369,6 +390,7 @@ var GLOSSARY_DATA = [
   "desc": "Mục tiêu chịu sát thương xuyên thủng bằng một tỉ lệ nhất định của Attack của người dùng mỗi lượt. Sát thương tăng theo mỗi cộng dồn Bleed trên mục tiêu, tối đa 5 cộng dồn.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/bleed.webp",
   "examples": [
    {
     "id": "bai-jiao",
@@ -398,6 +420,7 @@ var GLOSSARY_DATA = [
   "desc": "Kích nổ các stack Bleed đang có trên mục tiêu để gây sát thương. Sát thương tăng theo số lượng và số lượt còn lại của các stack Bleed đã tiêu thụ.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/bleed-explosion.webp",
   "examples": [
    {
     "id": "bi-dam",
@@ -411,6 +434,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Bleed.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/bleed-immunity.webp",
   "examples": [
    {
     "id": "karon",
@@ -428,6 +452,7 @@ var GLOSSARY_DATA = [
   "desc": "Giới hạn sát thương phải chịu từ một đòn đánh ở mức một tỉ lệ nhất định của Max HP. Sát thương cố định không bị giảm bởi hiệu ứng này.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/blessing.webp",
   "examples": [
    {
     "id": "eve",
@@ -457,6 +482,7 @@ var GLOSSARY_DATA = [
   "desc": "Trong thời gian hiệu ứng này, đòn đánh thường, đòn phản công và đòn tấn công tiếp nối chắc chắn trượt.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/blind.webp",
   "examples": [
    {
     "id": "ariel",
@@ -478,6 +504,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm với Blind.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/blind-immunity.webp",
   "examples": [
    {
     "id": "zhao-yun",
@@ -491,6 +518,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Block Rate thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "aris",
@@ -520,6 +548,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Block Rate đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "ace",
@@ -549,6 +578,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi hết thời gian, bom phát nổ gây sát thương bỏ qua Defense; khi nổ có tỉ lệ gây giảm thời gian buff và Tê liệt. Có thể triển khai tối đa 3 bom cùng lúc.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/bomb.webp",
   "examples": [
    {
     "id": "colt",
@@ -562,6 +592,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương gây ra cho boss thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "biscuit",
@@ -575,6 +606,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể nhận buff.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "hayeon",
@@ -592,6 +624,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng thời gian duy trì buff. Mức tăng không thể vượt quá thời gian gốc của buff.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "hayeon",
@@ -609,6 +642,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm thời gian duy trì buff.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/buff-duration-reduction.webp",
   "examples": [
    {
     "id": "ace",
@@ -638,6 +672,7 @@ var GLOSSARY_DATA = [
   "desc": "Xóa buff theo thứ tự chúng được áp dụng. Damage Immunity, Damage Nullification và Guts không thể bị xóa.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/buff-removal.webp",
   "examples": [
    {
     "id": "biscuit",
@@ -667,6 +702,7 @@ var GLOSSARY_DATA = [
   "desc": "Gây sát thương bằng một tỉ lệ nhất định của Attack của người dùng mỗi lượt.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/burn.webp",
   "examples": [
    {
     "id": "eileene",
@@ -696,6 +732,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm với Burn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/burn-immunity.webp",
   "examples": [
    {
     "id": "ariel",
@@ -717,6 +754,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể trở thành mục tiêu của đòn tấn công đơn mục tiêu; các đòn tấn công diện rộng và debuff nhắm vào mục tiêu sẽ chắc chắn trượt. Nếu tất cả tướng có thể tấn công trong một đội đều đang ngụy trang, hiệu ứng sẽ bị xóa khỏi mọi tướng trong đội đó.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/camouflage.webp",
   "examples": [
    {
     "id": "ballista",
@@ -746,6 +784,7 @@ var GLOSSARY_DATA = [
   "desc": "Triệu hồi một phân thân của bản thân; đòn đánh thường và kỹ năng được đổi dạng trong thời gian hiệu lực.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "sun-wukong",
@@ -759,6 +798,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng; thời gian hiệu lực tăng thêm khi bị đòn tấn công của địch có từ 2 đòn trở lên, nhưng không thể vượt quá thời gian ban đầu được áp dụng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "amelia",
@@ -776,6 +816,7 @@ var GLOSSARY_DATA = [
   "desc": "Đòn đánh của mục tiêu chắc chắn trượt trong một số lần đánh nhất định, miễn là còn ít nhất 1 cộng dồn của hiệu ứng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/confusion.webp",
   "examples": [
    {
     "id": "li",
@@ -793,6 +834,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương thêm một lượng nhất định, tỉ lệ với cấp độ stage của trận đấu đang diễn ra.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "sung-jinwoo",
@@ -806,6 +848,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương thêm một lượng nhất định, tỉ lệ với cấp độ stage của trận đấu đang diễn ra.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "sung-jinwoo",
@@ -819,6 +862,7 @@ var GLOSSARY_DATA = [
   "desc": "Hồi HP bằng một tỉ lệ nhất định của Max HP của người dùng mỗi lượt.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/continuous-healing.webp",
   "examples": [
    {
     "id": "alice",
@@ -848,6 +892,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Cooldown Increase.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "giyu-tomioka",
@@ -861,6 +906,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm thời gian hồi chiêu của kỹ năng.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "aragon",
@@ -890,6 +936,7 @@ var GLOSSARY_DATA = [
   "desc": "Đặt lại thời gian hồi chiêu của kỹ năng.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "cha-hae-in",
@@ -919,6 +966,7 @@ var GLOSSARY_DATA = [
   "desc": "Phản công kẻ tấn công khi bị trúng đòn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/counterattack.webp",
   "examples": [
    {
     "id": "jave",
@@ -940,6 +988,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Counterattack Chance thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "li",
@@ -953,6 +1002,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi dùng đòn đánh thường, một đồng minh tấn công cùng mục tiêu bằng đòn đánh thường của họ.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "hayeon",
@@ -966,6 +1016,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Crit Damage thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "clemyth",
@@ -995,6 +1046,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Crit Damage thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "dellons",
@@ -1008,6 +1060,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Crit Damage đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "judas",
@@ -1021,6 +1074,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Crit Rate thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "bai-long",
@@ -1050,6 +1104,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Crit Rate đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "aragon",
@@ -1075,6 +1130,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Crowd Control.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/crowd-control-immunity.webp",
   "examples": [
    {
     "id": "clemyth",
@@ -1104,6 +1160,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm khống chế khi nhận Immortality.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/crowd-control-immunity.webp",
   "examples": [
    {
     "id": "juri",
@@ -1117,6 +1174,7 @@ var GLOSSARY_DATA = [
   "desc": "Sau khi chịu một số lần đánh nhất định, cụm tinh thể phát nổ gây sát thương cố định và có tỉ lệ gây tăng hồi chiêu lên kẻ tấn công.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "melia",
@@ -1130,6 +1188,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm số lần đánh cần thiết để kích nổ Crystal Cluster áp lên mục tiêu.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "melia",
@@ -1143,6 +1202,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương gây ra thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "clemyth",
@@ -1172,6 +1232,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương gây ra thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "kyrielle",
@@ -1185,6 +1246,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương gây ra đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "biscuit",
@@ -1214,6 +1276,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương nhận vào đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/damage-resistance.webp",
   "examples": [
    {
     "id": "aquila",
@@ -1243,6 +1306,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương nhận vào đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/damage-resistance.webp",
   "examples": [
    {
     "id": "rudy",
@@ -1256,6 +1320,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương nhận vào đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/damage-resistance.webp",
   "examples": [
    {
     "id": "rudy",
@@ -1269,6 +1334,7 @@ var GLOSSARY_DATA = [
   "desc": "Gây sát thương bằng một tỉ lệ nhất định của Max HP của mục tiêu mỗi lượt. Hiệu ứng này được tính là hiệu ứng Poison, và sát thương không thể vượt quá một tỉ lệ nhất định của Attack của người dùng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "dongyoung",
@@ -1286,6 +1352,7 @@ var GLOSSARY_DATA = [
   "desc": "Mục tiêu chịu sát thương bằng một tỉ lệ nhất định của HP hiện tại mỗi lượt, và chết ngay lập tức ở lượt cuối cùng. Mục tiêu chết ngay lập tức khi đạt 2 cộng dồn Death.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/death.webp",
   "examples": [
    {
     "id": "aquila",
@@ -1315,6 +1382,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Death Effect Probability thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "aquila",
@@ -1332,6 +1400,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm với Death.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/death-immunity.webp",
   "examples": [
    {
     "id": "leo",
@@ -1349,6 +1418,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm thời gian duy trì debuff Death.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "aquila",
@@ -1362,6 +1432,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng thời gian duy trì debuff. Mức tăng không thể vượt quá thời gian gốc của debuff.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "hayeon",
@@ -1375,6 +1446,7 @@ var GLOSSARY_DATA = [
   "desc": "Xóa debuff theo thứ tự chúng được áp dụng.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/debuff-removal.webp",
   "examples": [
    {
     "id": "ace",
@@ -1404,6 +1476,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng, và mọi đòn tấn công vào mục tiêu bị ảnh hưởng đều là Guaranteed Critical Hits. Hiệu ứng bị xóa khi mục tiêu nhận sát thương bằng một tỉ lệ nhất định của Max HP trở lên, bất kể còn bao nhiêu lượt hiệu lực.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "yeonhee",
@@ -1417,6 +1490,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Defense thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "alice",
@@ -1446,6 +1520,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng hiệu quả bỏ qua Defense của mục tiêu thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "bai-long",
@@ -1463,6 +1538,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Defense đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "ace",
@@ -1492,6 +1568,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Defense đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "eileene",
@@ -1509,6 +1586,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Block Rate theo Defense của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "gelidus",
@@ -1526,6 +1604,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Defense thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "rudy",
@@ -1539,6 +1618,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi buff hết hạn sau một số lượt nhất định, nhận All Damage Nullification và tăng Physical Attack trong một thời gian. Nếu buff hết hạn sớm hơn, hiệu ứng tiếp theo không kích hoạt — trừ khi bị ép hết hạn bởi Buff Duration Reduction.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "tanjiro-kamado",
@@ -1552,6 +1632,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Physical Attack và Crit Damage thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "sunran",
@@ -1565,6 +1646,7 @@ var GLOSSARY_DATA = [
   "desc": "Kích nổ bom trên mục tiêu để gây sát thương. Sát thương tăng theo số bom được kích nổ.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "colt",
@@ -1578,6 +1660,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Magic Attack thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "freyja",
@@ -1591,6 +1674,7 @@ var GLOSSARY_DATA = [
   "desc": "Gây sát thương bằng một tỉ lệ nhất định của Attack của người thi triển mỗi lượt. Được tính là hiệu ứng Burn.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/dragonflame.webp",
   "examples": [
    {
     "id": "jave",
@@ -1604,6 +1688,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi bị địch tấn công, nhận cộng dồn tăng sát thương gây ra và Physical Attack.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "aris",
@@ -1617,6 +1702,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Effect Hit Rate thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "ace",
@@ -1646,6 +1732,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Effect Probability thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/effect-probability-boost.webp",
   "examples": [
    {
     "id": "bai-jiao",
@@ -1667,6 +1754,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Effect Probability đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "gelidus",
@@ -1684,6 +1772,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Effect Resistance thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "clemyth",
@@ -1713,6 +1802,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Effect Resistance đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "knox",
@@ -1742,6 +1832,7 @@ var GLOSSARY_DATA = [
   "desc": "Hạ gục ngay lập tức các mục tiêu có HP dưới một tỉ lệ nhất định (không có tác dụng với mục tiêu có HP vượt quá 120% Attack của người dùng).",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/execution.webp",
   "examples": [
    {
     "id": "branze-bransel",
@@ -1767,6 +1858,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu lực; hiệu ứng bị xóa khi bị đòn đánh của địch trúng, kẻ tấn công được hồi HP theo sát thương gây ra, và khi bị xóa gây sát thương bỏ qua Defense theo Max HP của mục tiêu. Được tính là hiệu ứng Freeze, và mục tiêu đang chịu Extreme Chill không bị ảnh hưởng bởi Freeze.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "gelidus",
@@ -1780,6 +1872,7 @@ var GLOSSARY_DATA = [
   "desc": "Người dùng nhắm vào một mục tiêu và ưu tiên tấn công chúng; một số kỹ năng gây thêm sát thương lên mục tiêu này. Hiệu ứng cố định một mục tiêu mỗi vòng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "kyle",
@@ -1793,6 +1886,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng còn tác dụng, và Effect Resistance được đặt thành 0%.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "dongyoung",
@@ -1810,6 +1904,7 @@ var GLOSSARY_DATA = [
   "desc": "Toàn bộ sát thương bỏ qua một tỉ lệ nhất định của Defense của mục tiêu; đồng thời tăng Effect Resistance của người dùng và hồi lại thời gian hồi chiêu của kỹ năng.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "reginleif",
@@ -1823,6 +1918,7 @@ var GLOSSARY_DATA = [
   "desc": "Trở thành mục tiêu của mọi đòn tấn công của địch, trừ đòn phản công. Chỉ một hero trong đội có thể có hiệu ứng Taunt hoặc Focus Target đang hoạt động tại một thời điểm.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/focus-target.webp",
   "examples": [
    {
     "id": "asura",
@@ -1836,6 +1932,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi một đồng minh dùng đòn đánh thường, sẽ thực hiện một đòn follow-up lên cùng mục tiêu đó.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/follow-up-attack.webp",
   "examples": [
    {
     "id": "ballista",
@@ -1853,6 +1950,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng tỉ lệ Follow-Up thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "ballista",
@@ -1870,6 +1968,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng; Freeze bị xóa khi bị đòn đánh của địch trúng, và khi bị xóa, mục tiêu chịu sát thương bỏ qua Defense theo Max HP của chúng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/freeze.webp",
   "examples": [
    {
     "id": "heavenia",
@@ -1891,6 +1990,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Freeze.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/freeze-immunity.webp",
   "examples": [
    {
     "id": "feng-yan",
@@ -1908,6 +2008,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi buff hết hạn sau một số lượt nhất định, mục tiêu nhận All Damage Immunity và Crowd Control Immunity trong một thời gian. Nếu buff hết hạn sớm hơn, hiệu ứng tiếp theo không kích hoạt — trừ khi bị ép hết hạn bởi Buff Duration Reduction.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "omok",
@@ -1921,6 +2022,7 @@ var GLOSSARY_DATA = [
   "desc": "Sống sót với 1 HP khi nhận sát thương chí mạng lần đầu tiên.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/guts.webp",
   "examples": [
    {
     "id": "ace",
@@ -1950,6 +2052,7 @@ var GLOSSARY_DATA = [
   "desc": "Sống sót với 1 HP khi nhận sát thương chí mạng lần đầu tiên.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/guts.webp",
   "examples": [
    {
     "id": "rosie",
@@ -1963,6 +2066,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương vật lý mục tiêu nhận vào thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "taka",
@@ -1976,6 +2080,7 @@ var GLOSSARY_DATA = [
   "desc": "Đặt HP của mục tiêu về một mức nhất định. Sẽ không thay đổi HP của mục tiêu nếu HP hiện tại của chúng thấp hơn mức đó.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/hp-alteration.webp",
   "examples": [
    {
     "id": "amelia",
@@ -2005,6 +2110,7 @@ var GLOSSARY_DATA = [
   "desc": "Hoán đổi HP của bạn với mục tiêu. Không kích hoạt nếu HP của người dùng thấp hơn sau khi hoán đổi so với trước đó.",
   "desc_verified": true,
   "category": "Khac",
+  "icon": null,
   "examples": [
    {
     "id": "hayeon",
@@ -2022,6 +2128,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương vật lý gây ra thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "snipper",
@@ -2035,6 +2142,7 @@ var GLOSSARY_DATA = [
   "desc": "Bỏ qua một tỉ lệ nhất định của Defense của mục tiêu.",
   "desc_verified": true,
   "category": "Khac",
+  "icon": "assets/effects/ignore-defense.webp",
   "examples": [
    {
     "id": "ace",
@@ -2064,6 +2172,7 @@ var GLOSSARY_DATA = [
   "desc": "HP được đặt thành 1 trong thời gian hiệu ứng còn tác dụng. Tướng sẽ ngã xuống khi hiệu ứng hết hạn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/immortality.webp",
   "examples": [
    {
     "id": "bane",
@@ -2093,6 +2202,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Incoming Barrier đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "eve",
@@ -2110,6 +2220,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Incoming Healing thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "alice",
@@ -2135,6 +2246,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Incoming Healing đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/incoming-healing-reduction.webp",
   "examples": [
    {
     "id": "ace",
@@ -2164,6 +2276,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Incoming Healing đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/incoming-healing-reduction.webp",
   "examples": [
    {
     "id": "dongyoung",
@@ -2181,6 +2294,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng tỉ lệ đánh trượt thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "ariel",
@@ -2210,6 +2324,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi ngã xuống, mục tiêu hồi sinh với 1 HP và không thể ngã xuống lần nữa cho đến khi nhận một số đòn đánh nhất định. Khi một địch ngã xuống trong trận, số đòn cần thiết tăng thêm.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "dongyoung",
@@ -2235,6 +2350,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng All Attack thêm một lượng nhất định theo số cộng dồn. Cấp độ đã tăng được duy trì ngay cả khi ngã xuống trong trận đấu.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "sung-jinwoo",
@@ -2248,6 +2364,7 @@ var GLOSSARY_DATA = [
   "desc": "Hồi HP bằng một tỉ lệ nhất định của sát thương gây ra.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/life-drain.webp",
   "examples": [
    {
     "id": "leo",
@@ -2265,6 +2382,7 @@ var GLOSSARY_DATA = [
   "desc": "Chia đều sát thương nhận vào cho các đồng minh được liên kết. Sát thương cố định không được chia sẻ.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/link.webp",
   "examples": [
    {
     "id": "aquila",
@@ -2282,6 +2400,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Magic Attack thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "cleo",
@@ -2311,6 +2430,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Magic Attack thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "silvesta",
@@ -2324,6 +2444,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Magic Attack đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "yui",
@@ -2337,6 +2458,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi bắt đầu trận đấu, nhận thêm hiệu ứng dựa trên số đồng minh cùng loại trong đội.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "melia",
@@ -2350,6 +2472,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Magic gây ra thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "ariel",
@@ -2379,6 +2502,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm sát thương Magic.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/damage-immunity.webp",
   "examples": [
    {
     "id": "hellenia",
@@ -2392,6 +2516,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi bị trúng đòn tấn công của địch trong thời gian hiệu lực, mục tiêu chịu sát thương theo Max HP của chúng; nếu hiệu ứng hết thời gian hoặc mục tiêu gục ngã, Magic Reflux có tỉ lệ lan sang các mục tiêu khác trong đội. Tối đa 7 cộng dồn.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/magic-reflux.webp",
   "examples": [
    {
     "id": "mercure",
@@ -2405,6 +2530,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương Magic nhận vào đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "espada",
@@ -2426,6 +2552,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Magic mục tiêu nhận vào thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/vulnerability.webp",
   "examples": [
    {
     "id": "dongyoung",
@@ -2455,6 +2582,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Magic nhận vào thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/vulnerability.webp",
   "examples": [
    {
     "id": "reginleif",
@@ -2468,6 +2596,7 @@ var GLOSSARY_DATA = [
   "desc": "Gây thêm sát thương lên mục tiêu khi người dùng tấn công. Hiệu ứng này được gắn cố định lên một số địch có Attack cao nhất mỗi vòng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "judas",
@@ -2481,6 +2610,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Attack theo Max HP của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "spike",
@@ -2494,6 +2624,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Block Rate theo Max HP của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "clemyth",
@@ -2507,6 +2638,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Defense theo Max HP của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "rosie",
@@ -2520,6 +2652,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Effect Hit Rate theo Max HP của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "diaochan",
@@ -2533,6 +2666,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi nhận sát thương trực tiếp vượt quá một tỉ lệ nhất định của Max HP, một phần sát thương được chia đều trong một số lượt.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "giyu-tomioka",
@@ -2550,6 +2684,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng, và Block Rate bị đặt về 0%.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/paralysis.webp",
   "examples": [
    {
     "id": "cha-hae-in",
@@ -2579,6 +2714,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Paralysis.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/paralysis-immunity.webp",
   "examples": [
    {
     "id": "victoria",
@@ -2596,6 +2732,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Defense thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "karma",
@@ -2609,6 +2746,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng, và mục tiêu bị ảnh hưởng sẽ nhận sát thương bằng một tỉ lệ nhất định của Attack của người dùng khi hiệu ứng kết thúc.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/petrify.webp",
   "examples": [
    {
     "id": "cleo",
@@ -2634,6 +2772,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Petrify.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/petrify-immunity.webp",
   "examples": [
    {
     "id": "black-rose",
@@ -2651,6 +2790,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Physical Attack thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "black-rose",
@@ -2680,6 +2820,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Physical Attack thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "judas",
@@ -2693,6 +2834,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Physical Attack đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "bane",
@@ -2718,6 +2860,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Physical gây ra thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "bi-dam",
@@ -2747,6 +2890,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Physical gây ra thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "pallanus",
@@ -2760,6 +2904,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm với sát thương Physical.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/damage-immunity.webp",
   "examples": [
    {
     "id": "hokin",
@@ -2785,6 +2930,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Defense và HP cơ bản của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "melia",
@@ -2798,6 +2944,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương Physical nhận vào đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "li",
@@ -2819,6 +2966,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Physical nhận vào thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/vulnerability.webp",
   "examples": [
    {
     "id": "ace",
@@ -2848,6 +2996,7 @@ var GLOSSARY_DATA = [
   "desc": "Bỏ qua các hiệu ứng miễn nhiễm sát thương trên mục tiêu.",
   "desc_verified": true,
   "category": "Khac",
+  "icon": "assets/effects/pierce.webp",
   "examples": [
    {
     "id": "aragon",
@@ -2877,6 +3026,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương vật lý nhận vào, nhưng tăng sát thương Magic nhận vào.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "bai-long",
@@ -2890,6 +3040,7 @@ var GLOSSARY_DATA = [
   "desc": "Gây sát thương bằng một tỉ lệ nhất định của Max HP của mục tiêu mỗi lượt. Sát thương này không thể vượt quá một tỉ lệ nhất định của Attack của người dùng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/poison.webp",
   "examples": [
    {
     "id": "bai-jiao",
@@ -2919,6 +3070,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm với Poison.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/poison-immunity.webp",
   "examples": [
    {
     "id": "lucy",
@@ -2932,6 +3084,7 @@ var GLOSSARY_DATA = [
   "desc": "Người dùng chịu một phần sát thương thay cho mục tiêu; lượng sát thương chịu thay được giảm thêm. Mục tiêu đang chịu Protection không thể nhận hiệu ứng Link.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "giyu-tomioka",
@@ -2957,6 +3110,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Magic gây ra và Crit Rate thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "espada",
@@ -2970,6 +3124,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm sát thương nhận từ các đòn tấn công 5 mục tiêu đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "biscuit",
@@ -2987,6 +3142,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Physical Attack thêm một lượng nhất định nhưng giảm Magic Attack đi một lượng lớn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "lu-bu",
@@ -3000,6 +3156,7 @@ var GLOSSARY_DATA = [
   "desc": "Reset toàn bộ thời gian hồi chiêu của kỹ năng.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "cha-hae-in",
@@ -3017,6 +3174,7 @@ var GLOSSARY_DATA = [
   "desc": "Hồi lại thời gian hồi chiêu của kỹ năng Dragon's Descent khi hạ gục một địch bằng sát thương từ kỹ năng này.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "rin",
@@ -3030,6 +3188,7 @@ var GLOSSARY_DATA = [
   "desc": "Hồi lại thời gian hồi chiêu của kỹ năng Undefeated Cavalier khi hạ gục một địch bằng sát thương từ kỹ năng này.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "randgrid",
@@ -3043,6 +3202,7 @@ var GLOSSARY_DATA = [
   "desc": "Hồi sinh một tướng đã ngã xuống với một lượng HP nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/revive.webp",
   "examples": [
    {
     "id": "amelia",
@@ -3072,6 +3232,7 @@ var GLOSSARY_DATA = [
   "desc": "Hồi sinh với 80% HP khi ngã xuống trong trận.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/revive.webp",
   "examples": [
    {
     "id": "leo",
@@ -3089,6 +3250,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng còn tác dụng, và khi bị trúng đòn tấn công của địch, mục tiêu bị ảnh hưởng sẽ nhận thêm sát thương bằng một tỉ lệ nhất định của Attack của người dùng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/shock.webp",
   "examples": [
    {
     "id": "eileene",
@@ -3114,6 +3276,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Shock.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/shock-immunity.webp",
   "examples": [
    {
     "id": "chloe",
@@ -3131,6 +3294,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Shock Probability thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "eileene",
@@ -3144,6 +3308,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể dùng active skill trong thời gian hiệu ứng còn tác dụng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/silence.webp",
   "examples": [
    {
     "id": "bane",
@@ -3173,6 +3338,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Silence.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/silence-immunity.webp",
   "examples": [
    {
     "id": "cleo",
@@ -3198,6 +3364,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương gây ra lên mục tiêu đơn thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "xiao",
@@ -3211,6 +3378,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng thời gian hồi chiêu của kỹ năng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/skill-cooldown-increase.webp",
   "examples": [
    {
     "id": "hayeon",
@@ -3236,6 +3404,7 @@ var GLOSSARY_DATA = [
   "desc": "Đặt lại hồi chiêu của kỹ năng khi nhận Immortality.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "kris",
@@ -3253,6 +3422,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng, và mọi đòn tấn công vào mục tiêu bị ảnh hưởng đều là Guaranteed Critical Hits. Hiệu ứng bị xóa khi mục tiêu nhận sát thương bằng một tỉ lệ nhất định của Max HP trở lên, bất kể còn bao nhiêu lượt hiệu lực.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/sleep.webp",
   "examples": [
    {
     "id": "diaochan",
@@ -3270,6 +3440,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm với Sleep.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/sleep-immunity.webp",
   "examples": [
    {
     "id": "sarah",
@@ -3283,6 +3454,7 @@ var GLOSSARY_DATA = [
   "desc": "Đổi kỹ năng Sniper Stance thành Swift Shots trong thời gian hiệu lực.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "jupy",
@@ -3296,6 +3468,7 @@ var GLOSSARY_DATA = [
   "desc": "Ngã xuống trong trận chiến khi đang chịu Souldeath sẽ ngăn Revive, Immortality và Indomitable kích hoạt.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/souldeath.webp",
   "examples": [
    {
     "id": "juri",
@@ -3309,6 +3482,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Attack theo Speed của bản thân.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "colt",
@@ -3326,6 +3500,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương gây ra và Defense thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "giyu-tomioka",
@@ -3339,6 +3514,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Magic Attack thêm một lượng nhất định theo số cộng dồn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "freyja",
@@ -3352,6 +3528,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hành động trong thời gian hiệu ứng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/stun.webp",
   "examples": [
    {
     "id": "aragon",
@@ -3381,6 +3558,7 @@ var GLOSSARY_DATA = [
   "desc": "Miễn nhiễm Stun.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": "assets/effects/stun-immunity.webp",
   "examples": [
    {
     "id": "evan",
@@ -3398,6 +3576,7 @@ var GLOSSARY_DATA = [
   "desc": "Khiêu khích địch, trở thành mục tiêu của hầu hết đòn tấn công của chúng. Mỗi đội chỉ có một hero được duy trì hiệu ứng Taunt hoặc Focus Target tại một thời điểm.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/taunt.webp",
   "examples": [
    {
     "id": "hellenia",
@@ -3427,6 +3606,7 @@ var GLOSSARY_DATA = [
   "desc": "Nếu có 3 Threads of Fate, tiêu hao toàn bộ Threads of Fate rồi nhận All Damage Nullification.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "skuld",
@@ -3440,6 +3620,7 @@ var GLOSSARY_DATA = [
   "desc": "Áp dụng hiệu ứng bổ sung lên mục tiêu khi người dùng dùng kỹ năng; Crit Rate và Weakness Hit Chance của mục tiêu chịu dấu ấn bị giảm. Hiệu ứng này cố định một mục tiêu mỗi vòng.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "karl-heron",
@@ -3453,6 +3634,7 @@ var GLOSSARY_DATA = [
   "desc": "Có thể triển khai các unit trong Infinite Tower mà không bị giới hạn vai trò.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "velika",
@@ -3466,6 +3648,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Magic Attack thêm một lượng nhất định theo số cộng dồn. Khi đủ cộng dồn, các đòn tấn công gây thêm hiệu ứng Không thể hồi HP hoặc Chặn Buff lên địch.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "shinobu-kocho",
@@ -3479,6 +3662,7 @@ var GLOSSARY_DATA = [
   "desc": "Biến đổi hình dạng; đòn đánh thường và kỹ năng được đổi dạng trong thời gian hiệu lực, đồng thời miễn nhiễm khống chế.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "dellons",
@@ -3492,6 +3676,7 @@ var GLOSSARY_DATA = [
   "desc": "Mọi đòn tấn công đều có Pierce; tăng tỉ lệ đánh điểm yếu thêm một lượng lớn.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "tanjiro-kamado",
@@ -3505,6 +3690,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Triple-Target Attack gây ra thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "nezha",
@@ -3522,6 +3708,7 @@ var GLOSSARY_DATA = [
   "desc": "Không thể hồi HP.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": "assets/effects/unable-to-recover.webp",
   "examples": [
    {
     "id": "amelia",
@@ -3551,6 +3738,7 @@ var GLOSSARY_DATA = [
   "desc": "Nhận các hiệu ứng khác nhau dựa trên vị trí của đồng minh: hàng trước được tăng hồi chiêu nhưng hồi HP, hàng sau được tăng Physical Attack và tăng số lần trúng của Damage Nullification.",
   "desc_verified": true,
   "category": "Khac",
+  "icon": null,
   "examples": [
    {
     "id": "orkah",
@@ -3564,6 +3752,7 @@ var GLOSSARY_DATA = [
   "desc": "Khi nhận đòn từ sát thương trực tiếp, nếu Attack của bản thân cao hơn kẻ tấn công, đòn đánh chắc chắn trượt và mọi sát thương nhận vào được giảm. Ngoài ra có tỉ lệ gây giảm Defense và tăng tỉ lệ trượt cho kẻ tấn công trong một thời gian.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "sunran",
@@ -3577,6 +3766,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng Weakness Hit Chance thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "asura",
@@ -3606,6 +3796,7 @@ var GLOSSARY_DATA = [
   "desc": "Giảm Weakness Hit Chance đi một lượng nhất định.",
   "desc_verified": true,
   "category": "Debuff",
+  "icon": null,
   "examples": [
    {
     "id": "aquila",
@@ -3635,6 +3826,7 @@ var GLOSSARY_DATA = [
   "desc": "Tăng sát thương Weakness Hit thêm một lượng nhất định.",
   "desc_verified": true,
   "category": "Buff",
+  "icon": null,
   "examples": [
    {
     "id": "eve",

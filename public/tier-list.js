@@ -1,5 +1,5 @@
 /* Tier List (tier-list.html): mode tabs via ?mode= (default Arena),
- * rarity + role (PvE only) filters, diacritic-insensitive name search,
+ * rarity + role filters (ALL modes), diacritic-insensitive name search,
  * "Hiển thị X / Y hero" counter, Compact/Columns layout toggle, per-mode
  * last update + collapsible changelog. Hero cards show PORTRAIT + NAME
  * only (no rarity badge, no role icon, no Transcendence badge, no
@@ -40,7 +40,6 @@
   var titleEl = document.getElementById('tl-mode-title');
   var updatedEl = document.getElementById('tl-updated');
   var subTabsEl = document.getElementById('tl-subtabs');
-  var roleWrapEl = document.getElementById('tl-role-wrap');
   var searchInput = document.getElementById('tl-search');
 
   function esc(s) {
@@ -77,8 +76,11 @@
       if (name.indexOf(q) === -1 && id.indexOf(q) === -1) return false;
     }
     if (Object.keys(state.rarity).length && !state.rarity[hero.rarity]) return false;
-    var mode = currentMode();
-    if (mode.group === 'pve' && Object.keys(state.role).length
+    /* Role filter applies in EVERY mode (regression fix 20/11: it was
+     * PvE-gated while the buttons stayed visible in PvP, so clicking a
+     * role in Arena/Total War/Guild War did nothing). In PvP the rows
+     * are already grouped by role, so filtering narrows to that group. */
+    if (Object.keys(state.role).length
       && !state.role[hero.type.toUpperCase()]) return false;
     return true;
   }
@@ -146,12 +148,8 @@
       b.setAttribute('aria-current', active ? 'true' : 'false');
     });
     subTabsEl.hidden = PUD_MODES.indexOf(state.mode) === -1;
-    var isPvp = mode.group === 'pvp';
-    roleWrapEl.hidden = isPvp;
-    if (isPvp && Object.keys(state.role).length) {
-      state.role = {};
-      syncFilterButtons();
-    }
+    /* The role filter is always visible now (it filters in every mode),
+     * so there is no PvP hide/reset for it any more. */
   }
 
   function renderAll() {

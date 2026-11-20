@@ -19,6 +19,12 @@
 .tl-subtabs{display:flex;gap:8px;margin:2px 0 14px 56px}
 .tl-subtabs .tl-mode-btn{font-size:12px;padding:7px 12px}
 
+/* The `hidden` attribute must win over author display rules: without
+ * this, `.tl-filter{display:flex}` / `.tl-subtabs{display:flex}` keep
+ * hidden elements visible (this is what made the role filter show —
+ * and do nothing — in PvP modes). */
+.tl-filter[hidden], .tl-subtabs[hidden]{display:none}
+
 /* ---- Filter toolbar --------------------------------------------------- */
 .tl-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#fff;border:1px solid #e9e8e3;border-radius:14px;padding:12px 14px;margin:0 0 18px}
 .tl-search{flex:1 1 240px;min-width:200px}

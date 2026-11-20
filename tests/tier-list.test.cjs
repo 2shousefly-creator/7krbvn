@@ -119,7 +119,7 @@ test('tier-list.html: mode tabs, sub-tabs, filters, search, counter, layout togg
   for (const r of ['L++', 'L+', 'L', 'R']) {
     assert.ok(html.includes(`data-rarity="${r}"`), `tier-list.html needs a rarity filter for ${r}`);
   }
-  assert.ok(html.includes('id="tl-role-wrap"'), 'tier-list.html needs the role filter (PvE only)');
+  assert.ok(html.includes('id="tl-role-wrap"'), 'tier-list.html needs the role filter (all modes)');
   assert.ok(html.includes('id="tl-layout-columns"'), 'tier-list.html needs the Columns layout button');
   assert.ok(html.includes('id="tl-layout-compact"'), 'tier-list.html needs the Compact layout button');
   assert.ok(html.includes('id="tl-mode-title"'), 'tier-list.html needs the mode title');
@@ -185,6 +185,35 @@ test('tier-list.css styles the rows, cards and compact layout', () => {
   assert.ok(css.includes('.tl-card'), 'tier-list.css must style hero cards');
   assert.ok(css.includes('.tl-compact'), 'tier-list.css must style the compact layout');
   assert.ok(css.includes('.tl-mode-btn'), 'tier-list.css must style mode buttons');
+});
+
+test('role filter works in EVERY mode (regression 20/11: PvP buttons were visible but dead)', () => {
+  const js = read('tier-list.js');
+  const css = read('tier-list.css');
+  /* The root cause was CSS: .tl-filter{display:flex} overrode the hidden
+   * attribute, so the role filter stayed visible in PvP while matches()
+   * ignored the role there. Both halves must be fixed. */
+  assert.ok(css.includes('[hidden]') && css.includes('display:none'),
+    'tier-list.css must let [hidden] win over author display rules');
+  assert.ok(!js.includes("mode.group === 'pve'"),
+    'tier-list.js must not gate the role filter on PvE modes');
+  assert.ok(js.includes('state.role[hero.type.toUpperCase()]'),
+    'the role filter must compare against the hero type');
+  /* Data support: in every mode, each role narrows the list (n < total),
+   * so clicking a role always visibly filters. n may be 0 for a role a
+   * mode has no hero of (e.g. no Defense in Sudden Raid / Farming) —
+   * that shows the empty state + counter 0/N, which is still filtering. */
+  for (const m of EXPECTED_MODES) {
+    const total = DATA.modes[m].entries.length;
+    for (const role of ['ATTACK', 'MAGIC', 'DEFENSE', 'SUPPORT', 'UNIVERSAL']) {
+      const n = DATA.modes[m].entries.filter(e => {
+        const h = indexById.get(e.hero_id);
+        return h && h.type.toUpperCase() === role;
+      }).length;
+      assert.ok(n < total,
+        `${m}: role ${role} must narrow the list (got ${n}/${total})`);
+    }
+  }
 });
 
 test('no new tier-list file mentions Atlas', () => {

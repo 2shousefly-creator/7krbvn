@@ -55,8 +55,10 @@
 
   function entryHtml(e) {
     var cls = e.category === 'Buff' ? 'gl-buff' : (e.category === 'Debuff' ? 'gl-debuff' : 'gl-khac');
+    var icon = e.icon ? e.icon : 'assets/effects/unknown.svg';
     var h = '<article class="gl-entry" id="gl-' + esc(e._letter.toLowerCase()) + '-' + esc(fold(e.en).replace(/[^a-z0-9]+/g, '-')) + '">';
-    h += '<div class="gl-names"><b class="gl-en ' + cls + '">' + esc(e.en) + '</b>'
+    h += '<div class="gl-names"><img class="gl-icon" src="' + esc(icon) + '" alt="' + esc(e.en) + '" loading="lazy" width="36" height="36">'
+      + '<b class="gl-en ' + cls + '">' + esc(e.en) + '</b>'
       + '<span class="gl-sep"> — </span><span class="gl-vi">' + esc(e.vi) + '</span>'
       + '<span class="gl-tag gl-tag-' + cls.slice(3) + '">' + CAT_LABEL[e.category] + '</span>';
     if (e.desc && !e.desc_verified) {
