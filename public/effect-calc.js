@@ -54,8 +54,23 @@
     };
   }
 
+  // Hero-level vs skill-level Death: the checkbox is enabled as soon as
+  // the HERO has any Death debuff (fix 2026-11-20 — it stayed disabled
+  // until a Death skill was picked), but the boost only counts when the
+  // SELECTED skill inflicts Death.
+  function heroHasDeath(hero) {
+    if (!hero || !hero.skills) return false;
+    return Object.keys(hero.skills).some(function (k) {
+      return hero.skills[k].debuffs.some(function (d) { return d.effect === 'Death'; });
+    });
+  }
+  function skillHasDeath(hero, skillKey) {
+    return !!(skillKey && hero && hero.skills[skillKey] &&
+      hero.skills[skillKey].debuffs.some(function (d) { return d.effect === 'Death'; }));
+  }
+
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { calcChance: calcChance, totals: totals };
+    module.exports = { calcChance: calcChance, totals: totals, heroHasDeath: heroHasDeath, skillHasDeath: skillHasDeath };
     return;
   }
 
@@ -134,19 +149,52 @@
     window.scrollTo(0, savedScrollY);
   }
 
+  /* Keep the modal pinned to the visual viewport (fix 2026-11-20): on
+     mobile the virtual keyboard shrinks the visual viewport, and the
+     browser's scroll-into-view would otherwise shove the panel over the
+     site header or behind the keyboard. Pinning the overlay to the
+     visible area keeps the panel top at its 132px padding — always
+     below the header — with the input visible above the keyboard. */
+  var viewportSynced = false;
+  function syncModalViewport() {
+    if (!modal || !modal.classList.contains('open')) return;
+    var vv = window.visualViewport;
+    if (!vv) return;
+    modal.style.top = vv.offsetTop + 'px';
+    modal.style.height = vv.height + 'px';
+    modal.style.bottom = 'auto';
+  }
+  function attachViewportSync() {
+    if (viewportSynced || !window.visualViewport) return;
+    viewportSynced = true;
+    window.visualViewport.addEventListener('resize', syncModalViewport);
+    window.visualViewport.addEventListener('scroll', syncModalViewport);
+    syncModalViewport();
+  }
+  function detachViewportSync() {
+    if (!viewportSynced || !window.visualViewport) return;
+    viewportSynced = false;
+    window.visualViewport.removeEventListener('resize', syncModalViewport);
+    window.visualViewport.removeEventListener('scroll', syncModalViewport);
+    if (modal) { modal.style.top = ''; modal.style.height = ''; modal.style.bottom = ''; }
+  }
+
   function openPicker(mode) {
     pickerMode = mode;
     lockScroll();
     modal.classList.add('open');
+    attachViewportSync();
     modalTitle.textContent = mode === 'hero' ? 'Chọn hero' : 'Chọn pet';
     modalSearch.value = '';
     modalSearch.placeholder = mode === 'hero' ? 'Tìm hero theo tên… (gõ không dấu vẫn ra)' : 'Tìm pet theo tên… (gõ không dấu vẫn ra)';
     renderPickerList('');
-    modalSearch.focus({ preventScroll: true });
+    // no autofocus: focusing the search would pop the virtual keyboard
+    // up the moment the popup opens (fix 2026-11-20)
   }
   function closePicker() {
     if (!modal.classList.contains('open')) return;
     modal.classList.remove('open');
+    detachViewportSync();
     unlockScroll();
   }
 
@@ -207,12 +255,25 @@
     }
     if (count === 0) html += '<p class="ec-empty">Không tìm thấy. Thử gõ tên khác (không dấu vẫn ra).</p>';
     modalList.innerHTML = html;
+    capGridRows();
     $$('.ec-tile', modalList).forEach(function (t) {
       t.addEventListener('click', function () {
         if (pickerMode === 'hero') selectHero(heroesById[t.dataset.id]);
         else selectPet(data.pets.filter(function (p) { return p.id === t.dataset.id; })[0]);
         closePicker();
       });
+    });
+  }
+
+  /* Hero/pet grid shows at most 2 rows; more scrolls inside the grid
+     (fix 2026-11-20). The cap is measured from the real tile height so
+     it is exactly 2 rows at any width, and the panel top never moves
+     while the user types — only the grid content changes. */
+  function capGridRows() {
+    $$('.ec-grid', modalList).forEach(function (grid) {
+      var tile = grid.querySelector('.ec-tile');
+      if (!tile) return; // no results: keep the previous cap
+      grid.style.maxHeight = (tile.offsetHeight * 2 + 8) + 'px';
     });
   }
 
@@ -329,11 +390,12 @@
     pickerMode = 'skill';
     lockScroll();
     modal.classList.add('open');
+    attachViewportSync();
     modalTitle.textContent = 'Chọn skill — ' + state.hero.name;
     modalSearch.value = '';
     modalSearch.placeholder = 'Tìm skill theo tên…';
     renderSkillList('');
-    modalSearch.focus({ preventScroll: true });
+    // no autofocus here either — keyboard only when the user taps the input
   }
   function renderSkillList(q) {
     var nq = norm(q);
@@ -429,9 +491,8 @@
   function recalc() {
     var t = totals(state, data);
     // attacker summary
-    var hasDeath = state.skillKey && state.hero && state.hero.skills[state.skillKey] &&
-      state.hero.skills[state.skillKey].debuffs.some(function (d) { return d.effect === 'Death'; });
-    var atkProbTotal = t.atkProb + (hasDeath ? t.deathBoost : 0);
+    var skillDeath = skillHasDeath(state.hero, state.skillKey);
+    var atkProbTotal = t.atkProb + (skillDeath ? t.deathBoost : 0);
     $('#ec-sum-hit').innerHTML =
       '<span>Thanh trượt +' + state.sliders.hit + '%</span>' +
       (t.petHit ? '<span>Pet +' + t.petHit + '%</span>' : '') +
@@ -441,7 +502,7 @@
       '<span>Thanh trượt +' + state.sliders.prob + '%</span>' +
       (t.petProb ? '<span>Pet +' + t.petProb + '%</span>' : '') +
       (t.probBoost ? '<span>Effect Probability Boost +' + t.probBoost + '%</span>' : '') +
-      (hasDeath && t.deathBoost ? '<span>Death Effect Probability Boost +' + t.deathBoost + '% <small>(chỉ Death)</small></span>' : '') +
+      (skillDeath && t.deathBoost ? '<span>Death Effect Probability Boost +' + t.deathBoost + '% <small>(chỉ Death)</small></span>' : '') +
       '<b>Tổng: ' + atkProbTotal + '%</b>';
     // opponent summary
     $('#ec-sum-res').innerHTML =
@@ -453,11 +514,13 @@
       (t.probRed ? '<span>Effect Probability Reduction ' + t.probRed + '%</span>' : '<span>Không có</span>') +
       '<b>Tổng: ' + t.probRed + '%</b>';
 
-    // death checkbox availability
+    // death checkbox availability — hero-level: enabled as soon as the
+    // hero has any Death debuff, even before a skill is picked
     var deathCb = $('#ec-check-deathBoost');
-    deathCb.disabled = !hasDeath;
-    if (!hasDeath && state.checks.deathBoost) { state.checks.deathBoost = false; deathCb.checked = false; }
-    $('#ec-check-deathBoost-wrap').classList.toggle('ec-off', !hasDeath);
+    var heroDeath = heroHasDeath(state.hero);
+    deathCb.disabled = !heroDeath;
+    if (!heroDeath && state.checks.deathBoost) { state.checks.deathBoost = false; deathCb.checked = false; }
+    $('#ec-check-deathBoost-wrap').classList.toggle('ec-off', !heroDeath);
 
     // result
     var res = $('#ec-result');
@@ -525,6 +588,11 @@
     modalSearch.addEventListener('input', function () {
       if (pickerMode === 'skill') renderSkillList(modalSearch.value);
       else renderPickerList(modalSearch.value);
+    });
+    // orientation change / window resize while the picker is open:
+    // tile width changes, so re-measure the 2-row cap
+    window.addEventListener('resize', function () {
+      if (modal && modal.classList.contains('open') && pickerMode !== 'skill') capGridRows();
     });
     ['hitBoost', 'resRed', 'probBoost', 'deathBoost', 'resBoost', 'probRed'].forEach(function (k) {
       var cb = document.querySelector('[data-check="' + k + '"]');

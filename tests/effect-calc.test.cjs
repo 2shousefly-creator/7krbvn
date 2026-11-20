@@ -131,6 +131,25 @@ test('data: every debuff chance is max-enhanced (max >= base) and 1..100; passiv
   }
 });
 
+test('data: heroHasDeath / skillHasDeath — Death checkbox enables at hero level', () => {
+  const data = loadData();
+  const byId = Object.fromEntries(data.heroes.map(h => [h.id, h]));
+  // Kris inflicts Death (S1 60/30, basic 20) — hero- and skill-level true
+  assert.equal(calc.heroHasDeath(byId.kris), true);
+  assert.equal(calc.skillHasDeath(byId.kris, 's1'), true);
+  assert.equal(calc.skillHasDeath(byId.kris, 'basic'), true);
+  // Shinobu awakened inflicts Death, her other skills do not
+  assert.equal(calc.heroHasDeath(byId['shinobu-kocho']), true);
+  assert.equal(calc.skillHasDeath(byId['shinobu-kocho'], 'awakened'), true);
+  assert.equal(calc.skillHasDeath(byId['shinobu-kocho'], 's1'), false);
+  // Rudy and Gelidus have no Death anywhere
+  assert.equal(calc.heroHasDeath(byId.rudy), false);
+  assert.equal(calc.skillHasDeath(byId.rudy, 's1'), false);
+  assert.equal(calc.heroHasDeath(byId.gelidus), false);
+  assert.equal(calc.heroHasDeath(null), false);
+  assert.equal(calc.skillHasDeath(byId.kris, null), false);
+});
+
 test('data: known spot values — Rudy Stun 65, Kris Death 60, Spike Freeze split', () => {
   const data = loadData();
   const byId = Object.fromEntries(data.heroes.map(h => [h.id, h]));
@@ -255,6 +274,13 @@ test('script: no formula line in results; sticky bar + locked auto rows present'
   assert.ok(js.includes('Luôn áp dụng'), 'always-active debuffs must show the tag');
   assert.ok(js.includes('lockScroll'), 'picker must lock page scroll (item 4)');
   assert.ok(!js.includes('ec-hero-settings-hint'), 'dead hint reference must be removed');
+  // 2026-11-20 round 2: Death enables at hero level; no autofocus;
+  // visualViewport pinning keeps the popup out of the header/keyboard;
+  // hero grid capped at 2 rows.
+  assert.ok(js.includes('heroHasDeath'), 'Death enablement must be hero-level');
+  assert.ok(!js.includes('modalSearch.focus'), 'search must never autofocus (no auto keyboard)');
+  assert.ok(js.includes('visualViewport'), 'modal must pin to the visual viewport');
+  assert.ok(js.includes('capGridRows'), 'hero grid must be capped at 2 rows');
 });
 
 test('css: modal is 30% smaller and clears the sticky header', () => {
@@ -264,4 +290,13 @@ test('css: modal is 30% smaller and clears the sticky header', () => {
   assert.ok(css.includes('.ec-result-bar'), 'sticky bar styles must exist');
   assert.ok(!css.includes('.ec-intro'), 'dead intro rule must be removed');
   assert.ok(!css.includes('.ec-sec-desc'), 'dead section-desc rule must be removed');
+  // 2026-11-20 round 2: grid scrolls internally, panel never exceeds the modal
+  assert.ok(css.includes('.ec-grid { display: grid;'), 'grid rule must exist');
+  assert.ok(css.includes('overflow-y: auto; overscroll-behavior: contain;'), 'grid must scroll inside itself');
+  assert.ok(css.includes('max-height: 100%; overflow-y: auto;'), 'panel must fit the modal and scroll inside it');
+});
+
+test('page: viewport meta lets the keyboard resize content instead of covering it', () => {
+  const html = fs.readFileSync(path.join(root, 'xac-suat-hieu-ung.html'), 'utf8');
+  assert.ok(html.includes('interactive-widget=resizes-content'), 'viewport must opt into keyboard resizing');
 });
