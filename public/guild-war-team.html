@@ -189,6 +189,15 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 .card.def:hover{border-color:var(--danger)}
 .card.ctr{background:var(--ally-bg);border:2px solid var(--ally-line);box-shadow:0 6px 18px rgba(30,90,160,.16)}
 .card.ctr:hover{border-color:var(--magic)}
+/* Counter cards are smaller and tighter than defense cards: narrower grid,
+   less padding and smaller gaps between the rows, so more teams fit on
+   screen with less empty space. */
+.ctr-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
+.card.ctr{padding:8px}
+.card.ctr .card-top{gap:6px;margin-bottom:7px}
+.card.ctr .heroes{gap:4px}
+.card.ctr .hero .hn{margin-top:3px}
+.card.ctr .card-meta{gap:6px;margin-top:8px;padding-top:7px}
 .counter-block.ally{background:var(--ally-bg);border:2px solid var(--ally-line);box-shadow:0 8px 22px rgba(30,90,160,.16)}
 .def-block{background:var(--enemy-bg);border:1px solid var(--enemy-line);border-radius:var(--radius);padding:14px;margin-top:12px}
 .def-block .cb-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -500,7 +509,7 @@ function cardHTML(d, i){
 function counterCardHTML(c, i){
   var v = DATA.counters[c];
   return '<button class="card ctr" type="button" style="animation-delay:'+Math.min((i||0)*35,350)+'ms" data-counter="'+c+'">'
-    + '<div class="card-top"><span class="code">'+c+'</span><span class="gtag" style="color:var(--gold)">Đội hình khắc chế</span>'+ctrPropBadge(c)+'<span class="arr">Chi tiết ›</span></div>'
+    + '<div class="card-top"><span class="code">'+c+'</span>'+ctrPropBadge(c)+'<span class="arr">Chi tiết ›</span></div>'
     + heroesHTML(v)
     + '<div class="card-meta">' + formationSquares(v) + petMiniHTML(v)
     + '<span class="ccount">đánh được '+(beatsMap[c]||[]).length+' team thủ</span></div></button>';
@@ -523,7 +532,7 @@ function render(){
     if (cs.length){
       any = true;
       html += '<div class="group-head"><h2>Thư viện đội hình khắc chế</h2><span class="gcount">'+cs.length+' đội hình</span><span class="grule"></span></div>'
-        + '<div class="grid">' + cs.map(function(c, i){ return counterCardHTML(c, i); }).join("") + '</div>';
+        + '<div class="grid ctr-grid">' + cs.map(function(c, i){ return counterCardHTML(c, i); }).join("") + '</div>';
     }
   } else {
     GROUPS.forEach(function(g){
@@ -539,7 +548,7 @@ function render(){
       if (cs2.length){
         any = true;
         html += '<div class="group-head"><h2 style="color:var(--gold)">Đội hình khắc chế</h2><span class="gcount">'+cs2.length+' đội hình khớp tìm kiếm</span><span class="grule"></span></div>'
-          + '<div class="grid">' + cs2.map(function(c, i){ return counterCardHTML(c, i); }).join("") + '</div>';
+          + '<div class="grid ctr-grid">' + cs2.map(function(c, i){ return counterCardHTML(c, i); }).join("") + '</div>';
       }
     }
   }
@@ -901,37 +910,64 @@ function setTabAll(){
   document.querySelectorAll("#tabs [data-tab]").forEach(function(x){ x.setAttribute("aria-selected", x.getAttribute("data-tab") === "all" ? "true" : "false"); });
 }
 function pickHero(name){
+  if (renderTimer){ clearTimeout(renderTimer); renderTimer = null; }
   qInput.value = name; state.q = name;
   try { qInput.setSelectionRange(name.length, name.length); } catch (e) {}
   document.getElementById("qclear").style.visibility = "visible";
   setTabAll(); hideSuggest(); render();
+  restoreCaret(name.length, name.length);
 }
 function pickSuggest(kind, value){
+  if (renderTimer){ clearTimeout(renderTimer); renderTimer = null; }
   if (kind === "hero"){ pickHero(value); return; }
   if (kind === "pet"){
     qInput.value = value; state.q = value;
     try { qInput.setSelectionRange(value.length, value.length); } catch (e) {}
     document.getElementById("qclear").style.visibility = "visible";
-    setTabAll(); hideSuggest(); render(); return;
+    setTabAll(); hideSuggest(); render(); restoreCaret(value.length, value.length); return;
   }
   hideSuggest();
   if (kind === "def") openTeam(value); else openCounter(value);
 }
+var renderTimer = null;
+function restoreCaret(start, end){
+  if (document.activeElement !== qInput || start === null || end === null) return;
+  var len = qInput.value.length;
+  try { qInput.setSelectionRange(start, end); } catch (e) {}
+  /* iOS Safari can reset the caret to 0 again AFTER the layout settles (the
+     list below shrinks/grows when it re-renders). Only put it back when it
+     really sits at 0 and nothing was typed since — a later keystroke must
+     never be undone by a stale restore. */
+  requestAnimationFrame(function(){
+    if (document.activeElement === qInput && qInput.value.length === len && start !== 0 && qInput.selectionStart === 0){
+      try { qInput.setSelectionRange(start, end); } catch (e) {}
+    }
+  });
+}
+function scheduleRender(){
+  if (renderTimer) clearTimeout(renderTimer);
+  renderTimer = setTimeout(function(){
+    renderTimer = null;
+    var start = null, end = null;
+    try { start = qInput.selectionStart; end = qInput.selectionEnd; } catch (e) {}
+    render();
+    restoreCaret(start, end);
+  }, 150);
+}
 qInput.addEventListener("input", function(){
-  /* The keystroke already moved the caret; render() + showSuggest() then
-     rebuild the whole team list and the suggestion dropdown below the input,
-     and that layout churn can reset the caret to 0 on mobile browsers — so
-     save the caret first and put it back afterwards. The text itself is
+  /* The keystroke already moved the caret. The list render is debounced so
+     rapid typing no longer rebuilds the whole team list on every keystroke,
+     but showSuggest() still rebuilds the dropdown at once — and iOS Safari
+     can reset the caret to 0 after the layout settles, so restoreCaret()
+     puts it back now and once more on the next frame. The text itself is
      never reassigned here. */
   var start = null, end = null;
   try { start = qInput.selectionStart; end = qInput.selectionEnd; } catch (e) {}
   state.q = qInput.value.trim();
   document.getElementById("qclear").style.visibility = state.q ? "visible" : "hidden";
-  render();
   showSuggest();
-  if (document.activeElement === qInput && start !== null && end !== null){
-    try { qInput.setSelectionRange(start, end); } catch (e) {}
-  }
+  restoreCaret(start, end);
+  scheduleRender();
 });
 qInput.addEventListener("focus", showSuggest);
 qInput.addEventListener("blur", function(){ setTimeout(hideSuggest, 120); });
@@ -949,6 +985,7 @@ qInput.addEventListener("keydown", function(e){
   }
 });
 document.getElementById("qclear").addEventListener("click", function(){
+  if (renderTimer){ clearTimeout(renderTimer); renderTimer = null; }
   qInput.value = ""; state.q = ""; this.style.visibility = "hidden"; hideSuggest(); render(); qInput.focus();
 });
 

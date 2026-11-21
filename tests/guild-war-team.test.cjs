@@ -352,14 +352,39 @@ test('guild war logo fix + half-size cards (2026-11-21): .wrap padding scoped to
 test('guild war search caret (2026-11-21): typing must not jump the caret to 0', () => {
   assert.ok(html.includes('try { start = qInput.selectionStart; end = qInput.selectionEnd; } catch (e) {}'),
     'the input handler must save the caret before render() + showSuggest() rebuild the list and dropdown below the input');
-  assert.ok(html.includes('if (document.activeElement === qInput && start !== null && end !== null)'),
-    'the saved caret must be restored only when the input still has focus and a position was read');
-  assert.ok(html.includes('qInput.setSelectionRange(start, end)'),
-    'the input handler must put the caret back after the layout churn');
+  assert.ok(html.includes('function restoreCaret(start, end)'),
+    'a restoreCaret helper must exist — the round-1 sync-only restore did not hold on iOS, which can reset the caret again after the layout settles');
+  assert.ok(html.includes('requestAnimationFrame(function(){'),
+    'restoreCaret must put the caret back once more on the next frame, after any async iOS reset');
+  assert.ok(html.includes('qInput.selectionStart === 0'),
+    'the frame restore must only fire when the caret really sits at 0 — a later keystroke must never be undone by a stale restore');
+  assert.ok(html.includes('function scheduleRender(){') && html.includes('renderTimer = setTimeout'),
+    'the list render must be debounced on typing so rapid keystrokes no longer rebuild the whole team list every time');
+  assert.ok(html.includes('}, 150);'),
+    'the debounce delay must be 150ms — the list still updates a beat after the user pauses');
+  assert.ok(html.includes('showSuggest();\n  restoreCaret(start, end);\n  scheduleRender();'),
+    'the input handler must suggest immediately, restore the caret, and schedule (not run) the list render');
   assert.ok(html.includes('.search .clear{border:0;background:var(--chip);color:var(--ink2);border-radius:8px;padding:4px 10px;font-size:10.6px;font-weight:700;visibility:hidden}'),
     'the clear button must reserve its space with visibility (not display:none) so the input never changes width when the button appears mid-typing');
   assert.ok(!html.includes('style.display = "block"') && !html.includes('style.display = "none"'),
     'nothing may toggle the clear button with display anymore — a width change of the focused input is a caret-reset trigger on mobile browsers');
   assert.ok(html.includes('qInput.setSelectionRange(name.length, name.length)'),
     'after picking a hero suggestion the caret must sit at the end of the filled-in name');
+});
+
+test('guild war counter cards compact (2026-11-21): smaller, tighter, less whitespace', () => {
+  assert.ok(html.includes('.ctr-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}'),
+    'counter grids must be narrower than defense grids (140px vs 160px min) with a tighter gap');
+  assert.ok(html.includes("'<div class=\"grid ctr-grid\">' + cs.map") && html.includes("'<div class=\"grid ctr-grid\">' + cs2.map"),
+    'both counter grids (library tab and search results) must use ctr-grid — defense grids stay on the 160px grid');
+  assert.ok(html.includes('.card.ctr{padding:8px}'),
+    'counter cards must carry less padding (8px vs 10px)');
+  assert.ok(html.includes('.card.ctr .card-top{gap:6px;margin-bottom:7px}'),
+    'the counter card header row must be tighter (gap 6px, margin 7px)');
+  assert.ok(html.includes('.card.ctr .heroes{gap:4px}') && html.includes('.card.ctr .hero .hn{margin-top:3px}'),
+    'the counter hero row must be tighter (gap 4px, name margin 3px)');
+  assert.ok(html.includes('.card.ctr .card-meta{gap:6px;margin-top:8px;padding-top:7px}'),
+    'the counter card footer must be tighter (gap 6px, margins 8px/7px)');
+  assert.ok(html.includes("'<div class=\"card-top\"><span class=\"code\">'+c+'</span>'+ctrPropBadge(c)+'<span class=\"arr\">Chi tiết ›</span></div>'"),
+    'the counter card header must be just code + property badge + arrow — the per-card "Đội hình khắc chế" label is gone (the section header already says it and the blue card styling marks counter cards, so the label only wrapped the header row onto two lines; the detail sheet header at openCounter keeps its label)');
 });
