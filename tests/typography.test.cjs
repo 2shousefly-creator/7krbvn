@@ -122,6 +122,28 @@ test('typography: banner leads use the model 18px', () => {
     'total-war dark-banner lead must be 18px like the model (was 13.5px)');
 });
 
+test('typography: quick-summary content matches normal body text (2026-11-21)', () => {
+  // Two "Tóm tắt nhanh" shapes: .quick-cards (ruby-farming, chon-hero-banner,
+  // doi-hinh-hang-truoc-sau) and callout boxes with a <b>Tóm tắt nhanh:</b>
+  // label + list (cap-nhat-12-11, corridor). The descriptive content must
+  // read at body size (15px / 14px mobile); the card titles stay h3 size.
+  assert.ok(v3.includes('.quick-card small{font-size:15px'),
+    'quick-card descriptions must be 15px like article body (was 14px)');
+  assert.ok(v3.includes('.quick-card small{margin-top:3px;font-size:14px}'),
+    'quick-card descriptions must be 14px on mobile');
+  assert.ok(v3.includes('.quick-card strong{font-size:19px'),
+    'quick-card titles stay 19px (h3) — only the descriptive content syncs to body size');
+  assert.ok(v3.includes('.quick-card strong{font-size:17px}'),
+    'quick-card titles stay 17px on mobile');
+  for (const file of ['cap-nhat-12-11.html', 'corridor.html']) {
+    const html = read(file);
+    assert.ok(html.includes('<ul style="margin:6px 0 0;padding-left:20px;font-size:15px;line-height:1.7;color:#606a7e">'),
+      `${file}: the "Tóm tắt nhanh" callout list must be 15px like article body (was inline 15.6px)`);
+    assert.ok(!html.includes('font-size:15.6px'),
+      `${file}: no stale inline 15.6px may remain`);
+  }
+});
+
 test('typography: guild-war section headings and story pages match the model', () => {
   assert.ok(gw.includes('.group-head h2{font-size:25px'),
     'guild-war group headings must be 25px like article h2 (was 18.7px)');
