@@ -307,6 +307,9 @@ test('the guild war page has the site navigation with itself active', () => {
 test('the guild war page matches the site chrome: light-only, sticky nav, site footer, back-to-top', () => {
   assert.ok(!html.includes('prefers-color-scheme'), 'guild war page must not flip to dark from the system theme');
   assert.ok(!html.includes('snav-'), 'guild war page must not keep its old separate nav (unified 2026-11-21)');
+  assert.ok(!html.includes('fp-btn') && !html.includes('fp-src') && !html.includes('fanpage-row'),
+    'guild war page must not keep its content-header Fanpage button or source line (removed 2026-11-21)');
+  assert.ok(!html.includes('Truy cập fanpage'), 'guild war page must not link out to the fanpage from its content header');
   assert.ok(html.includes('href="styles-v3.css"'), 'guild war page must load the shared base stylesheet');
   assert.ok(html.includes('href="site-nav.css"'), 'guild war page must load the shared nav stylesheet');
   const navCss = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');

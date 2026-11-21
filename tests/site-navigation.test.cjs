@@ -450,3 +450,13 @@ test('arena team display is mobile-first: hero names half size on mobile', () =>
   assert.ok(css.includes('.at-heroes{gap:8px}'),
     'team portrait rows must tighten their gaps on mobile');
 });
+
+test('mobile menu items are ruled like notebook paper: a line under every row', () => {
+  const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(css.includes('.main-nav.open a{display:block;padding:11px 12px;font-size:13px;border-bottom:1px solid #e9e2cf'),
+    'mobile menu links must carry a ruled line underneath');
+  assert.ok(css.includes('.main-nav.open .nav-parent{display:flex;width:100%;justify-content:space-between;padding:11px 12px;font-size:13px;border-bottom:1px solid #e9e2cf'),
+    'mobile submenu parent buttons must carry a ruled line underneath');
+  assert.ok(css.includes('.main-nav.open .nav-item.open .nav-parent{border-bottom:0}'),
+    'an open parent must let the gold divider replace its row line');
+});
