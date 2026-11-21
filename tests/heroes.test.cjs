@@ -527,3 +527,16 @@ test('empty main-stat lines are hidden and fully-empty builds hide the whole gea
   assert.deepEqual(aoe.gear.weapon, ['Crit', 'CritDMG'], 'Sunran AOE Slasher weapon must have main stats');
   assert.deepEqual(aoe.gear.armor, [], 'Sunran AOE Slasher armor must be empty');
 });
+
+test('heroes page has a representative banner like the other listing pages', () => {
+  const html = read('heroes.html');
+  assert.ok(html.includes('<section class="blog-intro">'),
+    'heroes.html must open with a blog-intro banner');
+  assert.ok(html.includes('SEVEN KNIGHTS RE:BIRTH · HEROES'),
+    'heroes banner must carry the HEROES kicker');
+  assert.ok(html.includes('<h1>Heroes</h1>'), 'heroes banner must keep the Heroes title');
+  assert.ok(html.includes('assets/hero-ace.webp'), 'heroes banner must show Ace');
+  assert.ok(html.includes('assets/hero-eve.webp'), 'heroes banner must show Eve');
+  assert.ok(!html.includes('class="blog-title"'), 'heroes.html must not keep the old plain title');
+  assert.ok(!html.includes('class="blog-lead"'), 'heroes.html must not keep the old plain lead');
+});

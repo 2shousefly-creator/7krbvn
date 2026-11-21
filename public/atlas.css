@@ -94,7 +94,7 @@
 .at-notes{font-size:15px;color:#4a5160;line-height:1.7;margin:16px 0 0}
 .at-petsline{font-size:14px;color:#4a5160;line-height:1.7;margin:10px 0 0}
 .at-petsline b{color:#202638}
-@media(max-width:680px){.at-hero-cell{width:calc(33.33% - 8px)}.at-portrait,.at-portrait img{width:64px;height:64px}}
+@media(max-width:680px){.at-hero-cell{width:calc(33.33% - 8px)}.at-portrait,.at-portrait img{width:64px;height:64px}.at-hero-cell b{font-size:7.5px}.at-team{padding:14px}.at-team-head h3{font-size:18px;min-width:0}.at-heroes{gap:8px}}
 
 /* ---------- pet options ---------- */
 .at-pets{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}

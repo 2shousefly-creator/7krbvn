@@ -193,9 +193,11 @@ test('popups sit above the sticky site header (build -21 z-index fix)', () => {
     assert.ok(m, sel + ' must declare a z-index');
     return Number(m[1]);
   };
-  const snav = 200; // .snav-bar{position:sticky;top:0;z-index:200} (site chrome)
-  assert.ok(html.includes('.snav-bar{position:sticky;top:0;z-index:200'), 'site header must stay sticky at z-200');
-  assert.ok(z('.overlay') > snav, 'team sheet overlay must sit above the site header');
+  const navCss = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(navCss.includes('.site-header{position:sticky;top:0;z-index:200'),
+    'site header must stay sticky at z-200');
+  const header = 200;
+  assert.ok(z('.overlay') > header, 'team sheet overlay must sit above the site header');
   assert.ok(z('.poverlay') > z('.overlay'), 'skill panel overlay must sit above the team sheet');
   assert.ok(z('.poverlay') < 400, 'skill panel must stay below the hero popup (hx-modal z-400)');
   assert.equal(z('.overlay'), 300);
@@ -299,12 +301,19 @@ test('the guild war page has the site navigation with itself active', () => {
     'castle-rush.html', 'raid.html', 'celestial-tower.html', 'tower-of-trials.html', 'arena.html']) {
     assert.ok(html.includes(`href="${target}"`), `missing nav link ${target}`);
   }
-  assert.ok(html.includes('class="snav-active"'), 'guild war team must be the active nav item');
+  assert.ok(html.includes('class="nav-active"'), 'guild war team must be the active nav item');
 });
 
 test('the guild war page matches the site chrome: light-only, sticky nav, site footer, back-to-top', () => {
   assert.ok(!html.includes('prefers-color-scheme'), 'guild war page must not flip to dark from the system theme');
-  assert.ok(html.includes('.snav-bar{position:sticky;top:0;z-index:200'), 'guild war nav must stay sticky like the site header');
+  assert.ok(!html.includes('snav-'), 'guild war page must not keep its old separate nav (unified 2026-11-21)');
+  assert.ok(html.includes('href="styles-v3.css"'), 'guild war page must load the shared base stylesheet');
+  assert.ok(html.includes('href="site-nav.css"'), 'guild war page must load the shared nav stylesheet');
+  const navCss = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(navCss.includes('.site-header{position:sticky;top:0;z-index:200'),
+    'guild war header must stay sticky like the site header');
+  assert.ok(html.includes('class="site-header"'), 'guild war page must use the standard site header');
+  assert.ok(html.includes('.hero{display:block'), 'guild war team-hero cells must stay blocks (not the styles-v3 banner grid)');
   assert.ok(html.includes('class="site-footer"'), 'guild war page must use the standard site footer');
   assert.ok(html.includes('Meta v2026.11.17-23'), 'the meta build version must survive the footer swap');
   assert.ok(html.includes('class="back-to-top"'), 'guild war page must have a back-to-top button');

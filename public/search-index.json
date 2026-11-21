@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-20T11:26:20.350295+00:00",
+ "generated": "2026-11-21T02:21:30.047328+00:00",
  "counts": {
   "pages": 246,
   "heroes": 125,
@@ -314,7 +314,7 @@
    "title": "Arena | 7K RBVN",
    "url": "arena.html",
    "group": "mode",
-   "desc": "Đội hình Arena PvP: 16 đội Attack, Magic, Tank và Hybrid, kèm thứ tự auto skill, pet và hero thay thế.",
+   "desc": "Đội hình Arena PvP theo tổng hợp của: 13 đội Attack, Magic, Tank, Hybrid và Universal, kèm thứ tự auto skill, pet và hero thay thế.",
    "headings": [
     "Meta Prime",
     "Meta Lineups",
@@ -1514,7 +1514,7 @@
    "desc": "Tra cứu tất cả hero Seven Knights Re:Birth: kỹ năng, chỉ số, trang bị, phụ kiện và trang bị riêng.",
    "headings": [],
    "keys": "Heroes",
-   "img": ""
+   "img": "assets/hero-ace.webp"
   },
   {
    "title": "Effect Hit Rate vs Effect Resistance | 7K RBVN",

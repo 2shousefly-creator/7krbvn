@@ -150,7 +150,7 @@ test('search page: template, live search box, groups, empty state and dialog', (
     'so-sanh.html', 'tinh-ruby.html', 'doi-coupon.html']) {
     assert.ok(html.includes(`href="${target}"`), `tim-kiem.html is missing nav link ${target}`);
   }
-  assert.equal((html.match(/class="(?:snav-active|nav-active)" href="/g) || []).length, 1,
+  assert.equal((html.match(/class="nav-active" href="/g) || []).length, 1,
     'tim-kiem.html must have exactly one active nav item');
   assert.ok(html.includes('class="nav-active" href="heroes.html"'),
     'tim-kiem.html must highlight HEROES in the nav');
@@ -185,11 +185,11 @@ test('search index: every entry carries a thumbnail image, or falls back to a gr
       }
     } else noImg.push(e.url);
   }
-  assert.equal(withImg, 649, `649 of 655 entries must carry an image, got ${withImg}`);
+  assert.equal(withImg, 650, `650 of 655 entries must carry an image, got ${withImg}`);
   // Only the JS-rendered pages with no static image fall back to an icon.
-  assert.deepEqual(noImg.sort(), ['guild-war-team.html', 'hero.html', 'heroes.html',
+  assert.deepEqual(noImg.sort(), ['guild-war-team.html', 'hero.html',
     'tier-list.html', 'tim-kiem.html', 'xac-suat-hieu-ung.html'],
-    'only the six image-less pages may fall back to a group icon');
+    'only the five image-less pages may fall back to a group icon');
   // Story chapters inherit their Act page image.
   const chapters = index.entries.filter(e => e.desc.startsWith('Cốt truyện · Act'));
   assert.equal(chapters.length, 284, '284 story chapters must be indexed');
@@ -260,4 +260,33 @@ test('home dropdown: live results reuse the same ranking and rows, capped and gr
   assert.equal(search.dropdownResults(ruby).length, ruby.length, 'short lists must render in full');
   assert.equal(search.dropdownResults(ruby)[0].url, 'ruby-farming.html',
     'dropdown must keep the Ruby Farming guide first for "ruby"');
+});
+
+test('search placeholders are short and simple (no "không dấu" note)', () => {
+  // Every search input placeholder must be a short label — the
+  // "gõ không dấu vẫn ra" note was removed from all of them (2026-11-21).
+  for (const file of htmlFiles) {
+    const html = read(file);
+    for (const m of html.matchAll(/placeholder="([^"]*)"/g)) {
+      assert.ok(!m[1].includes('không dấu'),
+        `${file} placeholder must not mention diacritic-free search: ${m[1]}`);
+    }
+  }
+  for (const file of fs.readdirSync(root).filter(f => f.endsWith('.js'))) {
+    const js = read(file);
+    for (const m of js.matchAll(/placeholder\s*=\s*'([^']*)'/g)) {
+      assert.ok(!m[1].includes('không dấu'),
+        `${file} placeholder must not mention diacritic-free search: ${m[1]}`);
+    }
+  }
+  assert.ok(read('tier-list.html').includes('placeholder="Tìm hero theo tên…"'),
+    'tier list search must be a short label');
+  assert.ok(read('tu-dien-hieu-ung.html').includes('placeholder="Tìm hiệu ứng…"'),
+    'glossary search must be a short label');
+  assert.ok(read('arena.html').includes('placeholder="Tìm đội có hero…"'),
+    'arena search must be a short label');
+  assert.ok(read('total-war.html').includes('placeholder="Tìm đội có hero…"'),
+    'total war search must be a short label');
+  assert.ok(read('guild-war-team.html').includes('placeholder="Tìm tướng, mã team, pet…"'),
+    'guild war search must be a short label');
 });

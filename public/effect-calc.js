@@ -155,7 +155,7 @@
     modal.classList.add('open');
     modalTitle.textContent = mode === 'hero' ? 'Chọn hero' : 'Chọn pet';
     modalSearch.value = '';
-    modalSearch.placeholder = mode === 'hero' ? 'Tìm hero theo tên… (gõ không dấu vẫn ra)' : 'Tìm pet theo tên… (gõ không dấu vẫn ra)';
+    modalSearch.placeholder = mode === 'hero' ? 'Tìm hero theo tên…' : 'Tìm pet theo tên…';
     renderPickerList('');
     // no autofocus: focusing the search would pop the virtual keyboard
     // up the moment the popup opens (fix 2026-11-20)

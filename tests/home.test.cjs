@@ -288,15 +288,8 @@ test('mobile menu button: MENU text sits inside the toggle on every page', () =>
     'the open-state X animation must target the icon lines, not the label');
   for (const file of pages) {
     const html = page(file);
-    if (file === 'guild-war-team.html') {
-      assert.ok(html.includes('<span class="snav-toggle-label">MENU</span>'),
-        'guild-war-team.html snav toggle must show MENU');
-      assert.ok(html.includes('.snav-toggle-label{font-size:11px'),
-        'guild-war-team.html must style its MENU label');
-    } else {
-      assert.ok(html.includes('<span class="nav-toggle-label">MENU</span>'),
-        `${file} toggle must show MENU`);
-    }
+    assert.ok(html.includes('<span class="nav-toggle-label">MENU</span>'),
+      `${file} toggle must show MENU`);
   }
 });
 

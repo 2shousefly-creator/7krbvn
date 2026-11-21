@@ -31,13 +31,23 @@ function loadSkillCard() {
 }
 const SkillCard = loadSkillCard();
 
-test('compare page: pickers, swap, share link, result area and scripts', () => {
+test('compare page: pickers, swap, result area and scripts', () => {
   const html = read('so-sanh.html');
   assert.ok(html.includes('id="cp-search-a"'), 'so-sanh.html needs the first hero picker');
   assert.ok(html.includes('id="cp-search-b"'), 'so-sanh.html needs the second hero picker');
   assert.ok(html.includes('id="cp-swap"'), 'so-sanh.html needs the swap button');
   assert.ok(html.includes('id="cp-result"'), 'so-sanh.html needs the result container');
-  assert.ok(html.includes('id="cp-copy-link"'), 'so-sanh.html needs the copy-share-link button');
+  // Removed 2026-11-21: no copy-share-link button and no instruction note
+  // in the picker area — the page URL still updates to the shareable
+  // so-sanh.html?a=..&b=.. deep link as heroes are picked.
+  assert.ok(!html.includes('id="cp-copy-link"'), 'so-sanh.html must not keep the copy-share-link button');
+  assert.ok(!html.includes('cp-actions'), 'so-sanh.html must not keep the copy actions row');
+  assert.ok(!html.includes('Chọn 2 hero ở trên để xem so sánh chi tiết'),
+    'so-sanh.html must not keep the picker instruction note');
+  assert.ok(!html.includes('so-sanh.html?a=eve'), 'so-sanh.html must not advertise the deep-link format in a note');
+  const js = read('compare.js');
+  assert.ok(!js.includes('cp-copy-link'), 'compare.js must not wire the removed copy button');
+  assert.ok(!js.includes('Chọn 2 hero ở trên'), 'compare.js must not re-render the removed instruction note');
   assert.ok(html.includes('href="compare.css"'), 'so-sanh.html must load compare.css');
   assert.ok(html.includes('src="compare.js"'), 'so-sanh.html must load compare.js');
   assert.ok(html.includes('src="skill-card.js"'), 'so-sanh.html must load skill-card.js for skill text formatting');

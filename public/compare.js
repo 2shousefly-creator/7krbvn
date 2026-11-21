@@ -804,8 +804,6 @@
     var pickedA = document.getElementById('cp-picked-a');
     var pickedB = document.getElementById('cp-picked-b');
     var resultEl = document.getElementById('cp-result');
-    var copyBtn = document.getElementById('cp-copy-link');
-    var copyMsg = document.getElementById('cp-copy-msg');
 
     function findById(id) {
       for (var i = 0; i < INDEX.length; i++) if (INDEX[i].id === id) return INDEX[i];
@@ -836,7 +834,7 @@
 
     function renderCompare(heroA, heroB) {
       if (!heroA && !heroB) {
-        resultEl.innerHTML = '<p class="cp-empty">Chọn 2 hero ở trên để xem so sánh chi tiết: chỉ số 6★ và Thức tỉnh với thanh tỉ lệ, toàn bộ nội dung kỹ năng bằng tiếng Việt, xếp hạng theo chế độ, build chính và trang bị riêng. Gõ không dấu vẫn tìm được — ví dụ gõ “eve” hoặc “judas”. Có thể mở thẳng link dạng so-sanh.html?a=eve&amp;b=judas để xem cặp đã chọn sẵn.</p>';
+        resultEl.innerHTML = '';
         return;
       }
       resultEl.innerHTML = renderCompareHtml(heroA, heroB, null, portraitFor);
@@ -927,16 +925,6 @@
       sel = swapSelection(sel);
       renderPicked('a'); renderPicked('b');
       refresh();
-    });
-
-    if (copyBtn) copyBtn.addEventListener('click', function () {
-      var url = window.location.href;
-      function done() { copyMsg.textContent = 'Đã sao chép link!'; setTimeout(function () { copyMsg.textContent = ''; }, 2500); }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(done, function () { copyMsg.textContent = 'Không sao chép được — copy link trên thanh địa chỉ nhé.'; });
-      } else {
-        copyMsg.textContent = 'Copy link trên thanh địa chỉ nhé.';
-      }
     });
 
     wirePicker('a');

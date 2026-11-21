@@ -48,7 +48,7 @@ test('story nav: hub and act pages highlight CỐT TRUYỆN in the menu', () => 
     const html = page(file);
     assert.ok(html.includes('<a class="nav-active" href="cot-truyen.html" aria-current="page">CỐT TRUYỆN</a>'),
       `${file} must highlight CỐT TRUYỆN in the nav`);
-    assert.equal((html.match(/class="(?:snav-active|nav-active)" href="/g) || []).length, 1,
+    assert.equal((html.match(/class="nav-active" href="/g) || []).length, 1,
       `${file} must have exactly one active nav item`);
     assert.ok(html.includes('href="cot-truyen.html"'), `${file} must link the story hub`);
   }

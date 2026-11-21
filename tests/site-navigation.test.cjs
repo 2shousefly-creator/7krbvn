@@ -28,13 +28,11 @@ const pages = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 
 function navBlock(html) {
   const i = html.indexOf('<nav class="main-nav"');
-  if (i >= 0) return html.slice(i, html.indexOf('</nav>', i));
-  const j = html.indexOf('snav-links">');
-  return html.slice(j, html.indexOf('</div>', j));
+  return html.slice(i, html.indexOf('</nav>', i));
 }
 
 function parentActiveCount(html) {
-  return (html.match(/class="[^"]*(?:nav|snav)-parent-active[^"]*"/g) || []).length;
+  return (html.match(/class="[^"]*nav-parent-active[^"]*"/g) || []).length;
 }
 
 test('every page carries the hierarchical navigation with exactly one active item', () => {
@@ -75,16 +73,13 @@ test('nav order: top-level groups and submenu orders follow the 2026-11-20 regro
   const positions = order.map(t => nav.indexOf(t));
   assert.ok(positions.every(i => i >= 0), 'every nav label must be present in order');
   assert.deepEqual([...positions].sort((a, b) => a - b), positions, 'nav labels must run in the regrouped order');
-  // Guild War's own snav mirrors the same order and grouping. Its links
-  // container holds nested dropdown divs, so the end boundary is the
-  // fanpage link (same boundary rebuild_snav.py uses) — not the first
-  // closing div, which would cut the block off inside the PVE submenu.
+  // Guild War's nav is the standard nav (unified 2026-11-21), so the same
+  // order check applies to its nav block.
   const gw = fs.readFileSync(path.join(root, 'guild-war-team.html'), 'utf8');
-  const gwStart = gw.indexOf('snav-links">');
-  const gwNav = gw.slice(gwStart, gw.indexOf('</div><a class="snav-fp"', gwStart));
+  const gwNav = navBlock(gw);
   const gwPositions = order.map(t => gwNav.indexOf(t));
-  assert.ok(gwPositions.every(i => i >= 0), 'guild-war snav must carry the same nav labels');
-  assert.deepEqual([...gwPositions].sort((a, b) => a - b), gwPositions, 'guild-war snav must run in the same order');
+  assert.ok(gwPositions.every(i => i >= 0), 'guild-war nav must carry the same nav labels');
+  assert.deepEqual([...gwPositions].sort((a, b) => a - b), gwPositions, 'guild-war nav must run in the same order');
 });
 
 test('every internal page link resolves to an existing file', () => {
@@ -169,9 +164,9 @@ test('no auto dark mode: no page may flip to dark from the system theme', () => 
 
 test('Atlas layout (light): Arena and Total War use the Atlas structure with real portraits', () => {
   // team counts come from the Atlas compilations themselves:
-  // Arena 16 teams (Attack 4, Magic 4, Tank 6, Hybrid 2) with 3 Meta Prime;
+  // Arena 13 teams (Attack 4, Magic 2, Tank 3, Hybrid 2, Universal 2) with 2 Meta Prime;
   // Total War 16 teams (Physical 3, Magic 4, Tank 5, Universal 1, Death 3) with 4 Meta Prime.
-  const expected = { 'arena.html': { teams: 16, primes: 3 }, 'total-war.html': { teams: 16, primes: 4 } };
+  const expected = { 'arena.html': { teams: 13, primes: 2 }, 'total-war.html': { teams: 16, primes: 4 } };
   for (const [file, exp] of Object.entries(expected)) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     assert.ok(html.includes('href="atlas.css"'), `${file} must load the Atlas-layout stylesheet`);
@@ -317,13 +312,8 @@ test('dropdown menus: PVE/PVP open on hover, focus and click on desktop, tap on 
   assert.ok(css.includes('.nav-parent-active'), 'an active child must highlight its parent');
   for (const file of pages) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    if (file === 'guild-war-team.html') {
-      assert.ok(html.includes('class="snav-parent"'), 'guild-war-team.html must have snav parent buttons');
-      assert.ok(html.includes("querySelectorAll('.snav-parent')"), 'guild-war-team.html must wire the snav dropdowns');
-    } else {
-      assert.ok(html.includes('class="nav-parent"'), `${file} must have dropdown parent buttons`);
-      assert.ok(html.includes("querySelectorAll('.nav-parent')"), `${file} must wire the dropdowns`);
-    }
+    assert.ok(html.includes('class="nav-parent"'), `${file} must have dropdown parent buttons`);
+    assert.ok(html.includes("querySelectorAll('.nav-parent')"), `${file} must wire the dropdowns`);
   }
 });
 
@@ -334,16 +324,10 @@ test('mobile hamburger menu: every page has a collapsible nav toggle', () => {
   assert.ok(css.includes('.main-nav.open .nav-scroll'), 'open nav must lay out as a vertical column');
   for (const file of pages) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    if (file === 'guild-war-team.html') {
-      assert.ok(html.includes('class="snav-toggle"'), 'guild-war-team.html must have its hamburger toggle');
-      assert.ok(html.includes("querySelector('.snav-toggle')"), 'guild-war-team.html must wire the toggle');
-      assert.ok(html.includes('.snav-bar.open .snav-links'), 'guild-war-team.html must style the open dropdown');
-    } else {
-      assert.ok(html.includes('class="nav-toggle"'), `${file} must have a hamburger toggle`);
-      assert.ok(html.includes('id="site-nav"'), `${file} nav must have the id the toggle controls`);
-      assert.ok(html.includes("getElementById('site-nav')"), `${file} must wire the toggle`);
-      assert.ok(html.includes('aria-expanded="false"'), `${file} toggle must start collapsed`);
-    }
+    assert.ok(html.includes('class="nav-toggle"'), `${file} must have a hamburger toggle`);
+    assert.ok(html.includes('id="site-nav"'), `${file} nav must have the id the toggle controls`);
+    assert.ok(html.includes("getElementById('site-nav')"), `${file} must wire the toggle`);
+    assert.ok(html.includes('aria-expanded="false"'), `${file} toggle must start collapsed`);
   }
 });
 
@@ -410,4 +394,59 @@ test('no page may reuse the same id twice (getElementById returns the first matc
       seen.add(id);
     }
   }
+});
+
+test('dropdown carets are big and a gold rule separates parent from children', () => {
+  const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(css.includes('.nav-caret{font-size:13px'),
+    'dropdown carets must be 13px (was 9px) so players can see there is a submenu');
+  assert.ok(css.includes('border-top:3px solid #e8c16c'),
+    'desktop dropdown must open under a gold notebook-rule divider');
+  assert.ok(css.includes('.main-nav.open .nav-sub{position:static;display:none;box-shadow:none;border:0;border-top:2px solid #e8c16c'),
+    'mobile dropdown must open under a gold divider too');
+});
+
+test('header: no Fanpage button, logo centered and bigger', () => {
+  for (const file of pages) {
+    const html = fs.readFileSync(path.join(root, file), 'utf8');
+    assert.ok(!html.includes('fanpage-link'), `${file} must not keep the header Fanpage button`);
+    assert.ok(!html.includes('snav-fp'), `${file} must not keep the guild-war Fanpage button`);
+    assert.ok(html.includes('class="brand"'), `${file} must keep the site logo`);
+  }
+  const base = fs.readFileSync(path.join(root, 'styles-v3.css'), 'utf8');
+  assert.ok(!base.includes('.fanpage-link'), 'styles-v3.css must not style the removed Fanpage button');
+  assert.ok(base.includes('.brand-mark{width:48px;height:48px'),
+    'logo mark must be 48px (was 42px)');
+  assert.ok(base.includes('.brand-name{font-size:14px'),
+    'logo name must be 14px (was 12px)');
+  const nav = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(nav.includes('.site-header .header-inner{gap:20px;justify-content:center'),
+    'header must center the logo now the Fanpage button is gone');
+  assert.ok(nav.includes('.nav-toggle{') && nav.includes('position:absolute;right:14px'),
+    'mobile MENU button must sit absolute at the header right so the logo stays centered');
+});
+
+test('page entrance animations: main slides in, banners fade, reduced motion opts out', () => {
+  const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  assert.ok(css.includes('@keyframes page-in'), 'site-nav.css must define the page entrance keyframes');
+  assert.ok(css.includes('main{animation:page-in'), 'every page must animate in on load');
+  assert.ok(css.includes('.blog-intro,.hero,.at-hero{animation:banner-in'),
+    'banners must fade in on page entry');
+  assert.ok(css.includes('@media (prefers-reduced-motion: reduce)'),
+    'reduced-motion users must skip the animations');
+  assert.ok(css.includes('animation:none'), 'reduced-motion must turn the animations off');
+});
+
+test('arena team display is mobile-first: hero names half size on mobile', () => {
+  const css = fs.readFileSync(path.join(root, 'atlas.css'), 'utf8');
+  assert.ok(css.includes('.at-hero-cell b{display:block;font-size:15px'),
+    'hero names must be 15px on desktop');
+  assert.ok(css.includes('.at-hero-cell b{font-size:7.5px'),
+    'hero names must be half size (7.5px) on mobile');
+  assert.ok(css.includes('.at-team{padding:14px}'),
+    'team cards must tighten their padding on mobile');
+  assert.ok(css.includes('.at-team-head h3{font-size:18px;min-width:0}'),
+    'team titles must shrink and wrap freely on mobile');
+  assert.ok(css.includes('.at-heroes{gap:8px}'),
+    'team portrait rows must tighten their gaps on mobile');
 });
