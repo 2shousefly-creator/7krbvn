@@ -322,3 +322,14 @@ test('the guild war page matches the site chrome: light-only, sticky nav, site f
   assert.ok(html.includes('class="back-to-top"'), 'guild war page must have a back-to-top button');
   assert.ok(html.includes('id="dau-trang"'), 'the footer "Về đầu trang" link needs its anchor');
 });
+
+test('guild war mobile fixes (2026-11-21): notch-safe viewport, hero cells not stretched, searchbar below header', () => {
+  assert.ok(!html.includes('viewport-fit=cover'),
+    'guild war must not use viewport-fit=cover — it slides the sticky header under the iPhone status bar and clips the logo (every other page uses plain width=device-width, initial-scale=1)');
+  assert.ok(html.includes('content="width=device-width, initial-scale=1"'),
+    'guild war viewport must match the site-wide convention');
+  assert.ok(html.includes('.hero{display:block;flex:1;min-width:0;text-align:center;min-height:0;border:0;border-radius:0;box-shadow:none;overflow:visible;background:transparent;padding:0}'),
+    'team-hero cells must neutralize the styles-v3 banner .hero leak (min-height:327px stretched every cell and left a huge empty area under the portraits)');
+  assert.ok(html.includes('@media (max-width:680px){.searchbar{top:62px}}'),
+    'on phones the sticky searchbar must pin below the 62px site header, not at top:0 where the header covers it');
+});
