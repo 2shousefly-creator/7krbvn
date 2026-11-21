@@ -49,7 +49,7 @@ button{font:inherit;cursor:pointer}
 /* ---------- header ---------- */
 header.top{padding:28px 0 6px}
 .eyebrow{font-family:"Quicksand",sans-serif;letter-spacing:.14em;text-transform:uppercase;font-size:11px;color:var(--gold);font-weight:700}
-h1{font-size:clamp(23.8px,5vw,35.7px);line-height:1.12;margin:6px 0 8px;font-weight:900}
+h1{font-size:clamp(34.8px,4.44vw,51.6px);line-height:1.12;margin:6px 0 8px;font-weight:900}
 h1 .thin{font-weight:600;color:var(--ink2)}
 .sub{color:var(--ink2);max-width:720px;margin:0 0 14px}
 .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
@@ -65,7 +65,7 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 /* ---------- toolbar ---------- */
 .searchbar{position:sticky;top:0;z-index:40;background:var(--bg);padding:12px 0 10px;margin-top:10px}
 /* on phones the searchbar must pin BELOW the 62px sticky site header, not under it */
-@media (max-width:680px){.searchbar{top:62px}}
+@media (max-width:680px){.searchbar{top:62px}.group-head h2{font-size:22px}}
 .search{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
 .search svg{flex:none;color:var(--ink3)}
 .search input{border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:16px;width:100%}
@@ -93,7 +93,7 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 
 /* ---------- group sections / cards ---------- */
 .group-head{display:flex;align-items:baseline;gap:10px;margin:30px 0 4px}
-.group-head h2{font-size:18.7px;margin:0;font-weight:800}
+.group-head h2{font-size:25px;margin:0;font-weight:800}
 .group-head .gcount{color:var(--ink3);font-weight:700;font-size:11px}
 .group-head .grule{flex:1;height:1px;background:var(--line);align-self:center}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
@@ -249,7 +249,7 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 .psheet{max-width:640px;margin:0 auto;background:var(--bg);border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow);padding:20px 18px 24px;animation:sheetIn .3s cubic-bezier(.2,.8,.25,1)}
 .p-head{display:flex;gap:14px;align-items:center;position:sticky;top:-1px;z-index:6;background:var(--bg);margin:-20px -18px 14px;padding:16px 18px 12px;border-bottom:1px solid var(--line);border-radius:18px 18px 0 0}
 .p-head img.pava{width:78px;height:78px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);object-fit:cover;flex:none}
-.p-head h3{margin:0;font-size:20.4px;line-height:1.25}
+.p-head h3{margin:0;font-size:19px;line-height:1.25}
 .p-head .p-sub{color:var(--ink2);font-size:11.9px;font-weight:600;margin-top:3px}
 .p-close{margin-left:auto;flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:8px 14px;font-weight:800}
 .chiprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}

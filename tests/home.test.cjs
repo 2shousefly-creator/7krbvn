@@ -154,8 +154,8 @@ test('menu-page banners: blog-intro is half its old height on every page', () =>
   const css = page('blog.css');
   assert.ok(css.includes('.blog-intro{position:relative;display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden;background:#252d3e;color:#fff;border-radius:20px;min-height:145px'),
     'menu-page banners must be ~145px tall (was 285px)');
-  assert.ok(css.includes('.blog-intro h1{font-size:clamp(26px,3vw,36px)'),
-    'menu-page banner titles must shrink with the banner');
+  assert.ok(css.includes('.blog-intro h1{font-size:clamp(34.8px,4.44vw,51.6px)'),
+    'menu-page banner titles use the site-wide page-title size (model scale, 2026-11-21)');
   assert.ok(css.includes('.blog-intro-art{height:75px'), 'mobile banner art must shrink too');
 });
 

@@ -330,7 +330,7 @@ test('guild war mobile fixes (2026-11-21): notch-safe viewport, hero cells not s
     'guild war viewport must match the site-wide convention');
   assert.ok(html.includes('.hero{display:block;flex:1;min-width:0;text-align:center;min-height:0;border:0;border-radius:0;box-shadow:none;overflow:visible;background:transparent;padding:0}'),
     'team-hero cells must neutralize the styles-v3 banner .hero leak (min-height:327px stretched every cell and left a huge empty area under the portraits)');
-  assert.ok(html.includes('@media (max-width:680px){.searchbar{top:62px}}'),
+  assert.ok(html.includes('.searchbar{top:62px}'),
     'on phones the sticky searchbar must pin below the 62px site header, not at top:0 where the header covers it');
 });
 

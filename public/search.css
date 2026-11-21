@@ -10,7 +10,7 @@
 .search-chip{padding:7px 14px;font-family:Quicksand,sans-serif;font-size:14px;font-weight:600;color:#192033;background:#fff;border:1px solid #d8d5cc;border-radius:999px;cursor:pointer}
 .search-chip:hover{border-color:#946b25;color:#946b25}
 .search-count{margin:14px 0 4px;font-size:15px;font-weight:600;color:#606a7e}
-.search-hint{margin:16px 0;padding:16px 18px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;color:#606a7e;font-size:15.5px;line-height:1.7}
+.search-hint{margin:16px 0;padding:16px 18px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;color:#606a7e;font-size:15px;line-height:1.7}
 .search-hint p{margin:0}
 .search-group{margin-top:22px}
 .search-group-title{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#946b25}
@@ -22,12 +22,12 @@
 .search-thumb{flex:none;width:56px;height:56px;border-radius:12px;object-fit:cover;background:#efe9d8}
 .search-thumb-icon{display:flex;align-items:center;justify-content:center;font-size:28px}
 .search-item-text{min-width:0;flex:1}
-.search-item-title{display:block;font-size:16.5px;font-weight:700;color:#192033;line-height:1.45}
-.search-item-desc{display:block;margin-top:3px;font-size:14.5px;color:#606a7e;line-height:1.55}
+.search-item-title{display:block;font-size:16px;font-weight:700;color:#192033;line-height:1.45}
+.search-item-desc{display:block;margin-top:3px;font-size:14px;color:#606a7e;line-height:1.55}
 .search-empty{margin:18px 0;padding:20px;background:#fff;border:1px solid #e9e8e3;border-radius:12px}
-.search-empty h2{margin:0 0 8px;font-size:18px;color:#192033}
-.search-empty p{margin:0 0 10px;color:#606a7e;font-size:15.5px;line-height:1.7}
-.search-empty ul{margin:6px 0 0;padding-left:20px;color:#606a7e;font-size:15.5px;line-height:1.8}
+.search-empty h2{margin:0 0 8px;font-size:19px;color:#192033}
+.search-empty p{margin:0 0 10px;color:#606a7e;font-size:15px;line-height:1.7}
+.search-empty ul{margin:6px 0 0;padding-left:20px;color:#606a7e;font-size:15px;line-height:1.8}
 .search-empty a{color:#946b25;font-weight:700}
 @media(max-width:640px){
   .search-box input{font-size:16px;padding:12px 14px}

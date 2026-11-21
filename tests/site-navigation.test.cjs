@@ -341,14 +341,15 @@ test('site font: every page loads Quicksand (Vietnamese) and uses it first', () 
   }
 });
 
-test('content text is 20% larger for readability; UI chrome keeps its sizes', () => {
+test('reading text follows the nang-cap-hero model scale; UI chrome keeps its sizes', () => {
   const base = fs.readFileSync(path.join(root, 'styles-v3.css'), 'utf8');
   const blog = fs.readFileSync(path.join(root, 'blog.css'), 'utf8');
   const nav = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
-  // article body text: 14px -> 16.8px (mobile 13px -> 15.6px)
-  assert.ok(base.includes('.article-section>p{font-size:16.8px'), 'article paragraphs must be 16.8px');
-  assert.ok(blog.includes('.post-body p{font-size:15.6px'), 'listing card text must be 15.6px');
-  assert.ok(blog.includes('.blog-intro p{color:#c6ccd6;font-size:13.5px'), 'article intro text must be 13.5px');
+  // model scale (2026-11-21): article body 15px, listing-page lead 18px —
+  // supersedes the 2026-11-02 x1.2 scaling (16.8px body, 13.5px lead)
+  assert.ok(base.includes('.article-section>p{font-size:15px'), 'article paragraphs must be 15px (model scale)');
+  assert.ok(blog.includes('.blog-intro p{color:#c6ccd6;font-size:18px'), 'listing-page lead must be 18px (model scale)');
+  assert.ok(blog.includes('.post-body p{font-size:15.6px'), 'listing card excerpts keep their own 15.6px (card UI, not article body)');
   // UI chrome must NOT have grown (nav would overflow, inputs must stay >= 16px)
   assert.ok(nav.includes('.main-nav a{font-size:12.5px'), 'main nav must stay 12.5px');
   assert.ok(base.includes('input,textarea,select{font-size:16px!important'), 'inputs must stay 16px (iOS no-zoom floor)');

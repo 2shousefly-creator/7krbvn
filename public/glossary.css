@@ -32,7 +32,7 @@
 .gl-tag-debuff{background:#fee2e2;color:#c0392b}
 .gl-tag-khac{background:#f0ede6;color:#687080}
 .gl-unverified{display:inline-block;vertical-align:2px;margin-left:6px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;background:#fef3c7;color:#92400e}
-.gl-desc{margin:8px 0 0;color:#3d4454;font-size:15.5px;line-height:1.7}
+.gl-desc{margin:8px 0 0;color:#3d4454;font-size:15px;line-height:1.7}
 .gl-desc.gl-missing{color:#9a9da3;font-style:italic}
 .gl-examples{margin:8px 0 0;color:#687080;font-size:14px}
 .gl-examples a{color:#1a6fd4;font-weight:700}
@@ -41,5 +41,5 @@
 @media (max-width:640px){
   .gl-names{font-size:16px}
   .gl-icon{width:32px;height:32px;vertical-align:-9px;margin-right:8px}
-  .gl-desc{font-size:15px}
+  .gl-desc{font-size:14px}
 }
