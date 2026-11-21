@@ -324,12 +324,27 @@ test('the guild war page matches the site chrome: light-only, sticky nav, site f
 });
 
 test('guild war mobile fixes (2026-11-21): notch-safe viewport, hero cells not stretched, searchbar below header', () => {
-  assert.ok(!html.includes('viewport-fit=cover'),
-    'guild war must not use viewport-fit=cover — it slides the sticky header under the iPhone status bar and clips the logo (every other page uses plain width=device-width, initial-scale=1)');
+  assert.ok(html.includes('<meta name="viewport" content="width=device-width, initial-scale=1"'),
+    'guild war viewport meta must be exactly width=device-width, initial-scale=1 (no cover) like every other page');
   assert.ok(html.includes('content="width=device-width, initial-scale=1"'),
     'guild war viewport must match the site-wide convention');
   assert.ok(html.includes('.hero{display:block;flex:1;min-width:0;text-align:center;min-height:0;border:0;border-radius:0;box-shadow:none;overflow:visible;background:transparent;padding:0}'),
     'team-hero cells must neutralize the styles-v3 banner .hero leak (min-height:327px stretched every cell and left a huge empty area under the portraits)');
   assert.ok(html.includes('@media (max-width:680px){.searchbar{top:62px}}'),
     'on phones the sticky searchbar must pin below the 62px site header, not at top:0 where the header covers it');
+});
+
+test('guild war logo fix + half-size cards (2026-11-21): .wrap padding scoped to content, grid at 160px', () => {
+  assert.ok(!html.includes('.wrap{max-width:1180px'),
+    'the page must not carry a bare .wrap padding rule — it leaked into .header-inner.wrap and shrank the header content box to a negative height (62px − 64px padding), pushing the logo up out of the header');
+  assert.ok(html.includes('.gw-page{max-width:1180px;margin:0 auto;padding:0 16px 64px}'),
+    'the 64px bottom padding must live on the scoped .gw-page rule only');
+  assert.ok(html.includes('<div class="wrap gw-page">'),
+    'the content wrapper must carry .gw-page so it keeps its padding');
+  assert.ok(html.includes('<div class="header-inner wrap">'),
+    'the site header must keep its plain .wrap (styles-v3 width only, no bottom padding)');
+  assert.ok(html.includes('.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr))'),
+    'team cards must be half their old width (grid min 320px → 160px)');
+  assert.ok(html.includes('.grid{grid-template-columns:repeat(2,1fr)}'),
+    'on phones the grid must show 2 cards per row (was 1 column)');
 });

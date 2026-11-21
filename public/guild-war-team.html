@@ -38,7 +38,13 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Quicksand",system-ui,sans-serif;font-size:12.8px;line-height:1.55}
 img{display:block}
 button{font:inherit;cursor:pointer}
-.wrap{max-width:1180px;margin:0 auto;padding:0 16px 64px}
+/* NOTE: this rule must stay .gw-page, never bare .wrap — a bare .wrap rule
+   also hit the site header (.header-inner.wrap), shrinking its content box
+   to a negative height (62px header − 64px bottom padding) and pushing the
+   logo up out of the header, where the top was cut off at the viewport edge.
+   That was the 2026-11-21 logo-clip bug; the viewport meta change was
+   not the cause. */
+.gw-page{max-width:1180px;margin:0 auto;padding:0 16px 64px}
 
 /* ---------- header ---------- */
 header.top{padding:28px 0 6px}
@@ -90,15 +96,15 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 .group-head h2{font-size:18.7px;margin:0;font-weight:800}
 .group-head .gcount{color:var(--ink3);font-weight:700;font-size:11px}
 .group-head .grule{flex:1;height:1px;background:var(--line);align-self:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:12px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;text-align:left;width:100%;color:var(--ink);transition:border-color .15s, transform .15s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:10px;text-align:left;width:100%;color:var(--ink);transition:border-color .15s, transform .15s}
 .card:hover{border-color:var(--gold);transform:translateY(-2px)}
 .card-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
 .code{font-family:"Quicksand",sans-serif;font-weight:800;font-size:16.1px;letter-spacing:.04em;background:var(--ink);color:var(--bg);border-radius:8px;padding:2px 10px}
 .gtag{font-size:9.8px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
 .prop-badge{display:inline-flex;align-items:center;flex:none;background:var(--prop-bg);color:var(--prop-ink);border:1.5px solid var(--prop-line);border-radius:999px;padding:2px 9px;font-size:9.8px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;line-height:1.35}
 .card-top .arr{margin-left:auto;color:var(--ink3);font-weight:700;font-size:11px}
-.heroes{display:flex;gap:10px}
+.heroes{display:flex;gap:6px}
 .hero{display:block;flex:1;min-width:0;text-align:center;min-height:0;border:0;border-radius:0;box-shadow:none;overflow:visible;background:transparent;padding:0}
 .hero img{width:100%;aspect-ratio:1;border-radius:10px;background:var(--surface2);border:1px solid var(--line);object-fit:cover}
 .hero .hn{font-size:9.8px;font-weight:600;color:var(--ink2);margin-top:5px;line-height:1.3;overflow-wrap:anywhere}
@@ -296,7 +302,7 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 
 
 @media (max-width:560px){
-  .grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
   .stat{min-width:0;flex:1}
 }
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
@@ -305,7 +311,7 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 </head>
 <body>
 <header class="site-header" id="dau-trang"><div class="header-inner wrap"><a class="brand" href="index.html" aria-label="7K RBVN - Trang đầu"><span class="brand-mark">7K<span>✦</span></span><span><span class="brand-name">SEVEN KNIGHTS</span><span class="brand-sub">RE:BIRTH VN SUPPORTER</span></span></a><button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Mở menu"><span class="nav-toggle-label">MENU</span><span class="nav-toggle-icon"><span></span><span></span><span></span></span></button></div><nav class="main-nav" id="site-nav" aria-label="Menu chính"><div class="wrap nav-scroll"><a href="index.html">TRANG CHỦ</a><a href="newbie.html">NEWBIE</a><a href="cap-nhat.html">CẬP NHẬT</a><a href="cot-truyen.html">CỐT TRUYỆN</a><div class="nav-item has-sub"><button class="nav-parent" type="button" aria-expanded="false" aria-haspopup="true" data-parent="PVE">PVE <span class="nav-caret">▾</span></button><div class="nav-sub"><a href="castle-rush.html">CASTLE RUSH</a><a href="advent-expedition.html">ADVENT EXPEDITION</a><a href="raid.html">RAID</a><a href="celestial-tower.html">CELESTIAL TOWER</a><a href="tower-of-trials.html">TOWER OF TRIALS</a><a href="dungeon.html">DUNGEON</a></div></div><div class="nav-item has-sub"><button class="nav-parent nav-parent-active" type="button" aria-expanded="false" aria-haspopup="true" data-parent="PVP">PVP <span class="nav-caret">▾</span></button><div class="nav-sub"><a class="nav-active" href="guild-war-team.html" aria-current="page">GUILD WAR</a><a href="arena.html">ARENA</a><a href="total-war.html">TOTAL WAR</a></div></div><a href="heroes.html">HEROES</a><a href="tier-list.html">TIER LIST</a><a href="so-sanh.html">SO SÁNH HERO</a><a href="tu-dien-hieu-ung.html">TỪ ĐIỂN HIỆU ỨNG</a><div class="nav-item has-sub"><button class="nav-parent" type="button" aria-expanded="false" aria-haspopup="true" data-parent="CÔNG CỤ">CÔNG CỤ <span class="nav-caret">▾</span></button><div class="nav-sub"><a href="tinh-ruby.html">TÍNH RUBY</a><a href="doi-coupon.html">ĐỔI COUPON</a><a href="xac-suat-hieu-ung.html">TÍNH XÁC SUẤT HIỆU ỨNG</a></div></div></div></nav><script>(function(){var b=document.querySelector('.nav-toggle'),n=document.getElementById('site-nav');if(!b||!n)return;b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.classList.toggle('is-open',o)});n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.classList.remove('is-open')}});function closeSubs(){n.querySelectorAll('.nav-item.open').forEach(function(x){x.classList.remove('open');x.querySelector('.nav-parent').setAttribute('aria-expanded','false')})}n.querySelectorAll('.nav-parent').forEach(function(p){p.addEventListener('click',function(e){e.stopPropagation();var it=p.closest('.nav-item'),was=it.classList.contains('open');closeSubs();if(!was){it.classList.add('open');p.setAttribute('aria-expanded','true')}})});document.addEventListener('click',function(e){if(!e.target.closest('.nav-item'))closeSubs()});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSubs()})})();</script></header>
-<div class="wrap">
+<div class="wrap gw-page">
   <header class="top">
     <div class="eyebrow">Seven Knights: Re:BIRTH · Guild War</div>
     <h1>Guild War Meta <span class="thin">— Major League 3v3</span></h1>
