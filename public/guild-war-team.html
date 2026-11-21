@@ -70,7 +70,7 @@ h1 .thin{font-weight:600;color:var(--ink2)}
 .search svg{flex:none;color:var(--ink3)}
 .search input{border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:16px;width:100%}
 .search input::placeholder{color:var(--ink3)}
-.search .clear{border:0;background:var(--chip);color:var(--ink2);border-radius:8px;padding:4px 10px;font-size:10.6px;font-weight:700;display:none}
+.search .clear{border:0;background:var(--chip);color:var(--ink2);border-radius:8px;padding:4px 10px;font-size:10.6px;font-weight:700;visibility:hidden}
 .search-wrap{position:relative}
 .suggest{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);z-index:45;display:none;max-height:344px;overflow-y:auto}
 .suggest.open{display:block;animation:fadeIn .15s ease}
@@ -902,24 +902,36 @@ function setTabAll(){
 }
 function pickHero(name){
   qInput.value = name; state.q = name;
-  document.getElementById("qclear").style.display = "block";
+  try { qInput.setSelectionRange(name.length, name.length); } catch (e) {}
+  document.getElementById("qclear").style.visibility = "visible";
   setTabAll(); hideSuggest(); render();
 }
 function pickSuggest(kind, value){
   if (kind === "hero"){ pickHero(value); return; }
   if (kind === "pet"){
     qInput.value = value; state.q = value;
-    document.getElementById("qclear").style.display = "block";
+    try { qInput.setSelectionRange(value.length, value.length); } catch (e) {}
+    document.getElementById("qclear").style.visibility = "visible";
     setTabAll(); hideSuggest(); render(); return;
   }
   hideSuggest();
   if (kind === "def") openTeam(value); else openCounter(value);
 }
 qInput.addEventListener("input", function(){
+  /* The keystroke already moved the caret; render() + showSuggest() then
+     rebuild the whole team list and the suggestion dropdown below the input,
+     and that layout churn can reset the caret to 0 on mobile browsers — so
+     save the caret first and put it back afterwards. The text itself is
+     never reassigned here. */
+  var start = null, end = null;
+  try { start = qInput.selectionStart; end = qInput.selectionEnd; } catch (e) {}
   state.q = qInput.value.trim();
-  document.getElementById("qclear").style.display = state.q ? "block" : "none";
+  document.getElementById("qclear").style.visibility = state.q ? "visible" : "hidden";
   render();
   showSuggest();
+  if (document.activeElement === qInput && start !== null && end !== null){
+    try { qInput.setSelectionRange(start, end); } catch (e) {}
+  }
 });
 qInput.addEventListener("focus", showSuggest);
 qInput.addEventListener("blur", function(){ setTimeout(hideSuggest, 120); });
@@ -937,7 +949,7 @@ qInput.addEventListener("keydown", function(e){
   }
 });
 document.getElementById("qclear").addEventListener("click", function(){
-  qInput.value = ""; state.q = ""; this.style.display = "none"; hideSuggest(); render(); qInput.focus();
+  qInput.value = ""; state.q = ""; this.style.visibility = "hidden"; hideSuggest(); render(); qInput.focus();
 });
 
 /* overlay close */

@@ -348,3 +348,18 @@ test('guild war logo fix + half-size cards (2026-11-21): .wrap padding scoped to
   assert.ok(html.includes('.grid{grid-template-columns:repeat(2,1fr)}'),
     'on phones the grid must show 2 cards per row (was 1 column)');
 });
+
+test('guild war search caret (2026-11-21): typing must not jump the caret to 0', () => {
+  assert.ok(html.includes('try { start = qInput.selectionStart; end = qInput.selectionEnd; } catch (e) {}'),
+    'the input handler must save the caret before render() + showSuggest() rebuild the list and dropdown below the input');
+  assert.ok(html.includes('if (document.activeElement === qInput && start !== null && end !== null)'),
+    'the saved caret must be restored only when the input still has focus and a position was read');
+  assert.ok(html.includes('qInput.setSelectionRange(start, end)'),
+    'the input handler must put the caret back after the layout churn');
+  assert.ok(html.includes('.search .clear{border:0;background:var(--chip);color:var(--ink2);border-radius:8px;padding:4px 10px;font-size:10.6px;font-weight:700;visibility:hidden}'),
+    'the clear button must reserve its space with visibility (not display:none) so the input never changes width when the button appears mid-typing');
+  assert.ok(!html.includes('style.display = "block"') && !html.includes('style.display = "none"'),
+    'nothing may toggle the clear button with display anymore — a width change of the focused input is a caret-reset trigger on mobile browsers');
+  assert.ok(html.includes('qInput.setSelectionRange(name.length, name.length)'),
+    'after picking a hero suggestion the caret must sit at the end of the filled-in name');
+});
