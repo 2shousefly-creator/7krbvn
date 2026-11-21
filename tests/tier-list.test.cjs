@@ -371,3 +371,19 @@ test('no new tier-list file mentions Atlas', () => {
     assert.ok(!read(f).includes('Atlas'), `${f} must not mention Atlas`);
   }
 });
+
+test('tier list page has a representative banner like the other listing pages', () => {
+  const html = read('tier-list.html');
+  assert.ok(html.includes('<section class="blog-intro"'),
+    'tier-list.html must open with a blog-intro banner');
+  assert.ok(html.includes('SEVEN KNIGHTS RE:BIRTH · TIER LIST'),
+    'tier list banner must carry the TIER LIST kicker');
+  assert.ok(html.includes('<h1 id="hero-title">Tier List</h1>'),
+    'tier list banner must keep the Tier List title');
+  assert.ok(html.includes('11 chế độ'),
+    'tier list banner must keep the 11-mode scope in its lead');
+  assert.ok(html.includes('assets/hero-eve.webp'), 'tier list banner must show Eve');
+  assert.ok(html.includes('assets/hero-judas.webp'), 'tier list banner must show Judas');
+  assert.ok(!html.includes('class="hero"'), 'tier-list.html must not keep the old imageless hero header');
+  assert.ok(!html.includes('class="hero-meta"'), 'tier-list.html must not keep the old hero-meta row');
+});

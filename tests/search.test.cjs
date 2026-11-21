@@ -185,11 +185,11 @@ test('search index: every entry carries a thumbnail image, or falls back to a gr
       }
     } else noImg.push(e.url);
   }
-  assert.equal(withImg, 650, `650 of 655 entries must carry an image, got ${withImg}`);
+  assert.equal(withImg, 651, `651 of 655 entries must carry an image, got ${withImg}`);
   // Only the JS-rendered pages with no static image fall back to an icon.
   assert.deepEqual(noImg.sort(), ['guild-war-team.html', 'hero.html',
-    'tier-list.html', 'tim-kiem.html', 'xac-suat-hieu-ung.html'],
-    'only the five image-less pages may fall back to a group icon');
+    'tim-kiem.html', 'xac-suat-hieu-ung.html'],
+    'only the four image-less pages may fall back to a group icon');
   // Story chapters inherit their Act page image.
   const chapters = index.entries.filter(e => e.desc.startsWith('Cốt truyện · Act'));
   assert.equal(chapters.length, 284, '284 story chapters must be indexed');

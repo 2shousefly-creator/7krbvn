@@ -44,6 +44,8 @@ test('compare page: pickers, swap, result area and scripts', () => {
   assert.ok(!html.includes('cp-actions'), 'so-sanh.html must not keep the copy actions row');
   assert.ok(!html.includes('Chọn 2 hero ở trên để xem so sánh chi tiết'),
     'so-sanh.html must not keep the picker instruction note');
+  assert.ok(!html.includes('Chỉ số lấy đúng theo dữ liệu hero 6★'),
+    'so-sanh.html must not keep the methodology note under the result area (removed 2026-11-21)');
   assert.ok(!html.includes('so-sanh.html?a=eve'), 'so-sanh.html must not advertise the deep-link format in a note');
   const js = read('compare.js');
   assert.ok(!js.includes('cp-copy-link'), 'compare.js must not wire the removed copy button');
