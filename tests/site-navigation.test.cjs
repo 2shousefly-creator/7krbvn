@@ -396,17 +396,17 @@ test('no page may reuse the same id twice (getElementById returns the first matc
   }
 });
 
-test('dropdown carets are big and a gold rule separates parent from children', () => {
+test('dropdown carets are big and submenus are ruled, not gold', () => {
   const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
   assert.ok(css.includes('.nav-caret{font-size:13px'),
     'dropdown carets must be 13px (was 9px) so players can see there is a submenu');
-  assert.ok(css.includes('border-top:3px solid #e8c16c'),
-    'desktop dropdown must open under a gold notebook-rule divider');
-  assert.ok(css.includes('.main-nav.open .nav-sub{position:static;display:none;box-shadow:none;border:0;border-top:2px solid #e8c16c'),
-    'mobile dropdown must open under a gold divider too');
+  assert.ok(!css.includes('#e8c16c'),
+    'no gold divider may remain on any dropdown (removed 2026-11-21 — ruled lines only)');
+  assert.ok(css.includes('.nav-sub a{display:block;font-size:12.5px;font-weight:800;padding:10px 12px;border-radius:8px;white-space:nowrap;color:#4a5160;border-bottom:1px solid #e9e2cf'),
+    'desktop dropdown links must carry a ruled line underneath, like notebook paper');
 });
 
-test('header: no Fanpage button, logo centered and bigger', () => {
+test('header: no Fanpage button, logo centered on desktop and left on mobile, bigger', () => {
   for (const file of pages) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     assert.ok(!html.includes('fanpage-link'), `${file} must not keep the header Fanpage button`);
@@ -422,6 +422,8 @@ test('header: no Fanpage button, logo centered and bigger', () => {
   const nav = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
   assert.ok(nav.includes('.site-header .header-inner{gap:20px;justify-content:center'),
     'header must center the logo now the Fanpage button is gone');
+  assert.ok(nav.includes('.site-header .header-inner{height:62px;position:relative;justify-content:flex-start}'),
+    'on mobile the logo must sit at the left (2026-11-21), not centered');
   assert.ok(nav.includes('.nav-toggle{') && nav.includes('position:absolute;right:14px'),
     'mobile MENU button must sit absolute at the header right so the logo stays centered');
 });
@@ -457,6 +459,6 @@ test('mobile menu items are ruled like notebook paper: a line under every row', 
     'mobile menu links must carry a ruled line underneath');
   assert.ok(css.includes('.main-nav.open .nav-parent{display:flex;width:100%;justify-content:space-between;padding:11px 12px;font-size:13px;border-bottom:1px solid #e9e2cf'),
     'mobile submenu parent buttons must carry a ruled line underneath');
-  assert.ok(css.includes('.main-nav.open .nav-item.open .nav-parent{border-bottom:0}'),
-    'an open parent must let the gold divider replace its row line');
+  assert.ok(!css.includes('.nav-item.open .nav-parent{border-bottom:0}'),
+    'an open parent must keep its row line now the gold divider is gone');
 });
