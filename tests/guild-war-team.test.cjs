@@ -57,10 +57,10 @@ const byCode = Object.fromEntries(data.defense.map(d => [d.code, d]));
 const popupIds = extractVarObject(html, 'HERO_POPUP_ID');
 const counterPets = extractVarObject(html, 'COUNTER_PETS');
 
-// 7k-note new season Round 3/18 (Pandoara), snapshot 2026-11-17: counter count per target.
-const COUNTERS_PER_TARGET = [4, 5, 4, 4, 2, 10, 2, 2, 2, 2, 1, 4, 6, 2, 4, 9, 1, 1, 4, 1, 1, 4, 3, 3, 4, 2, 3, 2, 1, 2, 3, 5, 2, 1, 5, 2, 4, 1, 1, 3, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0];
-// Targets with no auto skill set on 7k-note (API snapshot 2026-11-17).
-const NO_SKILL_DEFENSE = ['T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T14', 'T17', 'T19', 'T22', 'T24', 'T27', 'T28', 'T29', 'T33', 'T37', 'T41', 'T42', 'T53'];
+// 7k-note new season Round 3/18 (Pandoara), snapshot 2026-11-23: counter count per target.
+const COUNTERS_PER_TARGET = [4, 11, 5, 2, 9, 5, 4, 4, 2, 2, 2, 2, 1, 4, 6, 2, 1, 1, 4, 1, 1, 4, 3, 3, 4, 2, 3, 2, 1, 2, 3, 5, 2, 1, 5, 2, 4, 1, 1, 3, 1, 1, 2, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0];
+// Targets with no auto skill set on 7k-note (API snapshot 2026-11-23).
+const NO_SKILL_DEFENSE = ['T2', 'T4', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12', 'T13', 'T16', 'T17', 'T19', 'T22', 'T24', 'T27', 'T28', 'T29', 'T33', 'T37', 'T41', 'T42', 'T53'];
 
 test('every inline script on the page compiles (no stray text outside comments)', () => {
   // Regression guard: a half-replaced comment once left two orphaned lines
@@ -73,15 +73,15 @@ test('every inline script on the page compiles (no stray text outside comments)'
   }
 });
 
-test('guild war team page carries build -23: 54 defense (7k-note only) + 138 counters', () => {
+test('guild war team page carries build -24: 54 defense (7k-note only) + 140 counters', () => {
   assert.equal(data.defense.length, 54);
-  assert.equal(Object.keys(data.counters).length, 138); // counters is an object keyed by code
+  assert.equal(Object.keys(data.counters).length, 140); // counters is an object keyed by code
   assert.deepEqual(data.defense.map(d => d.code), Array.from({ length: 54 }, (_, i) => 'T' + (i + 1)),
     'defense codes must be T1..T54 in 7k-note target order');
-  assert.deepEqual(Object.keys(data.counters), Array.from({ length: 138 }, (_, i) => 'C' + (i + 1)),
-    'counter codes must be C1..C138 in target order');
-  assert.ok(html.includes('v2026.11.17-23'), 'version must be bumped to -23');
-  assert.ok(!html.includes('v2026.11.03-22'), 'old version string must be gone');
+  assert.deepEqual(Object.keys(data.counters), Array.from({ length: 140 }, (_, i) => 'C' + (i + 1)),
+    'counter codes must be C1..C140 in target order');
+  assert.ok(html.includes('v2026.11.23-24'), 'version must be bumped to -24');
+  assert.ok(!html.includes('v2026.11.17-23'), 'old version string must be gone');
   // Group split from the 7k-note tags[0] (โจมตี->Physical, ถึก->Tank, เวทย์->Magic).
   const groups = {};
   for (const d of data.defense) groups[d.group] = (groups[d.group] || 0) + 1;
@@ -101,8 +101,8 @@ test('defense counter links match the 7k-note snapshot, and every defense cites 
   }
   // Every counter is linked from exactly one defense team.
   const linked = data.defense.flatMap(d => d.counters);
-  assert.equal(linked.length, 138);
-  assert.equal(new Set(linked).size, 138, 'no counter may be linked twice');
+  assert.equal(linked.length, 140);
+  assert.equal(new Set(linked).size, 140, 'no counter may be linked twice');
 });
 
 test('browser-verified targets 1-2 render exactly (front/back rows, pets, skill order)', () => {
@@ -121,13 +121,25 @@ test('browser-verified targets 1-2 render exactly (front/back rows, pets, skill 
     ['Zenitsu Agatsuma', 'Skill 2', 'Thunder Breathing First Form: Thunderclap and Flash Eightfold'],
     ['Judas (Awakening)', 'Skill 2', 'Final Power'],
   ]);
+  // Build -24: 7k-note reordered the top 15 targets. The old T6
+  // (Yoongun/Dongyoung/Shinobu) is the new T2; the old T2
+  // (Eve/Tanjiro/Sunran) moved to T6. All three sit in Back, so the
+  // front row is empty and the team has no auto skill set on 7k-note.
   const t2 = byCode.T2;
-  assert.deepEqual(t2.heroes.map(h => h.name), ['Eve', 'Tanjiro Kamado', 'Sunran']);
-  assert.deepEqual(t2.front, ['Eve', 'Tanjiro Kamado']);
-  assert.deepEqual(t2.back, ['Sunran']);
-  assert.equal(t2.pet, 'Jeo');
-  assert.ok(t2.formation.startsWith('Defense (4-1)'));
-  assert.deepEqual(t2.skills.map(s => [s.hero, s.slot, s.name]), [
+  assert.deepEqual(t2.heroes.map(h => h.name), ['Yoongun', 'Dongyoung', 'Shinobu Kocho']);
+  assert.deepEqual(t2.front, []);
+  assert.deepEqual(t2.back, ['Yoongun', 'Dongyoung', 'Shinobu Kocho']);
+  assert.equal(t2.pet, 'Yeonji');
+  assert.deepEqual(t2.petBackup, ['Yu']);
+  assert.ok(t2.formation.startsWith('Basic (2-3)'));
+  assert.deepEqual(t2.skills, []);
+  const t6 = byCode.T6;
+  assert.deepEqual(t6.heroes.map(h => h.name), ['Eve', 'Tanjiro Kamado', 'Sunran']);
+  assert.deepEqual(t6.front, ['Eve', 'Tanjiro Kamado']);
+  assert.deepEqual(t6.back, ['Sunran']);
+  assert.equal(t6.pet, 'Jeo');
+  assert.ok(t6.formation.startsWith('Defense (4-1)'));
+  assert.deepEqual(t6.skills.map(s => [s.hero, s.slot, s.name]), [
     ['Tanjiro Kamado', 'Skill 2', 'Hinokami Kagura: Dancing Flash'],
     ['Sunran', 'Skill 2', 'Phantom Flying Blade'],
     ['Eve', 'Skill 1', 'Time of Our Lives'],
@@ -153,6 +165,78 @@ test('browser-verified targets 1-2 render exactly (front/back rows, pets, skill 
   ]);
 });
 
+test('build -24: 7k-note reordered the top 15 targets (rev 429 -> 461)', () => {
+  // Same 54 teams, only the order changed: T1 and T17-T54 keep their codes,
+  // T2-T16 are the old teams renumbered. Hero sets, front/back rows, pets
+  // and skill chains move with the team, not with the code.
+  const expected = {
+    T2: ['Yoongun', 'Dongyoung', 'Shinobu Kocho'],
+    T3: ['Eileene', 'Zenitsu Agatsuma', 'Tanjiro Kamado'],
+    T4: ['Eileene', 'Eve', 'Zenitsu Agatsuma'],
+    T5: ['Dellons', 'Eileene', 'Zenitsu Agatsuma'],
+    T6: ['Eve', 'Tanjiro Kamado', 'Sunran'],
+    T7: ['Giyu Tomioka', 'Judas (Awakening)', 'Eileene'],
+    T8: ['Hayeon', 'Yoongun', 'Shinobu Kocho'],
+    T9: ['Giyu Tomioka', 'Aris', 'Judas (Awakening)'],
+    T10: ['Giyu Tomioka', 'Aris', 'Clemyth'],
+    T11: ['Eve', 'Hayeon', 'Sunran'],
+    T12: ['Giyu Tomioka', 'Judas (Awakening)', 'Shinobu Kocho'],
+    T13: ['Clemyth', 'Zenitsu Agatsuma', 'Dellons'],
+    T14: ['Giyu Tomioka', 'Eileene', 'Aris'],
+    T15: ['Tanjiro Kamado', 'Hayeon', 'Sunran'],
+    T16: ['Giyu Tomioka', 'Gelidus', 'Judas (Awakening)'],
+  };
+  for (const [code, heroes] of Object.entries(expected)) {
+    assert.deepEqual(byCode[code].heroes.map(h => h.name), heroes, code + ' must be the renumbered team');
+  }
+});
+
+test('build -24 content changes: 2 new counters, T1 C3 replaced, T4 skill order, T5 pet swap', () => {
+  // (a) T1 counter #3 (C3) replaced: Freyja out, Dongyoung in, Merparrow
+  // added as reserve pet, opening skill order changed.
+  assert.deepEqual(data.counters.C3.heroes.map(h => h.name), ['Skuld', 'Dongyoung', 'Yoongun']);
+  assert.equal(data.counters.C3.pet, 'Yeonji');
+  assert.deepEqual(data.counters.C3.petBackup, ['Merparrow']);
+  assert.deepEqual(data.counters.C3.skills.map(s => [s.hero, s.slot, s.name]), [
+    ['Skuld', 'Skill 2', "Constellation's Secret"],
+    ['Yoongun', 'Skill 2', 'Rapid Volley'],
+    ['Yoongun', 'Skill 1', 'Tenfold Barrage'],
+  ]);
+  assert.deepEqual(counterPets.C3, ['Yeonji', 'Merparrow']);
+  // (b) T2 gains an 11th counter (C15): Sunran / Eve / Tanjiro, pet Jeo.
+  assert.equal(byCode.T2.counters.length, 11);
+  assert.equal(byCode.T2.counters[10], 'C15');
+  assert.deepEqual(data.counters.C15.heroes.map(h => h.name), ['Sunran', 'Eve', 'Tanjiro Kamado']);
+  assert.equal(data.counters.C15.pet, 'Jeo');
+  assert.deepEqual(data.counters.C15.petBackup, ['Eirin']);
+  assert.deepEqual(data.counters.C15.skills.map(s => [s.hero, s.slot, s.name]), [
+    ['Tanjiro Kamado', 'Skill 2', 'Hinokami Kagura: Dancing Flash'],
+    ['Sunran', 'Skill 2', 'Phantom Flying Blade'],
+    ['Eve', 'Skill 1', 'Time of Our Lives'],
+  ]);
+  // (c) T3 gains a 5th counter (C20): Giyu / Shinobu / Aris, pet Ruu.
+  assert.equal(byCode.T3.counters.length, 5);
+  assert.equal(byCode.T3.counters[4], 'C20');
+  assert.deepEqual(data.counters.C20.heroes.map(h => h.name), ['Giyu Tomioka', 'Shinobu Kocho', 'Aris']);
+  assert.equal(data.counters.C20.pet, 'Ruu');
+  assert.deepEqual(data.counters.C20.petBackup, ['Karam', 'Pike']);
+  assert.deepEqual(data.counters.C20.skills.map(s => [s.hero, s.slot, s.name]), [
+    ['Shinobu Kocho', 'Skill 2', 'Insect Breathing Dance of the Dragonfly: Compound Eye Hexagon'],
+    ['Giyu Tomioka', 'Skill 1', 'Water Breathing Seventh Form: Drop Ripple Thrust'],
+    ['Aris', 'Skill 2', 'Finishing Blow'],
+  ]);
+  // (d) T4 counter #2 (C22): opening skill order changed — Tanjiro now leads.
+  assert.deepEqual(data.counters.C22.skills.map(s => [s.hero, s.slot, s.name]), [
+    ['Tanjiro Kamado', 'Skill 2', 'Hinokami Kagura: Dancing Flash'],
+    ['Sunran', 'Skill 2', 'Phantom Flying Blade'],
+    ['Ballista', 'Skill 2', 'Shadow of Death'],
+  ]);
+  // (e) T5 counter #1 (C23): main and reserve pets swapped Pike <-> Karam.
+  assert.equal(data.counters.C23.pet, 'Karam');
+  assert.deepEqual(data.counters.C23.petBackup, ['Pike']);
+  assert.deepEqual(counterPets.C23, ['Karam', 'Pike']);
+});
+
 test('every skill chain entry carries its Heroes icon and kit (build -21)', () => {
   let n = 0;
   for (const t of [...data.defense, ...Object.values(data.counters)]) {
@@ -164,7 +248,7 @@ test('every skill chain entry carries its Heroes icon and kit (build -21)', () =
       assert.ok(['awk', 's6'].includes(s.kit), t.code + ' skill ' + s.name + ' must state its kit (awk/s6)');
     }
   }
-  assert.equal(n, 503, 'all 503 chain skills must carry icon + kit');
+  assert.equal(n, 509, 'all 509 chain skills must carry icon + kit');
   // The 13 rows that used to render with an empty icon box (Judas, Li, Rook,
   // Bai Jiao have no GW skill panel) now all have real icons.
   const noPanelHeroes = ['Judas (Awakening)', 'Li', 'Rook', 'Bai Jiao'];
@@ -204,17 +288,17 @@ test('popups sit above the sticky site header (build -21 z-index fix)', () => {
   assert.equal(z('.poverlay'), 320);
 });
 
-test('skill chains: 32 defense teams have 3 skills, 22 have none; every counter has a chain except C7', () => {
+test('skill chains: 32 defense teams have 3 skills, 22 have none; every counter has a chain except C34', () => {
   const withSkill = data.defense.filter(d => d.skills.length > 0);
   const withoutSkill = data.defense.filter(d => d.skills.length === 0);
   assert.equal(withSkill.length, 32, '32/54 targets have their skill order set on 7k-note');
   assert.deepEqual(withoutSkill.map(d => d.code).sort(), [...NO_SKILL_DEFENSE].sort());
   for (const d of withSkill) assert.equal(d.skills.length, 3, d.code + ' must have exactly 3 auto skills');
-  // C7 (Giyu/Hayeon/Judas counter of T2) is the only counter with no skill
-  // set on 7k-note itself; every other counter has 1-3.
-  assert.deepEqual(data.counters.C7.skills, [], 'C7 must have no auto skill (none set on 7k-note)');
+  // C34 (Giyu/Hayeon/Judas counter of T6, the old T2) is the only counter
+  // with no skill set on 7k-note itself; every other counter has 1-3.
+  assert.deepEqual(data.counters.C34.skills, [], 'C34 must have no auto skill (none set on 7k-note)');
   for (const [code, c] of Object.entries(data.counters)) {
-    if (code === 'C7') continue;
+    if (code === 'C34') continue;
     assert.ok(c.skills.length >= 1, code + ' must have at least 1 auto skill');
     assert.ok(c.skills.length <= 3, code + ' must have at most 3 auto skills');
     for (const s of c.skills) {
@@ -290,7 +374,7 @@ test('no PROPOSED flags remain: build -20 is 7k-note-verified only', () => {
 });
 
 test('COUNTER_PETS lists each counter pet plus its reserve pets', () => {
-  assert.equal(Object.keys(counterPets).length, 138);
+  assert.equal(Object.keys(counterPets).length, 140);
   for (const [code, c] of Object.entries(data.counters)) {
     assert.deepEqual(counterPets[code], [c.pet, ...c.petBackup], code + ' pets must be main + reserves');
   }
@@ -318,7 +402,7 @@ test('the guild war page matches the site chrome: light-only, sticky nav, site f
   assert.ok(html.includes('class="site-header"'), 'guild war page must use the standard site header');
   assert.ok(html.includes('.hero{display:block'), 'guild war team-hero cells must stay blocks (not the styles-v3 banner grid)');
   assert.ok(html.includes('class="site-footer"'), 'guild war page must use the standard site footer');
-  assert.ok(html.includes('Meta v2026.11.17-23'), 'the meta build version must survive the footer swap');
+  assert.ok(html.includes('Meta v2026.11.23-24'), 'the meta build version must survive the footer swap');
   assert.ok(html.includes('class="back-to-top"'), 'guild war page must have a back-to-top button');
   assert.ok(html.includes('id="dau-trang"'), 'the footer "Về đầu trang" link needs its anchor');
 });

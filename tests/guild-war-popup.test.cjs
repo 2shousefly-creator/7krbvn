@@ -91,7 +91,7 @@ if (!JSDOM) {
     test.skip('jsdom is not installed');
   });
 } else {
-  test('guild war page renders 54 defense teams and 138 counters', async () => {
+  test('guild war page renders 54 defense teams and 140 counters', async () => {
     const { window } = makeDom();
     const doc = window.document;
     await sleep(50);
@@ -100,12 +100,12 @@ if (!JSDOM) {
     assert.ok(tabs.some(t => t.startsWith('Physical25')), 'Physical tab must count 25');
     assert.ok(tabs.some(t => t.startsWith('Tank19')), 'Tank tab must count 19');
     assert.ok(tabs.some(t => t.startsWith('Magic10')), 'Magic tab must count 10');
-    assert.ok(tabs.some(t => t.startsWith('Thưviệnkhắcchế138')), 'counter library tab must count 138');
+    assert.ok(tabs.some(t => t.startsWith('Thưviệnkhắcchế140')), 'counter library tab must count 140');
     assert.equal(doc.querySelectorAll('#list [data-team]').length, 54, 'all tab must render 54 defense cards');
     const ctrTab = [...doc.querySelectorAll('#tabs .tab')].find(t => t.textContent.includes('Thư viện khắc chế'));
     click(ctrTab);
     await sleep(50);
-    assert.equal(doc.querySelectorAll('#list [data-counter]').length, 138, 'counter tab must render 138 counter cards');
+    assert.equal(doc.querySelectorAll('#list [data-counter]').length, 140, 'counter tab must render 140 counter cards');
   });
 
   test('portrait click in a list card opens the hero popup, not the team sheet', async () => {
