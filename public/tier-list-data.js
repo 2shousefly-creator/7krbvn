@@ -3407,7 +3407,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "ATTACK",
-          "tier": "SS",
+          "tier": "SSS",
           "hero_id": "eve",
           "tx": "T6"
         },
@@ -3707,7 +3707,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "DEFENSE",
-          "tier": "SSS",
+          "tier": "A",
           "hero_id": "rudy",
           "tx": "T6"
         },
@@ -3761,7 +3761,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "SUPPORT",
-          "tier": "SS",
+          "tier": "SSS",
           "hero_id": "clemyth",
           "tx": "T6"
         },
@@ -3833,7 +3833,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "UNIVERSAL",
-          "tier": "SS",
+          "tier": "SSS",
           "hero_id": "giyu-tomioka",
           "tx": "T2"
         },
@@ -3939,7 +3939,17 @@ const TIER_LIST_DATA = {
           "date": "2026-11-25",
           "by_category": {
             "DEFENSE": [
-              "Li ~ Added to SS-Tier"
+              "Li ~ Added to SS-Tier",
+              "Rudy ~ SSS > A"
+            ],
+            "SUPPORT": [
+              "Clemyth ~ SS > SSS"
+            ],
+            "ATTACK": [
+              "Eve ~ SS > SSS"
+            ],
+            "UNIVERSAL": [
+              "Giyu Tomioka ~ SS > SSS"
             ]
           }
         },
@@ -4087,7 +4097,7 @@ const TIER_LIST_DATA = {
       "key": "total-war",
       "label": "Total War",
       "group": "pvp",
-      "last_edit": "2026-11-12",
+      "last_edit": "2026-11-25",
       "categories": [
         {
           "key": "ATTACK",
@@ -4471,6 +4481,12 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "DEFENSE",
+          "tier": "SS",
+          "hero_id": "li",
+          "tx": "T6"
+        },
+        {
+          "category": "DEFENSE",
           "tier": "S",
           "hero_id": "rudy",
           "tx": "T6"
@@ -4525,7 +4541,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "SUPPORT",
-          "tier": "A",
+          "tier": "SS",
           "hero_id": "lina",
           "tx": "T6"
         },
@@ -4567,7 +4583,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "UNIVERSAL",
-          "tier": "SS",
+          "tier": "SSS",
           "hero_id": "giyu-tomioka",
           "tx": "T2"
         },
@@ -4676,6 +4692,20 @@ const TIER_LIST_DATA = {
       ],
       "changelog": [
         {
+          "date": "2026-11-25",
+          "by_category": {
+            "DEFENSE": [
+              "Li ~ Added to SS-Tier"
+            ],
+            "UNIVERSAL": [
+              "Giyu Tomioka ~ SS > SSS"
+            ],
+            "SUPPORT": [
+              "Lina ~ A > SS"
+            ]
+          }
+        },
+        {
           "date": "2026-11-12",
           "by_category": {
             "ATTACK": [
@@ -4698,7 +4728,7 @@ const TIER_LIST_DATA = {
       "key": "guild-war",
       "label": "Guild War",
       "group": "pvp",
-      "last_edit": "2026-11-12",
+      "last_edit": "2026-11-25",
       "categories": [
         {
           "key": "ATTACK",
@@ -5136,7 +5166,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "SUPPORT",
-          "tier": "B",
+          "tier": "SS",
           "hero_id": "lina",
           "tx": "T6"
         },
@@ -5292,6 +5322,14 @@ const TIER_LIST_DATA = {
         }
       ],
       "changelog": [
+        {
+          "date": "2026-11-25",
+          "by_category": {
+            "SUPPORT": [
+              "Lina ~ B > SS"
+            ]
+          }
+        },
         {
           "date": "2026-11-12",
           "by_category": {

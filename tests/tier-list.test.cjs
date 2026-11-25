@@ -328,13 +328,13 @@ test('PvP rows render merged: one group per tier, sorted rarity-then-name (live 
     }
   }
   const sss = sections.find(s => s.tier === 'SSS');
-  assert.deepEqual(sss.cards, ['aris', 'eileene', 'hayeon', 'judas', 'rudy', 'sunran', 'yoongun'],
-    'arena SSS row must list the 7 L+ heroes alphabetically');
+  assert.deepEqual(sss.cards, ['aris', 'clemyth', 'eileene', 'eve', 'giyu-tomioka', 'hayeon', 'judas', 'sunran', 'yoongun'],
+    'arena SSS row must list the 9 L+ heroes alphabetically (Rudy down to A, Clemyth/Eve/Giyu up to SSS, 2026-11-25)');
   const ss = sections.find(s => s.tier === 'SS');
   assert.equal(ss.cards[0], 'gelidus', 'arena SS row must start with the only L++ hero, Gelidus');
   assert.deepEqual(ss.cards.slice(1),
-    ['clemyth', 'dongyoung', 'eve', 'giyu-tomioka', 'omok', 'radgrid', 'shinobu-kocho', 'tanjiro-kamado', 'li'],
-    'arena SS row must continue with the L+ heroes alphabetically, then Li (R rarity, added 2026-11-25)');
+    ['dongyoung', 'omok', 'radgrid', 'shinobu-kocho', 'tanjiro-kamado', 'li'],
+    'arena SS row must continue with the L+ heroes alphabetically, then Li (R rarity, added 2026-11-25); Clemyth/Eve/Giyu left for SSS');
 });
 
 test('role filter still narrows the merged PvP rows (live render)', async () => {

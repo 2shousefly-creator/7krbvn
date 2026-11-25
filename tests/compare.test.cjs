@@ -292,7 +292,7 @@ test('tiers merge across both heroes; NOT USED displays as PHẾ', () => {
   assert.equal(compare.tierLabel('SS'), 'SS');
   const rows = compare.tierRows(eve, judas);
   const arena = rows.find(r => r.mode === 'arena');
-  assert.deepEqual(arena.a, { tier: 'SS', tx: 'T6' });
+  assert.deepEqual(arena.a, { tier: 'SSS', tx: 'T6' }); // Eve up to SSS in Arena (2026-11-25)
   assert.deepEqual(arena.b, { tier: 'SSS', tx: 'T6' });
   assert.ok(rows.some(r => r.mode === 'advent-expedition' && r.a === null && r.b.tier === 'SSS'),
     'Judas-only modes must still show, with Eve blank');
