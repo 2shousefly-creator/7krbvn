@@ -3815,7 +3815,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "UNIVERSAL",
-          "tier": "SSS",
+          "tier": "S",
           "hero_id": "aris",
           "tx": "T6"
         },
@@ -3949,7 +3949,8 @@ const TIER_LIST_DATA = {
               "Eve ~ SS > SSS"
             ],
             "UNIVERSAL": [
-              "Giyu Tomioka ~ SS > SSS"
+              "Giyu Tomioka ~ SS > SSS",
+              "Aris ~ SSS > S"
             ]
           }
         },
@@ -4571,7 +4572,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "UNIVERSAL",
-          "tier": "SSS",
+          "tier": "S",
           "hero_id": "aris",
           "tx": "T6"
         },
@@ -4698,7 +4699,8 @@ const TIER_LIST_DATA = {
               "Li ~ Added to SS-Tier"
             ],
             "UNIVERSAL": [
-              "Giyu Tomioka ~ SS > SSS"
+              "Giyu Tomioka ~ SS > SSS",
+              "Aris ~ SSS > S"
             ],
             "SUPPORT": [
               "Lina ~ A > SS"
@@ -5202,7 +5204,7 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "UNIVERSAL",
-          "tier": "SSS",
+          "tier": "S",
           "hero_id": "aris",
           "tx": "T6"
         },
@@ -5327,6 +5329,9 @@ const TIER_LIST_DATA = {
           "by_category": {
             "SUPPORT": [
               "Lina ~ B > SS"
+            ],
+            "UNIVERSAL": [
+              "Aris ~ SSS > S"
             ]
           }
         },

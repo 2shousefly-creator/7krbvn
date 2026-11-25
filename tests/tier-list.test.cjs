@@ -328,8 +328,8 @@ test('PvP rows render merged: one group per tier, sorted rarity-then-name (live 
     }
   }
   const sss = sections.find(s => s.tier === 'SSS');
-  assert.deepEqual(sss.cards, ['aris', 'clemyth', 'eileene', 'eve', 'giyu-tomioka', 'hayeon', 'judas', 'sunran', 'yoongun'],
-    'arena SSS row must list the 9 L+ heroes alphabetically (Rudy down to A, Clemyth/Eve/Giyu up to SSS, 2026-11-25)');
+  assert.deepEqual(sss.cards, ['clemyth', 'eileene', 'eve', 'giyu-tomioka', 'hayeon', 'judas', 'sunran', 'yoongun'],
+    'arena SSS row must list the 8 L+ heroes alphabetically (Aris down to S, 2026-11-25)');
   const ss = sections.find(s => s.tier === 'SS');
   assert.equal(ss.cards[0], 'gelidus', 'arena SS row must start with the only L++ hero, Gelidus');
   assert.deepEqual(ss.cards.slice(1),
