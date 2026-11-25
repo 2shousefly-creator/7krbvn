@@ -3341,7 +3341,7 @@ const TIER_LIST_DATA = {
       "key": "arena",
       "label": "Arena",
       "group": "pvp",
-      "last_edit": "2026-11-16",
+      "last_edit": "2026-11-25",
       "categories": [
         {
           "key": "ATTACK",
@@ -3719,6 +3719,12 @@ const TIER_LIST_DATA = {
         },
         {
           "category": "DEFENSE",
+          "tier": "SS",
+          "hero_id": "li",
+          "tx": "T6"
+        },
+        {
+          "category": "DEFENSE",
           "tier": "B",
           "hero_id": "knox",
           "tx": "T0"
@@ -3929,6 +3935,14 @@ const TIER_LIST_DATA = {
         }
       ],
       "changelog": [
+        {
+          "date": "2026-11-25",
+          "by_category": {
+            "DEFENSE": [
+              "Li ~ Added to SS-Tier"
+            ]
+          }
+        },
         {
           "date": "2026-11-16",
           "by_category": {

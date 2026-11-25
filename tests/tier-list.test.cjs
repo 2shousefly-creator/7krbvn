@@ -311,7 +311,7 @@ function tierSections(rowsHtml) {
 
 test('PvP rows render merged: one group per tier, sorted rarity-then-name (live render)', async () => {
   const { els } = await renderTierList('?mode=arena');
-  assert.equal(els['tl-count'].textContent, 'Hiển thị 88 / 88 hero');
+  assert.equal(els['tl-count'].textContent, 'Hiển thị 89 / 89 hero'); // 88 + Li (Arena SS, 2026-11-25)
   const sections = tierSections(els['tl-rows'].innerHTML);
   assert.ok(sections.length > 0, 'arena must render tier rows');
   assert.ok(sections.some(s => s.tier === 'PHẾ'), 'arena must keep the PHẾ row');
@@ -333,14 +333,14 @@ test('PvP rows render merged: one group per tier, sorted rarity-then-name (live 
   const ss = sections.find(s => s.tier === 'SS');
   assert.equal(ss.cards[0], 'gelidus', 'arena SS row must start with the only L++ hero, Gelidus');
   assert.deepEqual(ss.cards.slice(1),
-    ['clemyth', 'dongyoung', 'eve', 'giyu-tomioka', 'omok', 'radgrid', 'shinobu-kocho', 'tanjiro-kamado'],
-    'arena SS row must continue with the L+ heroes alphabetically');
+    ['clemyth', 'dongyoung', 'eve', 'giyu-tomioka', 'omok', 'radgrid', 'shinobu-kocho', 'tanjiro-kamado', 'li'],
+    'arena SS row must continue with the L+ heroes alphabetically, then Li (R rarity, added 2026-11-25)');
 });
 
 test('role filter still narrows the merged PvP rows (live render)', async () => {
   const { els, roleBtns } = await renderTierList('?mode=arena');
   roleBtns.ATTACK.click();
-  assert.equal(els['tl-count'].textContent, 'Hiển thị 26 / 88 hero');
+  assert.equal(els['tl-count'].textContent, 'Hiển thị 26 / 89 hero'); // total 89 after Li (Arena SS, 2026-11-25)
   const cards = [...els['tl-rows'].innerHTML.matchAll(/data-hero-popup="([^"]+)"/g)].map(m => m[1]);
   assert.equal(cards.length, 26, 'ATTACK filter must leave 26 cards in arena');
   assert.ok(cards.every(id => indexById.get(id).type === 'Attack'),
@@ -352,7 +352,7 @@ test('role filter still narrows the merged PvP rows (live render)', async () => 
     'filtered PvP rows must stay merged with no role headings');
   /* Toggling the same role off restores the full list. */
   roleBtns.ATTACK.click();
-  assert.equal(els['tl-count'].textContent, 'Hiển thị 88 / 88 hero');
+  assert.equal(els['tl-count'].textContent, 'Hiển thị 89 / 89 hero'); // total 89 after Li (Arena SS, 2026-11-25)
 });
 
 test('PvE rows keep their per-category groups (live render)', async () => {
