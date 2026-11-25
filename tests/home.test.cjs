@@ -7,7 +7,7 @@ const page = name => fs.readFileSync(path.join(root, name), 'utf8');
 const pages = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 
 const SLIDES = [
-  ['Chi tiết cập nhật 12/11/2026', 'cap-nhat-12-11.html'],
+  ['Chi tiết cập nhật 26/11/2026', 'cap-nhat-26-11.html'],
   ['Hướng dẫn Newbie', 'newbie.html'],
   ['Cách build trang bị từng Hero', 'heroes.html'],
   ['Cách vượt Celestial Tower tầng 450', 'celestial-tower-tang-450.html'],
@@ -159,19 +159,19 @@ test('menu-page banners: blog-intro is half its old height on every page', () =>
   assert.ok(css.includes('.blog-intro-art{height:75px'), 'mobile banner art must shrink too');
 });
 
-test('raid guide article: sixth in Latest, 8 sections, every portrait hero exists', () => {
+test('raid guide article: seventh in Latest, 8 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('hieu-trung-hieu-khang.html') < latest.indexOf('cap-nhat-12-11.html'),
-    'the Hit/Res guide must be the second card in Latest, ahead of the 12/11 update');
+    'the Hit/Res guide must be the third card in Latest, ahead of the 12/11 update');
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the fourth card in Latest, ahead of the gear guide');
+    'the ring guide must be the fifth card in Latest, ahead of the gear guide');
   assert.ok(latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html') < latest.indexOf('raid-farm-trang-bi.html'),
-    'the gear guide must be the fifth card in Latest, ahead of the raid guide');
+    'the gear guide must be the sixth card in Latest, ahead of the raid guide');
   assert.ok(latest.indexOf('raid-farm-trang-bi.html') < latest.indexOf('cap-nhat-28-10.html'),
-    'the raid guide must be the sixth card in Latest');
-  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
+    'the raid guide must be the seventh card in Latest');
+  assert.ok(home.includes('Cập nhật 26/11/2026'), 'home stamp must read 26/11/2026');
   const raidCard = latest.match(/<a class="post-card" href="raid-farm-trang-bi\.html" data-tag="NEWBIE">/);
   assert.ok(raidCard, 'the raid guide card in Latest must carry the implicit NEWBIE tag');
   const raidListing = page('raid.html');
@@ -198,15 +198,15 @@ test('raid guide article: sixth in Latest, 8 sections, every portrait hero exist
   assert.ok(article.includes('href="raid.html"'), 'raid guide must link back to the raid listing');
 });
 
-test('gear guide article: fifth in Latest, third in Newbie, 9 sections, every portrait hero exists', () => {
+test('gear guide article: sixth in Latest, third in Newbie, 9 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the fourth card in Latest, ahead of the gear guide');
+    'the ring guide must be the fifth card in Latest, ahead of the gear guide');
   assert.ok(latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html') < latest.indexOf('raid-farm-trang-bi.html'),
-    'the gear guide must be the fifth card in Latest');
-  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
+    'the gear guide must be the sixth card in Latest');
+  assert.ok(home.includes('Cập nhật 26/11/2026'), 'home stamp must read 26/11/2026');
   const gearCard = latest.match(/<a class="post-card" href="trang-bi-set-dong-chinh-dong-phu\.html" data-tag="NEWBIE">/);
   assert.ok(gearCard, 'the gear guide card in Latest must carry the implicit NEWBIE tag');
   const newbieListing = page('newbie.html');
@@ -230,13 +230,13 @@ test('gear guide article: fifth in Latest, third in Newbie, 9 sections, every po
   assert.ok(article.includes('href="newbie.html"'), 'gear guide must link back to the newbie listing');
 });
 
-test('ring guide article: fourth in Latest, second in Newbie, 9 sections, every portrait hero exists', () => {
+test('ring guide article: fifth in Latest, second in Newbie, 9 sections, every portrait hero exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   assert.ok(latest.indexOf('nhan-va-trang-bi-rieng.html') < latest.indexOf('trang-bi-set-dong-chinh-dong-phu.html'),
-    'the ring guide must be the fourth card in Latest');
-  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
+    'the ring guide must be the fifth card in Latest');
+  assert.ok(home.includes('Cập nhật 26/11/2026'), 'home stamp must read 26/11/2026');
   const ringCard = latest.match(/<a class="post-card" href="nhan-va-trang-bi-rieng\.html" data-tag="NEWBIE">/);
   assert.ok(ringCard, 'the ring guide card in Latest must carry the implicit NEWBIE tag');
   const newbieListing = page('newbie.html');
@@ -293,19 +293,21 @@ test('mobile menu button: MENU text sits inside the toggle on every page', () =>
   }
 });
 
-test('hit/res guide article: second in Latest, first in Newbie, 5 sections', () => {
+test('hit/res guide article: third in Latest, first in Newbie, 5 sections', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)"[^>]*>/g)].map(m => m[1]);
-  assert.equal(latestCards[0], 'corridor.html',
-    'the Corridor article must be the first card in Latest, ahead of the Hit/Res guide');
-  assert.equal(latestCards[1], 'hieu-trung-hieu-khang.html',
-    'the Hit/Res guide must be the second card in Latest');
+  assert.equal(latestCards[0], 'cap-nhat-26-11.html',
+    'the 26/11 update must be the first card in Latest, ahead of the Corridor article');
+  assert.equal(latestCards[1], 'corridor.html',
+    'the Corridor article must be the second card in Latest, ahead of the Hit/Res guide');
+  assert.equal(latestCards[2], 'hieu-trung-hieu-khang.html',
+    'the Hit/Res guide must be the third card in Latest');
   assert.equal(latestCards.length, 8, 'latest must still list 8 articles');
   const hitCard = latest.match(/<a class="post-card" href="hieu-trung-hieu-khang\.html" data-tag="NEWBIE">/);
   assert.ok(hitCard, 'the Hit/Res guide card in Latest must carry the implicit NEWBIE tag');
-  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
+  assert.ok(home.includes('Cập nhật 26/11/2026'), 'home stamp must read 26/11/2026');
   const newbieListing = page('newbie.html');
   const newbieCards = [...newbieListing.matchAll(/<a class="post-card" href="([^"]+)"[^>]*>/g)].map(m => m[1]);
   assert.equal(newbieCards[0], 'hieu-trung-hieu-khang.html',
@@ -318,23 +320,23 @@ test('hit/res guide article: second in Latest, first in Newbie, 5 sections', () 
   assert.ok(article.includes('href="newbie.html"'), 'Hit/Res guide must link back to the newbie listing');
 });
 
-test('corridor article: first in Latest, first in cap-nhat listing, 6 sections, every figure image exists', () => {
+test('corridor article: second in Latest, second in cap-nhat listing, 6 sections, every figure image exists', () => {
   const home = page('index.html');
   const latest = home.slice(home.indexOf('Bài viết mới nhất'),
     home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
   const latestCards = [...latest.matchAll(/<a class="post-card" href="([^"]+)"[^>]*>/g)].map(m => m[1]);
-  assert.equal(latestCards[0], 'corridor.html',
-    'the Corridor article must be the first card in Latest');
+  assert.equal(latestCards[1], 'corridor.html',
+    'the Corridor article must be the second card in Latest');
   assert.equal(latestCards.length, 8, 'latest must still list 8 articles');
   const corridorCard = latest.match(/<a class="post-card" href="corridor\.html" data-tag="CẬP NHẬT">/);
   assert.ok(corridorCard, 'the Corridor card in Latest must carry the implicit CẬP NHẬT tag');
-  assert.ok(home.includes('Cập nhật 19/11/2026'), 'home stamp must read 19/11/2026');
+  assert.ok(home.includes('Cập nhật 26/11/2026'), 'home stamp must read 26/11/2026');
   const listing = page('cap-nhat.html');
   const listingCards = [...listing.matchAll(/<a class="post-card" href="([^"]+)"[^>]*>/g)].map(m => m[1]);
-  assert.equal(listingCards[0], 'corridor.html',
-    'the Corridor article must be the first card in the cap-nhat listing');
-  assert.ok(listing.includes('<p>3 bài viết</p>'),
-    'the cap-nhat listing count must read 3 articles');
+  assert.equal(listingCards[1], 'corridor.html',
+    'the Corridor article must be the second card in the cap-nhat listing');
+  assert.ok(listing.includes('<p>4 bài viết</p>'),
+    'the cap-nhat listing count must read 4 articles');
   const article = page('corridor.html');
   assert.ok(article.includes('data-tag="CẬP NHẬT"') && !article.includes('<span class="article-tag">'),
     'the Corridor article must carry the implicit CẬP NHẬT tag');

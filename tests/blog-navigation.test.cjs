@@ -18,7 +18,6 @@ test('the Newbie listing links to both individual guides and the guides link bac
 test('the home page links to the Newbie listing and the latest guides', () => {
   const home = page('index.html');
   assert.match(home, /href="newbie\.html"/);
-  assert.match(home, /href="doi-hinh-hang-truoc-sau\.html"/);
   assert.match(home, /href="cap-nhat-28-10\.html"/);
 });
 

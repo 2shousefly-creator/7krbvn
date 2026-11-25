@@ -279,6 +279,7 @@ test('article tags: every article page keeps its tag implicit (data-tag, no chip
     'doi-hinh-hang-truoc-sau.html': 'NEWBIE',
     'cap-nhat-28-10.html': 'CẬP NHẬT',
     'cap-nhat-12-11.html': 'CẬP NHẬT',
+    'cap-nhat-26-11.html': 'CẬP NHẬT',
     'arena.html': 'ARENA',
     'total-war.html': 'TOTAL WAR',
     'tinh-ruby.html': 'TÍNH RUBY',

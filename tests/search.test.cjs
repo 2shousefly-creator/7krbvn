@@ -82,6 +82,8 @@ test('diacritic-insensitive matching: "tuong" finds "tướng", "doi" finds "Đ�
   assert.ok(tuong.length > 0, '"tuong" must return results');
   assert.ok(tuong.some(e => e.url === 'cap-nhat-12-11.html'),
     '"tuong" must find the 12/11 update page (heading "Tướng mới & Thức tỉnh")');
+  assert.ok(tuong.some(e => e.url === 'cap-nhat-26-11.html'),
+    '"tuong" must find the 26/11 update page (heading "Tướng mới & Thức tỉnh")');
   assert.ok(tuong.some(e => search.normalize(e.title).includes('tuong')),
     '"tuong" must match an entry whose title holds "tướng"');
   const doi = search.searchEntries(index.entries, 'doi coupon');
@@ -185,7 +187,7 @@ test('search index: every entry carries a thumbnail image, or falls back to a gr
       }
     } else noImg.push(e.url);
   }
-  assert.equal(withImg, 651, `651 of 655 entries must carry an image, got ${withImg}`);
+  assert.equal(withImg, 652, `652 of 656 entries must carry an image, got ${withImg}`);
   // Only the JS-rendered pages with no static image fall back to an icon.
   assert.deepEqual(noImg.sort(), ['guild-war-team.html', 'hero.html',
     'tim-kiem.html', 'xac-suat-hieu-ung.html'],

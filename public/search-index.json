@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-25T00:55:43.367314+00:00",
+ "generated": "2026-11-25T13:30:50.268276+00:00",
  "counts": {
-  "pages": 246,
+  "pages": 247,
   "heroes": 125,
   "chapters": 284,
-  "total": 655
+  "total": 656
  },
  "entries": [
   {
@@ -340,6 +340,23 @@
    ],
    "keys": "Chi tiết cập nhật 12/11",
    "img": "assets/update-11-11-eve-awakened.jpg"
+  },
+  {
+   "title": "Chi tiết cập nhật 26/11 | 7K RBVN",
+   "url": "cap-nhat-26-11.html",
+   "group": "article",
+   "desc": "Chi tiết cập nhật 26/11: Bael mới ra mắt, Fai thức tỉnh, Corridor — chế độ PvE roguelite mới, cân bằng Melia, Auto Enhance & Auto Fusion — bản dịch đầy đủ từ forum chính thức.",
+   "headings": [
+    "Tướng mới & Thức tỉnh",
+    "Cân bằng tướng (Hero Balance Adjustment)",
+    "Nội dung mới (New Content)",
+    "Cải tiến nội dung (Content Improvement)",
+    "Gói (Packs)",
+    "Sửa lỗi & lưu ý (System Improvements & Fixes)",
+    "Cùng khám phá Seven Knights Re:Birth"
+   ],
+   "keys": "Chi tiết cập nhật 26/11",
+   "img": "assets/update-11-25-bael-awakened.jpg"
   },
   {
    "title": "Chi tiết cập nhật 28/10 | 7K RBVN",
@@ -1538,7 +1555,7 @@
    "group": "article",
    "desc": "Hướng dẫn Newbie, meta Guild War, Castle Rush, Raid, Arena và chi tiết cập nhật mới nhất cho người chơi Việt Nam.",
    "headings": [
-    "Chi tiết cập nhật 12/11/2026",
+    "Chi tiết cập nhật 26/11/2026",
     "Hướng dẫn Newbie",
     "Cách build trang bị từng Hero",
     "Cách vượt Celestial Tower tầng 450",
@@ -1550,7 +1567,7 @@
     "Cùng khám phá Seven Knights Re:Birth"
    ],
    "keys": "Sổ tay Seven Knights Re:Birth",
-   "img": "assets/update-11-11-eve-awakened.jpg"
+   "img": "assets/update-11-25-bael-awakened.jpg"
   },
   {
    "title": "Nâng cấp Hero và xử lý bản sao | 7K RBVN",

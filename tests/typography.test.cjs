@@ -143,7 +143,7 @@ test('typography: quick-summary content matches normal body text (2026-11-21)', 
     'quick-card titles stay 19px (h3) — only the descriptive content syncs to body size');
   assert.ok(v3.includes('.quick-card strong{font-size:17px}'),
     'quick-card titles stay 17px on mobile');
-  for (const file of ['cap-nhat-12-11.html', 'corridor.html']) {
+  for (const file of ['cap-nhat-12-11.html', 'cap-nhat-26-11.html', 'corridor.html']) {
     const html = read(file);
     assert.ok(html.includes('<ul style="margin:6px 0 0;padding-left:20px;font-size:15px;line-height:1.7;color:#606a7e">'),
       `${file}: the "Tóm tắt nhanh" callout list must be 15px like article body (was inline 15.6px)`);
