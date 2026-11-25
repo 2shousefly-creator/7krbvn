@@ -317,6 +317,29 @@ test('dropdown menus: PVE/PVP open on hover, focus and click on desktop, tap on 
   }
 });
 
+test('desktop dropdowns stay open while the mouse travels to the submenu (2026-11-25)', () => {
+  const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
+  // The submenu sits 4px below its parent (top:calc(100% + 4px)); without a
+  // bridge the mouse crosses 4px of dead space on the way down, :hover drops
+  // and the menu snaps shut before the cursor reaches it. An invisible
+  // ::before strip covers the gap, and the close is delayed 180ms so a
+  // brief slip off the menu does not close it either.
+  assert.ok(css.includes('.nav-sub::before{content:"";position:absolute;left:0;right:0;top:-4px;height:4px}'),
+    'an invisible bridge must cover the 4px gap between parent and submenu');
+  assert.ok(css.includes('visibility 0s linear .18s'),
+    'the submenu must hide with a ~180ms delay so it stays open on a brief mouse slip');
+  assert.ok(css.includes('.nav-item:hover .nav-sub,.nav-item:focus-within .nav-sub,.nav-item.open .nav-sub{opacity:1;visibility:visible;transition-delay:0s;pointer-events:auto}'),
+    'hover/focus/click must show the submenu immediately (no delay on open)');
+  assert.ok(css.includes('.nav-item:hover .nav-caret{transform:rotate(180deg)}'),
+    'the caret must rotate on hover too, signalling the open submenu');
+  assert.ok(css.includes('.nav-sub{display:none;position:absolute;top:calc(100% + 4px)'),
+    'the 4px visual gap stays — it is bridged, not removed');
+  assert.ok(css.includes('.main-nav.open .nav-item.open .nav-sub{display:block}'),
+    'mobile tap-to-open accordion must be untouched by the desktop change');
+  assert.ok(css.includes('@media (prefers-reduced-motion: reduce){main,.blog-intro,.hero,.at-hero{animation:none}.nav-sub{transition:none}}'),
+    'reduced-motion must kill the submenu fade/delay as well');
+});
+
 test('mobile hamburger menu: every page has a collapsible nav toggle', () => {
   const css = fs.readFileSync(path.join(root, 'site-nav.css'), 'utf8');
   assert.ok(css.includes('.nav-toggle'), 'site-nav.css must style the hamburger toggle');
@@ -440,15 +463,15 @@ test('page entrance animations: main slides in, banners fade, reduced motion opt
   assert.ok(css.includes('animation:none'), 'reduced-motion must turn the animations off');
 });
 
-test('arena team display is mobile-first: hero names half size on mobile', () => {
+test('arena team display: hero names match body size on mobile (2026-11-25 full sync)', () => {
   const css = fs.readFileSync(path.join(root, 'atlas.css'), 'utf8');
   assert.ok(css.includes('.at-hero-cell b{display:block;font-size:15px'),
     'hero names must be 15px on desktop');
-  assert.ok(css.includes('.at-hero-cell b{font-size:7.5px'),
-    'hero names must be half size (7.5px) on mobile');
+  assert.ok(css.includes('.at-hero-cell b{font-size:14px'),
+    'hero names must be 14px on mobile — the 2026-11-25 full sync supersedes the old 7.5px halving');
   assert.ok(css.includes('.at-team{padding:14px}'),
     'team cards must tighten their padding on mobile');
-  assert.ok(css.includes('.at-team-head h3{font-size:18px;min-width:0}'),
+  assert.ok(css.includes('.at-team-head h3{font-size:17px;min-width:0}'),
     'team titles must shrink and wrap freely on mobile');
   assert.ok(css.includes('.at-heroes{gap:8px}'),
     'team portrait rows must tighten their gaps on mobile');
