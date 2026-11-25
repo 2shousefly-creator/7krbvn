@@ -13,7 +13,7 @@
 .search-hint{margin:16px 0;padding:16px 18px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;color:#606a7e;font-size:15px;line-height:1.7}
 .search-hint p{margin:0}
 .search-group{margin-top:22px}
-.search-group-title{margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#946b25}
+.search-group-title{margin:0 0 10px;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#946b25}
 .search-group-title span{color:#8a8f9c}
 .search-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .search-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;text-decoration:none}
@@ -32,4 +32,5 @@
 @media(max-width:640px){
   .search-box input{font-size:16px;padding:12px 14px}
   .search-clear{padding:0 14px}
+  .search-group-title{font-size:13px}
 }

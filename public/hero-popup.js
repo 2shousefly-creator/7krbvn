@@ -130,7 +130,7 @@
         + mainStatHtml('Chỉ số chính Vũ khí', pieceImg(set.name || '', 'weapon', h.type), build.gear.weapon || [])
         + mainStatHtml('Chỉ số chính Giáp', pieceImg(set.name || '', 'armor', h.type), build.gear.armor || [])
         + '</div>'
-        + '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:12px 0 6px">ƯU TIÊN DÒNG PHỤ</div>'
+        + '<div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:12px 0 6px">ƯU TIÊN DÒNG PHỤ</div>'
         + '<ul class="hx-substats">'
         + subs.map(function (s, i) {
           var icon = STAT_ICONS[s];
@@ -140,7 +140,7 @@
       out += '<div class="hx-modal-build">' + tabs + gearHtml;
       var acc0 = (build.acc || [])[0];
       if (acc0) {
-        out += '<div style="font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:12px 0 6px">PHỤ KIỆN</div>' + accHtml(acc0);
+        out += '<div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin:12px 0 6px">PHỤ KIỆN</div>' + accHtml(acc0);
       }
       var gearNotes = (vi.builds && vi.builds[buildIdx] && vi.builds[buildIdx].gear_notes) || build.gear_notes || '';
       if (gearNotes) out += '<div class="hx-modal-note">' + esc(gearNotes) + '</div>';

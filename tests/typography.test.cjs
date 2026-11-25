@@ -26,6 +26,14 @@ const atlas = read('atlas.css');
 const growth = read('growth-guide.css');
 const gw = read('guild-war-team.html');
 const act1 = read('cot-truyen-act-1.html');
+const heroes = read('heroes.css');
+const calc = read('effect-calc.css');
+const search = read('search.css');
+const tier = read('tier-list.css');
+const compare = read('compare.css');
+const gloss = read('glossary.css');
+const castle = read('castle-rush.css');
+const coupon = read('doi-coupon.html');
 const storySrc = fs.readFileSync(
   path.join(__dirname, '..', '..', 'seven-knights-drafts', 'story-article-style.html'), 'utf8');
 const H1 = 'clamp(34.8px,4.44vw,51.6px)';
@@ -165,4 +173,56 @@ test('typography: guild-war section headings and story pages match the model', (
     assert.ok(css.includes('.story-line{font-size:14px}'),
       `${name}: story dialogue lines must be 14px on mobile (was 15px)`);
   }
+});
+
+test('typography: popups, search, dropdowns and team cards match the model (2026-11-25 full sync)', () => {
+  // Hero popup (heroes.css): skill descriptions at body size, hero name at h3.
+  assert.ok(heroes.includes('.hx-skill p{font-size:15px'),
+    'popup skill descriptions must be 15px like article body (was 13.5px)');
+  assert.ok(heroes.includes('.hx-skill p{font-size:14px}'),
+    'popup skill descriptions must be 14px on mobile');
+  assert.ok(heroes.includes('.hx-modal-hero h3{margin:0;font-size:19px}'),
+    'popup hero names must be 19px like article h3 (was 20px)');
+  assert.ok(heroes.includes('.hx-modal-overview{margin:12px 0 0;font-size:15px'),
+    'popup hero overviews must be 15px like article body (was 13.5px)');
+  // Guild War cards + detail sheet: hero names and skill text at body size.
+  assert.ok(gw.includes('.hero .hn{font-size:15px'),
+    'guild-war card hero names must be 15px like article body (was 9.8px)');
+  assert.ok(gw.includes('.hero .hn{font-size:14px}'),
+    'guild-war card hero names must be 14px on mobile');
+  assert.ok(gw.includes('.skill-txt{font-size:15px}'),
+    'guild-war sheet skill text must be 15px like article body (was 11.9px)');
+  assert.ok(gw.includes('.sheet-head h2{margin:2px 0 4px;font-size:25px'),
+    'guild-war sheet titles must be 25px like article h2 (was a 17–22.9px clamp)');
+  assert.ok(gw.includes('.sg-item .sg-name{font-weight:700;font-size:15px}'),
+    'guild-war search suggestions must be 15px like article body (was 11.9px)');
+  // Arena / Total War: mobile hero names no longer halved.
+  assert.ok(atlas.includes('.at-hero-cell b{font-size:14px}'),
+    'atlas mobile hero names must be 14px — the 2026-11-25 full sync supersedes the 7.5px halving');
+  assert.ok(atlas.includes('.at-team-head h3{font-size:19px'),
+    'atlas team titles must be 19px like article h3 (was 20px)');
+  // Tier list, compare, glossary, search.
+  assert.ok(tier.includes('.tl-card b{display:block;font-size:15px'),
+    'tier-list hero names must be 15px like article body (was 12.5px)');
+  assert.ok(compare.includes('.cp-skill p{margin:6px 0;font-size:15px'),
+    'compare skill descriptions must be 15px like article body (was 14.5px)');
+  assert.ok(gloss.includes('.gl-names{font-size:19px'),
+    'effect dictionary names must be 19px like article h3 (was 17px)');
+  assert.ok(search.includes('.search-group-title{margin:0 0 10px;font-size:14px'),
+    'search result group labels must be 14px like callouts (was 13px)');
+  // Effect calculator picker tiles.
+  assert.ok(calc.includes('.ec-tile-name { display: block; font-weight: 700; font-size: 14px;'),
+    'effect-calc picker tile names must be 14px like callouts (was 12px)');
+  // Castle Rush + coupon: result/content text at body/callout size.
+  assert.ok(castle.includes('.cr-hero span{font-weight:700;font-size:15px'),
+    'castle-rush hero names must be 15px like article body (was 13px)');
+  assert.ok(coupon.includes('#doi-coupon .coupon-status{font-size:14px'),
+    'coupon redeem status must be 14px like callouts (was 13px)');
+  // No stale halved/off-scale popup sizes may remain.
+  assert.ok(!atlas.includes('.at-hero-cell b{font-size:7.5px'),
+    'the old 7.5px atlas mobile hero names must be gone');
+  assert.ok(!heroes.includes('.hx-skill p{font-size:13.5px'),
+    'the old 13.5px popup skill text must be gone');
+  assert.ok(!gw.includes('.skill-txt{font-size:11.9px}'),
+    'the old 11.9px guild-war sheet skill text must be gone');
 });

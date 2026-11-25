@@ -23,8 +23,8 @@
 /* ---------- META PRIME summary cards ---------- */
 .at-prime{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px}
 .at-prime-card{background:#fff;border:1px solid #e9e8e3;border-top:3px solid var(--at-c,#946b25);border-radius:14px;padding:16px}
-.at-prime-card h3{font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--at-c,#946b25);margin:0 0 4px}
-.at-prime-card p{font-size:13px;color:#7c8499;line-height:1.55;margin:0 0 12px}
+.at-prime-card h3{font-size:16px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--at-c,#946b25);margin:0 0 4px}
+.at-prime-card p{font-size:14px;color:#7c8499;line-height:1.55;margin:0 0 12px}
 .at-prime-portraits{display:flex;align-items:flex-end;gap:6px;margin-bottom:12px}
 .at-prime-portraits img{width:52px;height:52px;object-fit:cover;border-radius:10px;border:1px solid #e9e8e3}
 .at-prime-portraits img:nth-child(3){width:60px;height:60px;margin-bottom:6px;border-color:var(--at-c,#946b25)}
@@ -50,14 +50,14 @@
 /* ---------- team cards ---------- */
 .at-team{background:#fff;border:1px solid #e9e8e3;border-radius:16px;padding:20px;margin-top:18px;scroll-margin-top:190px}
 .at-team-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-.at-pill{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:#eef0f4;color:#4a5160}
+.at-pill{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:#eef0f4;color:#4a5160}
 .at-pill.prime{background:#f7f1e4;color:#946b25;border:1px solid #e5d9b8}
 .at-pill.sub{background:#e8e4da;color:#6b6558}
 .at-portrait .at-awk{position:absolute;top:0;left:0;background:#8a5a00;color:#fff;font-size:9px;font-weight:700;letter-spacing:.06em;padding:2px 4px;border-radius:0 0 6px 0}
 .at-date{font-size:12px;color:#8b8578;white-space:nowrap}
 /* ---------- auto skill priority panel (Atlas style, light theme) ---------- */
 .at-askill{border-top:1px solid #f0eee8;padding-top:16px;margin-top:4px}
-.at-askill-title{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin-bottom:10px}
+.at-askill-title{font-size:14px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin-bottom:10px}
 .at-askill-panel{background:#f7f6f2;border:1px solid #e9e8e3;border-radius:14px;padding:18px;overflow-x:auto}
 .at-askill-row{display:flex;gap:26px;justify-content:space-evenly;min-width:640px}
 .at-askill-cluster{display:flex;align-items:center;gap:10px}
@@ -68,8 +68,8 @@
 .at-askill-slot{width:44px;height:44px;border-radius:10px;border:1px solid #ddd9cf;background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .at-askill-slot.selected{border:2px solid #c9a227;box-shadow:0 0 0 2px #f3e9c8}
 .at-askill-slot img{width:100%;height:100%;object-fit:cover;display:block}
-.at-askill-text{font-size:11px;font-weight:800;color:#946b25}
-.at-askill-badge{font-size:10px;font-weight:800;color:#fff;background:#202638;border-radius:999px;padding:2px 7px;white-space:nowrap}
+.at-askill-text{font-size:12px;font-weight:800;color:#946b25}
+.at-askill-badge{font-size:12px;font-weight:800;color:#fff;background:#202638;border-radius:999px;padding:2px 7px;white-space:nowrap}
 .at-alt{margin:26px 0 0}
 .at-alt .at-section-title{margin-bottom:12px}
 .at-alt-grid{display:flex;flex-wrap:wrap;gap:12px}
@@ -77,11 +77,11 @@
 .at-alt-chip img{width:64px;height:64px;border-radius:12px;object-fit:cover;border:1px solid #e9e8e3}
 .at-alt-chip b{font-size:12px;line-height:1.25}
 @media (max-width:700px){.at-alt-chip{width:64px}.at-alt-chip img{width:56px;height:56px}.at-askill-portrait{width:64px;height:64px}.at-askill-slot{width:38px;height:38px}}
-.at-team-head h3{font-size:20px;font-weight:800;color:#202638;margin:0;flex:1;min-width:200px}
+.at-team-head h3{font-size:19px;font-weight:800;color:#202638;margin:0;flex:1;min-width:200px}
 .at-formation{font-size:12px;font-weight:800;color:#4a5160;background:#f4f5f8;border:1px solid #e9e8e3;border-radius:8px;padding:6px 10px;white-space:nowrap}
-.at-formation small{display:block;font-weight:600;color:#7c8499;font-size:11px}
+.at-formation small{display:block;font-weight:600;color:#7c8499;font-size:12px}
 .at-row{margin-top:14px}
-.at-row-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7c8499;margin-bottom:8px}
+.at-row-label{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7c8499;margin-bottom:8px}
 .at-heroes{display:flex;gap:12px;flex-wrap:wrap}
 .at-hero-cell{width:118px}
 .at-portrait{position:relative;width:84px;height:84px}
@@ -94,7 +94,7 @@
 .at-notes{font-size:15px;color:#4a5160;line-height:1.7;margin:16px 0 0}
 .at-petsline{font-size:14px;color:#4a5160;line-height:1.7;margin:10px 0 0}
 .at-petsline b{color:#202638}
-@media(max-width:680px){.at-hero-cell{width:calc(33.33% - 8px)}.at-portrait,.at-portrait img{width:64px;height:64px}.at-hero-cell b{font-size:7.5px}.at-team{padding:14px}.at-team-head h3{font-size:18px;min-width:0}.at-heroes{gap:8px}}
+@media(max-width:680px){.at-hero-cell{width:calc(33.33% - 8px)}.at-portrait,.at-portrait img{width:64px;height:64px}.at-hero-cell b{font-size:14px}.at-team{padding:14px}.at-team-head h3{font-size:17px;min-width:0}.at-heroes{gap:8px}}
 
 /* ---------- pet options ---------- */
 .at-pets{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
@@ -137,7 +137,7 @@
 /* ---------- Total War info row: Tốc độ / Hạng phù hợp / Pet ---------- */
 .at-info-row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;padding:12px 2px 4px;border-bottom:1px solid #f0eee8;margin-bottom:6px}
 .at-info-block{display:flex;flex-direction:column;gap:5px}
-.at-info-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7c8499}
+.at-info-label{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#7c8499}
 .at-info-val{font-size:16px;font-weight:700;color:#202638}
 .at-grade-icons{display:flex;gap:6px;align-items:center}
 .at-grade-icon{height:30px;width:auto;display:block}
@@ -159,4 +159,4 @@
 .at-dot.front{background:#2f7de1}
 .at-portrait img.at-role-icon{position:absolute;left:4px;bottom:4px;width:24px;height:24px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.7));z-index:2}
 .at-team-row .at-portrait img.at-role-icon{width:24px;height:24px}
-@media(max-width:680px){.at-team-row .at-heroes{gap:6px}.at-team-row .at-hero-cell{padding-top:20px}.at-team-row .at-hero-cell.is-back{padding-top:0}.at-portrait img.at-role-icon,.at-team-row .at-portrait img.at-role-icon{width:19px;height:19px}.at-grade-icon{height:24px}.at-pet-icon{width:26px;height:26px}.at-info-row{gap:16px}}
+@media(max-width:680px){.at-team-row .at-heroes{gap:6px}.at-team-row .at-hero-cell{padding-top:20px}.at-team-row .at-hero-cell.is-back{padding-top:0}.at-portrait img.at-role-icon,.at-team-row .at-portrait img.at-role-icon{width:19px;height:19px}.at-grade-icon{height:24px}.at-pet-icon{width:26px;height:26px}.at-info-row{gap:16px}}.at-prime-card h3{font-size:14px}.at-prime-card p{font-size:13px}.at-askill-title{font-size:13px}.at-askill-text{font-size:11px}.at-askill-badge{font-size:11px}.at-formation small{font-size:11px}.at-row-label{font-size:11px}.at-info-label{font-size:11px}.at-info-val{font-size:14px}.at-pill{font-size:11px}

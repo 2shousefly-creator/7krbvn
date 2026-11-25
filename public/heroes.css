@@ -34,14 +34,14 @@
 .hx-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.10)}
 .hx-card img{width:96px;height:96px;border-radius:12px;object-fit:cover}
 .hx-card-meta{margin-top:8px}
-.hx-card b{display:block;font-size:13.5px;line-height:1.3}
+.hx-card b{display:block;font-size:15px;line-height:1.3}
 .hx-card .hx-badge{display:inline-block;margin-top:7px}
 /* Mobile: 4 per row, portrait + name merged into one frame, image flush to the frame edges.
  * NOTE: this block must stay AFTER the base card rules above — same specificity, so source
  * order decides, and the base rules would otherwise win over these overrides (that is why
  * the 5-per-row attempt overflowed: the 96px base image rule beat the mobile width:100%). */
-@media (max-width:639px){.hx-grid{grid-template-columns:repeat(4,1fr);gap:8px}.hx-card{padding:0}.hx-card img{width:100%;height:auto;aspect-ratio:1/1;border-radius:0;display:block}.hx-card-meta{padding:6px 4px 8px;margin-top:0}.hx-card b{font-size:10.5px}.hx-badge{font-size:8.5px;padding:2px 6px}}
-.hx-badge{font-size:10.5px;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:2px 8px;background:#eef0f4;color:#4a5160}
+@media (max-width:639px){.hx-grid{grid-template-columns:repeat(4,1fr);gap:8px}.hx-card{padding:0}.hx-card img{width:100%;height:auto;aspect-ratio:1/1;border-radius:0;display:block}.hx-card-meta{padding:6px 4px 8px;margin-top:0}.hx-card b{font-size:14px}.hx-badge{font-size:11px;padding:2px 6px}.hx-role{font-size:11px}}
+.hx-badge{font-size:12px;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:2px 8px;background:#eef0f4;color:#4a5160}
 .hx-badge.rarity{background:#f7f1e4;color:#946b25}
 /* Rarity tag colours: L++ purple, L+ red, L orange (current), R blue. */
 .hx-badge.rarity-lpp{background:#ede9fe;color:#7c3aed}
@@ -50,7 +50,7 @@
 .hx-badge.rarity-r{background:#dbeafe;color:#2563eb}
 .hx-badge.type{background:#e8eefc;color:#3366b8}
 .hx-roles{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:6px}
-.hx-role{font-size:10.5px;font-weight:700;border-radius:999px;padding:2px 7px;background:#f7f6f2;color:#6b6558;border:1px solid #e9e8e3}
+.hx-role{font-size:12px;font-weight:700;border-radius:999px;padding:2px 7px;background:#f7f6f2;color:#6b6558;border:1px solid #e9e8e3}
 .hx-empty{grid-column:1/-1;text-align:center;color:#8b8578;padding:30px 0}
 
 /* Detail page: hero.html */
@@ -60,18 +60,18 @@
 .hx-version{display:flex;gap:6px;margin-top:12px}
 .hx-version button{flex:1;font-size:13px;font-weight:800;padding:8px 0;border-radius:9px;border:1px solid #d8d5cc;background:#fff;cursor:pointer;font-family:inherit}
 .hx-version button.active{background:#202638;color:#fff;border-color:#202638}
-.hx-side h1{font-size:26px;margin:12px 0 2px}
-.hx-side .hx-names{font-size:12.5px;color:#8b8578;line-height:1.5}
-.hx-side .hx-dates{font-size:12.5px;color:#6b6558;margin-top:8px;line-height:1.6}
+.hx-side h1{font-size:25px;margin:12px 0 2px}
+.hx-side .hx-names{font-size:12px;color:#8b8578;line-height:1.5}
+.hx-side .hx-dates{font-size:12px;color:#6b6558;margin-top:8px;line-height:1.6}
 .hx-side .hx-faction{display:inline-block;margin-top:10px}
 .hx-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
 .hx-stat{background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:8px 10px}
-.hx-stat small{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578}
-.hx-stat b{font-size:17px}
+.hx-stat small{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;color:#8b8578}
+.hx-stat b{font-size:16px}
 .hx-usedin{margin-top:14px}
-.hx-usedin h4{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#8b8578;margin:0 0 8px}
+.hx-usedin h4{font-size:16px;letter-spacing:.09em;text-transform:uppercase;color:#8b8578;margin:0 0 8px}
 .hx-usedin .hx-orb{display:flex;flex-direction:column;gap:6px}
-.hx-usedin a, .hx-usedin .hx-usedin-item{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#202638;text-decoration:none}
+.hx-usedin a, .hx-usedin .hx-usedin-item{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#202638;text-decoration:none}
 .hx-usedin img{width:52px;height:26px;object-fit:cover;border-radius:5px;border:1px solid #e9e8e3}
 .hx-main{flex:1;min-width:0}
 /* Tab Chi tiết / Build đồ dính ở đầu màn hình khi cuộn (dưới header sticky)
@@ -85,7 +85,7 @@
 @media(max-width:680px){.hx-tabs{top:62px}}
 .hx-tabs button{font-size:15px;font-weight:800;padding:10px 16px;border:0;background:none;cursor:pointer;color:#6b6558;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit}
 .hx-tabs button.active{color:#b3352c;border-bottom-color:#b3352c}
-.hx-section-title{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:26px 0 10px}
+.hx-section-title{font-size:16px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:26px 0 10px}
 .hx-section-title:first-child{margin-top:0}
 .hx-cardbox{background:#fff;border:1px solid #e9e8e3;border-radius:14px;padding:16px}
 .hx-chips{display:flex;gap:6px;flex-wrap:wrap}
@@ -98,77 +98,77 @@
 .hx-tier .hx-tier-grade{position:relative;display:inline-block;align-self:flex-start;margin-top:6px;font-size:26px;font-weight:900;line-height:1;padding:5px 12px;border-radius:999px;background:rgba(20,24,40,.78);border:2px solid currentColor;text-shadow:0 1px 3px rgba(0,0,0,.7)}
 .hx-skill{display:flex;gap:12px;background:#fff;border:1px solid #e9e8e3;border-radius:14px;padding:14px;margin-bottom:10px}
 .hx-skill img{width:56px;height:56px;border-radius:10px;flex:none;border:1px solid #e9e8e3}
-.hx-skill h4{margin:0 0 6px;font-size:15px}
-.hx-skill .hx-skill-type{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;color:#946b25;margin-bottom:4px}
+.hx-skill h4{margin:0 0 6px;font-size:16px}
+.hx-skill .hx-skill-type{display:block;font-size:12px;font-weight:800;letter-spacing:.05em;color:#946b25;margin-bottom:4px}
 .hx-skill .hx-skill-cd{font-size:12px;color:#8b8578;margin-bottom:2px}
-.hx-skill p{font-size:13.5px;line-height:1.55;margin:6px 0}
-.hx-skill .hx-skill-target{display:inline-block;font-size:12.5px;font-weight:700;color:#3366b8;background:#eef3fb;border:1px solid #b9cdf0;border-radius:999px;padding:3px 10px;margin:14px 0 8px}
+.hx-skill p{font-size:15px;line-height:1.55;margin:6px 0}
+.hx-skill .hx-skill-target{display:inline-block;font-size:12px;font-weight:700;color:#3366b8;background:#eef3fb;border:1px solid #b9cdf0;border-radius:999px;padding:3px 10px;margin:14px 0 8px}
 .hx-fx-bad{color:#c0392b}
 .hx-fx-good{color:#1a6fd4}
 .hx-skill .hx-tips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.hx-tip{font-size:11.5px;border:1px solid #e9e8e3;border-radius:999px;padding:2px 8px;background:#f7f6f2;cursor:help}
+.hx-tip{font-size:12px;border:1px solid #e9e8e3;border-radius:999px;padding:2px 8px;background:#f7f6f2;cursor:help}
 /* Giải thích hiệu ứng trong kỹ năng: "Tên EN - Tên VI: giải thích". */
 .hx-fxlist{margin-top:10px;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px}
-.hx-tx-box{display:flex;gap:8px;align-items:flex-start;background:#fdf8ec;border:1px solid #e5c96a;border-radius:10px;padding:8px 10px;margin:6px 0;font-size:12.5px;line-height:1.55;color:#6b5518}
+.hx-tx-box{display:flex;gap:8px;align-items:flex-start;background:#fdf8ec;border:1px solid #e5c96a;border-radius:10px;padding:8px 10px;margin:6px 0;font-size:14px;line-height:1.55;color:#6b5518}
 /* Phân hóa đẳng cấp mốc Transcendence: T2 xanh lá nhạt, T6 cam nhạt. */
 .hx-tx-box.hx-tx-t2{background:#edf7ed;border-color:#b5d8b0;color:#2f5d2f}
 .hx-tx-box.hx-tx-t2 .hx-tx-tag{background:#4a9e4a}
 .hx-tx-box.hx-tx-t6{background:#fdf1e3;border-color:#f2c48d;color:#7a4a12}
 .hx-tx-box.hx-tx-t6 .hx-tx-tag{background:#e07b1f}
-.hx-tx-tag{flex:none;background:#c9a227;color:#fff;font-size:11px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:2px 7px;margin-top:1px}
-.hx-fx-title{font-size:11px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin-bottom:6px}
-.hx-fx{font-size:13px;line-height:1.6;margin:4px 0}
+.hx-tx-tag{flex:none;background:#c9a227;color:#fff;font-size:12px;font-weight:800;letter-spacing:.06em;border-radius:6px;padding:2px 7px;margin-top:1px}
+.hx-fx-title{font-size:12px;font-weight:800;letter-spacing:.08em;color:#8b8578;margin-bottom:6px}
+.hx-fx{font-size:14px;line-height:1.6;margin:4px 0}
 .hx-fx b{color:#202638}
 .hx-enhance{display:flex;flex-direction:column;gap:8px}
 .hx-enhance-item{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:10px 12px}
-.hx-enhance-item .hx-num{font-size:15px;font-weight:800;color:#b3352c;width:20px}
+.hx-enhance-item .hx-num{font-size:16px;font-weight:800;color:#b3352c;width:20px}
 .hx-enhance-item img{width:40px;height:40px;border-radius:9px;border:1px solid #e9e8e3}
-.hx-enhance-item b{font-size:14px}
-.hx-enhance-item .hx-enhance-tag{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.06em;color:#1f7a74}
+.hx-enhance-item b{font-size:15px}
+.hx-enhance-item .hx-enhance-tag{margin-left:auto;font-size:12px;font-weight:800;letter-spacing:.06em;color:#1f7a74}
 .hx-builds{display:flex;gap:18px;align-items:flex-start}
 .hx-build-list{flex:none;width:220px;display:flex;flex-direction:column;gap:8px}
-.hx-build-list button{text-align:left;font-size:13.5px;font-weight:700;padding:10px 12px;border-radius:10px;border:1px solid #e9e8e3;background:#fff;cursor:pointer;font-family:inherit}
+.hx-build-list button{text-align:left;font-size:14px;font-weight:700;padding:10px 12px;border-radius:10px;border:1px solid #e9e8e3;background:#fff;cursor:pointer;font-family:inherit}
 .hx-build-list button.active{border-color:#c9a227;background:#f7f1e4;color:#946b25}
-.hx-build-list .hx-build-modes{display:block;font-size:11px;font-weight:600;color:#8b8578;margin-top:3px}
-.hx-best-tag{display:inline-block;background:#c9a227;color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;border-radius:5px;padding:2px 6px;margin-right:6px;vertical-align:1px}
+.hx-build-list .hx-build-modes{display:block;font-size:12px;font-weight:600;color:#8b8578;margin-top:3px}
+.hx-best-tag{display:inline-block;background:#c9a227;color:#fff;font-size:12px;font-weight:800;letter-spacing:.08em;border-radius:5px;padding:2px 6px;margin-right:6px;vertical-align:1px}
 .hx-build-main{flex:1;min-width:0}
-.hx-gear-set{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.hx-gear-set{display:flex;gap:12px;align-items:flex-start;font-size:15px}
 .hx-gear-set>img{width:52px;height:52px;object-fit:contain;flex:none;border:1px solid #e9e8e3;border-radius:10px;background:#f7f6f2}
-.hx-gear-set b{font-size:15px}
-.hx-gear-set p{font-size:13px;color:#6b6558;margin:4px 0 0;white-space:pre-line}
+.hx-gear-set b{font-size:16px}
+.hx-gear-set p{font-size:14px;color:#6b6558;margin:4px 0 0;white-space:pre-line}
 .hx-mainstats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.hx-mainstat{background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;font-size:13px}
-.hx-mainstat small{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
+.hx-mainstat{background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;font-size:15px}
+.hx-mainstat small{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
 /* Popup: hình minh họa thật của món vũ khí/giáp trong set (ảnh gốc 126px).
  * Hiện gần bằng kích thước gốc để thấy rõ chi tiết, mỗi món một hàng. */
 .hx-mainstat.hx-with-piece{display:flex;gap:12px;align-items:center}
 .hx-mainstat .hx-piece{width:110px;height:110px;object-fit:contain;border-radius:10px;flex:none}
 .hx-mainstat .hx-ms-body{flex:1;min-width:0}
-.hx-mainstat .hx-ms-body small{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
+.hx-mainstat .hx-ms-body small{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:6px}
 .hx-ms-row{display:flex;align-items:center;gap:8px;padding:5px 0}
-.hx-ms-tag{flex:none;font-size:10.5px;font-weight:800;letter-spacing:.05em;border-radius:999px;padding:2px 8px;background:#202638;color:#fff}
+.hx-ms-tag{flex:none;font-size:12px;font-weight:800;letter-spacing:.05em;border-radius:999px;padding:2px 8px;background:#202638;color:#fff}
 .hx-ms-row.alt{margin-top:6px;padding-top:8px;border-top:1px dashed #d8d5cc}
 .hx-ms-row.alt .hx-ms-tag{background:#fff;color:#6b6558;border:1px solid #d8d5cc}
 .hx-substats{counter-reset:hxsub;margin:12px 0 0;padding:0;list-style:none}
-.hx-substats li{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #e9e8e3;border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:13.5px;font-weight:600}
+.hx-substats li{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid #e9e8e3;border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:15px;font-weight:600}
 .hx-substats li::before{counter-increment:hxsub;content:counter(hxsub);font-weight:800;color:#b3352c;width:18px}
-.hx-notes{background:#fdf6e3;border:1px solid #f0dfae;border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.6;margin-top:12px}
+.hx-notes{background:#fdf6e3;border:1px solid #f0dfae;border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.6;margin-top:12px}
 .hx-acc-grid{display:flex;flex-direction:column;gap:10px}
 .hx-acc{background:#fff;border:1px solid #e9e8e3;border-radius:12px;padding:12px}
-.hx-acc .hx-acc-label{font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:8px}
+.hx-acc .hx-acc-label{font-size:12px;font-weight:800;letter-spacing:.06em;color:#8b8578;margin-bottom:8px}
 .hx-dedicated{margin-top:18px}
 .hx-dedicated .hx-de-head{display:flex;gap:12px;align-items:center}
 .hx-dedicated img{width:64px;height:64px;border-radius:12px;border:1px solid #e9e8e3;object-fit:cover}
 .hx-de-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .hx-de-col{border:1px solid #e9e8e3;border-radius:12px;padding:12px}
 .hx-de-col.this{border-color:#e5b8c8;background:#fdf4f7}
-.hx-de-col ul{margin:0;padding-left:2px;font-size:13.5px;line-height:1.7;list-style:none}
+.hx-de-col ul{margin:0;padding-left:2px;font-size:15px;line-height:1.7;list-style:none}
 .hx-pill{display:inline-block;font-size:12px;font-weight:800;border-radius:999px;padding:3px 12px}
 .hx-pill.yes{background:#dcf5e3;color:#1f7a74}
 .hx-pill.no{background:#fbe3e3;color:#b3352c}
 .hx-bgdetails{margin-top:22px;border:1px solid #e9e8e3;border-radius:12px;background:#fff}
-.hx-bgdetails summary{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer}
-.hx-bgdetails .hx-bgbody{padding:0 16px 16px;font-size:13.5px;line-height:1.7;color:#4a5160}
+.hx-bgdetails summary{font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer}
+.hx-bgdetails .hx-bgbody{padding:0 16px 16px;font-size:15px;line-height:1.7;color:#4a5160}
 .hx-bgdetails .hx-bgbody p{margin:0 0 10px}
 @media (max-width:900px){.hx-detail{flex-direction:column}.hx-side{width:100%;position:static}.hx-builds{flex-direction:column}.hx-build-list{width:100%}}
 @media (max-width:640px){.hx-mainstats{grid-template-columns:1fr}.hx-with-piece{flex-wrap:wrap}}
@@ -183,13 +183,13 @@
 .hx-modal-close{position:absolute;top:10px;right:12px;font-size:22px;line-height:1;border:0;background:none;cursor:pointer;color:#8b8578}
 .hx-modal-hero{display:flex;gap:14px;align-items:center}
 .hx-modal-hero img{width:84px;height:84px;border-radius:14px;object-fit:cover;border:1px solid #e9e8e3}
-.hx-modal-hero h3{margin:0;font-size:20px}
+.hx-modal-hero h3{margin:0;font-size:19px}
 .hx-modal-hero .hx-badges{justify-content:flex-start;margin-top:6px}
 .hx-modal-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}
-.hx-modal-overview{margin:12px 0 0;font-size:13.5px;line-height:1.65;color:#4a5160}
+.hx-modal-overview{margin:12px 0 0;font-size:15px;line-height:1.65;color:#4a5160}
 .hx-modal-build{margin-top:14px}
-.hx-modal-build h4{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:0 0 8px}
-.hx-modal-build .hx-gear-set{font-size:13.5px}
+.hx-modal-build h4{font-size:16px;letter-spacing:.09em;text-transform:uppercase;color:#b3352c;margin:0 0 8px}
+.hx-modal-build .hx-gear-set{font-size:15px}
 .hx-modal-build .hx-gear-set>img{width:44px;height:44px}
 .hx-modal-build .hx-mainstats{grid-template-columns:1fr}
 .hx-build-tabs{display:flex;gap:6px;margin-bottom:12px}
@@ -198,14 +198,21 @@
 .hx-acc-pair{display:flex;align-items:center;gap:10px;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px}
 .hx-acc-side{flex:1;text-align:center}
 .hx-acc-side img{width:56px;height:56px;object-fit:contain;display:block;margin:0 auto 4px}
-.hx-acc-side b{display:block;font-size:13px}
-.hx-acc-side small{display:block;font-size:11.5px;color:#8b8578;line-height:1.4}
+.hx-acc-side b{display:block;font-size:15px}
+.hx-acc-side small{display:block;font-size:12px;color:#8b8578;line-height:1.4}
 .hx-acc-plus{font-size:20px;font-weight:800;color:#8b8578;flex:none}
 .hx-modal-build .hx-mainstat{padding:8px 10px}
-.hx-modal-dedi{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;margin:10px 0 0;line-height:1.55}
+.hx-modal-dedi{display:flex;gap:10px;align-items:flex-start;font-size:15px;margin:10px 0 0;line-height:1.55}
 .hx-modal-dedi>img{width:48px;height:48px;border-radius:10px;border:1px solid #e9e8e3;object-fit:cover;flex:none}
 .hx-modal-dedi .hx-dedi-lines{display:block;margin-top:4px;color:#4a5160}
 .hx-modal-dedi .hx-dedi-icon{width:20px;height:20px;object-fit:contain;vertical-align:-4px;margin-right:4px}
 .hx-modal-build .hx-mainstat .hx-piece{width:64px;height:64px}
-.hx-modal-note{font-size:13px;line-height:1.6;color:#4a5160;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;margin-top:12px}
+.hx-modal-note{font-size:14px;line-height:1.6;color:#4a5160;background:#f7f6f2;border:1px solid #e9e8e3;border-radius:10px;padding:10px 12px;margin-top:12px}
 .hx-modal-actions a{flex:1;text-align:center;text-decoration:none}
+
+/* Mobile popup/detail text (2026-11-25 full sync): these overrides must live
+   AFTER the base rules above — the earlier 680px block sits before the modal
+   rules, so the base sizes would win over it at equal specificity. */
+@media(max-width:680px){
+.hx-modal-hero h3{font-size:17px}.hx-modal-overview{font-size:14px}.hx-modal-build h4{font-size:14px}.hx-modal-build .hx-gear-set{font-size:14px}.hx-acc-side b{font-size:14px}.hx-acc-side small{font-size:11px}.hx-modal-dedi{font-size:14px}.hx-modal-note{font-size:13px}.hx-skill h4{font-size:14px}.hx-skill p{font-size:14px}.hx-skill .hx-skill-type,.hx-skill .hx-skill-cd,.hx-skill .hx-skill-target{font-size:11px}.hx-tip{font-size:11px}.hx-tx-box{font-size:13px}.hx-tx-tag{font-size:11px}.hx-fx-title{font-size:11px}.hx-fx{font-size:13px}.hx-enhance-item .hx-num{font-size:14px}.hx-enhance-item b{font-size:14px}.hx-enhance-item .hx-enhance-tag{font-size:11px}.hx-gear-set{font-size:14px}.hx-gear-set b{font-size:14px}.hx-gear-set p{font-size:13px}.hx-mainstat{font-size:14px}.hx-mainstat small,.hx-mainstat .hx-ms-body small{font-size:11px}.hx-ms-tag{font-size:11px}.hx-substats li{font-size:14px}.hx-notes{font-size:14px}.hx-de-col ul{font-size:14px}.hx-bgdetails summary{font-size:13px}.hx-bgdetails .hx-bgbody{font-size:14px}.hx-build-list button{font-size:13px}.hx-build-list .hx-build-modes{font-size:11px}.hx-best-tag{font-size:11px}.hx-acc .hx-acc-label{font-size:11px}.hx-section-title{font-size:14px}.hx-side h1{font-size:22px}.hx-side .hx-names,.hx-side .hx-dates{font-size:11px}.hx-stat b{font-size:14px}.hx-stat small{font-size:11px}.hx-usedin h4{font-size:14px}.hx-usedin a,.hx-usedin .hx-usedin-item{font-size:14px}
+}
