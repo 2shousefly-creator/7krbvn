@@ -115,6 +115,18 @@ test('pinned posts: Ruby Farming is pinned with a pin icon, no redundant labels'
   assert.equal((latest.match(/<a class="post-card"/g) || []).length, 8, 'latest must list 8 articles');
 });
 
+test('latest grid: every grid item is a post-card link, no orphan card or stray close tag', () => {
+  const home = page('index.html');
+  assert.equal((home.match(/<a /g) || []).length, (home.match(/<\/a>/g) || []).length,
+    'index.html must have balanced anchor tags (26/11 auto-publish dropped an opening <a> and left a stray </a>)');
+  const latest = home.slice(home.indexOf('Bài viết mới nhất'),
+    home.indexOf('</section>', home.indexOf('Bài viết mới nhất')));
+  assert.ok(!latest.includes('<div class="post-grid"><div'),
+    'the latest grid must open with a post-card link, never a bare image/body pair');
+  assert.equal((latest.match(/cap-nhat-26-11\.html/g) || []).length, 1,
+    'the 26/11 update must appear exactly once in Latest');
+});
+
 test('post grids: 2 compact cards per row on mobile, synced across all menu pages', () => {
   const css = page('blog.css');
   assert.ok(css.includes('.post-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px'),
