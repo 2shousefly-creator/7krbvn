@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-26T01:10:46.659954+00:00",
+ "generated": "2026-11-26T06:45:46.661906+00:00",
  "counts": {
   "pages": 247,
   "heroes": 125,
@@ -4221,7 +4221,7 @@
    "title": "Fai",
    "url": "hero.html?id=fai",
    "group": "hero",
-   "desc": "L++ · Attack · Seven Knights of Old",
+   "desc": "L++ · Attack · Seven Knights of Old · Thức tỉnh",
    "headings": [],
    "keys": "Single-Target DPS Debuffer DOT",
    "img": "assets/hero-fai.webp"
