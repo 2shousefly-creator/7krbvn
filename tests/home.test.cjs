@@ -356,7 +356,7 @@ test('corridor article: second in Latest, second in cap-nhat listing, 6 sections
   assert.ok(!article.includes('GameWith') && !article.includes('Atlas'), 'Corridor article must not attribute sources in the article');
   assert.ok(article.includes('href="cap-nhat.html"'), 'Corridor article must link back to the cap-nhat listing');
   assert.ok(article.includes('26/11/2026'), 'Corridor article must be dated by its go-live date 26/11');
-  const imgs = [...new Set([...article.matchAll(/assets\/(corridor-[a-z-]+\.webp)/g)].map(m => m[1]))];
+  const imgs = [...new Set([...article.matchAll(/data-image="assets\/([^"]+)"/g)].map(m => m[1]))];
   assert.ok(imgs.length >= 14, `Corridor article must show at least 14 figures, got ${imgs.length}`);
   for (const img of imgs) {
     assert.ok(fs.statSync(path.join(root, 'assets', img)).size > 1000, `${img} must be a real image`);
