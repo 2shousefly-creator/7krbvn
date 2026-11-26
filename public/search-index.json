@@ -1,10 +1,10 @@
 {
- "generated": "2026-11-26T06:45:46.661906+00:00",
+ "generated": "2026-11-26T06:58:55.243737+00:00",
  "counts": {
   "pages": 247,
-  "heroes": 125,
+  "heroes": 126,
   "chapters": 284,
-  "total": 656
+  "total": 657
  },
  "entries": [
   {
@@ -4216,6 +4216,15 @@
    "headings": [],
    "keys": "4/5-Target DPS Buffer Unique",
    "img": "assets/hero-eve.webp"
+  },
+  {
+   "title": "Bael",
+   "url": "hero.html?id=bael",
+   "group": "hero",
+   "desc": "L+ · Magic · Apostles of the Abyss · Thức tỉnh",
+   "headings": [],
+   "keys": "4/5-Target DPS Unique CC Healer",
+   "img": "assets/hero-bael.webp"
   },
   {
    "title": "Fai",

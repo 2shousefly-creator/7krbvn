@@ -175,10 +175,10 @@ test('formula: high Resistance still bites with all bonuses on (item 7)', () => 
 });
 
 /* ---------- data integrity ---------- */
-test('data: 125 heroes, 111 selectable, 14 greyed (no debuff skill)', () => {
+test('data: 126 heroes, 112 selectable, 14 greyed (no debuff skill)', () => {
   const data = loadData();
-  assert.equal(data.heroes.length, 125);
-  assert.equal(data.heroes.filter(h => h.hasDebuff).length, 111);
+  assert.equal(data.heroes.length, 126);
+  assert.equal(data.heroes.filter(h => h.hasDebuff).length, 112);
   assert.equal(data.heroes.filter(h => !h.hasDebuff).length, 14);
   for (const h of data.heroes.filter(x => !x.hasDebuff)) {
     assert.deepEqual(h.skills, {}, `${h.id} must have no debuff skills`);

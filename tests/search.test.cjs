@@ -15,8 +15,8 @@ function read(file) { return fs.readFileSync(path.join(root, file), 'utf8'); }
 // stays free of it, like every other new file in this feature.
 const FORBIDDEN = new RegExp('atl' + 'as', 'i');
 
-test('search index: counts match the tree (pages + 125 heroes + 284 story chapters)', () => {
-  assert.equal(index.counts.heroes, 125, `index must list 125 heroes, got ${index.counts.heroes}`);
+test('search index: counts match the tree (pages + 126 heroes + 284 story chapters)', () => {
+  assert.equal(index.counts.heroes, 126, `index must list 126 heroes, got ${index.counts.heroes}`);
   assert.equal(index.counts.chapters, 284, `index must list 284 story chapters, got ${index.counts.chapters}`);
   assert.equal(index.counts.pages, htmlFiles.length,
     `index must cover all ${htmlFiles.length} HTML pages, got ${index.counts.pages}`);
@@ -26,7 +26,7 @@ test('search index: counts match the tree (pages + 125 heroes + 284 story chapte
     'total must be pages + heroes + chapters');
   const byGroup = {};
   for (const e of index.entries) byGroup[e.group] = (byGroup[e.group] || 0) + 1;
-  assert.equal(byGroup.hero, 125, 'hero group must hold the 125 heroes');
+  assert.equal(byGroup.hero, 126, 'hero group must hold the 126 heroes');
   assert.equal(byGroup.tool, 2, 'tool group must hold the ruby calculator and coupon redeem pages');
   assert.ok(byGroup.mode > 10, `mode group must hold the PvE/PvP pages, got ${byGroup.mode || 0}`);
   assert.ok(byGroup.article > 100, `article group must hold the guides, got ${byGroup.article || 0}`);
@@ -170,7 +170,7 @@ test('heroes page no longer links to the full-site search (moved to the home bar
 test('search index: every entry carries a thumbnail image, or falls back to a group icon', () => {
   // Heroes: their portrait from heroes-index.json, and the file exists.
   const heroes = index.entries.filter(e => e.group === 'hero');
-  assert.equal(heroes.length, 125, 'hero group must hold the 125 heroes');
+  assert.equal(heroes.length, 126, 'hero group must hold the 126 heroes');
   for (const e of heroes) {
     assert.ok(e.img && e.img.startsWith('assets/hero-'),
       `${e.url} hero entry must carry its portrait, got ${e.img}`);
@@ -187,7 +187,7 @@ test('search index: every entry carries a thumbnail image, or falls back to a gr
       }
     } else noImg.push(e.url);
   }
-  assert.equal(withImg, 652, `652 of 656 entries must carry an image, got ${withImg}`);
+  assert.equal(withImg, 653, `653 of 657 entries must carry an image, got ${withImg}`);
   // Only the JS-rendered pages with no static image fall back to an icon.
   assert.deepEqual(noImg.sort(), ['guild-war-team.html', 'hero.html',
     'tim-kiem.html', 'xac-suat-hieu-ung.html'],
